@@ -14,12 +14,12 @@ import { Sintoma } from '../../../interfaces/sintoma.interface';
 export class InfoPadecimientosComponent implements OnInit {
 
   @Input() public pad; 
-  private compuesto = '';
-  private values : HttpParams;
-  private padecimiento : Padecimiento = {} as any;
-  private sintomas : Sintoma[] = [];
-  private sintomasCadena :  string = "";
-  private url : string = "";
+  public compuesto = '';
+  public values : HttpParams;
+  public padecimiento : Padecimiento = {} as any;
+  public sintomas : Sintoma[] = [];
+  public sintomasCadena :  string = "";
+  public url : string = "";
   public  hasInfo : boolean = false;
   constructor(public activeModal: NgbActiveModal, private padServ : PadecimientoService, ) { 
 

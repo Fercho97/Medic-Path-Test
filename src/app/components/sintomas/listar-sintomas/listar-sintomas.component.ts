@@ -18,9 +18,11 @@ import { InfoSintomasComponent } from '../info-sintomas/info-sintomas.component'
 export class ListarSintomasComponent implements OnInit {
   
  pagina = 0;
-  private sintomas : Sintoma[] = [];
+  public sintomas : Sintoma[] = [];
   key :string = 'nombre_sint';
   reversa : boolean = false;
+  myFilter;
+  content;
   constructor(private sintServ : SintomasService, private http : HttpClient, private modalService: NgbModal) { 
 
   }

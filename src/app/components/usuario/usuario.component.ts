@@ -13,11 +13,13 @@ import { Usuario } from '../../interfaces/usuario.interface';
 export class UsuarioComponent implements OnInit {
  pagina = 0;
 
-  private users : Usuario[] = [];
-  private doctors : Usuario[] = [];
-  private patients : Usuario[] = [];
+  public users : Usuario[] = [];
+  public doctors : Usuario[] = [];
+  public patients : Usuario[] = [];
   key :string = 'nombres';
   reversa : boolean = false;
+  myFilter;
+  
   constructor(private userServ : UsuarioService, private http : HttpClient) { }
 
   ngOnInit() {

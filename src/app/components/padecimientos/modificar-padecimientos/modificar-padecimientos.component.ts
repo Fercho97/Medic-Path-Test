@@ -31,11 +31,11 @@ export class ModificarPadecimientosComponent implements OnInit {
 
   public sintomas : any = [];
   public selectedSints : any = [];
-  private padecimiento : Padecimiento = {} as any;
+  public padecimiento : Padecimiento = {} as any;
   selectedFile : File = null;
   formData: any = new FormData();
   public  hasInfo : boolean = false;
-  private urlImage : string = "../../../../assets/default-image.jpg";
+  public urlImage : string = "../../../../assets/default-image.jpg";
   constructor(private padServ : PadecimientoService, private sintServ : SintomasService, private toast : ToastrService, private router : Router, private url : ActivatedRoute) {
     this.modify = new FormGroup({
       nombre: new FormControl('', Validators.required),

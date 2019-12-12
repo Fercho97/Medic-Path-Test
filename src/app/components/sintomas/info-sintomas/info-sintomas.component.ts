@@ -11,8 +11,8 @@ import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 export class InfoSintomasComponent implements OnInit {
 
   @Input() public sintoma; 
-  private compuesto = '';
-  private values : HttpParams;
+  public compuesto = '';
+  public values : HttpParams;
   constructor(public activeModal: NgbActiveModal, private sintServ : SintomasService) { 
    
   }
