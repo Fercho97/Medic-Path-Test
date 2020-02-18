@@ -21,7 +21,7 @@ export class GuidedDiagnosticComponent implements OnInit {
 
   hasPregunta : boolean = false;
   message : string = "";
-  descripcion : string = "";
+  descripcion : any = "";
   baseConocimiento : any[] = [];
   conocimientoEvaluado : any[] = [];
   memoriaDeTrabajo = new MemoriaTrabajo();

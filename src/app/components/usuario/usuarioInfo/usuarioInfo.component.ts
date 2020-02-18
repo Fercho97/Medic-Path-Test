@@ -12,7 +12,7 @@ import { Usuario } from '../../../interfaces/usuario.interface';
 })
 export class UsuarioInfoComponent implements OnInit {
   
-  public user : Usuario = {} as any;
+  public user : any = {} as any;
   constructor(private userServ : UsuarioService, private http : HttpClient, private route : ActivatedRoute, private router : Router) { }
 
   ngOnInit() {

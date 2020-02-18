@@ -19,6 +19,7 @@ export class MedicalRecordComponent implements OnInit {
   reversa : boolean = false;
   public myFilter : any = "";
   public searching : boolean = false;
+  content;
   constructor(private profileServ : ProfileService, private modalService : NgbModal) { }
 
   ngOnInit() {

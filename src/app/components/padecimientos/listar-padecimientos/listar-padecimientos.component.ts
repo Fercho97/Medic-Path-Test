@@ -19,6 +19,7 @@ export class ListarPadecimientosComponent implements OnInit {
   public myFilter : any = "";
   public mySearch : any = "";
   public searching: boolean = false;
+  content;
   constructor(private padServ : PadecimientoService, private modalService : NgbModal) { 
 
   }

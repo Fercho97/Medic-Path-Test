@@ -55,8 +55,6 @@
 
             <button type="button" [hidden]="hasResult" class="btn btn-primary btn-lg" (click)="responder('Si')">Si</button>
        
-            <button *ngIf='user' routerLink="/record" expand="block"  class="btn btn-primary btn-lg" [hidden]="!hasResult" >Continuar</button>
-            
         </div>
     </div>
     <a routerLink="home" routerLinkActive="active"><button type="button" class="btn btn-dark cancel">Volver</button></a>
