@@ -42,7 +42,7 @@ export class ErrorMsg {
           {type: 'maxlength', message: 'La cantidad de digitos para el número telefonico debe ser menor a 15'},
           {type: 'pattern', message: 'Solo ingrese numeros'}
         ],
-        'domicilio' :[
+        'direccion' :[
           {type: 'required', message: 'Es necesario ingresar un domicilio para el médico'}
         ]
       }
