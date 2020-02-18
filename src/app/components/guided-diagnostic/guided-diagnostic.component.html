@@ -1,0 +1,64 @@
+<div class="container main-container">
+    <div class="row">
+        
+        <div class="col m10 margin-color" *ngIf="!hasPregunta">
+            <div class="center">
+                <p>Bienvenido a la herramienta de diagnostico</p>
+                <p>Para comenzar elija un paciente para le cual se realizara la consulta</p>
+            </div>
+            <select name="paciente" id="paciente" class="form-control" (change)="selectUser($event)">
+                <option value="" disabled>Seleccione un paciente</option>
+                <option *ngFor="let usuario of usuarios" [value]="usuario.id">{{usuario.fullname}}</option>
+            </select>
+
+            <button class="btn" (click)="selection()" *ngIf="selectedUser">Seleccionar sintomas iniciales</button>
+            <br>
+            <br>
+            <div class="form-row" *ngIf="isSelection">
+                <legend>Sintomas iniciales</legend>
+                <div class="col">
+                  
+                  <div class="col" cdk-scrollable style="height: 300px; overflow-y:scroll" >
+                    <div class="col" cdkDropList [cdkDropListData]="iniciales" [cdkDropListConnectedTo]="secondList" #firstList="cdkDropList" (cdkDropListDropped)="drop($event)">
+                      <legend style="margin-left: 10%">Sintomas</legend>
+                      <div *ngFor="let ini of iniciales" class="list" cdkDrag>{{ini.nombre_sint}}</div>
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="col">
+                  <div class="col" cdkDropList [cdkDropListData]="sintomasSeleccionados" [cdkDropListConnectedTo]="firstList" #secondList="cdkDropList" (cdkDropListDropped)="drop($event)">
+                      <legend style="margin-left: 5%">Sintomas Seleccionados</legend>
+                      <div *ngFor="let selected of sintomasSeleccionados" class="list" cdkDrag>{{selected.nombre_sint}}</div>
+                  </div>
+                  
+                </div>
+                
+                
+              </div>
+
+            <br>
+            <button class="btn" *ngIf="isSelection" (click)="cancel()">Cancelar</button>
+            <br>
+            <button class="btn" *ngIf="isSelection" (click)="fromSintomasIniciales()">Iniciar diagnostico con sintomas iniciales</button>
+            <br>
+            <button class="btn" *ngIf="selectedUser" (click)="iniciarDiagnostico()">Iniciar diagnostico desde 0</button>
+
+        </div>
+        <div class="col m12 margin-color" [hidden]="!hasPregunta">
+            <h4>Sus sintomas: </h4>
+            <h5>{{breadcrumb}}</h5>
+            <h4 *ngIf="!hasResult">{{descripcion.descripcion}}</h4>
+            <h1>{{message}}</h1>
+            
+            <button type="button" [hidden]="hasResult" class="btn btn-danger btn-lg" (click)="responder('No')">No</button>
+
+            <button type="button" [hidden]="hasResult" class="btn btn-primary btn-lg" (click)="responder('Si')">Si</button>
+       
+            <button *ngIf='user' routerLink="/record" expand="block"  class="btn btn-primary btn-lg" [hidden]="!hasResult" >Continuar</button>
+            
+        </div>
+    </div>
+    <a routerLink="home" routerLinkActive="active"><button type="button" class="btn btn-dark cancel">Volver</button></a>
+    
+</div>

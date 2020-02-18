@@ -6,6 +6,8 @@ import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import {Router} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { ErrorMsg } from '../../../interfaces/errorMsg.const';
+import{ AilmentNameValidator } from '../../../validators/AilmentNameValidator';
 @Component({
   selector: 'app-agregar-padecimientos',
   templateUrl: './agregar-padecimientos.component.html',
@@ -14,6 +16,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 })
 export class AgregarPadecimientosComponent implements OnInit {
 
+  mensajes_error = ErrorMsg.ERROR_MSG_SINT_PADS;
   padecimiento: FormGroup;
   private values : HttpParams;
 
@@ -31,15 +34,24 @@ export class AgregarPadecimientosComponent implements OnInit {
 
   public sintomas : any = [];
   public selectedSints : any = [];
-
+  public especializaciones : any = [];
   selectedFile : File = null;
   formData: any = new FormData();
   
-  constructor(private padServ : PadecimientoService, private sintServ : SintomasService, private toast : ToastrService, private router : Router) {
+  constructor(private padServ : PadecimientoService, private sintServ : SintomasService,
+              private toast : ToastrService, private router : Router, private nameVal : AilmentNameValidator) {
     this.padecimiento = new FormGroup({
-      nombre: new FormControl('', Validators.required),
+      nombre: new FormControl('', 
+      [Validators.required,
+       Validators.minLength(4),
+       Validators.maxLength(50)], [this.nameVal.existingAilment()]),
+
       categoria: new FormControl('', Validators.required),
-      descripcion: new FormControl(''),
+      especializacion: new FormControl('', Validators.required),
+      descripcion: new FormControl('', [Validators.required,
+      Validators.minLength(20),
+      Validators.maxLength(200)]),
+
       sintomas: new FormControl(''),
       imagen : new FormControl(''),
       sintomasSeleccionados : new FormControl('')
@@ -47,6 +59,12 @@ export class AgregarPadecimientosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.padServ.getEspecializaciones().subscribe((res: any) =>{
+      this.especializaciones = res.body;
+    }, error =>{
+      console.log(error);
+    })
+
     this.sintServ.getSints().subscribe( (res: any) =>{
       this.sintomas = res.body;
     },
@@ -83,7 +101,7 @@ export class AgregarPadecimientosComponent implements OnInit {
       this.formData.append('categoria', this.padecimiento.value.categoria);
       this.formData.append('descripcion', this.padecimiento.value.descripcion);
       this.formData.append('sintomas', idsOnly);
-  
+      this.formData.append('especializacion', this.padecimiento.value.especializacion);
     console.log(JSON.stringify(this.formData));
     
     this.padServ.createPadecimiento(this.formData).subscribe(res =>{
@@ -93,6 +111,7 @@ export class AgregarPadecimientosComponent implements OnInit {
   }, error =>{
       console.log("Error", error.error);
       this.toast.error(error.error, 'Error');
+      this.formData = new FormData();
   })
   }
 }

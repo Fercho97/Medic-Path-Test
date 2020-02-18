@@ -1,0 +1,83 @@
+<div class="margin">
+  <h1 class="headers">Datos del Usuario</h1>
+  <form [formGroup]="datos_perfil" (ngSubmit)="actualizarDatos()">
+  <div>
+    <div class="row">
+      <div class="col-8">
+        <input class="form-control" type="text" placeholder="Nombre" formControlName="nombres" value="{{usuarioInfo.nombres}}"/>
+      </div>
+    </div>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of mensajes_error.nombre">
+        <div class="form-control-feedback" *ngIf="datos_perfil.get('nombres').hasError(validation.type) 
+        && (datos_perfil.get('nombres').dirty || datos_perfil.get('nombres').touched)">
+        <i class="fas fa-exclamation-circle"></i> {{validation.message}}
+        </div>
+      </ng-container>
+  </div>
+
+    <div class="row">
+      <div class="col-8">
+        <input class="form-control " type="text" placeholder="Apellido" formControlName="apellidos" value="{{usuarioInfo.apellidos}}"/>
+      </div>
+    </div>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of mensajes_error.apellido">
+        <div class="form-control-feedback" *ngIf="datos_perfil.get('apellidos').hasError(validation.type) 
+        && (datos_perfil.get('apellidos').dirty || datos_perfil.get('apellidos').touched)">
+        <i class="fas fa-exclamation-circle"></i> {{validation.message}}
+        </div>
+      </ng-container>
+  </div>
+  </div>
+
+  <div class="row">
+    <div class="col-8">
+      <input class="form-control" type="text" disabled placeholder="Fecha" value="{{usuarioInfo.fecha_nacimiento}}"/>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <input
+        class="form-control"
+        type="email"
+        placeholder="Correo electrónico"
+        value="{{usuarioInfo.email}}"
+        disabled
+      />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <input
+        class="form-control"
+        type="text"
+        placeholder="Nombre de Usuario"
+        value="{{usuarioInfo.nickname}}"
+        formControlName="nickname"
+        (keyup)="check()"
+      />
+    </div>
+  </div>
+  <div class="validation-errors">
+    <ng-container *ngFor="let validation of mensajes_error.nickname">
+      <div class="form-control-feedback" *ngIf="datos_perfil.get('nickname').hasError(validation.type) 
+      && (datos_perfil.get('nickname').dirty || datos_perfil.get('nickname').touched)">
+      <i class="fas fa-exclamation-circle"></i> {{validation.message}}
+      </div>
+    </ng-container>
+</div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <input class="form-control" type="text" disabled placeholder="Sexo"  value="{{usuarioInfo.sexo}}"/>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-outline-primary boton" [disabled]="datos_perfil.invalid">
+    Guardar Cambios
+  </button>
+  </form>
+</div>

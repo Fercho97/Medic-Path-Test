@@ -1,0 +1,53 @@
+.main-container {
+  position: relative;
+  z-index: 900;
+  margin-top: 20px;
+  text-align: left;
+  padding: 25px;
+  margin-bottom: 20px;
+  border-style: solid;
+  border-radius: 2px;
+  border-color: rgb(124, 131, 132);
+}
+
+.main-container input{
+  margin: 0 25px 8px;
+}
+.center {
+padding: 0 40%;
+}
+.checking{
+color: blue;
+}
+.space {
+margin-top: 15px;
+color: #2196f3;
+margin-left: 15px;
+}
+
+.main-container h3{
+text-align: left;
+margin-top: 15px;
+margin-bottom: 15px;
+}
+
+ul li {
+  margin: 1px;
+  border-style: groove;
+  border-radius: 2px;
+  border-color: #0B2B8E;
+}
+
+.delety{
+  float: right;
+  margin-right: 6px;
+  margin-top: -40px;
+  position: relative;
+  z-index: 2;
+  color:red;
+  cursor: pointer;
+}
+
+.ordering {
+  cursor: pointer;
+}

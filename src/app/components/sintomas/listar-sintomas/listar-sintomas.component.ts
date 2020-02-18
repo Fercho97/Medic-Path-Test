@@ -18,11 +18,13 @@ import { InfoSintomasComponent } from '../info-sintomas/info-sintomas.component'
 export class ListarSintomasComponent implements OnInit {
   
  pagina = 0;
-  public sintomas : Sintoma[] = [];
+ public sintomas : Sintoma[] = [];
   key :string = 'nombre_sint';
   reversa : boolean = false;
-  myFilter;
   content;
+  public myFilter : any = "";
+  public mySearch : any = "";
+  public searching: boolean = false;
   constructor(private sintServ : SintomasService, private http : HttpClient, private modalService: NgbModal) { 
 
   }
@@ -54,5 +56,29 @@ export class ListarSintomasComponent implements OnInit {
   sorting(key : any){
     this.key = key;
     this.reversa = !this.reversa;
+  }
+
+  showResults(event :any){
+    if(event.target.value.length >= 1){
+      this.searching= true;
+    }else{
+      this.searching=false;
+    }
+  }
+
+  selection(name: any){
+    this.mySearch =name;
+    this.myFilter=name;
+    this.pagina = 1;
+    this.searching=false;
+  }
+  
+  remove(){
+    this.myFilter="";
+    this.searching=false;
+  }
+
+  focusLost(){
+    this.myFilter=this.mySearch;
   }
 }

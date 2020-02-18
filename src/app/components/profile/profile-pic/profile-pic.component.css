@@ -1,0 +1,30 @@
+.color {
+  margin: 0 2%;
+  height: 100%;
+  width: 100%;
+  border-style: double;
+  border-radius: 15px;
+  border-color: red;
+}
+
+.profile-pic {
+  margin-top: 40px;
+  width: 35%;
+  height: auto;
+}
+
+.pic-select {
+  margin: 3% 35% !important;
+}
+
+.color input {
+  text-align: center;
+  margin-left: 25%;
+}
+
+.color button {
+  margin-bottom: 50px;
+  margin-top: 25px;
+  background-color: #00acee !important;
+  color: white !important;
+}

@@ -10,5 +10,8 @@ export interface Usuario{
     createdAt: Date,
     actualizado: Date,
     enabled: Boolean,
-    fecha_nacimiento: Date
+    fecha_nacimiento: Date,
+    telefono: String,
+    direccion: String,
+    imagen_perfil: String
 }

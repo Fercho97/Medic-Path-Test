@@ -7,10 +7,20 @@ import {Router} from '@angular/router';
 })
 export class SignupService{
     _url : string = '';
+    _checkUserName : string = '';
+    _checkEmail : string = '';
+    _urlCheckName = "";
     private router: Router;
     constructor(private _http: HttpClient) {
         this._url = 'https://medicpath.herokuapp.com/usuarios/create';
         //'http://localhost:3000/usuarios/create';
+        this._checkUserName = 'https://medicpath.herokuapp.com/usuarios/checkUsername/';
+        //'http://localhost:3000/usuarios/checkUsername/'
+        this._checkEmail = 'https://medicpath.herokuapp.com/usuarios/checkEmail/';
+        //'http://localhost:3000/usuarios/checkEmail/'
+
+        this._urlCheckName = 'https://medicpath.herokuapp.com/padecimientos/checkName/';
+        //'http://localhost:3000/padecimientos/checkName/'
     }
 
     checkRegister(valores : HttpParams){
@@ -25,4 +35,33 @@ export class SignupService{
             },
           )
     }
+
+    checkNickname(nickname : any){
+        return this._http.get(this._checkUserName + nickname,
+        {
+            headers: new HttpHeaders()
+            .set('Content-Type', 'application/x-www-form-urlencoded'),
+          observe : 'response'
+        })
+    }
+
+    checkEmail(email : any){
+        return this._http.get(this._checkEmail + email,
+        {
+            headers: new HttpHeaders()
+            .set('Content-Type', 'application/x-www-form-urlencoded'),
+          observe : 'response'
+        })
+    }
+
+    checkPadName(name : any){
+        return this._http.get(this._urlCheckName + name,
+        {
+          headers: new HttpHeaders().set(
+            "Content-Type",
+            "application/x-www-form-urlencoded"
+          ),
+          observe: "response"
+        })
+      }
 }

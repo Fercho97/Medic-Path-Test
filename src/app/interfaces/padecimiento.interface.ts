@@ -5,6 +5,6 @@ export interface Padecimiento{
     nombre_pad: String,
     categoria: String,
     url_imagen_pad: String,
-    createdAt: Date,
-    updatedAt: Date,
+    espe_id: Number,
+    nombre_esp : String,
 }

@@ -16,8 +16,8 @@ export class UsuarioInfoComponent implements OnInit {
   constructor(private userServ : UsuarioService, private http : HttpClient, private route : ActivatedRoute, private router : Router) { }
 
   ngOnInit() {
-    this.userServ.getUser(this.route.snapshot.params.id).subscribe( (res: any) =>{
-      this.user = res.body;
+    this.userServ.getUser(this.route.snapshot.params.hash).subscribe( (res: any) =>{
+      this.user = res.body.resultado;
       console.log(this.user);
     },
   error =>{

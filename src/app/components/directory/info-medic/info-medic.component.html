@@ -1,0 +1,34 @@
+<div class="myMod">
+    <div class="modal-header">
+      <h5 class="modal-title" id="info">Detalles de médico</h5>
+      <button type="button" class="close" (click)="activeModal.dismiss('Cross click')" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+    <div *ngIf="hasInfo">
+        <label>Foto de Perfil</label><br>
+        <img class="center" style="width:300px;height:200px;" [src]="'data:image/jpg;base64,' + url">
+    </div>
+
+    <label>Nombre del Médico</label>
+    <input type="text"  value="{{nombreCompleto}}" disabled>
+
+    <label>Especializaciones del Médico</label>
+    <div *ngFor="let especializacion of especializaciones">
+        <label ><br>*{{especializacion.nombre_esp}}<br></label>
+    </div>
+  
+    <label>Telefono de contacto</label>
+    <input type="text"  value="{{infoDoc.telefono}}" disabled>
+
+    <label>Domicilio Consultorio</label>
+    <input type="text"  value="{{infoDoc.direccion}}" disabled>
+
+    </div>
+    <div class="modal-footer" >
+      <button type="button" class="btn btn-secondary cancel" (click)="activeModal.close('Close click')">Volver</button>
+    </div>
+</div>
+    

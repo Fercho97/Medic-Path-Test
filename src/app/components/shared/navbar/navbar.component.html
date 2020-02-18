@@ -9,27 +9,43 @@
       <li class="nav-item">
         <a class="nav-link" routerLinkActive="active-link" routerLink="home">Home</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!isDoctor">
         <a class="nav-link" routerLinkActive="active-link" routerLink="diagnostico">Diagnostico</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isDoctor">
+        <a class="nav-link" routerLinkActive="active-link" routerLink="diagnosticoGuiado">Diagnostico Guiado</a>
+      </li>
+      <li class="nav-item" *ngIf="isAdmin">
         <a class="nav-link" routerLinkActive="active-link" routerLink="usuarios">Usuarios</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLinkActive="active-link" routerLink="faq">FAQ</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isDoctor">
         <a class="nav-link" routerLinkActive="active-link" routerLink="bdc">Base De Conocimiento</a>
       </li>
-      <li class="nav-item hidden">
+      <li class="nav-item" *ngIf=user>
+        <a class="nav-link" routerLinkActive="active-link" routerLink="profile">Mi Perfil</a>
+      </li>
+      <li class ="nav-item">
+        <a class="nav-link" routerLinkActive="active-link" routerLink="/medics">Directorio Médico</a>
+      </li>
+      <li class ="nav-item" *ngIf="isAdmin">
+        <a class="nav-link" routerLinkActive="active-link" routerLink="/registry">Registro de Doctor</a>
+      </li>
+      <li class="nav-item hidden" *ngIf=!user>
         <a class="nav-link" routerLinkActive="active-link" data-toggle="modal" data-target="#exampleModal">Login</a>
       </li>
-      <li class="nav-item hidden">
+      <li class="nav-item hidden" *ngIf=!user>
         <a class="nav-link" routerLinkActive="active-link" routerLink="registro">Registrate</a>
       </li>
+      <li class="nav-item hidden" *ngIf=user>
+        <a class="nav-link" routerLinkActive="active-link" (click)="logout()">Logout</a>
+      </li>
     </ul>
-<button class="btn waves-effect waves-light boton" type="button" name="action" routerLink="registro">Registrate</button>
-<button class="btn waves-effect waves-light boton" type="button" name="action" data-toggle="modal"
+<button *ngIf=!user class="btn waves-effect waves-light boton" type="button" name="action" routerLink="registro">Registrate</button>
+<button *ngIf=user class="btn waves-effect waves-light boton" type="button" name="action" (click)="logout()">Logout</button>
+<button *ngIf=!user class="btn waves-effect waves-light boton" type="button" name="action" data-toggle="modal"
   data-target="#exampleModal">Login</button>
   </div>
 </nav>

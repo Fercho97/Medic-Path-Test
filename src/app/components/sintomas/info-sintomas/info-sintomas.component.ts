@@ -12,7 +12,7 @@ export class InfoSintomasComponent implements OnInit {
 
   @Input() public sintoma; 
   public compuesto = '';
-  public values : HttpParams;
+  private values : HttpParams;
   constructor(public activeModal: NgbActiveModal, private sintServ : SintomasService) { 
    
   }
@@ -35,6 +35,9 @@ export class InfoSintomasComponent implements OnInit {
     error =>{
         console.log(error);
     })
+
+    this.sintoma.composicion = this.sintoma.composicion.replace(/,/g,' ');
+    this.sintoma.composicion = this.sintoma.composicion.replace(/&/g,'Y');
     }
     
   }

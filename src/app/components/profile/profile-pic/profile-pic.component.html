@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-sm-12 color">
+    <a>
+      <img class="profile-pic" [src]="imagen" alt="profile-pic">
+    </a>
+    <input type="file" accept="image/jpeg" name="profile-pic" id="profile-pic" formclass="pic-select" (change)="createFormData($event)">
+    <button *ngIf="selectedImg" type="submit" class="btn btn-outline-primary boton" (click)="actualizarDatos()">
+      Cambiar Foto
+    </button>
+  </div>
+</div>

@@ -39,3 +39,8 @@ select {
   margin-right: auto;
   width: 50%;
 }
+
+.form-control-feedback {
+  color: red;
+  margin-left: 50%;
+}

@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Courgette&display=swap');
+
+.margin {
+  text-align: center;
+  padding: 50px;
+  margin: 40px 2%;
+  border-style: double;
+  border-radius: 15px;
+  border-color: red;
+}
+
+.headers {
+    font-family: 'Pacifico',
+    cursive;
+    font-size: 50px;
+    color: red;
+    margin-top: 20px;
+}
+.boton {
+    margin-top: 15px;
+    background-color: #00acee !important;
+    color: white !important;
+}

@@ -1,0 +1,15 @@
+.margin input {
+  text-align: center;
+  margin-left: 25%;
+}
+
+.margin button {
+  margin-bottom: 50px;
+  margin-top: 25px;
+  background-color: #00acee !important;
+  color: white !important;
+}
+
+.form-control-feedback {
+  color: red;
+}

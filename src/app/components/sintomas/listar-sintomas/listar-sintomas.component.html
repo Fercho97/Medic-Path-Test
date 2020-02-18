@@ -1,15 +1,21 @@
 <div class="search">
     <i class="fas fa-search"></i>
-    <input type="text" placeholder="Nombre del sintoma" [(ngModel)]="myFilter" (ngModelChange)="filtering()">
+    <input type="text" placeholder="Nombre del sintoma" [(ngModel)]="mySearch"  (keyup)="showResults($event)" (focusout)="focusLost()">
+    <span><i *ngIf="mySearch.length!=0" class="fas fa-trash delety" (click)="remove()"></i></span>
+    <ul *ngIf="searching === true">
+        <li *ngFor="let sint of sintomas | search: 'nombre_sint' : mySearch" (click)="selection(sint.nombre_sint)">
+            <span>{{sint.nombre_sint}}</span>
+        </li>
+    </ul>
 </div>
 
 <table>
         <tr>
-            <th (click)="sorting('nombre_sint')">Sintoma
+            <th (click)="sorting('nombre_sint')" class="ordering">Sintoma
                 <span class="fas" *ngIf="key == 'nombre_sint'" [ngClass]="{'fa-chevron-up':reversa==true,'fa-chevron-down':reversa==false}"></span>    
             </th>
             <th>Descripcion</th>
-            <th (click)="sorting('categoria_sint')">Categoria
+            <th (click)="sorting('categoria_sint')" class="ordering">Categoria
                 <span class="fas" *ngIf="key == 'categoria_sint'" [ngClass]="{'fa-chevron-up':reversa==true,'fa-chevron-down':reversa==false}"></span>    
             </th>
             <th>Acciones</th>

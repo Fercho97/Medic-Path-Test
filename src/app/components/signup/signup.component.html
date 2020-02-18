@@ -12,14 +12,14 @@
 
               <input [ngClass]="{'is-invalid': !forma.get('nombrecompleto.nombre').valid}"
                 formControlName="nombre" class="form-control is-valid" type="text" placeholder="Nombre">
-
-              <div *ngIf="forma.get('nombrecompleto.nombre').errors?.required" class="form-control-feedback">
-                *El Nombre es necesario
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of mensajes_error.nombre">
+                    <div class="form-control-feedback" *ngIf="forma.get('nombrecompleto.nombre').hasError(validation.type) 
+                    && (forma.get('nombrecompleto.nombre').dirty || forma.get('nombrecompleto.nombre').touched)">
+                    <i class="fas fa-exclamation-circle"></i> {{validation.message}}
+                    </div>
+                  </ng-container>
               </div>
-              <div *ngIf="forma.get('nombrecompleto.nombre').errors?.minlength" class="form-control-feedback">
-                *Por lo menos 3 caracteres
-              </div>
-
             </div>
           </div>
 
@@ -28,11 +28,13 @@
 
               <input [ngClass]="{'is-invalid': !forma.get('nombrecompleto.apellido').valid}"
                 formControlName="apellido" class="form-control is-valid" type="text" placeholder="Apellido">
-              <div *ngIf="forma.get('nombrecompleto.apellido').errors?.required" class="form-control-feedback">
-                *El Apellido es necesario
-              </div>
-              <div *ngIf="forma.get('nombrecompleto.apellido').errors?.minlength" class="form-control-feedback">
-                *Por lo menos 3 caracteres
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of mensajes_error.apellido">
+                    <div class="form-control-feedback" *ngIf="forma.get('nombrecompleto.apellido').hasError(validation.type) 
+                    && (forma.get('nombrecompleto.apellido').dirty || forma.get('nombrecompleto.apellido').touched)">
+                    <i class="fas fa-exclamation-circle"></i> {{validation.message}}
+                    </div>
+                  </ng-container>
               </div>
             </div>
           </div>
@@ -44,8 +46,13 @@
 
             <input [ngClass]="{'is-invalid': !forma.controls['fechanacimiento'].valid}"
               formControlName="fechanacimiento" class="form-control is-valid" type="date" placeholder="Fecha">
-            <div *ngIf="forma.get('fechanacimiento').errors?.required" class="form-control-feedback">
-              *Ingrese su fecha de nacimiento
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes_error.fechanacimiento">
+                  <div class="form-control-feedback" *ngIf="forma.get('fechanacimiento').hasError(validation.type) 
+                  && (forma.get('fechanacimiento').dirty || forma.get('fechanacimiento').touched)">
+                  <i class="fas fa-exclamation-circle"></i> {{validation.message}}
+                  </div>
+                </ng-container>
             </div>
           </div>
         </div>
@@ -55,11 +62,13 @@
 
             <input [ngClass]="{'is-invalid': !forma.controls['correo'].valid}" formControlName="correo"
               class="form-control is-valid" type="email" placeholder="Correo electrónico">
-            <div *ngIf="forma.get('correo').errors?.required" class="form-control-feedback">
-              *El Correo es necesario
-            </div>
-            <div *ngIf="forma.get('correo').errors?.pattern" class="form-control-feedback">
-              *Correo invalido
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes_error.correo">
+                  <div class="form-control-feedback" *ngIf="forma.get('correo').hasError(validation.type) 
+                  && (forma.get('correo').dirty || forma.get('correo').touched)">
+                  <i class="fas fa-exclamation-circle"></i> {{validation.message}}
+                  </div>
+                </ng-container>
             </div>
           </div>
         </div>
@@ -69,14 +78,13 @@
 
             <input [ngClass]="{'is-invalid': !forma.controls['username'].valid}" formControlName="username"
               class="form-control is-valid" type="text" placeholder="Nombre de Usuario">
-            <div *ngIf="forma.get('username').errors?.required" class="form-control-feedback">
-              *El Nombre de Usuario es necesario
-            </div>
-            <div *ngIf="forma.get('username').errors?.existe" class="form-control-feedback">
-              *Este nombre de usuario ya esta registrado
-            </div>
-            <div *ngIf="forma.status === 'PENDING'" class="form-control-feedback checking">
-              Verificando si el usuario existe
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes_error.nickname">
+                  <div class="form-control-feedback" *ngIf="forma.get('username').hasError(validation.type) 
+                  && (forma.get('username').dirty || forma.get('username').touched)">
+                  <i class="fas fa-exclamation-circle"></i> {{validation.message}}
+                  </div>
+                </ng-container>
             </div>
           </div>
         </div>
@@ -93,36 +101,49 @@
             </p>
           </div>
         </div>
+        
+        <div formGroupName="password_validations">
+          <div class="form-group row">
+            <div class="col-md-8">
 
-        <div class="form-group row">
-          <div class="col-md-8">
-
-            <input [ngClass]="{'is-invalid': !forma.controls['password1'].valid}" formControlName="password1"
-              class="form-control is-valid" type="password" placeholder="Contraseña">
-            <div *ngIf="forma.get('password1').errors?.required" class="form-control-feedback">
-              *Contraseña obligatoria
+              <input [ngClass]="{'is-invalid': !forma.get('password_validations.password1').valid}" formControlName="password1"
+                class="form-control is-valid" type="password" placeholder="Contraseña">
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of mensajes_error.password">
+                    <div class="form-control-feedback" *ngIf="forma.get('password_validations.password1').hasError(validation.type) 
+                      && (forma.get('password_validations.password1').dirty || forma.get('password_validations.password1').touched)">
+                      <i class="fas fa-exclamation-circle"></i>{{validation.message}}
+                    </div>
+                  </ng-container>
+              </div>
             </div>
-            <div *ngIf="forma.get('password2').errors?.noiguales && !forma.get('password2').errors?.required"
-            class="form-control-feedback">
-            *Las contraseñas no son iguales
           </div>
+          
+          <div class="form-group row">
+            <div class="col-md-8">
+
+              <input [ngClass]="{'is-invalid': !forma.get('password_validations.password2').valid}" formControlName="password2"
+                class="form-control is-valid" type="password" placeholder="Repetir Contraseña">
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of mensajes_error.passwordVerif">
+                    <div class="form-control-feedback" *ngIf="forma.get('password_validations.password2').hasError(validation.type) 
+                      && (forma.get('password_validations.password2').dirty || forma.get('password_validations.password2').touched)">
+                      <i class="fas fa-exclamation-circle"></i>{{validation.message}}
+                    </div>
+                  </ng-container>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="form-group row">
-          <div class="col-md-8">
-
-            <input [ngClass]="{'is-invalid': !forma.controls['password2'].valid}" formControlName="password2"
-              class="form-control is-valid" type="password" placeholder="Repetir Contraseña">
-            <div *ngIf="forma.get('password2').errors?.required" class="form-control-feedback">
-              *Confirma tu contraseña
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of mensajes_error.same_password">
+            <div class="form-control-feedback" *ngIf="forma.get('password_validations').hasError(validation.type) 
+             && (forma.get('password_validations.password2').dirty || forma.get('password_validations.password2').touched)">
+             <i class="fas fa-exclamation-circle"></i>{{validation.message}}
             </div>
-            <div *ngIf="forma.get('password2').errors?.noiguales && !forma.get('password2').errors?.required"
-              class="form-control-feedback">
-              *Las contraseñas no son iguales
-            </div>
-          </div>
-        </div>
+          </ng-container>
+      </div>
 
         <div class="form-group row center">
           <div class="input-group col-md-8">

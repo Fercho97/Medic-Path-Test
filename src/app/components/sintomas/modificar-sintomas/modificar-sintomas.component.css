@@ -32,3 +32,8 @@ select {
   margin-left: 25% !important;
   width: 100% !important;
 }
+
+.form-control-feedback {
+  color: red;
+  margin-left: 50%;
+}

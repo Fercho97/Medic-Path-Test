@@ -6,7 +6,8 @@ import {Router, ActivatedRoute} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Sintoma } from '../../../interfaces/sintoma.interface';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-
+import { ErrorMsg } from '../../../interfaces/errorMsg.const';
+import { SymptomNameValidator } from '../../../validators/SymptomNameValidator';
 @Component({
   selector: 'app-modificar-sintomas',
   templateUrl: './modificar-sintomas.component.html',
@@ -14,7 +15,8 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
   providers : [SintomasService]
 })
 export class ModificarSintomasComponent implements OnInit {
-
+  
+  mensajes_error = ErrorMsg.ERROR_MSG_SINT_PADS;
   modify: FormGroup;
   private values : HttpParams;
 
@@ -36,13 +38,26 @@ export class ModificarSintomasComponent implements OnInit {
   public  isChecked : boolean;
   public composicionFront : string = "";
   public composicionBack : string = "";
-
-  constructor(private sintServ : SintomasService, private router : Router, private toast : ToastrService, private url : ActivatedRoute) {
+  public originalValue : any = "";
+  constructor(private sintServ : SintomasService, private router : Router,
+              private toast : ToastrService, private url : ActivatedRoute,
+              private nameVal : SymptomNameValidator) {
     this.modify = new FormGroup({
-      nombre: new FormControl('', Validators.required),
-      keyword: new FormControl('', Validators.required),
+      nombre: new FormControl('', 
+      [Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(50)]),
+
+      keyword: new FormControl('', 
+      [Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(30)]),
+
       categoria: new FormControl('', Validators.required),
-      descripcion: new FormControl(''),
+      descripcion: new FormControl('', 
+      [Validators.required,
+        Validators.minLength(20),
+        Validators.maxLength(200)]),
       compuesto: new FormControl(''),
       componentes: new FormControl(''),
       composite: new FormControl('')
@@ -50,7 +65,7 @@ export class ModificarSintomasComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(encodeURIComponent(this.url.snapshot.params.hash));
+    //console.log(encodeURIComponent(this.url.snapshot.params.hash));
 
     //Carga de datos principales
     this.sintServ.getSint(this.url.snapshot.params.hash).subscribe( (res : any) =>{
@@ -85,6 +100,7 @@ export class ModificarSintomasComponent implements OnInit {
       this.isChecked = this.sintoma.compuesto;
       this.modify.controls['categoria'].setValue(this.sintoma.categoria_sint, {onlySelf : true});
 
+      this.originalValue = this.sintoma.nombre_sint;
     });
 
     //Carga de componentes
@@ -129,13 +145,13 @@ export class ModificarSintomasComponent implements OnInit {
       .set('composicion', this.composicionBack)
     }
     console.log(this.values);
-    this.sintServ.modificar(this.sintoma.idSint,this.values).subscribe(res =>{
+    this.sintServ.modificar(this.sintoma.hashId,this.values).subscribe(res =>{
       console.log("Ok", res)
-      this.toast.success('Se ha modificado el sintoma con éxito!', 'Registro Exitoso!');
+      this.toast.success('Se ha modificado el sintoma con éxito!', 'Modificación Exitosa!');
     this.router.navigate(['/sintomas'])
   }, error =>{
       console.log("Error", error.error);
-      this.toast.error(error.error, 'Error');
+      this.toast.error(error.error.message, 'Error');
   })
   }
 
@@ -184,6 +200,17 @@ export class ModificarSintomasComponent implements OnInit {
     }
     else{
       return false;
+    }
+  }
+
+  check(){
+    if(this.originalValue.toLowerCase()!=this.modify.value.nombre.toString().toLowerCase()){
+      this.modify.get('nombre').updateValueAndValidity();
+      this.modify.get('nombre').setAsyncValidators(this.nameVal.existingSymptomName());
+      
+    }else{
+      this.modify.get('nombre').clearAsyncValidators();
+      this.modify.get('nombre').updateValueAndValidity();
     }
   }
 }

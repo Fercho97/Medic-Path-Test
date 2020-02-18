@@ -17,9 +17,17 @@
             <legend>Fecha Nacimiento: </legend>
             <h5>{{user.fecha_nacimiento}}</h5>
             <legend>Miembro desde: </legend>
-            <h5>{{user.createdAt}}</h5>
+            <h5>{{user.since}}</h5>
         </article>
 
+        <article *ngIf="user.tipoUsuario==2">
+            <legend>Telefono: </legend>
+            <h5>{{user.telefono}}</h5>
+            <legend>Dirección: </legend>
+            <h5>{{user.direccion}}</h5>
+            <legend>Especializaciones: </legend>
+            <h5 *ngFor="let espe of user.especializacions">{{espe.nombre_esp}}</h5>
+        </article>
     </section>
 </div>
 

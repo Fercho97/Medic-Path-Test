@@ -28,18 +28,30 @@ import { ModificarSintomasComponent} from './components/sintomas/modificar-sinto
 import { VerificacionComponent } from './components/verificacion/verificacion.component';
 import { ResetPasswordComponent} from './components/reset-password/reset-password.component';
 import { OwlModule } from 'ngx-owl-carousel';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsuarioInfoComponent} from './components/usuario/usuarioInfo/usuarioInfo.component';
 import { InfoPadecimientosComponent } from './components/padecimientos/info-padecimientos/info-padecimientos.component';
 import { BDCComponent } from './components/bdc/bdc.component';
-import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbActiveModal, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { ListFilter } from './pipes/filter.pipe';
 import { OrderModule } from 'ngx-order-pipe';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SubmenuComponent } from './components/profile/submenu/submenu.component';
+import { ProfilePicComponent } from './components/profile/profile-pic/profile-pic.component';
+import { ProfileInfoComponent } from './components/profile/profile-info/profile-info.component';
+import { MedicalRecordComponent } from './components/profile/medical-record/medical-record.component';
+import { InfoMedicalRecordComponent} from './components/profile/medical-record/info-medical-record/info-medical-record.component';
+import { MedicsComponent } from './components/directory/medics.component';
+import { InfoMedicComponent } from './components/directory/info-medic/info-medic.component';
+import { AuthInterceptorService } from "./components/auth/interceptor.service";
+import { RegistryComponent } from './components/registry/registry.component';
+import { SearchPipe } from './pipes/search.pipe';
+import { GuidedDiagnosticComponent } from './components/guided-diagnostic/guided-diagnostic.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +83,18 @@ import { OrderModule } from 'ngx-order-pipe';
     UsuarioInfoComponent,
     InfoPadecimientosComponent,
     BDCComponent,
-    ListFilter
+    ListFilter,
+    ProfileComponent,
+    SubmenuComponent,
+    ProfilePicComponent,
+    ProfileInfoComponent,
+    MedicalRecordComponent,
+    MedicsComponent,
+    InfoMedicComponent,
+    InfoMedicalRecordComponent,
+    RegistryComponent,
+    SearchPipe,
+    GuidedDiagnosticComponent
   ],
   imports: [
     BrowserModule,
@@ -86,11 +109,12 @@ import { OrderModule } from 'ngx-order-pipe';
     DragDropModule,
     ScrollingModule,
     NgxPaginationModule,
-    OrderModule
+    OrderModule,
+    NgbProgressbarModule
     ],
-  providers: [NgbActiveModal],
+  providers: [NgbActiveModal,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
   bootstrap: [AppComponent],
   
-  entryComponents: [InfoSintomasComponent, InfoPadecimientosComponent]
+  entryComponents: [InfoSintomasComponent, InfoPadecimientosComponent, InfoMedicalRecordComponent, InfoMedicComponent]
 })
 export class AppModule { }

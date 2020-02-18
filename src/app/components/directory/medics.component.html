@@ -1,0 +1,45 @@
+<div class="container main-container">
+
+    <h3 *ngIf="hasEspe">Visualizando los datos de los médicos especialistas en: {{tipo}}</h3>
+            <div class="search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Nombre del medico" [(ngModel)]="mySearch" (keyup)="showResults($event)">
+                    <span><i *ngIf="mySearch.length!=0" class="fas fa-trash delety" (click)="remove()"></i></span>
+                    <ul *ngIf="searching === true">
+                        <li *ngFor="let medico of medicos | search: 'fullname' : mySearch" (click)="selection(medico.fullname)">
+                            <span>{{medico.fullname}}</span>
+                        </li>
+                    </ul>
+            </div>
+      
+        <table>
+            <tr>
+                <th (click)="sorting('fullname')" class="ordering">Nombre
+                    <span class="fas" *ngIf="key == 'fullname'" [ngClass]="{'fa-chevron-up':reversa==true,'fa-chevron-down':reversa==false}"></span>    
+                    
+                </th>
+                <th *ngIf="!hasEspe">Especializaciones</th>
+                <th>Direccion</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+            <tr ng-if="medicos.length>0" *ngFor="let medico of medicos | orderBy : key : reversa : true | ListFilter: 'fullname' : myFilter | paginate:{itemsPerPage: 10, currentPage:pagina}">
+                <th>{{medico.fullname}}</th>
+                <th *ngIf="!hasEspe"><div *ngFor="let espe of medico.especializacions"><span>{{espe.nombre_esp}}</span></div></th>
+                <th>{{ medico.direccion}}</th>
+                <th>{{ medico.telefono}}</th>
+                <th><button class="btn btn-success btn-sm" (click)="openModal(content,medico.hash_id)" >Detalle</button></th>
+        </tr>
+        <tr *ngIf="medicos.length==0 && !hasEspe">
+            <th colspan="5">No existen registros de médicos en el sistema</th>
+        </tr>
+
+        <tr *ngIf="medicos.length==0 && hasEspe">
+            <th colspan="4">No existen registros de médicos en el sistema con esa especialización</th>
+        </tr>
+        </table>
+        <pagination-controls (pageChange)="pagina = $event"
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
+        autoHide="true"></pagination-controls>
+</div>

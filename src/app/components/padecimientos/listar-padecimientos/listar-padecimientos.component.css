@@ -30,3 +30,24 @@
     margin-top: 15px;
     margin-bottom: 15px;
   }
+
+  ul li {
+    margin: 1px;
+    border-style: groove;
+    border-radius: 2px;
+    border-color: #0B2B8E;
+  }
+
+  .delety{
+    float: right;
+    margin-right: 6px;
+    margin-top: -40px;
+    position: relative;
+    z-index: 2;
+    color:red;
+    cursor: pointer;
+  }
+
+  .ordering {
+    cursor: pointer;
+  }

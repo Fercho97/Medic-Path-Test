@@ -1,0 +1,48 @@
+
+.main-container {
+  position: relative;
+  z-index: 900;
+  margin-top: 40px;
+  text-align: center;
+  padding: 50px;
+  margin-bottom: 40px;
+  border-style: double;
+  border-radius: 15px;
+  border-color: red;
+}
+
+.main-container input,
+select {
+  margin-left: 50%;
+  width: 50%;
+}
+
+.center {
+  padding: 0 40%;
+}
+.example{
+  padding: 40px 10px;
+  height: 100%;
+}
+.example h2{
+  color: blue;
+}
+.form-control-feedback {
+  color: red;
+  margin-left: 40%;
+}
+.checking{
+  color: blue;
+}
+.space {
+  margin-top: 15px;
+  color: #2196f3;
+  margin-left: 15px;
+}
+
+@media (max-width: 992px){
+
+  .control{
+    display: none;
+  }
+}

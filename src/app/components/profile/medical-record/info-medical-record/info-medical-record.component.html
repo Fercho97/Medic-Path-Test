@@ -1,0 +1,37 @@
+<div class="myMod">
+    <div class="modal-header">
+      <h5 class="modal-title" id="info">Detalles del la consulta médica</h5>
+      <button type="button" class="close" (click)="activeModal.dismiss('Cross click')" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+    <label>Fecha de la consulta médica</label>
+    <input type="text"  value="{{historial.fecha_consulta}}" disabled>
+
+    <label>Padecimiento resultante</label>
+    <input type="text" value="{{historial.nombre_pad}}" disabled>
+
+    <label>Categoria del padecimiento</label>
+    <input type="text"  value="{{historial.categoria}}" disabled>
+
+    <label>Especialidad Padecimiento</label>
+    <br>
+    <legend (click)="activeModal.dismiss('Cross click')" routerLink="/medics/{{historial.nombre_esp}}">{{historial.nombre_esp}}</legend>
+    <div>
+      <label>Imagen</label><br>
+      <img class="center" style="width:300px;height:200px;" [src]="url">
+    </div>
+      <br><br>
+    <label>Sintomas</label>
+    <ul>
+      <li *ngFor="let sintoma of sintomas">
+        {{sintoma}}
+      </li>
+    </ul>
+    </div>
+    <div class="modal-footer" >
+      <button type="button" class="btn btn-secondary cancel" (click)="activeModal.close('Close click')">Volver</button>
+    </div>
+</div>
+    

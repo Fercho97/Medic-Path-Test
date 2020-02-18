@@ -74,7 +74,32 @@
     border-radius: 2px;
     border-color: rgb(124, 131, 132);
   }
+
+  ul li {
+    margin: 1px;
+    border-style: groove;
+    border-radius: 2px;
+    border-color: #0B2B8E;
+    cursor: pointer;
+  }
   
+  .delety{
+    float: right;
+    margin-right: 6px;
+    margin-top: -40px;
+    position: relative;
+    z-index: 2;
+    color:red;
+    cursor:pointer;
+  }
+
+  .delety hover{
+    cursor:pointer;
+  }
+
+  .ordering {
+    cursor: pointer;
+  }
   @keyframes fadeEffect {
     from {opacity: 0;}
     to {opacity: 1;}

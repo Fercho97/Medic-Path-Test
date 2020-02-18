@@ -10,10 +10,13 @@
           <div class="col-md-8">
             <input [ngClass]="{'is-invalid': !sintomas.controls['nombre'].valid}" formControlName="nombre"
               class="form-control is-valid" type="text" placeholder="Nombre del Sintoma">
-            <div *ngIf="sintomas.get('nombre').errors?.required" class="form-control-feedback">
-              <label>
-                *El Nombre es necesario
-              </label>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes_error.nombreSint">
+                  <div class="form-control-feedback" *ngIf="sintomas.get('nombre').hasError(validation.type) 
+                  && (sintomas.get('nombre').dirty || sintomas.get('nombre').touched)">
+                  <i class="fas fa-exclamation-circle"></i> {{validation.message}}
+                  </div>
+                </ng-container>
             </div>
           </div>
         </div>
@@ -22,10 +25,13 @@
           <div class="col-md-8">
             <input [ngClass]="{'is-invalid': !sintomas.controls['keyword'].valid}" formControlName="keyword"
               class="form-control is-valid" type="text" placeholder="Palabra clave">
-            <div *ngIf="sintomas.get('keyword').errors?.required" class="form-control-feedback">
-              <label>
-                *La palabra clave es necesaria
-              </label>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes_error.keyword">
+                  <div class="form-control-feedback" *ngIf="sintomas.get('keyword').hasError(validation.type) 
+                  && (sintomas.get('keyword').dirty || sintomas.get('keyword').touched)">
+                  <i class="fas fa-exclamation-circle"></i> {{validation.message}}
+                  </div>
+                </ng-container>
             </div>
           </div>
         </div>
@@ -36,19 +42,29 @@
               <option value="">Seleccione una Categoria</option>
               <option *ngFor="let item of categorias" [value]="item.nombre">{{item.nombre}}</option>
             </select>
-            <div *ngIf="sintomas.get('categoria').errors?.required" class="form-control-feedback">
-              <label>
-
-                *Seleccione la categoria correspondiente
-              </label>
-            </div>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of mensajes_error.categoria">
+                <div class="form-control-feedback" *ngIf="sintomas.get('categoria').hasError(validation.type) 
+                && (sintomas.get('categoria').dirty || sintomas.get('categoria').touched)">
+                <i class="fas fa-exclamation-circle"></i> {{validation.message}}
+                </div>
+              </ng-container>
+          </div>
           </div>
         </div>
 
         <div class="form-group row">
           <div class="col-md-8">
-            <input formControlName="descripcion" class="form-control is-valid descripcion" type="text"
-              placeholder="Descripcion">
+            <input [ngClass]="{'is-invalid': !sintomas.controls['descripcion'].valid}" formControlName="descripcion" 
+             class="form-control is-valid descripcion" type="text" placeholder="Descripcion">
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes_error.descripcion">
+                  <div class="form-control-feedback" *ngIf="sintomas.get('descripcion').hasError(validation.type) 
+                  && (sintomas.get('descripcion').dirty || sintomas.get('descripcion').touched)">
+                  <i class="fas fa-exclamation-circle"></i> {{validation.message}}
+                  </div>
+                </ng-container>
+            </div>
           </div>
         </div>
 

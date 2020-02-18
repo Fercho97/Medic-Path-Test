@@ -25,7 +25,7 @@ objetivo : Boolean;
 
     for (var condicion of this.partesCondicion){
         if(condicion instanceof Atomo){
-            let atomoTemporal= new Atomo(condicion.desc,condicion.estado,condicion.obj);
+            let atomoTemporal= new Atomo(condicion.desc,condicion.estado,condicion.obj,condicion.padecimiento);
             let atomoMemoria =  memoriaTrabajo.obtenerAtomo(atomoTemporal);
                 verdadInicial=atomoTemporal.estado&&atomoMemoria.estado;
                 pila.push(verdadInicial);
@@ -79,13 +79,14 @@ disparadorReglas(mt){
 }
 
 
-  desgloseReglas(regla : any){
+desgloseReglas(regla : any){
     let partes = regla.atomos.split(",");
     let conclusion = regla.atomo_conclusion.split(",");
     let negado = false;
     let unions = [];
     let concUnions = [];
     let obj = false;
+    let pad = regla.ailment;
     if(regla.es_obj==1){
         obj = true;
     }
@@ -104,7 +105,7 @@ disparadorReglas(mt){
                                   break;
 
             default: 
-                let atomoRegla = new Atomo(parte,true,false);
+                let atomoRegla = new Atomo(parte,true,false,null);
                 this.partesCondicion.push(atomoRegla);
                 if(negado==true){
                     this.partesCondicion.push("~");
@@ -130,7 +131,7 @@ disparadorReglas(mt){
                       break;
 
             default: 
-                let atomoRegla = new Atomo(conc,true,obj);
+                let atomoRegla = new Atomo(conc,true,obj,pad);
                 this.partesConclusion.push(atomoRegla);
                 if(negado==true){
                     this.partesConclusion.push("~");

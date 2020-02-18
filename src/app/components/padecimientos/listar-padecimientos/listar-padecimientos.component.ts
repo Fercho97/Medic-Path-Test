@@ -11,12 +11,14 @@ import { InfoPadecimientosComponent } from '../info-padecimientos/info-padecimie
   providers: [PadecimientoService]
 })
 export class ListarPadecimientosComponent implements OnInit {
-  public content;
-  public myFilter;
+  
   pagina = 0;
   public padecimientos : Padecimiento[] = [];
   key :string = 'nombre_pad';
   reversa : boolean = false;
+  public myFilter : any = "";
+  public mySearch : any = "";
+  public searching: boolean = false;
   constructor(private padServ : PadecimientoService, private modalService : NgbModal) { 
 
   }
@@ -46,5 +48,30 @@ export class ListarPadecimientosComponent implements OnInit {
   sorting(key : any){
     this.key = key;
     this.reversa = !this.reversa;
+  }
+
+  showResults(event :any){
+    if(event.target.value.length >= 1){
+      this.searching= true;
+    }else{
+      this.searching=false;
+    }
+  }
+
+  selection(name: any){
+    this.mySearch =name;
+    this.myFilter=name;
+    this.pagina = 1;
+    this.searching=false;
+  }
+  
+  remove(){
+    this.myFilter="";
+    this.mySearch="";
+    this.searching=false;
+  }
+
+  focusLost(){
+    this.myFilter=this.mySearch;
   }
 }

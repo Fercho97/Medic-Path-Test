@@ -13,35 +13,49 @@ import { PadecimientosComponent } from './components/padecimientos/padecimientos
 import { PadecimientosRoutes } from './components/padecimientos/padecimientos.routes';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { SintomasRoutes } from './components/sintomas/sintomas.routes';
-import { VerificacionComponent}  from './components/verificacion/verificacion.component';
+import { VerificacionComponent} from './components/verificacion/verificacion.component';
 import { ResetPasswordComponent} from './components/reset-password/reset-password.component';
 import { UsuarioInfoComponent} from './components/usuario/usuarioInfo/usuarioInfo.component';
 import { BDCComponent } from './components/bdc/bdc.component';
-
+import { ProfileComponent } from './components/profile/profile.component';
+import { MedicalRecordComponent } from './components/profile/medical-record/medical-record.component';
+import { MedicsComponent } from './components/directory/medics.component';
+import { AdminGuardService } from './components/auth/admin-role-guard.service';
+import { DoctorGuardService } from './components/auth/doctor-role-guard.service';
+import { RegistryComponent } from './components/registry/registry.component';
+import { GuidedDiagnosticComponent } from './components/guided-diagnostic/guided-diagnostic.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'diagnostico', component: DiagnosticComponent },
+  { path: 'diagnosticoGuiado', component: GuidedDiagnosticComponent},
   { path: 'tratamiento', component: TreatmentComponent },
   { path: 'registro', component: SignupComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'record', component: MedicalRecordComponent },
+  { path: 'medics/:type', component: MedicsComponent },
+  { path: 'medics', component: MedicsComponent },
   { path: 'faq', component: FaqComponent },
-  { 
+  {
   path: 'sintomas',
   component: SintomasComponent,
+  canActivate: [DoctorGuardService],
   children: SintomasRoutes
   },
-  { 
-    path: 'padecimientos', 
-    component: PadecimientosComponent , 
+  {
+    path: 'padecimientos',
+    component: PadecimientosComponent ,
+    canActivate: [DoctorGuardService],
     children: PadecimientosRoutes
   },
-  { path: 'usuarios', component: UsuarioComponent },
+  { path: 'usuarios', component: UsuarioComponent, canActivate: [AdminGuardService] },
   { path: 'recovery', component: ForgotPasswordComponent },
   { path: 'emailSent', component: SendEmailComponent },
   { path: 'verificacion/:hash', component : VerificacionComponent},
   { path: 'recuperar/:hash', component : ResetPasswordComponent},
-  { path: 'usuarios/info/:id', component : UsuarioInfoComponent},
+  { path: 'usuarios/info/:hash', component : UsuarioInfoComponent, canActivate: [AdminGuardService]},
   { path: 'bdc', component : BDCComponent},
+  { path: 'registry', component: RegistryComponent},
   { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];
 
