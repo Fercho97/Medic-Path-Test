@@ -82,6 +82,7 @@ export class RegistryComponent implements OnInit {
    }
 
   guardarCambios() {
+    if(this.selectedEspe.length>0){
     var idsOnly : any = [];
     
    this.selectedEspe.forEach(element => {
@@ -108,6 +109,10 @@ export class RegistryComponent implements OnInit {
       console.log("Error", error.error);
       this.toast.error(error.error, 'Error');
   })
+}else{
+  this.toast.error("elija al menos una especialización", 'Error');
+}
+
   }
 
   drop(event: CdkDragDrop<string[]>){

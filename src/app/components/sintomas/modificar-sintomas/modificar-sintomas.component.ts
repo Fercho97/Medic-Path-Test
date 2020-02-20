@@ -18,6 +18,7 @@ export class ModificarSintomasComponent implements OnInit {
   
   mensajes_error = ErrorMsg.ERROR_MSG_SINT_PADS;
   modify: FormGroup;
+  moved = false;
   private values : HttpParams;
 
   categorias = [
@@ -29,6 +30,15 @@ export class ModificarSintomasComponent implements OnInit {
     },
     {
       nombre: 'Infecciosa'
+    },
+    {
+      nombre:'Alergica'
+    },
+    {
+      nombre: 'Ocular'
+    },
+    {
+      nombre: 'Corporal'
     }
   ];
 
@@ -116,10 +126,12 @@ export class ModificarSintomasComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>){
     if(event.previousContainer !== event.container){
+      this.moved = true;
       transferArrayItem(event.previousContainer.data,event.container.data,
                         event.previousIndex, event.currentIndex);
                         console.log(this.selectedCompuestos);
     }else{
+      this.moved = true;
       moveItemInArray(this.compuestos, event.previousIndex, event.currentIndex);
       console.log(this.selectedCompuestos);
     }

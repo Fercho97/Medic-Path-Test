@@ -19,6 +19,7 @@ export class ModificarPadecimientosComponent implements OnInit {
 
   modify: FormGroup;
   mensajes_error = ErrorMsg.ERROR_MSG_SINT_PADS;
+  moved = false;
   categorias = [
     {
       nombre: 'Estomacal'
@@ -109,10 +110,12 @@ export class ModificarPadecimientosComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>){
     if(event.previousContainer !== event.container){
+      this.moved=true;
       transferArrayItem(event.previousContainer.data,event.container.data,
                         event.previousIndex, event.currentIndex);
                         console.log(this.selectedSints);
     }else{
+      this.moved=true;
       moveItemInArray(this.sintomas, event.previousIndex, event.currentIndex);
       console.log(this.selectedSints);
     }

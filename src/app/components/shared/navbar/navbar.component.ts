@@ -32,7 +32,7 @@ export class NavbarComponent implements OnInit {
   logout(){
     sessionStorage.clear();
     localStorage.setItem('action','logout');
-    window.location.href='home';
+    window.location.href='/#/home';
   }
 
 }

@@ -4,7 +4,7 @@
   <div>
     <div class="row">
       <div class="col-8">
-        <input class="form-control" type="text" placeholder="Nombre" formControlName="nombres" value="{{usuarioInfo.nombres}}"/>
+        <input class="form-control" type="text" placeholder="Nombre" formControlName="nombres" [(ngModel)]="usuarioInfo.nombres"/>
       </div>
     </div>
     <div class="validation-errors">
@@ -18,7 +18,7 @@
 
     <div class="row">
       <div class="col-8">
-        <input class="form-control " type="text" placeholder="Apellido" formControlName="apellidos" value="{{usuarioInfo.apellidos}}"/>
+        <input class="form-control " type="text" placeholder="Apellido" formControlName="apellidos" [(ngModel)]="usuarioInfo.apellidos"/>
       </div>
     </div>
     <div class="validation-errors">
@@ -55,7 +55,7 @@
         class="form-control"
         type="text"
         placeholder="Nombre de Usuario"
-        value="{{usuarioInfo.nickname}}"
+        [(ngModel)]="usuarioInfo.nickname"
         formControlName="nickname"
         (keyup)="check()"
       />

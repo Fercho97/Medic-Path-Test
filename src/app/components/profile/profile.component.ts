@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
       this.usuario = res.body.resultado;
       sessionStorage.setItem('token',res.body.token);
       if(this.usuario.imagen_perfil!=null){
-        this.url = 'data:image/jpg;base64,' + this.usuario.imagen_perfil.toString();
+        this.url = this.usuario.imagen_perfil;
       }
     },
   error =>{

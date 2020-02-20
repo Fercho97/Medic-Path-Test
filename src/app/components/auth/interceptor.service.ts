@@ -25,13 +25,13 @@ export class AuthInterceptorService implements HttpInterceptor{
             });
         }
 
-        return next.handle(request).pipe(
+        return <any>next.handle(request).pipe(
             catchError((err: HttpErrorResponse) =>{
 
                 if(err.status === 401){
                     sessionStorage.clear();
                     window.localStorage.setItem('action','inactividad');
-                    window.location.href='home';
+                    window.location.href='/#/home';
                 }
 
                 return throwError( err );
