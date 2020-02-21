@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
       this.toast.success('Logout', 'Vuelva pronto');  
     }else if(localStorage.getItem('action')=="inactividad"){
       this.toast.warning('Sesión cerrada por inactividad','Termino de sesión')
+      window.location.reload();
     }
     localStorage.clear();
   }

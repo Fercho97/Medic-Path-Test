@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import {Router} from '@angular/router';
 @Component({
   selector: 'app-navbar',
@@ -8,13 +8,28 @@ import {Router} from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   user;
-  isAdmin = false;
-  isDoctor = false;
-  tipoUsuario = sessionStorage.getItem('tipoUsuario');
+  isAdmin;
+  isDoctor;
+  tipoUsuario;
   constructor(private router : Router) { }
 
-  ngOnInit() {
+  public ngOnInit() {
+    this.checkPermission();
+  }
+
+  logout(){
+    sessionStorage.clear();
+    localStorage.setItem('action','logout');
+    this.checkPermission();
+    this.router.navigate(['/home']);
+    
+  }
+
+  checkPermission(){
     this.user = false;
+    this.isAdmin = false;
+    this.isDoctor = false;
+    this.tipoUsuario = sessionStorage.getItem('tipoUsuario');
     if(sessionStorage.getItem('usuario')!=null){
       this.user = true;
     }
@@ -26,13 +41,7 @@ export class NavbarComponent implements OnInit {
       this.isAdmin = true;
     }
     console.log(this.isDoctor);
+    console.log(this.isAdmin);
     console.log(sessionStorage.getItem('usuario'));
   }
-
-  logout(){
-    sessionStorage.clear();
-    localStorage.setItem('action','logout');
-    window.location.href='/Medic-Path-Test/#/home';
-  }
-
 }

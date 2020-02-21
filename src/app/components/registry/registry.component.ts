@@ -65,7 +65,7 @@ export class RegistryComponent implements OnInit {
               return this.equalPasswords(formGroup);
           }),
       fechanacimiento: new FormControl('', Validators.required),
-      telefono: new FormControl('', [Validators.required,Validators.minLength(10), Validators.maxLength(15), Validators.pattern('[0-9]')]),
+      telefono: new FormControl('', [Validators.required,Validators.minLength(10), Validators.maxLength(15), Validators.pattern('[0-9]+')]),
       direccion: new FormControl('', Validators.required)
     });
 

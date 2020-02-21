@@ -31,7 +31,7 @@ export class AuthInterceptorService implements HttpInterceptor{
                 if(err.status === 401){
                     sessionStorage.clear();
                     window.localStorage.setItem('action','inactividad');
-                    window.location.href='/Medic-Path-Test/#/home';
+                    this.router.navigate(['/home']);
                 }
 
                 return throwError( err );
