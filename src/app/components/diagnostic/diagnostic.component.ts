@@ -30,12 +30,13 @@ export class DiagnosticComponent implements OnInit {
   breadcrumb : string = "";
   idResultado : string = '';
   user : boolean = false;
-  public iniciales : any = [];
+  public sintomas : any = [];
   public sintomasSeleccionados : any = [];
   public sintomasExtras : any =[];
   public isSelection : boolean = false;
   public descs : any = [];
   public nextObjective : any = [];
+  public niveles : any = { "Ninguno" : [], "Bajo" : [], "Medio" : [], "Alto" : [], "Severo" : []};
   constructor(private diagServ : DiagnosticService, private toast : ToastrService, 
               private router : Router, private sintServ : SintomasService) { }
 
@@ -44,9 +45,9 @@ export class DiagnosticComponent implements OnInit {
       this.user = true;
     }
 
-    this.sintServ.getComponents().subscribe(res =>{
-      this.iniciales = res.body;
-      console.log(this.iniciales);
+    this.sintServ.getSints().subscribe(res =>{
+      this.sintomas = res.body;
+      console.log(this.sintomas);
     })
   }
 
@@ -116,9 +117,8 @@ export class DiagnosticComponent implements OnInit {
 
     generarPregunta(){
       let id = this.descs.pop();
-      console.log(id);
       this.message = this.preguntas.pop();
-      let found = this.iniciales.find(item => item['nombre_sint'].toString() === id);
+      let found = this.sintomas.find(item => item['nombre_sint'].toString() === id);
 
       if(found!=undefined){
       this.descripcion = found.descripcion;
@@ -239,6 +239,7 @@ export class DiagnosticComponent implements OnInit {
       });
 
       this.calculateCloseness();
+      this.checkUrgencyLevels();
       if(this.user==true){
         this.guardar();
       }
@@ -262,7 +263,7 @@ export class DiagnosticComponent implements OnInit {
           }
         });
         porcentage = commonAtoms * 100 / atomsInRule;
-        if(porcentage > 10 && porcentage != 100){
+        if(porcentage > 50 && porcentage != 100){
           let closeness = {padecimiento: element[0].partesConclusion[0].desc, porcentaje: Math.floor(porcentage)};
           this.sintomasExtras.push(closeness);
         }
@@ -281,7 +282,7 @@ export class DiagnosticComponent implements OnInit {
           }
         });
         porcentage = commonAtoms * 100 / atomsInRule;
-        if(porcentage > 10 && porcentage != 100){
+        if(porcentage > 50 && porcentage != 100){
           let closeness = {padecimiento: element.partesConclusion[0].desc, porcentaje: Math.floor(porcentage)};
           this.sintomasExtras.push(closeness);
         }
@@ -321,4 +322,27 @@ export class DiagnosticComponent implements OnInit {
  
        return lastId;
      }
+
+     checkUrgencyLevels(){
+      
+            this.memoriaDeTrabajo.atomosAfirmados.forEach(atomo =>{
+              let atomSymp = this.sintomas.find(item => item['nombre_sint'].toString() === atomo.desc);
+              if(atomSymp!=null){
+              console.log(atomSymp.nivel_urgencia);
+              let sympLev = {sintoma: atomSymp.nombre_sint};
+              if(atomSymp.nivel_urgencia>=0 && atomSymp.nivel_urgencia<0.2){
+                this.niveles.Ninguno.push(sympLev);
+              }else if(atomSymp.nivel_urgencia>=0.2 && atomSymp.nivel_urgencia<0.4){
+                this.niveles.Bajo.push(sympLev);
+              }else if(atomSymp.nivel_urgencia>=0.4 && atomSymp.nivel_urgencia<0.6){
+                this.niveles.Medio.push(sympLev);
+              }else if(atomSymp.nivel_urgencia>=0.6 && atomSymp.nivel_urgencia<0.8){
+                this.niveles.Alto.push(sympLev);
+              }else if(atomSymp.nivel_urgencia>=0.8 && atomSymp.nivel_urgencia<1){
+                this.niveles.Severo.push(sympLev);
+              }
+              }
+            })
+            console.log(this.niveles);
+           }
 }

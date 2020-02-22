@@ -62,6 +62,9 @@ export class ErrorMsg {
           'categoria' : [
             {type: 'required', message: 'Es necesario el seleccionar una categoría'}
           ],
+          'urgencia' : [
+            {type: 'required', message: 'Es necesario el seleccionar un nive de urgencia para el sintoma'}
+          ],
           'especializacion' : [
             {type: 'required', message: 'Es necesario el seleccionar una especializacion para el padecimiento'}
           ],

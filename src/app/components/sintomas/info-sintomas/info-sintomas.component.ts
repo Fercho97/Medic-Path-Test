@@ -10,6 +10,29 @@ import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class InfoSintomasComponent implements OnInit {
 
+  nivelesUrgencia = [
+    {
+      nombre: 'Ninguno',
+      valor: '0'
+    },
+    {
+      nombre: 'Bajo',
+      valor: '0.2'
+    },
+    {
+      nombre: 'Medio',
+      valor: '0.4'
+    },
+    {
+      nombre: 'Alto',
+      valor: '0.6'
+    },
+    {
+      nombre: 'Severo',
+      valor: '0.8'
+    }
+  ];
+
   @Input() public sintoma; 
   public compuesto = '';
   private values : HttpParams;
@@ -39,6 +62,12 @@ export class InfoSintomasComponent implements OnInit {
     this.sintoma.composicion = this.sintoma.composicion.replace(/,/g,' ');
     this.sintoma.composicion = this.sintoma.composicion.replace(/&/g,'Y');
     }
+    this.nivelesUrgencia.forEach(nivel => {
+      
+      if(nivel.valor===this.sintoma.nivel_urgencia.toString()){
+        this.sintoma.nivel_urgencia = nivel.nombre;
+      }
+    });
     
   }
 

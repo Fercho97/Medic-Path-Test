@@ -29,6 +29,38 @@ export class AgregarSintomasComponent implements OnInit {
     },
     {
       nombre: 'Infecciosa'
+    },
+    {
+      nombre:'Alergica'
+    },
+    {
+      nombre: 'Ocular'
+    },
+    {
+      nombre: 'Corporal'
+    }
+  ];
+
+  nivelesUrgencia = [
+    {
+      nombre: 'Ninguno',
+      valor: '0'
+    },
+    {
+      nombre: 'Bajo',
+      valor: '.2'
+    },
+    {
+      nombre: 'Medio',
+      valor: '.4'
+    },
+    {
+      nombre: 'Alto',
+      valor: '.6'
+    },
+    {
+      nombre: 'Severo',
+      valor: '.8'
     }
   ];
 
@@ -52,6 +84,8 @@ export class AgregarSintomasComponent implements OnInit {
 
       categoria: new FormControl('', Validators.required),
 
+      urgencia: new FormControl('', Validators.required),
+      
       descripcion: new FormControl('',
       [Validators.required,
         Validators.minLength(20),
@@ -80,6 +114,7 @@ export class AgregarSintomasComponent implements OnInit {
       .set('keyWord', this.sintomas.value.keyword)
       .set('compuesto', 'false')
       .set('composicion', '')
+      .set('nivel_urgencia', this.sintomas.value.urgencia)
     }else{
       this.nameToId();
       this.values = new HttpParams()
@@ -89,6 +124,7 @@ export class AgregarSintomasComponent implements OnInit {
       .set('keyWord', this.sintomas.value.keyword)
       .set('compuesto', 'true')
       .set('composicion', this.composicionBack)
+      .set('nivel_urgencia', this.sintomas.value.urgencia)
     }
     console.log(this.values);
     this.sintServ.createSintoma(this.values).subscribe(res =>{

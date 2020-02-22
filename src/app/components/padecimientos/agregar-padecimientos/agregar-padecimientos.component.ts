@@ -29,6 +29,15 @@ export class AgregarPadecimientosComponent implements OnInit {
     },
     {
       nombre: 'Infecciosa'
+    },
+    {
+      nombre:'Alergica'
+    },
+    {
+      nombre: 'Ocular'
+    },
+    {
+      nombre: 'Corporal'
     }
   ];
 

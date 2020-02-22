@@ -8,5 +8,6 @@ export interface Sintoma{
     updatedAt: Date,
     keyWord: String,
     compuesto: boolean,
-    composicion: String
+    composicion: String,
+    nivel_urgencia: Number
 }

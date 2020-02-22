@@ -42,6 +42,29 @@ export class ModificarSintomasComponent implements OnInit {
     }
   ];
 
+  nivelesUrgencia = [
+    {
+      nombre: 'Ninguno',
+      valor: '0'
+    },
+    {
+      nombre: 'Bajo',
+      valor: '.2'
+    },
+    {
+      nombre: 'Medio',
+      valor: '.4'
+    },
+    {
+      nombre: 'Alto',
+      valor: '.6'
+    },
+    {
+      nombre: 'Severo',
+      valor: '.8'
+    }
+  ];
+
   public compuestos : any = [];
   public selectedCompuestos : any = [];
   public sintoma : Sintoma = {} as any;
@@ -64,6 +87,7 @@ export class ModificarSintomasComponent implements OnInit {
         Validators.maxLength(30)]),
 
       categoria: new FormControl('', Validators.required),
+      urgencia: new FormControl('', Validators.required),
       descripcion: new FormControl('', 
       [Validators.required,
         Validators.minLength(20),
@@ -109,7 +133,7 @@ export class ModificarSintomasComponent implements OnInit {
       })
       this.isChecked = this.sintoma.compuesto;
       this.modify.controls['categoria'].setValue(this.sintoma.categoria_sint, {onlySelf : true});
-
+      this.modify.controls['urgencia'].setValue(this.sintoma.nivel_urgencia, {onlySelf : true});
       this.originalValue = this.sintoma.nombre_sint;
     });
 
@@ -146,6 +170,7 @@ export class ModificarSintomasComponent implements OnInit {
       .set('keyWord', this.modify.value.keyword)
       .set('compuesto', 'false')
       .set('composicion', '')
+      .set('nivel_urgencia', this.modify.value.urgencia)
     }else{
       this.nameToId();
       this.values = new HttpParams()
@@ -155,6 +180,7 @@ export class ModificarSintomasComponent implements OnInit {
       .set('keyWord', this.modify.value.keyword)
       .set('compuesto', 'true')
       .set('composicion', this.composicionBack)
+      .set('nivel_urgencia', this.modify.value.urgencia)
     }
     console.log(this.values);
     this.sintServ.modificar(this.sintoma.hashId,this.values).subscribe(res =>{
