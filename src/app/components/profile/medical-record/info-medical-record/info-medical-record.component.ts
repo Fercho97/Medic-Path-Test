@@ -25,7 +25,7 @@ export class InfoMedicalRecordComponent implements OnInit {
       this.sintomas = res.body.resultado.detalles.split(",");
       sessionStorage.setItem('token', res.body.token);
       if(this.historial.url_imagen_pad!= null){
-      this.url = 'data:image/jpg;base64,' + this.historial.url_imagen_pad.toString();
+      this.url = this.historial.url_imagen_pad.toString();
       }
     },
   error =>{

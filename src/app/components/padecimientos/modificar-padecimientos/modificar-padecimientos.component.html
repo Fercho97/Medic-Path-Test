@@ -72,7 +72,7 @@
 
             <div  *ngIf="hasInfo" >
                 <label>Imagen Actual</label><br>
-                <img class="center" style="width:300px;height:200px;" [src]="'data:image/jpg;base64,' + urlImage" >
+                <img class="center" style="width:300px;height:200px;" [src]="urlImage" >
             </div>
               
             <div *ngIf="!hasInfo" >
