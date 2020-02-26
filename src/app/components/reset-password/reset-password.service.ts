@@ -8,17 +8,21 @@ import {Router} from '@angular/router';
 export class ResetPassService{
     _url : string = '';
     _urlVerif : string = '';
+    _urlChange : string = '';
     private router: Router;
     constructor(private _http: HttpClient) {
 
-        this._url = 'https://medicpath.herokuapp.com/usuarios/cambiarPassword/';
-        //'http://localhost:3000/usuarios/cambiarPassword/';
+        this._url = 'https://medicpath.herokuapp.com/usuarios/recuperarPassword/';
+        //'http://localhost:3000/usuarios/recuperarPassword/';
 
         this._urlVerif = 'https://medicpath.herokuapp.com/usuarios/isValidUrl/';
         //'http://localhost:3000/usuarios/isValidUrl/';
+
+        this._urlChange = 'https://medicpath.herokuapp.com/usuarios/cambiarPassword/';
+        //'http://localhost:3000/usuarios/cambiarPassword/';
     }
 
-    changePassword(hashId : any, pass : any){
+    restorePassword(hashId : any, pass : any){
         return this._http.put(this._url + encodeURIComponent(hashId),
                 pass.toString(),
             {
@@ -37,5 +41,16 @@ export class ResetPassService{
             observe : 'response'
             },
         )
+    }
+
+    changePassword(userHash : any, pass : any){
+        return this._http.put(this._urlChange + encodeURIComponent(userHash),
+                pass.toString(),
+            {
+              headers: new HttpHeaders()
+                .set('Content-Type', 'application/x-www-form-urlencoded'),
+              observe : 'response'
+            },
+          )
     }
 }

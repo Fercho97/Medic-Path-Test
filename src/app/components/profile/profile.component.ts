@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
     this.profileServ.getUser(this.hash).subscribe( (res: any) =>{
       this.usuario = res.body.resultado;
       sessionStorage.setItem('token',res.body.token);
+      console.log(this.usuario.imagen_perfil);
       if(this.usuario.imagen_perfil!=null){
         this.url = this.usuario.imagen_perfil;
       }

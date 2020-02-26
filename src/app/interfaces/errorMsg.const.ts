@@ -80,4 +80,11 @@ export class ErrorMsg {
             {type: 'maxlength', message: 'La longitud debe ser menor a 30 caracteres'}
           ]
     }
+
+    public static ERROR_DIAG = {
+      'temp' : [
+        {type: 'required', message: 'Es necesario ingresar su temperatura'},
+        {type: 'pattern', message: 'Ingrese una cantidad válida'},
+      ]
+    }
 }

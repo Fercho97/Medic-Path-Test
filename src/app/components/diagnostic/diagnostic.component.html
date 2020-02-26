@@ -14,7 +14,49 @@
             <h4>Sus sintomas: </h4>
             <h5>{{breadcrumb}}</h5>
             <h4 *ngIf="!hasResult">{{descripcion}}</h4>
-            <h1>{{message}}</h1>
+            <h1>{{question.message}}</h1>
+            
+            <div *ngIf="question.type === 'boolean'">
+            <button type="button" [hidden]="hasResult" class="btn btn-danger btn-lg" (click)="responder('No')">No</button>
+
+            <button type="button" [hidden]="hasResult" class="btn btn-primary btn-lg" (click)="responder('Si')">Si</button>
+            </div>
+            
+            <div *ngIf="question.type === 'numeric'">
+                <form [formGroup]="numeric" (ngSubmit)="numericAnswer()">
+            
+                        <input [ngClass]="{'is-invalid': !numeric.controls['temp'].valid}" formControlName="temp"
+                            class="form-control is-valid" type="text" placeholder="Temperatura corporal">
+                            <div class="validation-errors">
+                            <ng-container *ngFor="let validation of errores_Diag.temp">
+                                <div class="form-control-feedback" *ngIf="numeric.get('temp').hasError(validation.type) 
+                                && (numeric.get('temp').dirty || numeric.get('temp').touched)">
+                                <i class="fas fa-exclamation-circle"></i> {{validation.message}}
+                                </div>
+                            </ng-container>
+                        </div>
+    
+                    <button type="submit" class="btn btn-outline-primary boton" [disabled]="!numeric.valid">
+                            Enviar
+                    </button>
+                </form>
+            </div>
+            
+            <div *ngIf="question.type === 'scale'">
+                <button class="btn btn-outline-primary boton" (click)="scaleAnswer(1,question.index)">1</button>
+                <button class="btn btn-outline-primary boton" (click)="scaleAnswer(2,question.index)">2</button>
+                <button class="btn btn-outline-primary boton" (click)="scaleAnswer(3,question.index)">3</button>
+                <button class="btn btn-outline-primary boton" (click)="scaleAnswer(4,question.index)">4</button>
+                <button class="btn btn-outline-primary boton" (click)="scaleAnswer(5,question.index)">5</button>
+                <button class="btn btn-outline-primary boton" (click)="scaleAnswer(6,question.index)">6</button>
+                <button class="btn btn-outline-primary boton" (click)="scaleAnswer(7,question.index)">7</button>
+                <button class="btn btn-outline-primary boton" (click)="scaleAnswer(8,question.index)">8</button>
+                <button class="btn btn-outline-primary boton" (click)="scaleAnswer(9,question.index)">9</button>
+                <button class="btn btn-outline-primary boton" (click)="scaleAnswer(10,question.index)">10</button>
+            </div>
+        </div>
+
+        <div *ngIf="hasResult">
             <ul *ngIf="hasResult">
                 <h2>Esto debido a los siguientes sintomas: </h2>
                 <li *ngFor="let sintoma of sintomasSeleccionados">
@@ -22,44 +64,40 @@
                 </li>
             </ul>
             <div>
-                <ul *ngIf="niveles.Medio.length>0">
-                    <h4>Sintomas destacados <i class="far fa-question-circle" title="Sintomas que pueden afectar su vida diaria"></i></h4>
-                    <li *ngFor="let niv of niveles.Medio">
+            <ul *ngIf="niveles.Medio.length>0">
+                <h4>Sintomas destacados <i class="far fa-question-circle" title="Sintomas que pueden afectar su vida diaria"></i></h4>
+                <li *ngFor="let niv of niveles.Medio">
+                    <p>{{niv.sintoma}}</p>
+                </li>
+            </ul>
+            <ul *ngIf="niveles.Bajo.length>0">
+                    <h4>Sintomas de baja urgencia <i class="far fa-question-circle" title="Sintomas cuya persistencia por más de 3 días será necesario el checar con un médico"></i></h4>
+                    <li *ngFor="let niv of niveles.Bajo">
                         <p>{{niv.sintoma}}</p>
                     </li>
-                </ul>
-                <ul *ngIf="niveles.Bajo.length>0">
-                        <h4>Sintomas de baja urgencia <i class="far fa-question-circle" title="Sintomas cuya persistencia por más de 3 días será necesario el checar con un médico"></i></h4>
-                        <li *ngFor="let niv of niveles.Bajo">
-                            <p>{{niv.sintoma}}</p>
-                        </li>
-                </ul>
-                <ul *ngIf="niveles.Alto.length>0">
-                    <h4>Sintomas de baja urgencia <i class="far fa-question-circle" title="Sintomas que por su naturaleza o bien su persistencia se recomienda encarecidamente acudir con un médico"></i></h4>
-                    <li *ngFor="let niv of niveles.Alto">
-                        <p>{{niv.sintoma}}</p>
-                    </li>
-                </ul>
-                <ul *ngIf="niveles.Severo.length>0">
-                    <h4>Sintomas de baja urgencia <i class="far fa-question-circle" title="Si presenta alguno de estos sintomas es sumamente necesario el acudir con un especialista con el fin de tratar dicho sintoma, por lo regular requieren estudios."></i></h4>
-                    <li *ngFor="let niv of niveles.Severo">
-                        <p>{{niv.sintoma}}</p>
-                    </li>
-                </ul>
-                </div>
+            </ul>
+            <ul *ngIf="niveles.Alto.length>0">
+                <h4>Sintomas de alta urgencia <i class="far fa-question-circle" title="Sintomas que por su naturaleza o bien su persistencia se recomienda encarecidamente acudir con un médico"></i></h4>
+                <li *ngFor="let niv of niveles.Alto">
+                    <p>{{niv.sintoma}}</p>
+                </li>
+            </ul>
+            <ul *ngIf="niveles.Severo.length>0">
+                <h4>Sintomas de severidad<i class="far fa-question-circle" title="Si presenta alguno de estos sintomas es sumamente necesario el acudir con un especialista con el fin de tratar dicho sintoma, por lo regular requieren estudios."></i></h4>
+                <li *ngFor="let niv of niveles.Severo">
+                    <p>{{niv.sintoma}}</p>
+                </li>
+            </ul>
+            </div>
             <ul *ngIf="sintomasExtras.length>0">
-                <h2>Sin embargo presento sintomas que pueden concordar con las siguientes enfermedades: </h2>
+                <h2>Sin embargo presento ciertos sintomas que pueden concordar con las siguientes enfermedades: </h2>
                 <li *ngFor="let sints of sintomasExtras">
                   {{sints.padecimiento}} 
                   <p><ngb-progressbar type="success" [value]="sints.porcentaje" showValue="true"></ngb-progressbar></p>
                 </li>
             </ul>
-            <button type="button" [hidden]="hasResult" class="btn btn-danger btn-lg" (click)="responder('No')">No</button>
 
-            <button type="button" [hidden]="hasResult" class="btn btn-primary btn-lg" (click)="responder('Si')">Si</button>
-       
-            <button *ngIf='user' routerLink="/record" expand="block"  class="btn btn-primary btn-lg" [hidden]="!hasResult" >Continuar</button>
-            
+            <button *ngIf='user' routerLink="/record" expand="block"  class="btn btn-primary btn-lg" >Continuar</button>
         </div>
     </div>
     <a routerLink="home" routerLinkActive="active"><button type="button" class="btn btn-dark cancel">Volver</button></a>

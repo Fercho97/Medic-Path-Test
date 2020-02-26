@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DiagnosticService } from './diagnostic.service';
 import { Regla } from '../../inferencia/regla.class';
 import { Atomo } from '../../inferencia/atomo.class';
@@ -8,6 +8,9 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import {Router} from '@angular/router';
 import { SintomasService } from '../sintomas/sintomas.service';
+import { questions } from '../../interfaces/questions.const';
+import { Calculus } from '../../inferencia/calculus.class';
+import { ErrorMsg } from '../../interfaces/errorMsg.const';
 @Component({
   selector: 'app-diagnostic',
   templateUrl: './diagnostic.component.html',
@@ -18,13 +21,14 @@ import { SintomasService } from '../sintomas/sintomas.service';
 export class DiagnosticComponent implements OnInit {
 
   hasPregunta : boolean = false;
-  message : string = "";
+  question : any = {};
   descripcion : string = "";
   baseConocimiento : any[] = [];
   memoriaDeTrabajo = new MemoriaTrabajo();
   conocimientoEvaluado : any[] = [];
   reglaEvaluar = new Regla();
-  preguntas : string[] = [];
+  calculusClass = new Calculus();
+  preguntas : any[] = [];
   atomosCondicion : Atomo[] = [];
   hasResult : boolean = false;
   breadcrumb : string = "";
@@ -33,12 +37,20 @@ export class DiagnosticComponent implements OnInit {
   public sintomas : any = [];
   public sintomasSeleccionados : any = [];
   public sintomasExtras : any =[];
-  public isSelection : boolean = false;
   public descs : any = [];
   public nextObjective : any = [];
   public niveles : any = { "Ninguno" : [], "Bajo" : [], "Medio" : [], "Alto" : [], "Severo" : []};
+  public questionTypes = questions.QUESTIONS;
+  public numeric : FormGroup;
+  public scale : FormGroup;
+  public errores_Diag = ErrorMsg.ERROR_DIAG;
   constructor(private diagServ : DiagnosticService, private toast : ToastrService, 
-              private router : Router, private sintServ : SintomasService) { }
+              private router : Router, private sintServ : SintomasService) {
+
+                this.numeric = new FormGroup({
+                  temp: new FormControl('', [Validators.required,Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]) 
+                });
+               }
 
   ngOnInit() {
     if(window.sessionStorage.getItem('usuario')!=null){
@@ -97,10 +109,15 @@ export class DiagnosticComponent implements OnInit {
             let almacenado = null;
 
             almacenado =  this.memoriaDeTrabajo.estaAlmacenado(element);
-            console.log("Esta en la memoria?" + almacenado)
+            //console.log("Esta en la memoria?" + almacenado)
             if(almacenado===false){
             this.atomosCondicion.push(new Atomo(element.desc,element.estado,element.obj,element.padecimiento));
-             this.preguntas.push("¿Ha tenido " + element.desc + " ?");
+            let question = this.questionGen(element.desc); 
+            if(question!=null){
+              this.preguntas.push(question);
+            }else{
+            this.preguntas.push({message: "¿Ha tenido " + element.desc + " ?", type: "boolean"});
+            }
              this.descs.push(element.desc);
             }
           }
@@ -108,22 +125,26 @@ export class DiagnosticComponent implements OnInit {
         //console.log(this.atomosCondicion);
         //console.log(this.preguntas);
         if(this.preguntas.length!=0){
-          this.generarPregunta();
+          this.mostrarPregunta();
           }
         else{
           this.analize();
         }
     }
 
-    generarPregunta(){
+    mostrarPregunta(){
+      this.question = this.preguntas.pop();
+      console.log(this.question);
+      if(this.question.type==='boolean'){
       let id = this.descs.pop();
-      this.message = this.preguntas.pop();
+      console.log(id);
+      
       let found = this.sintomas.find(item => item['nombre_sint'].toString() === id);
 
       if(found!=undefined){
       this.descripcion = found.descripcion;
       }
-
+    }
     }
 
     responder(resp : any){
@@ -131,6 +152,7 @@ export class DiagnosticComponent implements OnInit {
       if(resp=='Si'){
         atomoEvaluado.estado = true; 
         this.breadcrumb = this.breadcrumb + atomoEvaluado.desc + "->"
+        this.evaluateSypmtom(atomoEvaluado.desc);
       }
       else{
         atomoEvaluado.estado = false; 
@@ -138,7 +160,7 @@ export class DiagnosticComponent implements OnInit {
       this.memoriaDeTrabajo.almacenarAtomo(atomoEvaluado);
 
       if(this.atomosCondicion.length>0){
-        this.generarPregunta();
+        this.mostrarPregunta();
       }
       else{
         this.analize();
@@ -161,7 +183,7 @@ export class DiagnosticComponent implements OnInit {
          this.showWhy();
         }
       }else{
-        console.log("No se cumplio: " + this.reglaEvaluar.partesConclusion)
+        //console.log("No se cumplio: " + this.reglaEvaluar.partesConclusion)
         for(var noCumplido of this.reglaEvaluar.partesConclusion){
           let atomoNoCumplido = new Atomo(noCumplido.desc,false,noCumplido.obj,noCumplido.padecimiento);
           this.memoriaDeTrabajo.almacenarAtomo(atomoNoCumplido);
@@ -170,9 +192,9 @@ export class DiagnosticComponent implements OnInit {
       if(this.baseConocimiento.length!=0 && this.hasResult==false){
       this.inferencia();
       }else if(this.hasResult==false){
-        this.message="Lo sentimos, no se pudo encontrar su padecimiento conforme sus respuestas";
+        this.question={message: "Lo sentimos, no se pudo encontrar su padecimiento conforme sus respuestas"};
         this.hasResult=true;
-        this.calculateCloseness();
+        this.sintomasExtras = this.calculusClass.calculateCloseness(this.conocimientoEvaluado,this.baseConocimiento,this.memoriaDeTrabajo);
       }
     }
 
@@ -229,7 +251,7 @@ export class DiagnosticComponent implements OnInit {
 
     showWhy(){
       console.log(this.reglaEvaluar.partesConclusion[0].desc)
-      this.message="Usted padece de : " + this.reglaEvaluar.partesConclusion[0].desc;
+      this.question={message: "Usted padece de : " + this.reglaEvaluar.partesConclusion[0].desc }
       this.hasResult=true;
       this.idResultado=this.reglaEvaluar.partesConclusion[0].padecimiento;
       this.reglaEvaluar.partesCondicion.forEach(element => {
@@ -237,60 +259,16 @@ export class DiagnosticComponent implements OnInit {
           this.sintomasSeleccionados.push(this.memoriaDeTrabajo.estaAfirmado(element));
          }
       });
-
-      this.calculateCloseness();
+      //TODO debatir si esto será necesario mostrar otras posibles enfermedades y en caso que si, ver que tanto porcentaje de oportunidad daremos.
+    
+      this.sintomasExtras = this.calculusClass.calculateCloseness(this.conocimientoEvaluado,this.baseConocimiento,this.memoriaDeTrabajo);
+      console.log(this.sintomasExtras);
       this.checkUrgencyLevels();
       if(this.user==true){
         this.guardar();
       }
     }
-    //TODO debatir si esto será necesario mostrarle y en caso que si, ver que tanto porcentaje de oportunidad daremos.
-    calculateCloseness(){
-      let atomsInRule;
-      let commonAtoms;
-      let bestPorcentage = 0;
-      let porcentage;
-      this.conocimientoEvaluado.forEach(element => {
-         if(element[0].partesConclusion[0].obj==true){
-        atomsInRule=0;
-        commonAtoms=0;
-        element[0].partesCondicion.forEach(parte =>{
-          if(parte instanceof Atomo){
-            atomsInRule++;
-          }
-          if(this.memoriaDeTrabajo.atomosAfirmados.some(atom => atom.desc === parte.desc)){
-            commonAtoms++;
-          }
-        });
-        porcentage = commonAtoms * 100 / atomsInRule;
-        if(porcentage > 50 && porcentage != 100){
-          let closeness = {padecimiento: element[0].partesConclusion[0].desc, porcentaje: Math.floor(porcentage)};
-          this.sintomasExtras.push(closeness);
-        }
-      }
-      });
-      this.baseConocimiento.forEach(element => {
-        if(element.partesConclusion[0].obj==true){
-        atomsInRule=0;
-        commonAtoms=0;
-        element.partesCondicion.forEach(parte =>{
-          if(parte instanceof Atomo){
-            atomsInRule++;
-          }
-          if(this.memoriaDeTrabajo.atomosAfirmados.some(atom => atom.desc === parte.desc)){
-            commonAtoms++;
-          }
-        });
-        porcentage = commonAtoms * 100 / atomsInRule;
-        if(porcentage > 50 && porcentage != 100){
-          let closeness = {padecimiento: element.partesConclusion[0].desc, porcentaje: Math.floor(porcentage)};
-          this.sintomasExtras.push(closeness);
-        }
-      }
-      });
-
-      console.log(this.sintomasExtras);
-    }
+    
 
     hasMiddleAtom(){
       let previousRuleIndex;
@@ -324,25 +302,76 @@ export class DiagnosticComponent implements OnInit {
      }
 
      checkUrgencyLevels(){
+
+      this.memoriaDeTrabajo.atomosAfirmados.forEach(atomo =>{
+        let atomSymp = this.sintomas.find(item => item['nombre_sint'].toString() === atomo.desc);
+        if(atomSymp!=null){
+        console.log(atomSymp.nivel_urgencia);
+        let sympLev = {sintoma: atomSymp.nombre_sint};
+        if(atomSymp.nivel_urgencia>=0 && atomSymp.nivel_urgencia<0.2){
+          this.niveles.Ninguno.push(sympLev);
+        }else if(atomSymp.nivel_urgencia>=0.2 && atomSymp.nivel_urgencia<0.4){
+          this.niveles.Bajo.push(sympLev);
+        }else if(atomSymp.nivel_urgencia>=0.4 && atomSymp.nivel_urgencia<0.6){
+          this.niveles.Medio.push(sympLev);
+        }else if(atomSymp.nivel_urgencia>=0.6 && atomSymp.nivel_urgencia<0.8){
+          this.niveles.Alto.push(sympLev);
+        }else if(atomSymp.nivel_urgencia>=0.8 && atomSymp.nivel_urgencia<1){
+          this.niveles.Severo.push(sympLev);
+        }
+        }
+      })
+     }
+
+     questionGen(sint: any){
+
+      let hasCertainQuestion = questions.QUESTIONS[sint.toLowerCase()];
+
+      if(hasCertainQuestion!=undefined){
+        return hasCertainQuestion[0];
+      }else{
+        return null;
+      }
       
-            this.memoriaDeTrabajo.atomosAfirmados.forEach(atomo =>{
-              let atomSymp = this.sintomas.find(item => item['nombre_sint'].toString() === atomo.desc);
-              if(atomSymp!=null){
-              console.log(atomSymp.nivel_urgencia);
-              let sympLev = {sintoma: atomSymp.nombre_sint};
-              if(atomSymp.nivel_urgencia>=0 && atomSymp.nivel_urgencia<0.2){
-                this.niveles.Ninguno.push(sympLev);
-              }else if(atomSymp.nivel_urgencia>=0.2 && atomSymp.nivel_urgencia<0.4){
-                this.niveles.Bajo.push(sympLev);
-              }else if(atomSymp.nivel_urgencia>=0.4 && atomSymp.nivel_urgencia<0.6){
-                this.niveles.Medio.push(sympLev);
-              }else if(atomSymp.nivel_urgencia>=0.6 && atomSymp.nivel_urgencia<0.8){
-                this.niveles.Alto.push(sympLev);
-              }else if(atomSymp.nivel_urgencia>=0.8 && atomSymp.nivel_urgencia<1){
-                this.niveles.Severo.push(sympLev);
-              }
-              }
-            })
-            console.log(this.niveles);
-           }
+     }
+
+     numericAnswer(){
+       let expectedValue = this.question.validValue;
+
+       let atomoEvaluado = this.atomosCondicion.pop();
+       if(this.numeric.value.temp >= expectedValue){
+         atomoEvaluado.estado = true; 
+         this.breadcrumb = this.breadcrumb + atomoEvaluado.desc + "->"
+       }
+       else{
+         atomoEvaluado.estado = false; 
+       }
+       this.memoriaDeTrabajo.almacenarAtomo(atomoEvaluado);
+ 
+       if(this.atomosCondicion.length>0){
+         this.mostrarPregunta();
+       }
+       else{
+         this.analize();
+       }
+     }
+
+     evaluateSypmtom(symp : any){
+      let atomSymp = this.sintomas.find(item => item['nombre_sint'].toString() === symp);
+      let sympIndex = this.sintomas.findIndex(item => item['nombre_sint'].toString() === symp);
+      if(atomSymp.nivel_urgencia==0.4){
+        this.preguntas.push({message:'Del 1 al 10 que rango de molestia le causa el tener ' + atomSymp.nombre_sint, type: 'scale', index: sympIndex});
+      }
+     }
+
+     scaleAnswer(num : any, index : any){
+    let atomSymp = this.sintomas[index];
+    let calculatedUrgency = (atomSymp.nivel_urgencia*num)/4;
+    this.sintomas[index].nivel_urgencia = calculatedUrgency;
+    if(this.preguntas.length>0){
+      this.mostrarPregunta();
+      }else{
+      this.analize();
+      }
+     }
 }

@@ -7,7 +7,6 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { DiagnosticComponent } from './components/diagnostic/diagnostic.component';
-import { TreatmentComponent } from './components/treatment/treatment.component';
 import { AboutComponent } from './components/about/about.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { FaqComponent } from './components/faq/faq.component';
@@ -60,7 +59,6 @@ import { GuidedDiagnosticComponent } from './components/guided-diagnostic/guided
     FooterComponent,
     HomeComponent,
     DiagnosticComponent,
-    TreatmentComponent,
     AboutComponent,
     SignupComponent,
     FaqComponent,

@@ -16,7 +16,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { ResetPassService } from './reset-password.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
+import { ErrorMsg } from '../../interfaces/errorMsg.const';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
@@ -28,39 +28,64 @@ export class ResetPasswordComponent implements OnInit {
   private values : HttpParams;
   private hash : string = '';
   isValid : boolean = false;
+  fromProfile: boolean = false;
+  mensajes_error = ErrorMsg.ERROR_MSG_REGISTER;
   constructor(private restServ : ResetPassService, private http : HttpClient, private router : Router, private toast : ToastrService, private url : ActivatedRoute) { 
-    
+   
     this.reset = new FormGroup({
-            newPass: new FormControl('', Validators.required),
-            verifiedPassword: new FormControl('', Validators.required),
-          });
-
-  
-    this.reset.controls.verifiedPassword.setValidators([
-         Validators.required,
-         this.noIgual.bind(this.reset)
-    ]);
+            
+                    password_validations : new FormGroup({
+                      newPass : new FormControl('', [Validators.required, Validators.minLength(5)]),
+                      verifiedPassword : new FormControl('', Validators.required),
+                      }, (formGroup : FormGroup) => {
+                          return this.equalPasswords(formGroup);
+                      })
+                });
   }
 
   
   ngOnInit() {
+    if(this.url.snapshot.params.hash){
     this.verifyUrl(this.url.snapshot.params.hash);
+    }
+    else if(sessionStorage.getItem('usuario')!=null){
+      this.fromProfile=true;
+      this.isValid=true;
+    }else{
+      this.router.navigate(['/home']);
+    }
   }
 
   changePassword(){
-    this.hash = this.url.snapshot.params.hash;
+    if(this.url.snapshot.params.hash){
+        this.hash = this.url.snapshot.params.hash;
 
-    this.values = new HttpParams()
-    .set('newPassword', this.reset.value.newPass);
-    console.log(this.values);
+        this.values = new HttpParams()
+        .set('newPassword', this.reset.value.password_validations.newPass);
 
-    this.restServ.changePassword(this.hash,this.values).subscribe( (res : any) =>{
-    this.toast.success('Se ha modificado la contraseña con éxito ', 'Éxito!');
-    this.router.navigate(['/home']);
-  }, error =>{
-      console.log("Error", error.error.message);
-      this.toast.error(error.error.message, 'Error');
-  })
+        this.restServ.restorePassword(this.hash,this.values).subscribe( (res : any) =>{
+        this.toast.success('Se ha modificado la contraseña con éxito ', 'Éxito!');
+        this.router.navigate(['/home']);
+      }, error =>{
+          console.log("Error", error.error.message);
+          this.toast.error(error.error.message, 'Error');
+      })
+    }else{
+      this.hash = sessionStorage.getItem('hash');
+      
+        this.values = new HttpParams()
+        .set('newPassword', this.reset.value.password_validations.newPass);
+
+        this.restServ.changePassword(this.hash,this.values).subscribe( (res : any) =>{
+        this.toast.success('Se ha modificado su contraseña con éxito es necesario que vuelva a iniciar sesión ', 'Éxito!');
+        sessionStorage.clear();
+        window.location.reload();
+        this.router.navigate(['/home']);
+      }, error =>{
+          console.log("Error", error.error.message);
+          this.toast.error(error.error.message, 'Error');
+      })
+    }
   }
 
   verifyUrl(hashID : any){
@@ -76,15 +101,28 @@ export class ResetPasswordComponent implements OnInit {
 
   }
 
-  noIgual(control: FormControl): { [s: string]: boolean } {
-    const reset: any = this;
-    if(reset.controls.newPass.value !== null && reset.controls.verifiedPassword.value !== null){
-    if (reset.controls.newPass.value !== reset.controls.verifiedPassword.value) {
-      return {
-        noiguales: true
-      };
+  equalPasswords(formGroup : FormGroup){
+    let val;
+    let valid = true;
+
+    for(let key in formGroup.controls){
+      if(formGroup.controls.hasOwnProperty(key)){
+        let control : FormControl = <FormControl>formGroup.controls[key];
+        if(val === undefined){
+           val = control.value
+        }else{
+          if(val !== control.value){
+             valid = false;
+             break;
+          }
+        }
+      }
     }
-  }
-    return null;
+    if(valid){
+      return null;
+    }
+    return{
+      equalPasswords : true
+    }
   }
 }
