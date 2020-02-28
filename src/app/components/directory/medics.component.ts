@@ -19,8 +19,8 @@ export class MedicsComponent implements OnInit {
   public mySearch : any = "";
   tipo = "all";
   hasEspe = false;
-  public searching: boolean = false;
   content;
+  public searching: boolean = false;
   constructor(private userServ : UsuarioService, private modalService : NgbModal, private route : ActivatedRoute) { }
 
   ngOnInit() {

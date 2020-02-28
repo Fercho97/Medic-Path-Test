@@ -25,6 +25,7 @@ export class UsuarioComponent implements OnInit {
   public patients: Usuario[] = [];
   key = 'fullname';
   reversa = false;
+  content;
   public myFilter : any = "";
   public mySearch : any = "";
   public searching : boolean = false;

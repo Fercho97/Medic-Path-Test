@@ -85,7 +85,6 @@ export class AgregarSintomasComponent implements OnInit {
       categoria: new FormControl('', Validators.required),
 
       urgencia: new FormControl('', Validators.required),
-
       descripcion: new FormControl('',
       [Validators.required,
         Validators.minLength(20),

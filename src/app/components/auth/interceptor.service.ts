@@ -25,7 +25,7 @@ export class AuthInterceptorService implements HttpInterceptor{
             });
         }
 
-        return next.handle(request).pipe(
+        return <any>next.handle(request).pipe(
             catchError((err: HttpErrorResponse) =>{
 
                 if(err.status === 401){
