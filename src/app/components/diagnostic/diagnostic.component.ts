@@ -11,6 +11,8 @@ import { SintomasService } from '../sintomas/sintomas.service';
 import { questions } from '../../interfaces/questions.const';
 import { Calculus } from '../../inferencia/calculus.class';
 import { ErrorMsg } from '../../interfaces/errorMsg.const';
+import * as moment from 'moment-timezone';
+moment.locale('es');
 @Component({
   selector: 'app-diagnostic',
   templateUrl: './diagnostic.component.html',
@@ -199,12 +201,13 @@ export class DiagnosticComponent implements OnInit {
     }
 
     guardar(){
-      console.log("se envia");
+      var fecha = moment().tz('America/Mexico_City').format();
       let values = new HttpParams()
       .set('detalles', this.breadcrumb.replace(/->/g,","))
       .set('usuario', window.sessionStorage.getItem('usuario'))
       .set('padecimiento_final', this.idResultado)
-      .set('visible', 'true');
+      .set('visible', 'true')
+      .set('fecha', fecha.toString());
 
       this.diagServ.guardarHistorial(values).subscribe(res =>{
         console.log("Ok", res)

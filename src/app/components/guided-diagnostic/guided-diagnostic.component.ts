@@ -11,6 +11,8 @@ import { SintomasService } from '../sintomas/sintomas.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { questions } from '../../interfaces/questions.const';
 import { ErrorMsg } from '../../interfaces/errorMsg.const';
+import * as moment from 'moment-timezone';
+moment.locale('es');
 @Component({
   selector: 'app-guided-diagnostic',
   templateUrl: './guided-diagnostic.component.html',
@@ -196,11 +198,13 @@ export class GuidedDiagnosticComponent implements OnInit {
 
     guardar(){
       console.log("se envia");
+      var fecha = moment().tz('America/Mexico_City').format();
       let values = new HttpParams()
       .set('detalles', this.breadcrumb.replace(/->/g,","))
       .set('usuario', this.usuario)
       .set('padecimiento_final', this.idResultado)
-      .set('visible', 'true');
+      .set('visible', 'true')
+      .set('fecha', fecha.toString());
 
       this.diagServ.guardarHistorial(values).subscribe(res =>{
         console.log("Ok", res)
