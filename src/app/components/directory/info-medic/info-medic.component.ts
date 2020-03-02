@@ -27,7 +27,7 @@ export class InfoMedicComponent implements OnInit {
 
       this.infoDoc = res.body.usuario;
       this.nombreCompleto = res.body.usuario.nombres + " " + res.body.usuario.apellidos;
-      this.especializaciones = res.body.especializaciones;
+      this.especializaciones = res.body.usuario.especializacions;
 
       if(res.body.usuario.imagen_perfil==null){
         this.url = "../../../../assets/default-image.jpg"

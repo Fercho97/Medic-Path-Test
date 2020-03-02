@@ -1,6 +1,6 @@
 <div class="myMod">
     <div class="modal-header">
-      <h5 class="modal-title" id="info">Detalles de médico</h5>
+      <h5 class="modal-title" id="info">Detalles del médico</h5>
       <button type="button" class="close" (click)="activeModal.dismiss('Cross click')" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -13,13 +13,13 @@
     </div>
 
     <label>Nombre del Médico</label>
-    <input type="text"  value="{{nombreCompleto}}" disabled>
+    <input type="text"  value="{{infoDoc.fullname}}" disabled>
 
     <label>Especializaciones del Médico</label>
     <div *ngFor="let especializacion of especializaciones">
         <label ><br>*{{especializacion.nombre_esp}}<br></label>
     </div>
-  
+  <br>
     <label>Telefono de contacto</label>
     <input type="text"  value="{{infoDoc.telefono}}" disabled>
 
