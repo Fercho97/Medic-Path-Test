@@ -146,49 +146,6 @@
           </div>
         </div>
 
-        <div formGroupName="password_validations">
-          <div class="form-group row">
-            <div class="col-md-8">
-
-              <input [ngClass]="{'is-invalid': !forma.get('password_validations.password1').valid}" formControlName="password1"
-                class="form-control is-valid" type="password" placeholder="Contraseña">
-                <div class="validation-errors">
-                  <ng-container *ngFor="let validation of mensajes_error.password">
-                    <div class="form-control-feedback" *ngIf="forma.get('password_validations.password1').hasError(validation.type) 
-                      && (forma.get('password_validations.password1').dirty || forma.get('password_validations.password1').touched)">
-                      <i class="fas fa-exclamation-circle"></i>{{validation.message}}
-                    </div>
-                  </ng-container>
-              </div>
-            </div>
-          </div>
-          
-          <div class="form-group row">
-            <div class="col-md-8">
-
-              <input [ngClass]="{'is-invalid': !forma.get('password_validations.password2').valid}" formControlName="password2"
-                class="form-control is-valid" type="password" placeholder="Repetir Contraseña">
-                <div class="validation-errors">
-                  <ng-container *ngFor="let validation of mensajes_error.passwordVerif">
-                    <div class="form-control-feedback" *ngIf="forma.get('password_validations.password2').hasError(validation.type) 
-                      && (forma.get('password_validations.password2').dirty || forma.get('password_validations.password2').touched)">
-                      <i class="fas fa-exclamation-circle"></i>{{validation.message}}
-                    </div>
-                  </ng-container>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="validation-errors">
-          <ng-container *ngFor="let validation of mensajes_error.same_password">
-            <div class="form-control-feedback" *ngIf="forma.get('password_validations').hasError(validation.type) 
-             && (forma.get('password_validations.password2').dirty || forma.get('password_validations.password2').touched)">
-             <i class="fas fa-exclamation-circle"></i>{{validation.message}}
-            </div>
-          </ng-container>
-      </div>
-
         <div class="form-group row center">
           <div class="input-group col-md-8">
             <button type="submit" class="btn btn-outline-primary boton" [disabled]="!forma.valid">

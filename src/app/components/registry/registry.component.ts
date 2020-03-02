@@ -15,6 +15,7 @@ import { ErrorMsg } from '../../interfaces/errorMsg.const';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { NicknameValidator } from "../../validators/NicknameValidator";
 import { EmailValidator } from "../../validators/EmailValidator";
+import { DateValidator } from '../../validators/DateValidator';
 @Component({
   selector: 'app-registry',
   templateUrl: './registry.component.html',
@@ -58,13 +59,7 @@ export class RegistryComponent implements OnInit {
       username: new FormControl('', [Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20)],[this.nickVal.existingNickname()]),
-        password_validations : new FormGroup({
-          password1 : new FormControl('', [Validators.required, Validators.minLength(5)]),
-          password2 : new FormControl('', Validators.required),
-          }, (formGroup : FormGroup) => {
-              return this.equalPasswords(formGroup);
-          }),
-      fechanacimiento: new FormControl('', Validators.required),
+      fechanacimiento: new FormControl('', [Validators.required,DateValidator.isFutureDate,DateValidator.noValidAge]),
       telefono: new FormControl('', [Validators.required,Validators.minLength(10), 
          Validators.maxLength(15), Validators.pattern('[0-9]+')]),
       direccion: new FormControl('', Validators.required)
@@ -89,14 +84,15 @@ export class RegistryComponent implements OnInit {
    this.selectedEspe.forEach(element => {
      idsOnly.push(element.id);
    });
+    let password = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0,5);
     let formData: any = new FormData();
     formData.append('nickname', this.forma.value.username)
     formData.append('email', this.forma.value.correo)
     formData.append('sexo', this.forma.value.genero)
     formData.append('nombres', this.forma.value.nombrecompleto.nombre)
     formData.append('apellidos', this.forma.value.nombrecompleto.apellido)
-    formData.append('password', this.forma.value.password_validations.password1)
-    formData.append('passwordVerif', this.forma.value.password_validations.password2)
+    formData.append('password', password)
+    formData.append('passwordVerif', password)
     formData.append('tipoUsuario', '2')
     formData.append('fecha_nacimiento', this.forma.value.fechanacimiento);
     formData.append('telefono', this.forma.value.telefono);
