@@ -31,11 +31,16 @@ margin-top: 15px;
 margin-bottom: 15px;
 }
 
+ul{
+  position: absolute;
+  width: 100%;
+}
 ul li {
   margin: 1px;
   border-style: groove;
   border-radius: 2px;
   border-color: #0B2B8E;
+  background: white;
 }
 
 .delety{

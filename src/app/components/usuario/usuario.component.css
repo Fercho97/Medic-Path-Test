@@ -75,12 +75,17 @@
     border-color: rgb(124, 131, 132);
   }
 
+  ul{
+    position: absolute;
+    width: 100%;
+  }
   ul li {
     margin: 1px;
     border-style: groove;
     border-radius: 2px;
     border-color: #0B2B8E;
     cursor: pointer;
+    background: white;
   }
   
   .delety{
