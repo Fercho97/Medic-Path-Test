@@ -3,8 +3,8 @@
 }
 
 .main-container {
-    border-style: dotted;
-    border-color: red;
+    border-style: solid;
+    border-color: blue;
     border-radius: 10px;
 
 }
