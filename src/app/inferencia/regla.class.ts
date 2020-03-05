@@ -31,14 +31,11 @@ objetivo : Boolean;
                 pila.push(verdadInicial);
         }
         else if(condicion=== "~"){
-            console.log("Tiene un atomo negado");
                 verdadInicial=pila.datos.pop();
                 verdadInicial=!verdadInicial;
                 pila.push(verdadInicial);
         }
         else if(condicion=== "&"){
-            console.log("Tiene conjunción");
-
             verdadInicial=pila.datos.pop();
 
             verdadComparacion=pila.datos.pop();

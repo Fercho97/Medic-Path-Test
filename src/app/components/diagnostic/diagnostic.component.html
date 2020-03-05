@@ -21,6 +21,12 @@
 
             <button type="button" [hidden]="hasResult" class="btn btn-primary btn-lg" (click)="responder('Si')">Si</button>
             </div>
+
+            <div *ngIf="question.type === 'option'">
+                <button type="button" [hidden]="hasResult" class="btn btn-danger btn-lg" (click)="optionAnswer(question.options,question.normal,question.atoms,'No')">No</button>
+    
+                <button type="button" [hidden]="hasResult" class="btn btn-primary btn-lg" (click)="optionAnswer(question.options,question.normal,question.atoms,'Si')">Si</button>
+            </div>
             
             <div *ngIf="question.type === 'numeric'">
                 <form [formGroup]="numeric" (ngSubmit)="numericAnswer()">
@@ -57,6 +63,13 @@
                     <button class="btn btn-danger" (click)="scaleAnswer(8,question.index)">8</button>
                     <button class="btn btn-danger" (click)="scaleAnswer(9,question.index)">9</button>
                     <button class="btn btn-danger" (click)="scaleAnswer(10,question.index)">10</button>
+                </div>
+            </div>
+
+            <div *ngIf="question.type === 'selection'">
+                <div *ngFor="let boton of question.buttons">
+                    <button class="btn btn-primary" (click)=selectedOption(boton.value)>{{boton.message}}</button>
+                    <i class="far fa-question-circle" title="{{boton.desc}}"></i>
                 </div>
             </div>
         </div>

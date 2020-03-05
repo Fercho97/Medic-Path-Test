@@ -44,8 +44,8 @@ export class DiagnosticComponent implements OnInit {
   public niveles : any = { "Ninguno" : [], "Bajo" : [], "Medio" : [], "Alto" : [], "Severo" : []};
   public questionTypes = questions.QUESTIONS;
   public numeric : FormGroup;
-  public scale : FormGroup;
   public errores_Diag = ErrorMsg.ERROR_DIAG;
+  public atomos_opciones : any = [];
   constructor(private diagServ : DiagnosticService, private toast : ToastrService, 
               private router : Router, private sintServ : SintomasService) {
 
@@ -66,18 +66,18 @@ export class DiagnosticComponent implements OnInit {
   }
 
   iniciarDiagnostico(){
-    console.log("inicia")
+    //console.log("inicia")
     let mira : string = "";
     this.diagServ.consulta(mira).subscribe((res : any)  =>{
       //this.hasPregunta = true;
-      console.log(res.body);
+      //console.log(res.body);
       
      res.body.reglas.forEach(element => {
         let rule = new Regla();
         this.baseConocimiento.push(rule.desgloseReglas(element));
       });
 
-      console.log(this.baseConocimiento);
+      //console.log(this.baseConocimiento);
       this.hasPregunta = true;
       this.inferencia();
     }, error =>{
@@ -135,11 +135,12 @@ export class DiagnosticComponent implements OnInit {
     }
 
     mostrarPregunta(){
+      //console.log(this.preguntas);
       this.question = this.preguntas.pop();
-      console.log(this.question);
+      //console.log(this.question);
       if(this.question.type==='boolean'){
       let id = this.descs.pop();
-      console.log(id);
+      //console.log(id);
       
       let found = this.sintomas.find(item => item['idSint'].toString() === id);
 
@@ -172,7 +173,7 @@ export class DiagnosticComponent implements OnInit {
     analize(){
       let condicion = false;
       condicion = this.reglaEvaluar.checarCondicion(this.memoriaDeTrabajo)
-      console.log(condicion);
+      //console.log(condicion);
       if(condicion===true){
         let atomos = this.reglaEvaluar.disparadorReglas(this.memoriaDeTrabajo)
         for(var atomo of atomos){
@@ -253,7 +254,7 @@ export class DiagnosticComponent implements OnInit {
     }
 
     showWhy(){
-      console.log(this.reglaEvaluar.partesConclusion[0].desc)
+      //console.log(this.reglaEvaluar.partesConclusion[0].desc)
       this.question={message: "Usted padece de : " + this.reglaEvaluar.partesConclusion[0].desc }
       this.hasResult=true;
       this.idResultado=this.reglaEvaluar.partesConclusion[0].padecimiento;
@@ -266,6 +267,7 @@ export class DiagnosticComponent implements OnInit {
     
       this.sintomasExtras = this.calculusClass.calculateCloseness(this.conocimientoEvaluado,this.baseConocimiento,this.memoriaDeTrabajo);
       console.log(this.sintomasExtras);
+      console.log(this.memoriaDeTrabajo)
       this.checkUrgencyLevels();
       if(this.user==true){
         this.guardar();
@@ -329,10 +331,15 @@ export class DiagnosticComponent implements OnInit {
      questionGen(sint: any){
 
       let hasCertainQuestion = questions.QUESTIONS[sint.toLowerCase()];
-
+      let multiOption = this.checkMultipleTypes(sint);
       if(hasCertainQuestion!=undefined){
         return hasCertainQuestion[0];
-      }else{
+      }
+      else if(multiOption.length>1){
+        hasCertainQuestion = this.generateMultiOptionQuestion(multiOption,sint);
+        return hasCertainQuestion;
+      }
+      else{
         return null;
       }
       
@@ -377,4 +384,96 @@ export class DiagnosticComponent implements OnInit {
       this.analize();
       }
      }
+
+     checkMultipleTypes(sint:any){
+       let sintoma = this.sintomas.find(symp => symp['nombre_sint']==sint);
+       let sameSynts = this.sintomas.filter(symp => symp['categoria_sint']==sintoma.categoria_sint && symp['keyWord']==sintoma.keyWord);
+       return sameSynts;
+     }
+
+
+     generateMultiOptionQuestion(options :any, sint: any){
+      var nombres:any = [];
+
+      options.forEach(element => {
+        nombres.push(element.nombre_sint);
+      });
+
+
+      let resultado = this.calculusClass.getDifferencesBetweenNames(nombres,sint);
+
+      let diferencias = resultado[0];
+
+      return {message: '¿Ha tenido ' + resultado[1] +"?", type: 'option', options: diferencias, normal: resultado[1], atoms: nombres}
+     }
+
+     optionAnswer(opciones: any, text : any, atomos : any, answer){
+      //TODO en base a los datos de options generar los botones de manera dinámica, en base a los datos de atoms generar los atomos negados en caso de que no y el atomo aceptado en caso de que si.
+      if(opciones.length<atomos.length){
+        opciones.push('Simple');
+      }
+
+      console.log(atomos);
+      //console.log(opciones.length);
+      if(answer==="Si"){
+        let optionSize = opciones.length;
+        this.atomos_opciones = atomos.slice();
+        console.log(this.atomos_opciones);
+        let buttonOptions = [];
+        for(var i = 0; i<optionSize; i++){
+          let atomo = atomos.pop();
+          let showOption = opciones.pop();
+          let sintoma = this.sintomas.find(symp => symp['nombre_sint']==atomo);
+          let button = {message: showOption, value: atomo, desc: sintoma.descripcion};
+          buttonOptions.push(button);
+        }
+        console.log(buttonOptions);
+        this.preguntas.push({message: "¿Como describiría su " + text + "?",buttons: buttonOptions, type: 'selection'});
+      }else{
+        let atomoEvaluado = this.atomosCondicion.pop();
+        atomoEvaluado.estado=false;
+        this.memoriaDeTrabajo.almacenarAtomo(atomoEvaluado);
+        atomos.forEach(atom =>{
+          if(atom!==atomoEvaluado.desc){
+            let negado = new Atomo(atom,false,false,null,null);
+            this.memoriaDeTrabajo.almacenarAtomo(negado);
+          }
+        })
+
+      }
+      if(this.preguntas.length>0){
+        this.mostrarPregunta();
+        }else{
+        this.analize();
+        }
+    }
+
+    selectedOption(selectedAtom : any){
+      let atomoEvaluado = this.atomosCondicion.pop();
+      let atom : any;
+      if(atomoEvaluado.desc===selectedAtom){
+        atomoEvaluado.estado=true;
+        this.memoriaDeTrabajo.almacenarAtomo(atomoEvaluado);
+        this.breadcrumb = this.breadcrumb + atomoEvaluado.desc + "->"
+      }else{
+        let sint = this.sintomas.find(symp => symp['nombre_sint']==selectedAtom);
+        atom = new Atomo(selectedAtom,true,false,null,sint.idSint);
+        this.memoriaDeTrabajo.almacenarAtomo(atom);
+        this.breadcrumb = this.breadcrumb + atom.desc + "->"
+      }
+
+      this.atomos_opciones.forEach(atomo =>{
+        if(atomo!==selectedAtom){
+          let negAtom = new Atomo(atomo,false,false,null,null);
+          this.memoriaDeTrabajo.almacenarAtomo(negAtom);
+        }
+      })
+
+      console.log(this.memoriaDeTrabajo)
+      if(this.preguntas.length>0){
+        this.mostrarPregunta();
+        }else{
+        this.analize();
+        }
+    }
 }

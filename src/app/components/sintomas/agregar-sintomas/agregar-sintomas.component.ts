@@ -136,7 +136,7 @@ export class AgregarSintomasComponent implements OnInit {
         this.router.navigate(['/sintomas'])
       }, error =>{
           console.log("Error", error.error);
-          this.toast.error(error.error, 'Error');
+          this.toast.error(error.error.message, 'Error');
       })
     }
   }
@@ -181,6 +181,7 @@ export class AgregarSintomasComponent implements OnInit {
   }
 
   nameToId(){
+    this.composicionBack = "";
     for(let sintoma of this.selectedCompuestos){
 
       if(sintoma != null){
