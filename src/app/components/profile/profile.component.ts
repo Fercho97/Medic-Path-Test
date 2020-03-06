@@ -32,4 +32,9 @@ export class ProfileComponent implements OnInit {
   })
   }
 
+  actualizar(){
+    this.profileServ.updateRules().subscribe(res =>{
+      console.log('Done');
+    })
+  }
 }

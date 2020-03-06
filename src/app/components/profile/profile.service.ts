@@ -8,6 +8,7 @@ export class ProfileService{
     _urlCambioImagen : string = '';
     _urlListadoExpediente : string = '';
     _urlIndividualExp : string = '';
+    _urlReglas : string = '';
     constructor(private _http: HttpClient) {
         this._urlIndividual = "https://medicpath.herokuapp.com/usuarios/";
         //'http://localhost:3000/usuarios/';
@@ -20,6 +21,8 @@ export class ProfileService{
         this._urlIndividualExp = "https://medicpath.herokuapp.com/historial/usuarioHist/"
         //'http://localhost:3000/historial/usuarioHist/'
         
+        this._urlReglas = "https://medicpath.herokuapp.com/consulta/createRules";
+        //"http://localhost:3000/consulta/createRules";
     }
 
 
@@ -73,5 +76,13 @@ export class ProfileService{
                 observe : 'response' 
             }
         )
+    }
+
+    updateRules(){
+        return this._http.get(this._urlReglas,{
+            headers: new HttpHeaders()
+                .set('Content-Type', 'application/x-www-form-urlencoded'),
+                observe : 'response' 
+        })
     }
 }
