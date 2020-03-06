@@ -21,7 +21,9 @@
               <span class="fas" *ngIf="key == 'padecimiento_final'" [ngClass]="{'fa-chevron-up':reversa==true,'fa-chevron-down':reversa==false}"></span>    
           </th>
           <th>Detalles</th>
-          <th>Fecha Consulta</th>
+          <th (click)="sorting('order_date')" class="ordering">Fecha Consulta
+            <span class="fas" *ngIf="key == 'order_date'" [ngClass]="{'fa-chevron-up':reversa==true,'fa-chevron-down':reversa==false}"></span>    
+          </th>
           <th>Acciones</th>
       </tr>
       <tr ng-if="historiales.length>0" *ngFor="let historial of historiales | orderBy : key : reversa : true | ListFilter: 'padecimiento_final' : myFilter | paginate:{itemsPerPage: 10, currentPage:pagina}">

@@ -417,7 +417,7 @@ export class DiagnosticComponent implements OnInit {
       //console.log(opciones.length);
       if(answer==="Si"){
         let optionSize = opciones.length;
-        this.atomos_opciones = atomos.slice();
+        this.atomos_opciones.push( atomos.slice());
         console.log(this.atomos_opciones);
         let buttonOptions = [];
         for(var i = 0; i<optionSize; i++){
@@ -462,7 +462,8 @@ export class DiagnosticComponent implements OnInit {
         this.breadcrumb = this.breadcrumb + atom.desc + "->"
       }
 
-      this.atomos_opciones.forEach(atomo =>{
+      let opciones = this.atomos_opciones.pop();
+      opciones.forEach(atomo =>{
         if(atomo!==selectedAtom){
           let negAtom = new Atomo(atomo,false,false,null,null);
           this.memoriaDeTrabajo.almacenarAtomo(negAtom);

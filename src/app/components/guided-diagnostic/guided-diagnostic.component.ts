@@ -119,7 +119,7 @@ export class GuidedDiagnosticComponent implements OnInit {
             if(question!=null){
               this.preguntas.push(question);
             }else{
-            this.preguntas.push({message: "¿Ha tenido " + element.desc + " ?", type: "boolean"});
+            this.preguntas.push({message: "¿Su paciente presenta " + element.desc + " ?", type: "boolean"});
             }
              this.descs.push(element.sintoma);
             }
@@ -173,7 +173,7 @@ export class GuidedDiagnosticComponent implements OnInit {
         }
 
         if(this.reglaEvaluar.objetivo===true){
-          this.question={message: "Usted padece de : " + this.reglaEvaluar.partesConclusion[0].desc }
+          this.question={message: "Su paciente padece de: " + this.reglaEvaluar.partesConclusion[0].desc }
           this.hasResult=true;
           this.idResultado=this.reglaEvaluar.partesConclusion[0].padecimiento;
             this.guardar();
