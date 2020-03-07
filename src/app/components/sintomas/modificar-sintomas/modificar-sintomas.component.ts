@@ -129,7 +129,9 @@ export class ModificarSintomasComponent implements OnInit {
         keyword : this.sintoma.keyWord,
         composite : this.composicionFront,
         descripcion : this.sintoma.descripcion,
-        compuesto : this.sintoma.compuesto
+        compuesto : this.sintoma.compuesto,
+        categoria: this.sintoma.categoria_sint,
+        urgencia: this.sintoma.nivel_urgencia
       })
       this.isChecked = this.sintoma.compuesto;
       this.modify.controls['categoria'].setValue(this.sintoma.categoria_sint, {onlySelf : true});
@@ -183,11 +185,13 @@ export class ModificarSintomasComponent implements OnInit {
       .set('nivel_urgencia', this.modify.value.urgencia)
     }
     console.log(this.values);
-    if(this.isChecked==true && this.selectedCompuestos.lenght<=1){
+    console.log(this.selectedCompuestos.length);
+    if((this.isChecked==true && this.selectedCompuestos.length<=1) || this.selectedCompuestos.length===undefined){
       this.toast.error('Un sintoma compuesto debe tener al menos otros 2 sintomas como parte de su composición', 'Error');
     }else{
-        this.sintServ.modificar(this.sintoma.hashId,this.values).subscribe(res =>{
+        this.sintServ.modificar(this.sintoma.hashId,this.values).subscribe((res:any) =>{
           console.log("Ok", res)
+          sessionStorage.setItem('token',res.body.token);
           this.toast.success('Se ha modificado el sintoma con éxito!', 'Modificación Exitosa!');
         this.router.navigate(['/sintomas'])
       }, error =>{
@@ -223,6 +227,7 @@ export class ModificarSintomasComponent implements OnInit {
   }
 
   nameToId(){
+    this.composicionBack = "";
     for(let sintoma of this.selectedCompuestos){
       
             if(sintoma != null){

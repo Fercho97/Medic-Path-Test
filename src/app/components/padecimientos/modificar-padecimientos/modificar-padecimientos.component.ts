@@ -99,6 +99,13 @@ export class ModificarPadecimientosComponent implements OnInit {
       });
     });
 
+    this.modify.patchValue({
+      nombre : this.padecimiento.nombre_pad,
+      categoria : this.padecimiento.categoria,
+      descripcion : this.padecimiento.descripcion,
+      especializacion : this.padecimiento.espe_id
+    })
+
     this.modify.controls['nombre'].setValue(this.padecimiento.nombre_pad, {onlySelf : true});
     this.modify.controls['categoria'].setValue(this.padecimiento.categoria, {onlySelf : true});
     this.modify.controls['descripcion'].setValue(this.padecimiento.descripcion, {onlySelf : true});
@@ -188,8 +195,9 @@ export class ModificarPadecimientosComponent implements OnInit {
           this.formData.append('especializacion', this.modify.value.especializacion);
       
         
-        this.padServ.updatePadecimiento(this.formData, this.url.snapshot.params.hash).subscribe(res =>{
+        this.padServ.updatePadecimiento(this.formData, this.url.snapshot.params.hash).subscribe((res:any) =>{
           console.log("Ok", res)
+          sessionStorage.setItem('token',res.body.token);
           this.toast.success('Se ha modificado el padecimiento con éxito!', 'Modificación Exitosa!');
         this.router.navigate(['/padecimientos'])
       }, error =>{

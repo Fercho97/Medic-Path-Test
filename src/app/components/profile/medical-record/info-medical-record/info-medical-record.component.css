@@ -28,3 +28,11 @@
   margin-right: auto;
   width: 50%;
 }
+
+legend{
+  color: blue;
+}
+
+legend:hover{
+  cursor: pointer;
+}

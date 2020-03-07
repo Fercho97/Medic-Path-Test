@@ -114,8 +114,9 @@ export class AgregarPadecimientosComponent implements OnInit {
       this.formData.append('especializacion', this.padecimiento.value.especializacion);
     console.log(JSON.stringify(this.formData));
     
-    this.padServ.createPadecimiento(this.formData).subscribe(res =>{
+    this.padServ.createPadecimiento(this.formData).subscribe((res:any) =>{
       console.log("Ok", res)
+      sessionStorage.setItem('token',res.body.token);
       this.toast.success('Se ha registrado el padecimiento con éxito!', 'Registro Exitoso!');
     this.router.navigate(['/padecimientos'])
   }, error =>{
