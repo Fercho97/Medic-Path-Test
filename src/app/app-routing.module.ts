@@ -6,7 +6,6 @@ import { SignupComponent } from './components/signup/signup.component';
 import { AboutComponent } from './components/about/about.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-import { SendEmailComponent } from './components/send-email/send-email.component';
 import { SintomasComponent } from './components/sintomas/sintomas.component';
 import { PadecimientosComponent } from './components/padecimientos/padecimientos.component';
 import { PadecimientosRoutes } from './components/padecimientos/padecimientos.routes';
@@ -49,12 +48,11 @@ const routes: Routes = [
   { path: 'usuarios', component: UsuarioComponent, canActivate: [AdminGuardService] },
   { path: 'recovery', component: ForgotPasswordComponent },
   { path: 'resetPass', component: ResetPasswordComponent},
-  { path: 'emailSent', component: SendEmailComponent },
   { path: 'verificacion/:hash', component : VerificacionComponent},
   { path: 'recuperar/:hash', component : ResetPasswordComponent},
   { path: 'usuarios/info/:hash', component : UsuarioInfoComponent, canActivate: [AdminGuardService]},
   { path: 'bdc', component : BDCComponent},
-  { path: 'registry', component: RegistryComponent},
+  { path: 'registry', component: RegistryComponent, canActivate: [AdminGuardService]},
   { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];
 
