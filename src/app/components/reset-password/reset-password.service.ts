@@ -14,16 +14,10 @@ export class ResetPassService{
     constructor(private _http: HttpClient) {
 
         this._url = environment.url + 'usuarios/recuperarPassword/';
-        //'https://medicpath.herokuapp.com/usuarios/recuperarPassword/';
-        //'http://localhost:3000/usuarios/recuperarPassword/';
 
         this._urlVerif = environment.url + 'usuarios/isValidUrl/';
-        //'https://medicpath.herokuapp.com/usuarios/isValidUrl/';
-        //'http://localhost:3000/usuarios/isValidUrl/';
 
         this._urlChange = environment.url + 'usuarios/cambiarPassword/';
-        //'https://medicpath.herokuapp.com/usuarios/cambiarPassword/';
-        //'http://localhost:3000/usuarios/cambiarPassword/';
     }
 
     restorePassword(hashId : any, pass : any){

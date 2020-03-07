@@ -15,26 +15,12 @@ export class SintomasService {
   _urlCheckName: string = "";
   constructor(private _http: HttpClient) {
     this._url = environment.url + 'sintomas/sintlist/';
-    //"https://medicpath.herokuapp.com/sintomas/sintlist";
-    //'http://localhost:3000/sintomas/sintlist/';
     this._urlIndividual = environment.url + 'sintomas/';
-    //"https://medicpath.herokuapp.com/sintomas/";
-    //'http://localhost:3000/sintomas/';
     this._urlComponente = environment.url + 'sintomas/componentes';
-    //"https://medicpath.herokuapp.com/sintomas/componentes";
-    //'http://localhost:3000/sintomas/componentes';
     this._urlCreate = environment.url + 'sintomas/create';
-    //"https://medicpath.herokuapp.com/sintomas/create";
-    //'http://localhost:3000/sintomas/create';
     this._urlCompList = environment.url + 'sintomas/comp/getComponents/';
-    //"https://medicpath.herokuapp.com/sintomas/comp/getComponents/";
-    //'http://localhost:3000/sintomas/comp/getComponents/';
     this._urlModificar = environment.url + 'sintomas/update/';
-    //"https://medicpath.herokuapp.com/sintomas/update/";
-    //'http://localhost:3000/sintomas/update/'
     this._urlCheckName = environment.url + 'sintomas/checkName/';
-    //"https://medicpath.herokuapp.com/sintomas/checkName/";
-    //"http://localhost:3000/sintomas/checkName/";
   }
 
   getSints() {

@@ -14,18 +14,10 @@ export class SignupService{
     private router: Router;
     constructor(private _http: HttpClient) {
         this._url = environment.url + 'usuarios/create';
-        //'https://medicpath.herokuapp.com/usuarios/create';
-        //'http://localhost:3000/usuarios/create';
         this._checkUserName = environment.url + 'usuarios/checkUsername/';
-        //'https://medicpath.herokuapp.com/usuarios/checkUsername/';
-        //'http://localhost:3000/usuarios/checkUsername/'
         this._checkEmail = environment.url + 'usuarios/checkEmail/';
-        //'https://medicpath.herokuapp.com/usuarios/checkEmail/';
-        //'http://localhost:3000/usuarios/checkEmail/'
 
         this._urlCheckName = environment.url + 'padecimientos/checkName/';
-        //'https://medicpath.herokuapp.com/padecimientos/checkName/';
-        //'http://localhost:3000/padecimientos/checkName/'
     }
 
     checkRegister(valores : HttpParams){

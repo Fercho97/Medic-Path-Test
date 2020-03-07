@@ -11,15 +11,8 @@ export class DiagnosticService{
     constructor(private _http : HttpClient){
         
         this._url = environment.url + 'consulta/getReglas';
-        //"https://medicpath.herokuapp.com/consulta/getReglas";
-        //"http://localhost:3000/consulta/getReglas";
         this._saveUrl = environment.url + 'historial/create';
-        //"https://medicpath.herokuapp.com/historial/create"
-        //"http://localhost:3000/historial/create"
         this._registeredUsers = environment.url + 'usuarios/pacientslist';
-        //"https://medicpath.herokuapp.com/usuarios/pacientslist"
-        //"http://localhost:3000/usuarios/pacientslist";
-        
     }
 
     consulta(mira : any){

@@ -7,8 +7,6 @@ export class VerificacionService {
   _url: string = "";
   constructor(private _http: HttpClient) {
     this._url = environment.url + 'usuarios/verificar/';
-    //"https://medicpath.herokuapp.com/usuarios/verificar/";
-    //'http://localhost:3000/usuarios/verificar/';
   }
 
   verifyUser(hashId: any) {

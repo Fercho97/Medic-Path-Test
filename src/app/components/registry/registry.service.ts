@@ -12,12 +12,8 @@ export class RegistryService{
     private router: Router;
     constructor(private _http: HttpClient) {
         this._url = environment.url + 'usuarios/createDoctor';
-        //'https://medicpath.herokuapp.com/usuarios/createDoctor';
-        //'http://localhost:3000/usuarios/createDoctor';
 
         this._urlEspecializaciones = environment.url + 'especializacion/esplist';
-        //"https://medicpath.herokuapp.com/especializacion/esplist";
-        //'http://localhost:3000/especializacion/esplist';
     }
 
     checkRegister(valores : FormData){

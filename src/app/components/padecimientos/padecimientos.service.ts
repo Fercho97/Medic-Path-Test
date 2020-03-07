@@ -14,24 +14,14 @@ export class PadecimientoService {
   
   constructor(private _http: HttpClient) {
     this._url = environment.url + 'padecimientos/padlist';
-    //"https://medicpath.herokuapp.com/padecimientos/padlist";
-    //"http://localhost:3000/padecimientos/padlist";
 
     this._urlInd = environment.url + 'padecimientos/';
-    //"https://medicpath.herokuapp.com/padecimientos/";
-    //"http://localhost:3000/padecimientos/"
 
     this._create = environment.url + 'padecimientos/create';
-    //"https://medicpath.herokuapp.com/padecimientos/create";
-    //"http://localhost:3000/padecimientos/create"
 
     this._urlModificar = environment.url + 'padecimientos/update/';
-    //"https://medicpath.herokuapp.com/padecimientos/update/";
-    //'http://localhost:3000/padecimientos/update/'
 
     this._urlEspecializaciones = environment.url + 'especializacion/esplist';
-    //"https://medicpath.herokuapp.com/especializacion/esplist";
-    //'http://localhost:3000/especializacion/esplist';
   }
 
   getPads() {

@@ -12,24 +12,16 @@ export class ProfileService{
     _urlReglas : string = '';
     constructor(private _http: HttpClient) {
         this._urlIndividual = environment.url + 'usuarios/';
-        //"https://medicpath.herokuapp.com/usuarios/";
-        //'http://localhost:3000/usuarios/';
+
         this._urlEditar = environment.url + 'usuarios/update/';
-        //"https://medicpath.herokuapp.com/usuarios/update/";
-        //'http://localhost:3000/usuarios/update/';
+
         this._urlCambioImagen = environment.url + 'usuarios/cambiarImagen/';
-        //"https://medicpath.herokuapp.com/usuarios/cambiarImagen/";
-        //'http://localhost:3000/usuarios/cambiarImagen/';
+
         this._urlListadoExpediente = environment.url + 'historial/';
-        //"https://medicpath.herokuapp.com/historial/"
-        //'http://localhost:3000/historial/'
+
         this._urlIndividualExp = environment.url + 'historial/usuarioHist/';
-        //"https://medicpath.herokuapp.com/historial/usuarioHist/"
-        //'http://localhost:3000/historial/usuarioHist/'
         
         this._urlReglas = environment.url + 'consulta/createRules';
-        //"https://medicpath.herokuapp.com/consulta/createRules";
-        //"http://localhost:3000/consulta/createRules";
     }
 
 

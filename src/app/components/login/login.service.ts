@@ -12,8 +12,6 @@ export class LoginService{
     constructor(private _http: HttpClient) {
 
         this._url = environment.url + 'usuarios/login';
-        //'https://medicpath.herokuapp.com/usuarios/login';
-        //'http://localhost:3000/usuarios/login';
     }
 
     checkLogin(valores : HttpParams){
