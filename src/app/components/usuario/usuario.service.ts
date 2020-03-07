@@ -1,7 +1,7 @@
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from "@angular/core";
-
+import { environment } from '../../../environments/environment';
 @Injectable()
 export class UsuarioService {
   _url: string = "";
@@ -9,13 +9,17 @@ export class UsuarioService {
   _urlDoctor: string = "";
   _urlAllDocs: string = "";
   constructor(private _http: HttpClient) {
-    this._url = "https://medicpath.herokuapp.com/usuarios/userlist/";
+    this._url = environment.url + 'usuarios/userlist/';
+    //"https://medicpath.herokuapp.com/usuarios/userlist/";
     //'http://localhost:3000/usuarios/userlist/';
-    this._urlIndividual = "https://medicpath.herokuapp.com/usuarios/";
+    this._urlIndividual = environment.url + 'usuarios/';
+    //"https://medicpath.herokuapp.com/usuarios/";
     //'http://localhost:3000/usuarios/'
-    this._urlDoctor = "https://medicpath.herokuapp.com/usuarios/doctor/";
+    this._urlDoctor = environment.url + 'usuarios/doctor/';
+    //"https://medicpath.herokuapp.com/usuarios/doctor/";
     //"http://localhost:3000/usuarios/doctor/";
-    this._urlAllDocs = "https://medicpath.herokuapp.com/usuarios/doctorlist/";
+    this._urlAllDocs = environment.url + 'usuarios/doctorlist/';
+    //"https://medicpath.herokuapp.com/usuarios/doctorlist/";
     //"http://localhost:3000/usuarios/doctorlist/";
 
   }

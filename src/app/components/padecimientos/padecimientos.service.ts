@@ -1,7 +1,7 @@
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,19 +13,24 @@ export class PadecimientoService {
   _urlEspecializaciones = "";
   
   constructor(private _http: HttpClient) {
-    this._url = "https://medicpath.herokuapp.com/padecimientos/padlist";
+    this._url = environment.url + 'padecimientos/padlist';
+    //"https://medicpath.herokuapp.com/padecimientos/padlist";
     //"http://localhost:3000/padecimientos/padlist";
 
-    this._urlInd = "https://medicpath.herokuapp.com/padecimientos/";
+    this._urlInd = environment.url + 'padecimientos/';
+    //"https://medicpath.herokuapp.com/padecimientos/";
     //"http://localhost:3000/padecimientos/"
 
-    this._create = "https://medicpath.herokuapp.com/padecimientos/create";
+    this._create = environment.url + 'padecimientos/create';
+    //"https://medicpath.herokuapp.com/padecimientos/create";
     //"http://localhost:3000/padecimientos/create"
 
-    this._urlModificar ="https://medicpath.herokuapp.com/padecimientos/update/";
+    this._urlModificar = environment.url + 'padecimientos/update/';
+    //"https://medicpath.herokuapp.com/padecimientos/update/";
     //'http://localhost:3000/padecimientos/update/'
 
-    this._urlEspecializaciones = "https://medicpath.herokuapp.com/especializacion/esplist";
+    this._urlEspecializaciones = environment.url + 'especializacion/esplist';
+    //"https://medicpath.herokuapp.com/especializacion/esplist";
     //'http://localhost:3000/especializacion/esplist';
   }
 

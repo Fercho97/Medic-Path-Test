@@ -2,6 +2,7 @@ import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Router} from '@angular/router';
+import { environment } from '../../../environments/environment';
 @Injectable({
     providedIn: 'root'
 })
@@ -12,13 +13,16 @@ export class ResetPassService{
     private router: Router;
     constructor(private _http: HttpClient) {
 
-        this._url = 'https://medicpath.herokuapp.com/usuarios/recuperarPassword/';
+        this._url = environment.url + 'usuarios/recuperarPassword/';
+        //'https://medicpath.herokuapp.com/usuarios/recuperarPassword/';
         //'http://localhost:3000/usuarios/recuperarPassword/';
 
-        this._urlVerif = 'https://medicpath.herokuapp.com/usuarios/isValidUrl/';
+        this._urlVerif = environment.url + 'usuarios/isValidUrl/';
+        //'https://medicpath.herokuapp.com/usuarios/isValidUrl/';
         //'http://localhost:3000/usuarios/isValidUrl/';
 
-        this._urlChange = 'https://medicpath.herokuapp.com/usuarios/cambiarPassword/';
+        this._urlChange = environment.url + 'usuarios/cambiarPassword/';
+        //'https://medicpath.herokuapp.com/usuarios/cambiarPassword/';
         //'http://localhost:3000/usuarios/cambiarPassword/';
     }
 

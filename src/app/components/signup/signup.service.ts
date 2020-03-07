@@ -2,6 +2,7 @@ import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Router} from '@angular/router';
+import { environment } from '../../../environments/environment';
 @Injectable({
     providedIn: 'root'
 })
@@ -12,14 +13,18 @@ export class SignupService{
     _urlCheckName = "";
     private router: Router;
     constructor(private _http: HttpClient) {
-        this._url = 'https://medicpath.herokuapp.com/usuarios/create';
+        this._url = environment.url + 'usuarios/create';
+        //'https://medicpath.herokuapp.com/usuarios/create';
         //'http://localhost:3000/usuarios/create';
-        this._checkUserName = 'https://medicpath.herokuapp.com/usuarios/checkUsername/';
+        this._checkUserName = environment.url + 'usuarios/checkUsername/';
+        //'https://medicpath.herokuapp.com/usuarios/checkUsername/';
         //'http://localhost:3000/usuarios/checkUsername/'
-        this._checkEmail = 'https://medicpath.herokuapp.com/usuarios/checkEmail/';
+        this._checkEmail = environment.url + 'usuarios/checkEmail/';
+        //'https://medicpath.herokuapp.com/usuarios/checkEmail/';
         //'http://localhost:3000/usuarios/checkEmail/'
 
-        this._urlCheckName = 'https://medicpath.herokuapp.com/padecimientos/checkName/';
+        this._urlCheckName = environment.url + 'padecimientos/checkName/';
+        //'https://medicpath.herokuapp.com/padecimientos/checkName/';
         //'http://localhost:3000/padecimientos/checkName/'
     }
 
