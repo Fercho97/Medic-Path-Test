@@ -11,6 +11,7 @@ import { SintomasService } from '../sintomas/sintomas.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { questions } from '../../interfaces/questions.const';
 import { ErrorMsg } from '../../interfaces/errorMsg.const';
+import { Calculus } from '../../inferencia/calculus.class';
 import * as moment from 'moment-timezone';
 moment.locale('es');
 @Component({
@@ -34,10 +35,12 @@ export class GuidedDiagnosticComponent implements OnInit {
   breadcrumb : string = "";
   idResultado : string = '';
   selectedUser : boolean;
+  calculusClass = new Calculus();
   public usuarios : any = [];
   public usuario : any;
   public iniciales : any = [];
   public sintomasSeleccionados : any = [];
+  public sintomas : any = [];
   public isSelection : boolean = false;
   public descs : any = [];
   public nextObjective : any = [];
@@ -45,6 +48,7 @@ export class GuidedDiagnosticComponent implements OnInit {
   public questionTypes = questions.QUESTIONS;
   public numeric : FormGroup;
   public errores_Diag = ErrorMsg.ERROR_DIAG;
+  public atomos_opciones : any = [];
   constructor(private diagServ : DiagnosticService, private toast : ToastrService,
               private router : Router, private sintServ : SintomasService) { 
                 this.numeric = new FormGroup({
@@ -58,9 +62,9 @@ export class GuidedDiagnosticComponent implements OnInit {
       this.usuarios = res.body.usuarios;
     })
 
-    this.sintServ.getComponents().subscribe(res =>{
-      this.iniciales = res.body;
-      console.log(this.iniciales);
+    this.sintServ.getSints().subscribe(res =>{
+      this.sintomas = res.body;
+      this.iniciales = this.sintomas.filter(sintoma => sintoma['compuesto']==false);
     })
   }
 
@@ -136,9 +140,18 @@ export class GuidedDiagnosticComponent implements OnInit {
     }
 
     mostrarPregunta(){
-      let id = this.descs.pop();
       this.question = this.preguntas.pop();
-      this.descripcion = this.iniciales.find(item => item['idSint'].toString() === id);
+      //console.log(this.question);
+      if(this.question.type==='boolean'){
+      let id = this.descs.pop();
+      //console.log(id);
+      
+      let found = this.sintomas.find(item => item['idSint'].toString() === id);
+
+      if(found!=undefined){
+      this.descripcion = found.descripcion;
+      }
+    }
     }
 
     responder(resp : any){
@@ -146,6 +159,7 @@ export class GuidedDiagnosticComponent implements OnInit {
       if(resp=='Si'){
         atomoEvaluado.estado = true; 
         this.breadcrumb = this.breadcrumb + atomoEvaluado.desc + "->"
+        this.evaluateSypmtom(atomoEvaluado.sintoma);
       }
       else{
         atomoEvaluado.estado = false; 
@@ -241,7 +255,25 @@ export class GuidedDiagnosticComponent implements OnInit {
         this.breadcrumb = this.breadcrumb + element.nombre_sint + "->"
       });
 
+      this.avoidUnnecesaryQuestions();
+      console.log(this.memoriaDeTrabajo);
      this.iniciarDiagnostico();
+    }
+
+    avoidUnnecesaryQuestions(){
+      this.memoriaDeTrabajo.atomosAfirmados.forEach(sintoma =>{
+        let multiOption = this.checkMultipleTypes(sintoma.desc);
+
+        if(multiOption.length>1){
+          multiOption.forEach(option =>{
+            let atomo = new Atomo(option.nombre_sint,false,false,null,null);
+            console.log(this.memoriaDeTrabajo.estaAfirmado(atomo));
+            if(this.memoriaDeTrabajo.estaAlmacenado(atomo)===false){
+              this.memoriaDeTrabajo.almacenarAtomo(atomo);
+            }
+          })
+        }
+      })
     }
 
     drop(event: CdkDragDrop<string[]>){
@@ -320,10 +352,15 @@ export class GuidedDiagnosticComponent implements OnInit {
      questionGen(sint: any){
       
       let hasCertainQuestion = questions.QUESTIONS[sint.toLowerCase()];
-
+      let multiOption = this.checkMultipleTypes(sint);
       if(hasCertainQuestion!=undefined){
         return hasCertainQuestion[0];
-      }else{
+      }
+      else if(multiOption.length>1){
+        hasCertainQuestion = this.generateMultiOptionQuestion(multiOption,sint);
+        return hasCertainQuestion;
+      }
+      else{
         return null;
       }
             
@@ -348,5 +385,117 @@ export class GuidedDiagnosticComponent implements OnInit {
         else{
           this.analize();
         }
+      }
+
+      evaluateSypmtom(symp : any){
+        let atomSymp = this.sintomas.find(item => item['idSint'].toString() === symp);
+        let sympIndex = this.sintomas.findIndex(item => item['idSint'].toString() === symp);
+        if(atomSymp.nivel_urgencia==0.4){
+          this.preguntas.push({message:'Del 1 al 10 que rango de molestia le causa el tener ' + atomSymp.nombre_sint, type: 'scale', index: sympIndex});
+        }
+       }
+  
+       scaleAnswer(num : any, index : any){
+      let atomSymp = this.sintomas[index];
+      let calculatedUrgency = (atomSymp.nivel_urgencia*num)/4;
+      this.sintomas[index].nivel_urgencia = calculatedUrgency;
+      if(this.preguntas.length>0){
+        this.mostrarPregunta();
+        }else{
+        this.analize();
+        }
+       }
+  
+       checkMultipleTypes(sint:any){
+         let sintoma = this.sintomas.find(symp => symp['nombre_sint']==sint);
+         let sameSynts = this.sintomas.filter(symp => symp['categoria_sint']==sintoma.categoria_sint && symp['keyWord']==sintoma.keyWord);
+         return sameSynts;
+       }
+  
+  
+       generateMultiOptionQuestion(options :any, sint: any){
+        var nombres:any = [];
+  
+        options.forEach(element => {
+          nombres.push(element.nombre_sint);
+        });
+  
+  
+        let resultado = this.calculusClass.getDifferencesBetweenNames(nombres,sint);
+  
+        let diferencias = resultado[0];
+  
+        return {message: '¿Ha tenido ' + resultado[1] +"?", type: 'option', options: diferencias, normal: resultado[1], atoms: nombres}
+       }
+  
+       optionAnswer(opciones: any, text : any, atomos : any, answer){
+        //TODO en base a los datos de options generar los botones de manera dinámica, en base a los datos de atoms generar los atomos negados en caso de que no y el atomo aceptado en caso de que si.
+        if(opciones.length<atomos.length){
+          opciones.push('Simple');
+        }
+  
+        console.log(atomos);
+        //console.log(opciones.length);
+        if(answer==="Si"){
+          let optionSize = opciones.length;
+          this.atomos_opciones.push( atomos.slice());
+          console.log(this.atomos_opciones);
+          let buttonOptions = [];
+          for(var i = 0; i<optionSize; i++){
+            let atomo = atomos.pop();
+            let showOption = opciones.pop();
+            let sintoma = this.sintomas.find(symp => symp['nombre_sint']==atomo);
+            let button = {message: showOption, value: atomo, desc: sintoma.descripcion};
+            buttonOptions.push(button);
+          }
+          console.log(buttonOptions);
+          this.preguntas.push({message: "¿Como describe el paciente su " + text + "?",buttons: buttonOptions, type: 'selection'});
+        }else{
+          let atomoEvaluado = this.atomosCondicion.pop();
+          atomoEvaluado.estado=false;
+          this.memoriaDeTrabajo.almacenarAtomo(atomoEvaluado);
+          atomos.forEach(atom =>{
+            if(atom!==atomoEvaluado.desc){
+              let negado = new Atomo(atom,false,false,null,null);
+              this.memoriaDeTrabajo.almacenarAtomo(negado);
+            }
+          })
+  
+        }
+        if(this.preguntas.length>0){
+          this.mostrarPregunta();
+          }else{
+          this.analize();
+          }
+      }
+  
+      selectedOption(selectedAtom : any){
+        let atomoEvaluado = this.atomosCondicion.pop();
+        let atom : any;
+        if(atomoEvaluado.desc===selectedAtom){
+          atomoEvaluado.estado=true;
+          this.memoriaDeTrabajo.almacenarAtomo(atomoEvaluado);
+          this.breadcrumb = this.breadcrumb + atomoEvaluado.desc + "->"
+        }else{
+          let sint = this.sintomas.find(symp => symp['nombre_sint']==selectedAtom);
+          atom = new Atomo(selectedAtom,true,false,null,sint.idSint);
+          this.memoriaDeTrabajo.almacenarAtomo(atom);
+          this.breadcrumb = this.breadcrumb + atom.desc + "->"
+        }
+  
+        let opciones = this.atomos_opciones.pop();
+        opciones.forEach(atomo =>{
+          if(atomo!==selectedAtom){
+            let negAtom = new Atomo(atomo,false,false,null,null);
+            this.memoriaDeTrabajo.almacenarAtomo(negAtom);
+          }
+        })
+  
+        console.log(this.memoriaDeTrabajo)
+        if(this.preguntas.length>0){
+          this.mostrarPregunta();
+          }else{
+          this.analize();
+          }
       }
 }
