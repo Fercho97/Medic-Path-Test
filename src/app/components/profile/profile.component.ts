@@ -12,7 +12,7 @@ export class ProfileComponent implements OnInit {
 
     hash = sessionStorage.getItem('hash');
     usuario = {} as any;
-    public url : string = "";
+    public url : string = "/assets/default-image.jpg";
 
   constructor(private profileServ : ProfileService, private router : Router) {
     

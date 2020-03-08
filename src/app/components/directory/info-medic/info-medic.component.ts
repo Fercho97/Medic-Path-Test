@@ -30,7 +30,7 @@ export class InfoMedicComponent implements OnInit {
       this.especializaciones = res.body.usuario.especializacions;
 
       if(res.body.usuario.imagen_perfil==null){
-        this.url = "../../../../assets/default-image.jpg"
+        this.url = "/assets/default-image.jpg"
       }else{
         this.hasInfo = true;
         this.url = res.body.usuario.imagen_perfil.toString();

@@ -41,8 +41,8 @@ export class InfoPadecimientosComponent implements OnInit {
         }
       });
 
-      if(this.padecimiento.url_imagen_pad==null){
-        this.url = "../../../../assets/default-image.jpg"
+      if(this.padecimiento.url_imagen_pad==null || this.padecimiento.url_imagen_pad==""){
+        this.url = "/assets/default-image.jpg"
       }else{
         this.hasInfo = true;
         this.url = this.padecimiento.url_imagen_pad.toString();
