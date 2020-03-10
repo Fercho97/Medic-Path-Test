@@ -49,6 +49,7 @@ export class GuidedDiagnosticComponent implements OnInit {
   public numeric : FormGroup;
   public errores_Diag = ErrorMsg.ERROR_DIAG;
   public atomos_opciones : any = [];
+  public niveles : any = { "Ninguno" : [], "Bajo" : [], "Medio" : [], "Alto" : [], "Severo" : []};
   constructor(private diagServ : DiagnosticService, private toast : ToastrService,
               private router : Router, private sintServ : SintomasService) { 
                 this.numeric = new FormGroup({
@@ -166,7 +167,7 @@ export class GuidedDiagnosticComponent implements OnInit {
       }
       this.memoriaDeTrabajo.almacenarAtomo(atomoEvaluado);
 
-      if(this.atomosCondicion.length>0){
+      if(this.atomosCondicion.length>0 || this.preguntas.length>0){
         this.mostrarPregunta();
       }
       else{
@@ -190,6 +191,7 @@ export class GuidedDiagnosticComponent implements OnInit {
           this.question={message: "Su paciente padece de: " + this.reglaEvaluar.partesConclusion[0].desc }
           this.hasResult=true;
           this.idResultado=this.reglaEvaluar.partesConclusion[0].padecimiento;
+          this.checkUrgencyLevels();
             this.guardar();
           
         }
@@ -218,7 +220,8 @@ export class GuidedDiagnosticComponent implements OnInit {
       .set('usuario', this.usuario)
       .set('padecimiento_final', this.idResultado)
       .set('visible', 'true')
-      .set('fecha', fecha.toString());
+      .set('fecha', fecha.toString())
+      .set('detalles_especificos', JSON.stringify(this.niveles));
 
       this.diagServ.guardarHistorial(values).subscribe(res =>{
         console.log("Ok", res)
@@ -391,7 +394,7 @@ export class GuidedDiagnosticComponent implements OnInit {
         let atomSymp = this.sintomas.find(item => item['idSint'].toString() === symp);
         let sympIndex = this.sintomas.findIndex(item => item['idSint'].toString() === symp);
         if(atomSymp.nivel_urgencia==0.4){
-          this.preguntas.push({message:'Del 1 al 10 que rango de molestia le causa el tener ' + atomSymp.nombre_sint, type: 'scale', index: sympIndex});
+          this.preguntas.push({message:'Del 1 al 10 que rango de molestia le causa a su paciente el tener ' + atomSymp.nombre_sint, type: 'scale', index: sympIndex});
         }
        }
   
@@ -469,6 +472,28 @@ export class GuidedDiagnosticComponent implements OnInit {
           }
       }
   
+      checkUrgencyLevels(){
+
+        this.memoriaDeTrabajo.atomosAfirmados.forEach(atomo =>{
+          let atomSymp = this.sintomas.find(item => item['nombre_sint'].toString() === atomo.desc);
+          if(atomSymp!=null){
+          console.log(atomSymp.nivel_urgencia);
+          let sympLev = {sintoma: atomSymp.nombre_sint};
+          if(atomSymp.nivel_urgencia>=0 && atomSymp.nivel_urgencia<0.2){
+            this.niveles.Ninguno.push(sympLev);
+          }else if(atomSymp.nivel_urgencia>=0.2 && atomSymp.nivel_urgencia<0.4){
+            this.niveles.Bajo.push(sympLev);
+          }else if(atomSymp.nivel_urgencia>=0.4 && atomSymp.nivel_urgencia<0.6){
+            this.niveles.Medio.push(sympLev);
+          }else if(atomSymp.nivel_urgencia>=0.6 && atomSymp.nivel_urgencia<0.8){
+            this.niveles.Alto.push(sympLev);
+          }else if(atomSymp.nivel_urgencia>=0.8 && atomSymp.nivel_urgencia<1){
+            this.niveles.Severo.push(sympLev);
+          }
+          }
+        })
+       }
+
       selectedOption(selectedAtom : any){
         let atomoEvaluado = this.atomosCondicion.pop();
         let atom : any;

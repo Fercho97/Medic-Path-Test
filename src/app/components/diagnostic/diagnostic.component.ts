@@ -162,7 +162,7 @@ export class DiagnosticComponent implements OnInit {
       }
       this.memoriaDeTrabajo.almacenarAtomo(atomoEvaluado);
 
-      if(this.atomosCondicion.length>0){
+      if(this.atomosCondicion.length>0 || this.preguntas.length>0){
         this.mostrarPregunta();
       }
       else{
@@ -202,13 +202,15 @@ export class DiagnosticComponent implements OnInit {
     }
 
     guardar(){
+      
       var fecha = moment().tz('America/Mexico_City').format();
       let values = new HttpParams()
       .set('detalles', this.breadcrumb.replace(/->/g,","))
       .set('usuario', window.sessionStorage.getItem('usuario'))
       .set('padecimiento_final', this.idResultado)
       .set('visible', 'true')
-      .set('fecha', fecha.toString());
+      .set('fecha', fecha.toString())
+      .set('detalles_especificos', JSON.stringify(this.niveles));
 
       this.diagServ.guardarHistorial(values).subscribe(res =>{
         console.log("Ok", res)

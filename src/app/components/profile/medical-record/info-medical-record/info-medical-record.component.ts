@@ -14,6 +14,7 @@ export class InfoMedicalRecordComponent implements OnInit {
   padecimientoInfo = {} as any;
   public url : string = '';
   public sintomas = [];
+  public niveles = "";
   constructor(public activeModal: NgbActiveModal, private profileServ : ProfileService) { 
 
   }
@@ -23,6 +24,9 @@ export class InfoMedicalRecordComponent implements OnInit {
        console.log(res.body);
       this.historial = res.body.resultado;
       this.sintomas = res.body.resultado.detalles.split(",");
+      if(this.historial.detalles_especificos!=null){
+        this.niveles= JSON.parse(this.historial.detalles_especificos);
+      }
       sessionStorage.setItem('token', res.body.token);
       if(this.historial.url_imagen_pad!= null){
       this.url = this.historial.url_imagen_pad.toString();
