@@ -8,10 +8,11 @@
 
       <div class="search">
             <i class="fas fa-search"></i>
-            <input type="text" placeholder="Nombre del padecimiento" [(ngModel)]="myFilter" (ngModelChange)="filtering()" (keyup)="showResults($event)">
+            <input type="text" placeholder="Ingrese la fecha de su Consulta" [(ngModel)]="mySearch" (ngModelChange)="filtering()" (keyup)="showResults($event)" (focusout)="focusLost()">
+            <span><i *ngIf="mySearch.length!=0" class="fas fa-trash delety" (click)="remove()"></i></span>
             <ul *ngIf="searching === true">
-              <li *ngFor="let historial of historiales | search: 'padecimiento_final' : myFilter" (click)="selection(historial.padecimiento_final)">
-                  <span>{{historial.padecimiento_final}}</span>
+              <li *ngFor="let historial of historiales | search: 'filter_date' : mySearch" (click)="selection(historial.filter_date)">
+                  <span>{{historial.filter_date}}</span>
               </li>
           </ul>
       </div>
@@ -26,7 +27,7 @@
           </th>
           <th>Acciones</th>
       </tr>
-      <tr ng-if="historiales.length>0" *ngFor="let historial of historiales | orderBy : key : reversa : true | ListFilter: 'padecimiento_final' : myFilter | paginate:{itemsPerPage: 10, currentPage:pagina}">
+      <tr ng-if="historiales.length>0" *ngFor="let historial of historiales | orderBy : key : reversa : true | ListFilter: 'filter_date' : myFilter | paginate:{itemsPerPage: 10, currentPage:pagina}">
               <th>{{historial.padecimiento_final}}</th>
               <th>{{ historial.detalles}}</th>
               <th>{{ historial.fecha_consulta}}</th>

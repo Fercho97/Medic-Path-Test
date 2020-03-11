@@ -18,6 +18,7 @@ export class MedicalRecordComponent implements OnInit {
   key :string = 'padecimiento_final';
   reversa : boolean = false;
   public myFilter : any = "";
+  public mySearch : any = "";
   public searching : boolean = false;
   content;
   constructor(private profileServ : ProfileService, private modalService : NgbModal) { }
@@ -57,12 +58,19 @@ export class MedicalRecordComponent implements OnInit {
   }
 
   selection(medico: any){
-    this.myFilter =medico;
+    this.mySearch =medico;
+    this.myFilter=medico;
+    this.pagina = 1;
     this.searching=false;
   }
   
   remove(){
     this.myFilter="";
+    this.mySearch="";
     this.searching=false;
+  }
+
+  focusLost(){
+    this.myFilter=this.mySearch;
   }
 }

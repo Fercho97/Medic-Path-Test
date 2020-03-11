@@ -3,7 +3,7 @@
     <h3 *ngIf="hasEspe">Visualizando los datos de los médicos especialistas en: {{tipo}}</h3>
             <div class="search">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Nombre del medico" [(ngModel)]="mySearch" (keyup)="showResults($event)">
+                    <input type="text" placeholder="Nombre del medico" [(ngModel)]="mySearch" (keyup)="showResults($event)" (focusout)="focusLost()">
                     <span><i *ngIf="mySearch.length!=0" class="fas fa-trash delety" (click)="remove()"></i></span>
                     <ul *ngIf="searching === true">
                         <li *ngFor="let medico of medicos | search: 'fullname' : mySearch" (click)="selection(medico.fullname)">
