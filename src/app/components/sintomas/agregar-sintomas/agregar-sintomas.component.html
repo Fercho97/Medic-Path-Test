@@ -102,18 +102,17 @@
               
               <div class="col" cdk-scrollable style="height: 300px; overflow-y:scroll" >
                 <div class="col" cdkDropList [cdkDropListData]="compuestos" [cdkDropListConnectedTo]="secondList" #firstList="cdkDropList" (cdkDropListDropped)="drop($event)">
-                  <legend style="margin-left: 40%">Componentes</legend>
+                  <legend class="CdkTitle">Componentes</legend>
                   <div *ngFor="let comp of compuestos" class="list" cdkDrag>{{comp.nombre_sint}}</div>
                 </div>
               </div>
             </div>
 
-            <div class="col">
+            <div class="col" cdk-scrollable style="height: 300px; overflow-y:scroll" >
               <div class="col" cdkDropList [cdkDropListData]="selectedCompuestos" [cdkDropListConnectedTo]="firstList" #secondList="cdkDropList" (cdkDropListDropped)="drop($event)">
-                  <legend style="margin-left: 22%">Componentes Seleccionados</legend>
+                  <legend class="CdkTitle">Componentes Seleccionados</legend>
                   <div *ngFor="let selected of selectedCompuestos" class="list" cdkDrag>{{selected.nombre_sint}}</div>
               </div>
-              
             </div>
 
           </div>

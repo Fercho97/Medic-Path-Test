@@ -20,15 +20,15 @@
                   
                   <div class="col" cdk-scrollable style="height: 300px; overflow-y:scroll" >
                     <div class="col" cdkDropList [cdkDropListData]="iniciales" [cdkDropListConnectedTo]="secondList" #firstList="cdkDropList" (cdkDropListDropped)="drop($event)">
-                      <legend style="margin-left: 10%">Sintomas</legend>
+                      <legend class="CdkTitle">Sintomas</legend>
                       <div *ngFor="let ini of iniciales" class="list" cdkDrag>{{ini.nombre_sint}}</div>
                     </div>
                   </div>
                 </div>
     
-                <div class="col">
+                <div class="col" cdk-scrollable style="height: 300px; overflow-y:scroll">
                   <div class="col" cdkDropList [cdkDropListData]="sintomasSeleccionados" [cdkDropListConnectedTo]="firstList" #secondList="cdkDropList" (cdkDropListDropped)="drop($event)">
-                      <legend style="margin-left: 5%">Sintomas Seleccionados</legend>
+                      <legend class="CdkTitle">Sintomas Seleccionados</legend>
                       <div *ngFor="let selected of sintomasSeleccionados" class="list" cdkDrag>{{selected.nombre_sint}}</div>
                   </div>
                   

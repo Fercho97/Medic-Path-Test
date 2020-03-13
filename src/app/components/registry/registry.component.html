@@ -135,14 +135,16 @@
         
         <div class="form-row">
           <div class="col" cdk-scrollable style="height: 300px; overflow-y:scroll;justify-content:center">
-          <div class="col" cdkDropList [cdkDropListData]="especializaciones" [cdkDropListConnectedTo]="secondList" #firstList="cdkDropList" (cdkDropListDropped)="drop($event)">
-            <legend>Especializaciones</legend>
-            <div *ngFor="let espe of especializaciones" class="list" cdkDrag>{{espe.nombre_esp}}</div>
+            <div class="col" cdkDropList [cdkDropListData]="especializaciones" [cdkDropListConnectedTo]="secondList" #firstList="cdkDropList" (cdkDropListDropped)="drop($event)">
+              <legend class="CdkTitle">Especializaciones</legend>
+              <div *ngFor="let espe of especializaciones" class="list" cdkDrag>{{espe.nombre_esp}}</div>
+            </div>
           </div>
-          </div>
-          <div class="col" cdkDropList [cdkDropListData]="selectedEspe" [cdkDropListConnectedTo]="firstList" #secondList="cdkDropList" (cdkDropListDropped)="drop($event)">
-            <legend>Especializaciones Seleccionadas</legend>
-            <div *ngFor="let selected of selectedEspe" class="list" cdkDrag>{{selected.nombre_esp}}</div>
+          <div class="col" cdk-scrollable style="height: 300px; overflow-y:scroll;justify-content:center">
+            <div class="col" cdkDropList [cdkDropListData]="selectedEspe" [cdkDropListConnectedTo]="firstList" #secondList="cdkDropList" (cdkDropListDropped)="drop($event)">
+              <legend class="CdkTitle">Especializaciones Seleccionadas</legend>
+              <div *ngFor="let selected of selectedEspe" class="list" cdkDrag>{{selected.nombre_esp}}</div>
+            </div>
           </div>
         </div>
 

@@ -5,7 +5,7 @@
   text-align: center;
   padding: 50px;
   margin: 40px 2%;
-  border-style: double;
+  border-style: outset;
   border-radius: 15px;
   border-color: red;
 }

@@ -6,53 +6,64 @@
       </button>
     </div>
     <div class="modal-body">
-    <label>Fecha de la consulta médica</label>
-    <input type="text"  value="{{historial.fecha_consulta}}" disabled>
+    <label class="title">Fecha de la consulta médica</label>
+    <input type="text"  value="{{historial.fecha_consulta}}" disabled/>
 
-    <label>Padecimiento resultante</label>
-    <input type="text" value="{{historial.nombre_pad}}" disabled>
+    <label class="title"></label>
+    <label class="title">Padecimiento resultante</label>
+    <input type="text" value="{{historial.nombre_pad}}" disabled />
 
-    <label>Categoria del padecimiento</label>
-    <input type="text"  value="{{historial.categoria}}" disabled>
+    <label class="title"></label>
+    <label class="title">Categoria del padecimiento</label>
+    <input type="text"  value="{{historial.categoria}}" disabled />
 
-    <label>Especialidad Padecimiento</label>
+    <label class="title"></label>
+    <label class="title">Especialidad Padecimiento</label>
     <br>
     <legend (click)="activeModal.dismiss('Cross click')" routerLink="/medics/{{historial.nombre_esp}}">{{historial.nombre_esp}}</legend>
     <div>
-      <label>Imagen</label><br>
+      <label class="title">Imagen</label><br>
       <img class="center" style="width:300px;height:200px;" [src]="url">
     </div>
       <br><br>
-    <label>Sintomas</label>
+    <div *ngIf="niveles==''">
+    <label class="title">Sintomas</label>
     <ul>
       <li *ngFor="let sintoma of sintomas">
         {{sintoma}}
       </li>
     </ul>
+    </div>
 
     <div *ngIf="niveles!=''">
       <ul *ngIf="niveles.Medio.length>0">
-          <h5>Sintomas destacados <i class="far fa-question-circle" title="Sintomas que pueden afectar su vida diaria"></i></h5>
+          <h5>Sintomas destacados <i class="far fa-question-circle" ngbTooltip="Sintomas que pueden afectar su vida diaria"></i></h5>
           <li *ngFor="let niv of niveles.Medio">
-              <p>{{niv.sintoma}}</p>
+              <p>{{niv.sintoma}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
           </li>
       </ul>
+      <ul *ngIf="niveles.Ninguno.length>0">
+        <h5>Sintomas sin urgencia <i class="far fa-question-circle" ngbTooltip="Sintomas que por si solos no presentan peligro alguno a menos que se descuiden por bastante tiempo o bien las afectaciones percibidas hacia la personas sean en exceso"></i></h5>
+        <li *ngFor="let niv of niveles.Ninguno">
+            <p>{{niv.sintoma}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
+        </li>
+    </ul>
       <ul *ngIf="niveles.Bajo.length>0">
-              <h5>Sintomas de baja urgencia <i class="far fa-question-circle" title="Sintomas cuya persistencia por más de 3 días será necesario el checar con un médico"></i></h5>
+              <h5>Sintomas de baja urgencia <i class="far fa-question-circle" ngbTooltip="Sintomas cuya persistencia por más de 3 días será necesario el checar con un médico"></i></h5>
               <li *ngFor="let niv of niveles.Bajo">
-                  <p>{{niv.sintoma}}</p>
+                  <p>{{niv.sintoma}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
               </li>
       </ul>
       <ul *ngIf="niveles.Alto.length>0">
-          <h5>Sintomas de alta urgencia <i class="far fa-question-circle" title="Sintomas que por su naturaleza o bien su persistencia se recomienda encarecidamente acudir con un médico"></i></h5>
+          <h5>Sintomas de alta urgencia <i class="far fa-question-circle" ngbTooltip="Sintomas que por su naturaleza o bien su persistencia se recomienda encarecidamente acudir con un médico"></i></h5>
           <li *ngFor="let niv of niveles.Alto">
-              <p>{{niv.sintoma}}</p>
+              <p>{{niv.sintoma}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
           </li>
       </ul>
       <ul *ngIf="niveles.Severo.length>0">
-          <h5>Sintomas de severidad<i class="far fa-question-circle" title="Si presenta alguno de estos sintomas es sumamente necesario el acudir con un especialista con el fin de tratar dicho sintoma, por lo regular requieren estudios."></i></h5>
+          <h5>Sintomas de severidad <i class="far fa-question-circle" ngbTooltip="Si presenta alguno de estos sintomas es sumamente necesario el acudir con un especialista con el fin de tratar dicho sintoma, por lo regular requieren estudios."></i></h5>
           <li *ngFor="let niv of niveles.Severo">
-              <p>{{niv.sintoma}}</p>
+              <p>{{niv.sintoma}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
           </li>
       </ul>
       </div>

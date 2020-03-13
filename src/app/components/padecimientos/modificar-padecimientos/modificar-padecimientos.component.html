@@ -90,14 +90,17 @@
             <div class="form-row">
               <div class="col" cdk-scrollable style="height: 300px; overflow-y:scroll" >
                 <div class="col" cdkDropList [cdkDropListData]="sintomas" [cdkDropListConnectedTo]="secondList" #firstList="cdkDropList" (cdkDropListDropped)="drop($event)">
-                  <legend style="margin-left: 42%">Sintomas</legend>
+                  <legend class="CdkTitle">Sintomas</legend>
                   <div *ngFor="let sint of sintomas" class="list" cdkDrag>{{sint.nombre_sint}}</div>
                 </div>
               </div>
+              <div class="col" cdk-scrollable style="height: 300px; overflow-y:scroll">
+                <legend class="CdkTitle">Sintomas Seleccionados</legend>
                 <div class="col" cdkDropList [cdkDropListData]="selectedSints" [cdkDropListConnectedTo]="firstList" #secondList="cdkDropList" (cdkDropListDropped)="drop($event)">
-                  <legend style="margin-left: 42%">Sintomas Seleccionados</legend>
+          
                   <div *ngFor="let selected of selectedSints" class="list" cdkDrag>{{selected.nombre_sint}}</div>
                 </div>
+              </div>
               </div>
     
             <a routerLink="listar" routerLinkActive="active"><button type="button" class="btn btn-secondary cancel">Volver</button></a>    

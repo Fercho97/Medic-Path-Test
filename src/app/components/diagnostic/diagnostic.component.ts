@@ -314,7 +314,7 @@ export class DiagnosticComponent implements OnInit {
         let atomSymp = this.sintomas.find(item => item['nombre_sint'].toString() === atomo.desc);
         if(atomSymp!=null){
         console.log(atomSymp.nivel_urgencia);
-        let sympLev = {sintoma: atomSymp.nombre_sint};
+        let sympLev = {sintoma: atomSymp.nombre_sint, descripcion: atomSymp.descripcion};
         if(atomSymp.nivel_urgencia>=0 && atomSymp.nivel_urgencia<0.2){
           this.niveles.Ninguno.push(sympLev);
         }else if(atomSymp.nivel_urgencia>=0.2 && atomSymp.nivel_urgencia<0.4){

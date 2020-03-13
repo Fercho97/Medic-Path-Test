@@ -2,7 +2,7 @@
   margin: 0 2%;
   height: 100%;
   width: 100%;
-  border-style: double;
+  border-style: outset;
   border-radius: 15px;
   border-color: red;
 }

@@ -432,7 +432,6 @@ export class GuidedDiagnosticComponent implements OnInit {
        }
   
        optionAnswer(opciones: any, text : any, atomos : any, answer){
-        //TODO en base a los datos de options generar los botones de manera dinámica, en base a los datos de atoms generar los atomos negados en caso de que no y el atomo aceptado en caso de que si.
         if(opciones.length<atomos.length){
           opciones.push('Simple');
         }
@@ -478,7 +477,7 @@ export class GuidedDiagnosticComponent implements OnInit {
           let atomSymp = this.sintomas.find(item => item['nombre_sint'].toString() === atomo.desc);
           if(atomSymp!=null){
           console.log(atomSymp.nivel_urgencia);
-          let sympLev = {sintoma: atomSymp.nombre_sint};
+          let sympLev = {sintoma: atomSymp.nombre_sint, descripcion: atomSymp.descripcion};
           if(atomSymp.nivel_urgencia>=0 && atomSymp.nivel_urgencia<0.2){
             this.niveles.Ninguno.push(sympLev);
           }else if(atomSymp.nivel_urgencia>=0.2 && atomSymp.nivel_urgencia<0.4){

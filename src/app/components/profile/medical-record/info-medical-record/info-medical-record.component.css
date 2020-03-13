@@ -36,3 +36,12 @@ legend{
 legend:hover{
   cursor: pointer;
 }
+
+.title{
+  color: blue;
+  font-size: 15px;
+}
+
+i{
+  color: cornflowerblue;
+}
