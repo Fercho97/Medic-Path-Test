@@ -6,23 +6,27 @@
       </button>
     </div>
     <div class="modal-body">
-    <label>Nombre del sintoma</label>
+    <label class="title">Nombre del sintoma</label>
     <input type="text"  value="{{sintoma.nombre_sint}}" disabled>
 
-    <label>Categoria del sintoma</label>
+    <label class="title"></label>
+    <label class="title">Categoria del sintoma</label>
     <input type="text"  value="{{sintoma.categoria_sint}}" disabled>
 
-    <label>Nivel de Urgencia del sintoma</label>
+    <label class="title"></label>
+    <label class="title">Nivel de Urgencia del sintoma</label>
     <input type="text"  value="{{sintoma.nivel_urgencia}}" disabled>
 
-    <label>Palabra clave del sintoma</label>
+    <label class="title"></label>
+    <label class="title">Palabra clave del sintoma</label>
     <input type="text"  value="{{sintoma.keyWord}}" disabled>
 
-    <label>Descripcion del sintoma</label>
+    <label class="title"></label>
+    <label class="title">Descripcion del sintoma</label>
     <textarea rows="10" disabled>{{sintoma.descripcion}}</textarea>
 
     <div [hidden]="!compuesto">
-    <label>Componentes</label>
+    <label class="title">Componentes</label>
     <input type="text"  value="{{sintoma.composicion}}" disabled>
     </div>
 </div>

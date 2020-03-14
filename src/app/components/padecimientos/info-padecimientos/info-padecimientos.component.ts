@@ -30,7 +30,7 @@ export class InfoPadecimientosComponent implements OnInit {
     this.padServ.getPad(this.pad).subscribe( (res : any) =>{
       console.log(res.body);
       this.padecimiento = res.body.padecimiento;
-      this.sintomas = res.body.sintomas;
+      this.sintomas = res.body.padecimiento.sintomas;
       
       this.sintomas.forEach(sintoma => {
         if(this.sintomasCadena==""){

@@ -6,29 +6,32 @@
       </button>
     </div>
     <div class="modal-body">
-    <label>Nombre del padecimiento</label>
+    <label class="title">Nombre del padecimiento</label>
     <input type="text"  value="{{padecimiento.nombre_pad}}" disabled>
 
-    <label>Categoria del padecimiento</label>
+    <label class="title"></label>
+    <label class="title">Categoria del padecimiento</label>
     <input type="text"  value="{{padecimiento.categoria}}" disabled>
 
-    <label>Especializacion del padecimiento</label>
+    <label class="title"></label>
+    <label class="title">Especializacion del padecimiento</label>
     <input type="text"  value="{{padecimiento.nombre_esp}}" disabled>
 
-    <label>Descripcion del padecimiento</label>
+    <label class="title"></label>
+    <label class="title">Descripcion del padecimiento</label>
     <textarea rows="10" disabled>{{padecimiento.descripcion}}</textarea>
 
     <div *ngIf="hasInfo">
-      <label>Imagen</label><br>
+      <label class="title">Imagen</label><br>
       <img class="center" style="width:300px;height:200px;" [src]="url">
     </div>
     
     <div *ngIf="!hasInfo">
-      <label>Imagen</label><br>
+      <label class="title">Imagen</label><br>
       <img class="center"style="width:300px;height:200px;" [src]="url">
     </div>
       <br><br>
-    <label>Sintomas</label>
+    <label class="title">Sintomas</label>
     <textarea rows="10" disabled>{{sintomasCadena}}</textarea>
     </div>
     <div class="modal-footer" >

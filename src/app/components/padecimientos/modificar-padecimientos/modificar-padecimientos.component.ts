@@ -89,7 +89,7 @@ export class ModificarPadecimientosComponent implements OnInit {
     console.log(res.body);
     this.padecimiento = res.body.padecimiento;
     this.originalValue = this.padecimiento.nombre_pad;
-    this.selectedSints = res.body.sintomas;
+    this.selectedSints = res.body.padecimiento.sintomas;
     
     this.selectedSints.forEach(element => {
       let item = this.sintomas.find(s => s.idSint == element.idSint );
