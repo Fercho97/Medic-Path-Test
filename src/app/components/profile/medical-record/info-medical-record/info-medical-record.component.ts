@@ -14,7 +14,7 @@ export class InfoMedicalRecordComponent implements OnInit {
   padecimientoInfo = {} as any;
   public url : string = '';
   public sintomas = [];
-  public niveles = "";
+  public niveles : any = { "Ninguno" : [], "Bajo" : [], "Medio" : [], "Alto" : [], "Severo" : []};
   constructor(public activeModal: NgbActiveModal, private profileServ : ProfileService) { 
 
   }

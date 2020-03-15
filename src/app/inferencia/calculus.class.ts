@@ -1,4 +1,5 @@
 import {Atomo} from './atomo.class';
+import {Regla} from './regla.class';
 export class Calculus{
 
      calculateCloseness(conocimientoEvaluado,baseConocimiento,memoriaDeTrabajo){
@@ -49,6 +50,37 @@ export class Calculus{
         return sintomasExtras;
       }
 
+
+      pathSelection(baseConocimiento : any, memoriaDeTrabajo : any){
+        let bestStart;
+        let atomsInRule;
+        let commonAtoms;
+        let bestPorcentage = 0;
+        let porcentage;
+        let index = 0;
+        baseConocimiento.forEach((element:Regla)=> {
+          atomsInRule=0;
+          commonAtoms=0;
+          index++;
+          element.partesCondicion.forEach(parte =>{
+            if(parte instanceof Atomo){
+              atomsInRule++;
+            }
+            if(memoriaDeTrabajo.atomosAfirmados.some(atom => atom.desc === parte.desc)){
+              commonAtoms++;
+            }
+          });
+          porcentage = commonAtoms * 100 / atomsInRule;
+          if(porcentage > bestPorcentage){
+            bestPorcentage = porcentage;
+            bestStart = index;
+          }
+        });
+        if(bestStart==undefined){
+        bestStart = Math.floor(Math.random() * baseConocimiento.length) + 1;
+        }
+        return bestStart-1;
+      }
 
       getDifferencesBetweenNames(names : any, sint: any){
         let samewords : any = this.getSameWords(names, sint);
