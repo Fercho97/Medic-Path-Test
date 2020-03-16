@@ -57,7 +57,5 @@ export class MemoriaTrabajo{
                 return afirmado;
             }
         }
-
-        return false;
     }
 }

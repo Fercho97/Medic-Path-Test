@@ -3,12 +3,41 @@
         
         <div class="col m10 margin-color" *ngIf="!hasPregunta">
             <div class="center">
-                <p>Bienvenido a la herramienta de diagnostico</p>
-                <p>Para comenzar simplemente haga click en el siguiente botón</p>
+                <p>Bienvenido a la herramienta de diágnostico</p>
+                <p>Para comenzar simplemente haga click en el siguiente botón eliga iniciar un diágnostico desde 0 o bien</p>
+                <p>Seleccione que es lo que siente</p>
             </div>
 
             <button class="btn" (click)="iniciarDiagnostico()">Comenzar</button>
 
+            <button class="btn" (click)="selection()">Seleccionar sintomas iniciales</button>
+            <br>
+            <br>
+            <div class="form-row" *ngIf="isSelection">
+                <legend>Sintomas iniciales</legend>
+                <div class="col">
+                  
+                  <div class="col" cdk-scrollable style="height: 300px; overflow-y:scroll" >
+                    <div class="col" cdkDropList [cdkDropListData]="iniciales" [cdkDropListConnectedTo]="secondList" #firstList="cdkDropList" (cdkDropListDropped)="drop($event)">
+                      <legend class="CdkTitle">Sintomas</legend>
+                      <div *ngFor="let ini of iniciales" class="list" cdkDrag>{{ini.nombre_sint}}</div>
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="col" cdk-scrollable style="height: 300px; overflow-y:scroll">
+                  <div class="col" cdkDropList [cdkDropListData]="sintomasSeleccionados" [cdkDropListConnectedTo]="firstList" #secondList="cdkDropList" (cdkDropListDropped)="drop($event)">
+                      <legend class="CdkTitle">Sintomas Seleccionados</legend>
+                      <div *ngFor="let selected of sintomasSeleccionados" class="list" cdkDrag>{{selected.nombre_sint}}</div>
+                  </div>
+                  
+                </div>
+                
+                
+              </div>
+              <div>
+              <button class="btn" *ngIf="isSelection" (click)="fromSintomasIniciales()">Iniciar diagnostico con sintomas iniciales</button>
+              </div>
         </div>
         <div class="col m12 margin-color" [hidden]="!hasPregunta">
             <h4>Sus sintomas: </h4>
@@ -77,7 +106,7 @@
         <div *ngIf="hasResult">
             <ul *ngIf="hasResult">
                 <h2>Esto debido a los siguientes sintomas: </h2>
-                <li *ngFor="let sintoma of sintomasSeleccionados">
+                <li *ngFor="let sintoma of sintomasResultado">
                   {{sintoma.desc}}
                 </li>
             </ul>

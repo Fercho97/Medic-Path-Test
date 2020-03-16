@@ -13,6 +13,7 @@ import { Calculus } from '../../inferencia/calculus.class';
 import { ErrorMsg } from '../../interfaces/errorMsg.const';
 import * as moment from 'moment-timezone';
 moment.locale('es');
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-diagnostic',
   templateUrl: './diagnostic.component.html',
@@ -39,6 +40,8 @@ export class DiagnosticComponent implements OnInit {
   public sintomas : any = [];
   public sintomasSeleccionados : any = [];
   public sintomasExtras : any =[];
+  public iniciales : any =[];
+  public sintomasResultado : any = [];
   public descs : any = [];
   public nextObjective : any = [];
   public niveles : any = { "Ninguno" : [], "Bajo" : [], "Medio" : [], "Alto" : [], "Severo" : []};
@@ -46,6 +49,8 @@ export class DiagnosticComponent implements OnInit {
   public numeric : FormGroup;
   public errores_Diag = ErrorMsg.ERROR_DIAG;
   public atomos_opciones : any = [];
+  public isSelection : boolean = false;
+  public fromSelected = false;
   constructor(private diagServ : DiagnosticService, private toast : ToastrService, 
               private router : Router, private sintServ : SintomasService) {
 
@@ -61,11 +66,13 @@ export class DiagnosticComponent implements OnInit {
 
     this.sintServ.getSints().subscribe(res =>{
       this.sintomas = res.body;
+      this.iniciales = this.sintomas.filter(sintoma => sintoma['compuesto']==false);
       console.log(this.sintomas);
     })
   }
 
   iniciarDiagnostico(){
+    this.fromSelected=false;
     //console.log("inicia")
     let mira : string = "";
     this.diagServ.consulta(mira).subscribe((res : any)  =>{
@@ -202,10 +209,14 @@ export class DiagnosticComponent implements OnInit {
     }
 
     guardar(){
-      
+      let details = "";
+      for(var atom of this.sintomasResultado){
+        details = details + atom.desc + ",";
+      }
+
       var fecha = moment().tz('America/Mexico_City').format();
       let values = new HttpParams()
-      .set('detalles', this.breadcrumb.replace(/->/g,","))
+      .set('detalles', details)
       .set('usuario', window.sessionStorage.getItem('usuario'))
       .set('padecimiento_final', this.idResultado)
       .set('visible', 'true')
@@ -231,12 +242,11 @@ export class DiagnosticComponent implements OnInit {
       this.idResultado=this.reglaEvaluar.partesConclusion[0].padecimiento;
       this.reglaEvaluar.partesCondicion.forEach(element => {
           if((element!=="&") && (element!=="!")){
-          this.sintomasSeleccionados.push(this.memoriaDeTrabajo.estaAfirmado(element));
+          this.sintomasResultado.push(this.memoriaDeTrabajo.estaAfirmado(element));
          }
       });
       this.sintomasExtras = this.calculusClass.calculateCloseness(this.conocimientoEvaluado,this.baseConocimiento,this.memoriaDeTrabajo);
-      console.log(this.sintomasExtras);
-      console.log(this.memoriaDeTrabajo)
+
       this.checkUrgencyLevels();
       if(this.user==true){
         this.guardar();
@@ -274,6 +284,55 @@ export class DiagnosticComponent implements OnInit {
  
        return lastId;
      }
+
+     fromSintomasIniciales(){
+      this.sintomasSeleccionados.forEach(element => {
+        //Generar atomo
+        let atomoRegla = new Atomo(element.nombre_sint,true,false,null,element.idSint);
+        console.log(atomoRegla);
+        //Guardar en memoria de trabajo
+        this.memoriaDeTrabajo.almacenarAtomo(atomoRegla);
+        this.breadcrumb = this.breadcrumb + element.nombre_sint + "->";
+        this.evaluateSypmtom(atomoRegla.sintoma);
+      });
+
+      this.avoidUnnecesaryQuestions();
+      console.log(this.memoriaDeTrabajo);
+      if(this.preguntas.length>0){
+        this.hasPregunta = true;
+        this.fromSelected=true;
+        this.mostrarPregunta();
+      }else{
+        this.iniciarDiagnostico();
+      }
+    }
+
+    avoidUnnecesaryQuestions(){
+      this.memoriaDeTrabajo.atomosAfirmados.forEach(sintoma =>{
+        let multiOption = this.checkMultipleTypes(sintoma.desc);
+
+        if(multiOption.length>1){
+          multiOption.forEach(option =>{
+            let atomo = new Atomo(option.nombre_sint,false,false,null,null);
+            console.log(this.memoriaDeTrabajo.estaAfirmado(atomo));
+            if(this.memoriaDeTrabajo.estaAlmacenado(atomo)===false){
+              this.memoriaDeTrabajo.almacenarAtomo(atomo);
+            }
+          })
+        }
+      })
+    }
+
+    drop(event: CdkDragDrop<string[]>){
+      if(event.previousContainer !== event.container){
+        transferArrayItem(event.previousContainer.data,event.container.data,
+                          event.previousIndex, event.currentIndex);
+                          console.log(this.sintomasSeleccionados);
+      }else{
+        moveItemInArray(this.iniciales, event.previousIndex, event.currentIndex);
+        console.log(this.sintomasSeleccionados);
+      }
+    }
 
      checkUrgencyLevels(){
 
@@ -336,8 +395,8 @@ export class DiagnosticComponent implements OnInit {
      }
 
      evaluateSypmtom(symp : any){
-      let atomSymp = this.sintomas.find(item => item['idSint'].toString() === symp);
-      let sympIndex = this.sintomas.findIndex(item => item['idSint'].toString() === symp);
+      let atomSymp = this.sintomas.find(item => item['idSint'].toString() === symp.toString());
+      let sympIndex = this.sintomas.findIndex(item => item['idSint'].toString() === symp.toString());
       if(atomSymp.nivel_urgencia==0.4){
         this.preguntas.push({message:'Del 1 al 10 que rango de molestia le causa el tener ' + atomSymp.nombre_sint, type: 'scale', index: sympIndex});
       }
@@ -349,6 +408,8 @@ export class DiagnosticComponent implements OnInit {
     this.sintomas[index].nivel_urgencia = calculatedUrgency;
     if(this.preguntas.length>0){
       this.mostrarPregunta();
+      }else if(this.fromSelected=true){
+        this.iniciarDiagnostico();
       }else{
       this.analize();
       }
@@ -448,5 +509,13 @@ export class DiagnosticComponent implements OnInit {
         }else{
         this.analize();
         }
+    }
+
+    selection(){
+      this.isSelection=true;
+    }
+
+    cancel(){
+      this.isSelection=false;
     }
 }
