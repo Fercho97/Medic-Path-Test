@@ -94,7 +94,6 @@ if(partes.indexOf("!")===-1){
     for(let ind = partes.length; ind>0; ind--){
     let indice = Math.floor(Math.random() * partes.length);
     let parte = partes.splice(indice,1);
-    console.log(parte);
     let id = ids.splice(indice,1);
         switch(parte[0]){  
             case "!": negado = true;

@@ -45,7 +45,6 @@ export class DiagnosticComponent implements OnInit {
   public descs : any = [];
   public nextObjective : any = [];
   public niveles : any = { "Ninguno" : [], "Bajo" : [], "Medio" : [], "Alto" : [], "Severo" : []};
-  public questionTypes = questions.QUESTIONS;
   public numeric : FormGroup;
   public errores_Diag = ErrorMsg.ERROR_DIAG;
   public atomos_opciones : any = [];
@@ -84,7 +83,7 @@ export class DiagnosticComponent implements OnInit {
         this.baseConocimiento.push(rule.desgloseReglas(element));
       });
 
-      //console.log(this.baseConocimiento);
+      console.log(this.baseConocimiento);
       this.hasPregunta = true;
       this.inferencia();
     }, error =>{
@@ -417,7 +416,7 @@ export class DiagnosticComponent implements OnInit {
 
      checkMultipleTypes(sint:any){
        let sintoma = this.sintomas.find(symp => symp['nombre_sint']==sint);
-       let sameSynts = this.sintomas.filter(symp => symp['categoria_sint']==sintoma.categoria_sint && symp['keyWord']==sintoma.keyWord);
+       let sameSynts = this.sintomas.filter(symp => symp['categoria_sint']==sintoma.categoria_sint && symp['keyWord'].toLowerCase()==sintoma.keyWord.toLowerCase());
        return sameSynts;
      }
 
@@ -438,27 +437,28 @@ export class DiagnosticComponent implements OnInit {
      }
 
      optionAnswer(opciones: any, text : any, atomos : any, answer){
-      //TODO en base a los datos de options generar los botones de manera dinámica, en base a los datos de atoms generar los atomos negados en caso de que no y el atomo aceptado en caso de que si.
-      if(opciones.length<atomos.length){
-        opciones.push('Simple');
-      }
-
-      console.log(atomos);
       //console.log(opciones.length);
       if(answer==="Si"){
-        let optionSize = opciones.length;
+        let atomsSize = atomos.length;
         this.atomos_opciones.push( atomos.slice());
         console.log(this.atomos_opciones);
         let buttonOptions = [];
-        for(var i = 0; i<optionSize; i++){
+        for(var i = 0; i<atomsSize; i++){
+          let showOption  = "";
           let atomo = atomos.pop();
-          let showOption = opciones.pop();
+
+          if(opciones.length!=0){
+          showOption = opciones.pop();
+          }else{
+            showOption = "General";
+          }
           let sintoma = this.sintomas.find(symp => symp['nombre_sint']==atomo);
           let button = {message: showOption, value: atomo, desc: sintoma.descripcion};
           buttonOptions.push(button);
         }
         console.log(buttonOptions);
-        this.preguntas.push({message: "¿Como describiría su " + text + "?",buttons: buttonOptions, type: 'selection'});
+        let messageShow = questions.MULTIQUESTIONS[text.toLowerCase()];
+        this.preguntas.push({message: messageShow[0].message,buttons: buttonOptions, type: 'selection'});
       }else{
         let atomoEvaluado = this.atomosCondicion.pop();
         atomoEvaluado.estado=false;
