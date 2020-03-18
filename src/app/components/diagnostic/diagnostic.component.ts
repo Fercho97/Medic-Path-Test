@@ -245,7 +245,6 @@ export class DiagnosticComponent implements OnInit {
          }
       });
       this.sintomasExtras = this.calculusClass.calculateCloseness(this.conocimientoEvaluado,this.baseConocimiento,this.memoriaDeTrabajo);
-
       this.checkUrgencyLevels();
       if(this.user==true){
         this.guardar();
@@ -407,7 +406,7 @@ export class DiagnosticComponent implements OnInit {
     this.sintomas[index].nivel_urgencia = calculatedUrgency;
     if(this.preguntas.length>0){
       this.mostrarPregunta();
-      }else if(this.fromSelected=true){
+      }else if(this.fromSelected==true){
         this.iniciarDiagnostico();
       }else{
       this.analize();

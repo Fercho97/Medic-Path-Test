@@ -394,7 +394,7 @@ export class GuidedDiagnosticComponent implements OnInit {
       this.sintomas[index].nivel_urgencia = calculatedUrgency;
       if(this.preguntas.length>0){
         this.mostrarPregunta();
-        }else if(this.fromSelected=true){
+        }else if(this.fromSelected==true){
           this.iniciarDiagnostico();
         }else{
         this.analize();
