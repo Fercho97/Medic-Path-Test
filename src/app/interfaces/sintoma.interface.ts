@@ -9,5 +9,6 @@ export interface Sintoma{
     keyWord: String,
     compuesto: boolean,
     composicion: String,
-    nivel_urgencia: Number
+    nivel_urgencia: Number,
+    body_zone: String
 }

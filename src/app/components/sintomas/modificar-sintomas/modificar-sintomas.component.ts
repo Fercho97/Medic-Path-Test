@@ -65,6 +65,18 @@ export class ModificarSintomasComponent implements OnInit {
     }
   ];
 
+  public zone_options = [
+    {
+      nombre: "Cabeza"
+    },
+    {
+      nombre: "Abdomen"
+    },
+    {
+      nombre: "Corporal"
+    }
+  ]
+
   public compuestos : any = [];
   public selectedCompuestos : any = [];
   public sintoma : Sintoma = {} as any;
@@ -88,6 +100,7 @@ export class ModificarSintomasComponent implements OnInit {
 
       categoria: new FormControl('', Validators.required),
       urgencia: new FormControl('', Validators.required),
+      body_zone: new FormControl('', Validators.required),
       descripcion: new FormControl('', 
       [Validators.required,
         Validators.minLength(20),
@@ -131,11 +144,13 @@ export class ModificarSintomasComponent implements OnInit {
         descripcion : this.sintoma.descripcion,
         compuesto : this.sintoma.compuesto,
         categoria: this.sintoma.categoria_sint,
-        urgencia: this.sintoma.nivel_urgencia
+        urgencia: this.sintoma.nivel_urgencia,
+        body_zone: this.sintoma.body_zone
       })
       this.isChecked = this.sintoma.compuesto;
       this.modify.controls['categoria'].setValue(this.sintoma.categoria_sint, {onlySelf : true});
       this.modify.controls['urgencia'].setValue(this.sintoma.nivel_urgencia, {onlySelf : true});
+      this.modify.controls['body_zone'].setValue(this.sintoma.body_zone, {onlySelf : true});
       this.originalValue = this.sintoma.nombre_sint;
     });
 
@@ -173,6 +188,7 @@ export class ModificarSintomasComponent implements OnInit {
       .set('compuesto', 'false')
       .set('composicion', '')
       .set('nivel_urgencia', this.modify.value.urgencia)
+      .set('body_zone', this.modify.value.body_zone)
     }else{
       this.nameToId();
       this.values = new HttpParams()
@@ -183,6 +199,7 @@ export class ModificarSintomasComponent implements OnInit {
       .set('compuesto', 'true')
       .set('composicion', this.composicionBack)
       .set('nivel_urgencia', this.modify.value.urgencia)
+      .set('body_zone', this.modify.value.body_zone)
     }
     console.log(this.values);
     console.log(this.selectedCompuestos.length);

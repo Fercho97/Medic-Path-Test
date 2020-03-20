@@ -64,6 +64,18 @@ export class AgregarSintomasComponent implements OnInit {
     }
   ];
 
+  public zone_options = [
+    {
+      nombre: "Cabeza"
+    },
+    {
+      nombre: "Abdomen"
+    },
+    {
+      nombre: "Corporal"
+    }
+  ]
+
   public compuestos : any = [];
   public selectedCompuestos : any = [];
   public composicionFront : string = "";
@@ -85,6 +97,7 @@ export class AgregarSintomasComponent implements OnInit {
       categoria: new FormControl('', Validators.required),
 
       urgencia: new FormControl('', Validators.required),
+      body_zone: new FormControl('', Validators.required),
       descripcion: new FormControl('',
       [Validators.required,
         Validators.minLength(20),
@@ -114,6 +127,7 @@ export class AgregarSintomasComponent implements OnInit {
       .set('compuesto', 'false')
       .set('composicion', '')
       .set('nivel_urgencia', this.sintomas.value.urgencia)
+      .set('body_zone', this.sintomas.value.body_zone)
     }else{
       this.nameToId();
       this.values = new HttpParams()
@@ -124,6 +138,7 @@ export class AgregarSintomasComponent implements OnInit {
       .set('compuesto', 'true')
       .set('composicion', this.composicionBack)
       .set('nivel_urgencia', this.sintomas.value.urgencia)
+      .set('body_zone', this.sintomas.value.body_zone)
     }
 
     if((this.isChecked==true && this.selectedCompuestos.length<=1) || this.selectedCompuestos.length===undefined){

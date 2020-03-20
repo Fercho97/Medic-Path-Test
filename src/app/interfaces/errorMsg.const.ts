@@ -78,6 +78,9 @@ export class ErrorMsg {
             {type: 'required', message: 'Es necesario ingresar una palabra clave para el síntoma'},
             {type: 'minlength', message: 'La palabra clave debe ser mayor a 4 caracteres'},
             {type: 'maxlength', message: 'La longitud debe ser menor a 30 caracteres'}
+          ],
+          'body_zone' : [
+            {type: 'required', message: 'Es necesario elegir una zona para el sintoma'}
           ]
     }
 
