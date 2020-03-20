@@ -24,6 +24,7 @@
     "@auth0/angular-jwt": "^3.0.1",
     "@ng-bootstrap/ng-bootstrap": "^5.1.1",
     "bootstrap": "^4.4.1",
+    "bootstrap-select": "^1.13.12",
     "core-js": "^3.6.3",
     "jquery": "^3.4.1",
     "moment": "^2.24.0",

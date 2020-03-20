@@ -50,7 +50,7 @@ import { AuthInterceptorService } from "./components/auth/interceptor.service";
 import { RegistryComponent } from './components/registry/registry.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { GuidedDiagnosticComponent } from './components/guided-diagnostic/guided-diagnostic.component';
-
+import { SintSelectionComponent } from './components/diagnostic/sintSelection/sintSelection.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +90,8 @@ import { GuidedDiagnosticComponent } from './components/guided-diagnostic/guided
     InfoMedicalRecordComponent,
     RegistryComponent,
     SearchPipe,
-    GuidedDiagnosticComponent
+    GuidedDiagnosticComponent,
+    SintSelectionComponent
   ],
   imports: [
     BrowserModule,
@@ -111,6 +112,6 @@ import { GuidedDiagnosticComponent } from './components/guided-diagnostic/guided
   providers: [NgbActiveModal,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
   bootstrap: [AppComponent],
   
-  entryComponents: [InfoSintomasComponent, InfoPadecimientosComponent, InfoMedicalRecordComponent, InfoMedicComponent]
+  entryComponents: [InfoSintomasComponent, InfoPadecimientosComponent, InfoMedicalRecordComponent, InfoMedicComponent,SintSelectionComponent]
 })
 export class AppModule { }
