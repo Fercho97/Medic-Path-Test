@@ -14,27 +14,13 @@
             <br>
             <br>
             <div class="form-row" *ngIf="isSelection">
-                <legend>Sintomas iniciales</legend>
-                <div class="col">
-                  
-                  <div class="col" cdk-scrollable style="height: 300px; overflow-y:scroll" >
-                    <div class="col" cdkDropList [cdkDropListData]="iniciales" [cdkDropListConnectedTo]="secondList" #firstList="cdkDropList" (cdkDropListDropped)="drop($event)">
-                      <legend class="CdkTitle">Sintomas</legend>
-                      <div *ngFor="let ini of iniciales" class="list" cdkDrag>{{ini.nombre_sint}}</div>
-                    </div>
-                  </div>
-                </div>
-    
-                <div class="col" cdk-scrollable style="height: 300px; overflow-y:scroll">
-                  <div class="col" cdkDropList [cdkDropListData]="sintomasSeleccionados" [cdkDropListConnectedTo]="firstList" #secondList="cdkDropList" (cdkDropListDropped)="drop($event)">
-                      <legend class="CdkTitle">Sintomas Seleccionados</legend>
-                      <div *ngFor="let selected of sintomasSeleccionados" class="list" cdkDrag>{{selected.nombre_sint}}</div>
-                  </div>
-                  
-                </div>
+                <img src="/assets/Body.PNG" usemap="#mapname" class="imgcent">
                 
-                
-              </div>
+                <map name="mapname">
+                    <area class="point" shape="rect" coords="210,10,150,70" (click)="selectSintomas('Cabeza')" title="Cabeza" >
+                    <area class="point" shape="rect" coords="230,270,130,120" (click)="selectSintomas('Abdomen')" title="Abdomen">
+                </map>
+            </div>
               <div>
               <button class="btn" *ngIf="isSelection" (click)="fromSintomasIniciales()">Iniciar diagnostico con sintomas iniciales</button>
               </div>

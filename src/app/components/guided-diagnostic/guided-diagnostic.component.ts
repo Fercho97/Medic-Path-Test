@@ -14,6 +14,8 @@ import { ErrorMsg } from '../../interfaces/errorMsg.const';
 import { Calculus } from '../../inferencia/calculus.class';
 import * as moment from 'moment-timezone';
 moment.locale('es');
+import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {SintSelectionComponent} from '../diagnostic/sintSelection/sintSelection.component'
 @Component({
   selector: 'app-guided-diagnostic',
   templateUrl: './guided-diagnostic.component.html',
@@ -52,8 +54,13 @@ export class GuidedDiagnosticComponent implements OnInit {
   public niveles : any = { "Ninguno" : [], "Bajo" : [], "Medio" : [], "Alto" : [], "Severo" : []};
   public fromSelected = false;
   public sintomasResultado : any = [];
+  public sintomasCabeza : any = [];
+  public sintomasAbdomen : any = [];
+  public sintomasCorporales : any = [];
+  public headSelect : any = [];
+  public abSelect : any = [];
   constructor(private diagServ : DiagnosticService, private toast : ToastrService,
-              private router : Router, private sintServ : SintomasService) { 
+              private router : Router, private sintServ : SintomasService, private modalService : NgbModal) { 
                 this.numeric = new FormGroup({
                   temp: new FormControl('', [Validators.required,Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]) 
                 });
@@ -68,6 +75,9 @@ export class GuidedDiagnosticComponent implements OnInit {
     this.sintServ.getSints().subscribe(res =>{
       this.sintomas = res.body;
       this.iniciales = this.sintomas.filter(sintoma => sintoma['compuesto']==false);
+      this.sintomasCabeza = this.sintomas.filter(sintoma => sintoma['compuesto']==false && sintoma['body_zone']=="Cabeza");
+      this.sintomasAbdomen = this.sintomas.filter(sintoma => sintoma['compuesto']==false && sintoma['body_zone']=="Estomacal");
+      this.sintomasCorporales = this.sintomas.filter(sintoma => sintoma['compuesto']==false && sintoma['body_zone']=="Corporal");
       console.log(this.sintomas);
     })
 
@@ -262,13 +272,15 @@ export class GuidedDiagnosticComponent implements OnInit {
     }
 
     fromSintomasIniciales(){
+      this.sintomasSeleccionados = this.headSelect.concat(this.abSelect);
       this.sintomasSeleccionados.forEach(element => {
         //Generar atomo
-        let atomoRegla = new Atomo(element.nombre_sint,true,false,null,element.idSint);
+        let sint = this.sintomas.find(sintoma => sintoma['idSint'].toString() === element.toString());
+        let atomoRegla = new Atomo(sint.nombre_sint,true,false,null,sint.idSint);
         
         //Guardar en memoria de trabajo
         this.memoriaDeTrabajo.almacenarAtomo(atomoRegla);
-        this.breadcrumb = this.breadcrumb + element.nombre_sint + "->";
+        this.breadcrumb = this.breadcrumb + sint.nombre_sint + "->";
         this.evaluateSypmtom(atomoRegla.sintoma);
       });
 
@@ -518,5 +530,26 @@ export class GuidedDiagnosticComponent implements OnInit {
           }else{
           this.analize();
           }
+      }
+
+      selectSintomas(label : any){
+        const modalRef = this.modalService.open(SintSelectionComponent, { windowClass : "myCustomModalClass"});
+        if(label=="Cabeza"){
+        modalRef.componentInstance.selectableSints = this.sintomasCabeza;
+        modalRef.componentInstance.sintomasSeleccionados = this.headSelect;
+        }else{
+          modalRef.componentInstance.selectableSints = this.sintomasAbdomen;
+          modalRef.componentInstance.sintomasSeleccionados = this.abSelect;
+        }
+  
+        
+  
+        modalRef.result.then((result) => {
+          if(label=="Cabeza"){
+            this.headSelect = result;
+          }else{
+            this.abSelect = result;
+          }
+        });
       }
 }
