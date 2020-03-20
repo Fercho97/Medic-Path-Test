@@ -76,7 +76,7 @@ export class GuidedDiagnosticComponent implements OnInit {
       this.sintomas = res.body;
       this.iniciales = this.sintomas.filter(sintoma => sintoma['compuesto']==false);
       this.sintomasCabeza = this.sintomas.filter(sintoma => sintoma['compuesto']==false && sintoma['body_zone']=="Cabeza");
-      this.sintomasAbdomen = this.sintomas.filter(sintoma => sintoma['compuesto']==false && sintoma['body_zone']=="Estomacal");
+      this.sintomasAbdomen = this.sintomas.filter(sintoma => sintoma['compuesto']==false && sintoma['body_zone']=="Abdomen");
       this.sintomasCorporales = this.sintomas.filter(sintoma => sintoma['compuesto']==false && sintoma['body_zone']=="Corporal");
       console.log(this.sintomas);
     })
