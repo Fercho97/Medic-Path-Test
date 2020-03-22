@@ -47,7 +47,16 @@
     background-color: #0d528b;
 }
 
+.dropdown-menu a{
+  background-color:#2196f3 ;
+}
 
+.dropdown-menu {
+  border: none;
+  background-color: transparent;
+  padding: inherit;
+  margin: auto;
+}
 
 @media (max-width: 992px) {
 

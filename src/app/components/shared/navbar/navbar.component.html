@@ -21,8 +21,14 @@
       <li class="nav-item">
         <a class="nav-link" routerLinkActive="active-link" routerLink="faq">FAQ</a>
       </li>
-      <li class="nav-item" *ngIf="isDoctor">
-        <a class="nav-link" routerLinkActive="active-link" routerLink="bdc">Base De Conocimiento</a>
+      <li class="nav-item dropdown" *ngIf="isDoctor">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Base de conocimiento
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="nav-link" routerLinkActive="active-link" routerLink="padecimientos">Padecimientos</a>
+          <a class="nav-link" routerLinkActive="active-link" routerLink="sintomas">Sintomas</a>
+        </div>
       </li>
       <li class="nav-item" *ngIf=user>
         <a class="nav-link" routerLinkActive="active-link" routerLink="profile">Mi Perfil</a>
