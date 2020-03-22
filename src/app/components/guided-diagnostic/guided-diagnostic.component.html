@@ -11,10 +11,12 @@
                 <option *ngFor="let usuario of usuarios" [value]="usuario.id">{{usuario.fullname}}</option>
             </select>
 
+            <button class="btn" *ngIf="selectedUser" (click)="iniciarDiagnostico()">Iniciar diagnostico desde 0</button>
             <button class="btn" (click)="selection()" *ngIf="selectedUser">Seleccionar sintomas iniciales</button>
             <br>
             <br>
-            <div class="form-row" *ngIf="isSelection">
+            <div *ngIf="isSelection">
+                <div style="float: left;">
                   <label>Haga click en la zona y eliga los sintomas</label>
                         <img src="/assets/Body.PNG" usemap="#mapname" class="imgcent">
                         
@@ -22,16 +24,21 @@
                             <area class="point" shape="rect" coords="210,10,150,70" (click)="selectSintomas('Cabeza')" title="Cabeza" >
                             <area class="point" shape="rect" coords="230,270,130,120" (click)="selectSintomas('Abdomen')" title="Abdomen">
                         </map>
-                    
+                    </div>
+                    <div>
+                        <legend>Mis sintomas seleccionados:</legend>
+                        <div style="overflow-y: auto; height: 150px;" *ngIf="sintomasShow.length>0">
+                            <div *ngFor="let sintoma of sintomasShow">
+                                <legend>{{sintoma.name}} <i class="far fa-question-circle" ngbTooltip="{{sintoma.descripcion}}"></i></legend>
+                            </div>
+                        </div>
+                    </div>
                 
               </div>
 
+            <button class="btn" *ngIf="sintomasSeleccionados.length>0" (click)="fromSintomasIniciales()">Iniciar diagnostico con sintomas iniciales</button>
             <br>
-            <button class="btn" *ngIf="isSelection" (click)="cancel()">Cancelar</button>
-            <br>
-            <button class="btn" *ngIf="isSelection" (click)="fromSintomasIniciales()">Iniciar diagnostico con sintomas iniciales</button>
-            <br>
-            <button class="btn" *ngIf="selectedUser" (click)="iniciarDiagnostico()">Iniciar diagnostico desde 0</button>
+            
 
         </div>
         <div class="col m12 margin-color" [hidden]="!hasPregunta">

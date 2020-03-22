@@ -13,7 +13,6 @@ import { Calculus } from '../../inferencia/calculus.class';
 import { ErrorMsg } from '../../interfaces/errorMsg.const';
 import * as moment from 'moment-timezone';
 moment.locale('es');
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {SintSelectionComponent} from './sintSelection/sintSelection.component'
 @Component({
@@ -57,6 +56,7 @@ export class DiagnosticComponent implements OnInit {
   public sintomasCorporales : any = [];
   public headSelect : any = [];
   public abSelect : any = [];
+  public sintomasShow : any = [];
   constructor(private diagServ : DiagnosticService, private toast : ToastrService, 
               private router : Router, private sintServ : SintomasService, private modalService : NgbModal) {
 
@@ -295,7 +295,6 @@ export class DiagnosticComponent implements OnInit {
      }
 
      fromSintomasIniciales(){
-       this.sintomasSeleccionados = this.headSelect.concat(this.abSelect);
       this.sintomasSeleccionados.forEach(element => {
         //Generar atomo
         let sint = this.sintomas.find(sintoma => sintoma['idSint'].toString() === element.toString());
@@ -334,16 +333,6 @@ export class DiagnosticComponent implements OnInit {
       })
     }
 
-    drop(event: CdkDragDrop<string[]>){
-      if(event.previousContainer !== event.container){
-        transferArrayItem(event.previousContainer.data,event.container.data,
-                          event.previousIndex, event.currentIndex);
-                          console.log(this.sintomasSeleccionados);
-      }else{
-        moveItemInArray(this.iniciales, event.previousIndex, event.currentIndex);
-        console.log(this.sintomasSeleccionados);
-      }
-    }
 
      checkUrgencyLevels(){
 
@@ -549,6 +538,13 @@ export class DiagnosticComponent implements OnInit {
         }else{
           this.abSelect = result;
         }
+        this.showSymptoms();
       });
+    }
+
+    showSymptoms(){
+      this.sintomasSeleccionados = this.headSelect.concat(this.abSelect);
+      
+      this.sintomasShow = this.diagServ.showSymtoms(this.sintomasSeleccionados, this.sintomas);
     }
 }

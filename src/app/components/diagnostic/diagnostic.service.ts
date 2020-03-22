@@ -45,4 +45,14 @@ export class DiagnosticService{
       },
     )
     }
+
+    showSymtoms(seleccion : any, totales: any){
+      console.log(seleccion);
+      let selectedNames : any  = [];
+      for(let sintoma of seleccion){
+        let found = totales.find(sint => sint['idSint']==sintoma);
+        selectedNames.push({name: found.nombre_sint, descripcion: found.descripcion});
+      }
+      return selectedNames;
+    }
 }

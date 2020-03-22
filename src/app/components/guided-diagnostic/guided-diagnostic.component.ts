@@ -8,7 +8,6 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import {Router} from '@angular/router';
 import { SintomasService } from '../sintomas/sintomas.service';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { questions } from '../../interfaces/questions.const';
 import { ErrorMsg } from '../../interfaces/errorMsg.const';
 import { Calculus } from '../../inferencia/calculus.class';
@@ -59,6 +58,7 @@ export class GuidedDiagnosticComponent implements OnInit {
   public sintomasCorporales : any = [];
   public headSelect : any = [];
   public abSelect : any = [];
+  public sintomasShow : any = [];
   constructor(private diagServ : DiagnosticService, private toast : ToastrService,
               private router : Router, private sintServ : SintomasService, private modalService : NgbModal) { 
                 this.numeric = new FormGroup({
@@ -272,7 +272,6 @@ export class GuidedDiagnosticComponent implements OnInit {
     }
 
     fromSintomasIniciales(){
-      this.sintomasSeleccionados = this.headSelect.concat(this.abSelect);
       this.sintomasSeleccionados.forEach(element => {
         //Generar atomo
         let sint = this.sintomas.find(sintoma => sintoma['idSint'].toString() === element.toString());
@@ -309,17 +308,6 @@ export class GuidedDiagnosticComponent implements OnInit {
           })
         }
       })
-    }
-
-    drop(event: CdkDragDrop<string[]>){
-      if(event.previousContainer !== event.container){
-        transferArrayItem(event.previousContainer.data,event.container.data,
-                          event.previousIndex, event.currentIndex);
-                          console.log(this.sintomasSeleccionados);
-      }else{
-        moveItemInArray(this.iniciales, event.previousIndex, event.currentIndex);
-        console.log(this.sintomasSeleccionados);
-      }
     }
 
     hasMiddleAtom(){
@@ -550,6 +538,14 @@ export class GuidedDiagnosticComponent implements OnInit {
           }else{
             this.abSelect = result;
           }
+          this.showSymptoms();
         });
+      }
+
+      showSymptoms(){
+        this.sintomasSeleccionados = this.headSelect.concat(this.abSelect);
+        
+        this.sintomasShow = this.diagServ.showSymtoms(this.sintomasSeleccionados, this.sintomas);
+        console.log(this.sintomasShow);
       }
 }
