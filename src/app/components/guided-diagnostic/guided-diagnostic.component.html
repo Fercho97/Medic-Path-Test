@@ -21,12 +21,13 @@
                         <img src="/assets/Body.PNG" usemap="#mapname" class="imgcent">
                         
                         <map name="mapname">
-                            <area class="point" shape="rect" coords="210,10,150,70" (click)="selectSintomas('Cabeza')" title="Cabeza" >
-                            <area class="point" shape="rect" coords="230,270,130,120" (click)="selectSintomas('Abdomen')" title="Abdomen">
+                            <area class="point" shape="rect" coords="210,10,150,70" (click)="selectSintomas('Cabeza')" title="Cabeza">
+                            <area class="point" shape="rect" coords="230,140,130,90" (click)="selectSintomas('Pecho')" title="Pecho">
+                            <area class="point" shape="rect" coords="230,270,130,140" (click)="selectSintomas('Abdomen')" title="Abdomen">
                         </map>
                     </div>
                     <div>
-                        <legend>Mis sintomas seleccionados:</legend>
+                        <legend>Sintomas seleccionados:</legend>
                         <div style="overflow-y: auto; height: 150px;" *ngIf="sintomasShow.length>0">
                             <div *ngFor="let sintoma of sintomasShow">
                                 <legend>{{sintoma.name}} <i class="far fa-question-circle" ngbTooltip="{{sintoma.descripcion}}"></i></legend>

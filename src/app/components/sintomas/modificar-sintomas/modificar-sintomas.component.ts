@@ -65,17 +65,7 @@ export class ModificarSintomasComponent implements OnInit {
     }
   ];
 
-  public zone_options = [
-    {
-      nombre: "Cabeza"
-    },
-    {
-      nombre: "Abdomen"
-    },
-    {
-      nombre: "Corporal"
-    }
-  ]
+  public zone_options = ErrorMsg.Zone_options.options;
 
   public compuestos : any = [];
   public selectedCompuestos : any = [];

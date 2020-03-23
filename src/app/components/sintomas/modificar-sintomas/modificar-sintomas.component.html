@@ -74,7 +74,7 @@
           <div class="col-md-8">
             <select formControlName="body_zone" name="body_zone" id="body_zone" class="form-control">
               <option value="">Seleccione la zona a la que pertenece el sintoma</option>
-              <option *ngFor="let item of zone_options" [value]="item.nombre">{{item.nombre}}</option>
+              <option *ngFor="let item of zone_options" [value]="item">{{item}}</option>
             </select>
             <div class="validation-errors">
               <ng-container *ngFor="let validation of mensajes_error.body_zone">

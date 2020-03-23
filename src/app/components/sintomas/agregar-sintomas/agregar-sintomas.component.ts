@@ -17,6 +17,8 @@ import { SymptomNameValidator } from '../../../validators/SymptomNameValidator';
 export class AgregarSintomasComponent implements OnInit {
 
   mensajes_error = ErrorMsg.ERROR_MSG_SINT_PADS;
+  zone_options = ErrorMsg.Zone_options.options;
+  
   sintomas: FormGroup;
   public  isChecked : boolean = false;
   private values : HttpParams;
@@ -64,17 +66,7 @@ export class AgregarSintomasComponent implements OnInit {
     }
   ];
 
-  public zone_options = [
-    {
-      nombre: "Cabeza"
-    },
-    {
-      nombre: "Abdomen"
-    },
-    {
-      nombre: "Corporal"
-    }
-  ]
+  
 
   public compuestos : any = [];
   public selectedCompuestos : any = [];

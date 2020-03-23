@@ -53,12 +53,10 @@ export class GuidedDiagnosticComponent implements OnInit {
   public niveles : any = { "Ninguno" : [], "Bajo" : [], "Medio" : [], "Alto" : [], "Severo" : []};
   public fromSelected = false;
   public sintomasResultado : any = [];
-  public sintomasCabeza : any = [];
-  public sintomasAbdomen : any = [];
-  public sintomasCorporales : any = [];
-  public headSelect : any = [];
-  public abSelect : any = [];
+  public sintomasZona : any = [];
+  public zoneSelection : any = [];
   public sintomasShow : any = [];
+  public zone_options = ErrorMsg.Zone_options.options;
   constructor(private diagServ : DiagnosticService, private toast : ToastrService,
               private router : Router, private sintServ : SintomasService, private modalService : NgbModal) { 
                 this.numeric = new FormGroup({
@@ -75,9 +73,11 @@ export class GuidedDiagnosticComponent implements OnInit {
     this.sintServ.getSints().subscribe(res =>{
       this.sintomas = res.body;
       this.iniciales = this.sintomas.filter(sintoma => sintoma['compuesto']==false);
-      this.sintomasCabeza = this.sintomas.filter(sintoma => sintoma['compuesto']==false && sintoma['body_zone']=="Cabeza");
-      this.sintomasAbdomen = this.sintomas.filter(sintoma => sintoma['compuesto']==false && sintoma['body_zone']=="Abdomen");
-      this.sintomasCorporales = this.sintomas.filter(sintoma => sintoma['compuesto']==false && sintoma['body_zone']=="Corporal");
+      for( var zona of this.zone_options){
+        let zone_sints = this.sintomas.filter(sintoma => sintoma['compuesto']==false && sintoma['body_zone']==zona);
+        this.sintomasZona.push({zone: zona, sintomas: zone_sints});
+        this.zoneSelection.push({zone: zona, sintomas: []});
+      }
       console.log(this.sintomas);
     })
 
@@ -432,12 +432,16 @@ export class GuidedDiagnosticComponent implements OnInit {
           let buttonOptions = [];
           for(var i = 0; i<atomsSize; i++){
             let showOption  = "";
-            let atomo = atomos.pop();
-  
+            let atomo = "";
+
             if(opciones.length!=0){
             showOption = opciones.pop();
+            let index = atomos.findIndex(atom => atom.includes(showOption));
+            let found = atomos.splice(index,1);
+            atomo = found[0];
             }else{
               showOption = "General";
+              atomo = atomos.pop();
             }
             let sintoma = this.sintomas.find(symp => symp['nombre_sint']==atomo);
             let button = {message: showOption, value: atomo, desc: sintoma.descripcion};
@@ -522,29 +526,32 @@ export class GuidedDiagnosticComponent implements OnInit {
 
       selectSintomas(label : any){
         const modalRef = this.modalService.open(SintSelectionComponent, { windowClass : "myCustomModalClass"});
-        if(label=="Cabeza"){
-        modalRef.componentInstance.selectableSints = this.sintomasCabeza;
-        modalRef.componentInstance.sintomasSeleccionados = this.headSelect;
-        }else{
-          modalRef.componentInstance.selectableSints = this.sintomasAbdomen;
-          modalRef.componentInstance.sintomasSeleccionados = this.abSelect;
-        }
+        let zoneSints = this.sintomasZona.find(zone => zone['zone']==label);
+        let selectedZone = this.zoneSelection.find(zone => zone['zone']==label);
+      
+      modalRef.componentInstance.selectableSints = zoneSints.sintomas;
+      modalRef.componentInstance.sintomasSeleccionados = selectedZone.sintomas;
+      
   
         
   
         modalRef.result.then((result) => {
-          if(label=="Cabeza"){
-            this.headSelect = result;
-          }else{
-            this.abSelect = result;
+          for(let zone of this.zoneSelection){
+            if(zone['zone']===label){
+              zone['sintomas'] = result;
+            }
           }
           this.showSymptoms();
         });
       }
 
       showSymptoms(){
-        this.sintomasSeleccionados = this.headSelect.concat(this.abSelect);
-        
+        let zones : any = [];
+        for(let zone of this.zoneSelection){
+          zones = zones.concat(zone.sintomas);
+        }
+        console.log(zones);
+      this.sintomasSeleccionados = zones;
         this.sintomasShow = this.diagServ.showSymtoms(this.sintomasSeleccionados, this.sintomas);
         console.log(this.sintomasShow);
       }
