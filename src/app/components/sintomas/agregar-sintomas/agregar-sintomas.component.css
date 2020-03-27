@@ -53,3 +53,8 @@ select {
 .cdk-drag-placeholder{
   background: rgba(0, 0, 0, .2);
 }
+
+.porcentage{
+  width: 10% !important;
+  margin-left: 30% !important; 
+}

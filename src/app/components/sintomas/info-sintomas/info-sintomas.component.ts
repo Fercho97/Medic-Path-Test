@@ -35,13 +35,15 @@ export class InfoSintomasComponent implements OnInit {
   @Input() public sintoma; 
   public compuesto = '';
   private values : HttpParams;
+  public especialidades : any = [];
   constructor(public activeModal: NgbActiveModal, private sintServ : SintomasService) { 
    
   }
 
   ngOnInit() {
+    this.especialidades = JSON.parse(this.sintoma.porcentages);
+    console.log(this.especialidades);
     this.compuesto = this.sintoma.compuesto;
-    console.log(this.sintoma.composicion);
     if(this.sintoma.compuesto == true){
 
       this.values = new HttpParams()

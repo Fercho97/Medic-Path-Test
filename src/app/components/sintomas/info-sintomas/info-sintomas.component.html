@@ -29,6 +29,15 @@
     <label class="title">Descripcion del sintoma</label>
     <textarea rows="10" disabled>{{sintoma.descripcion}}</textarea>
 
+    <div *ngIf="especialidades.length>0">
+      <label class="title">Especialidades</label>
+      <ul>
+        <li *ngFor="let espe of especialidades">
+          {{espe.nombre_esp + ' ' + espe.porcentaje + '%'}} 
+        </li>
+      </ul>
+      </div>
+
     <div [hidden]="!compuesto">
     <label class="title">Componentes</label>
     <input type="text"  value="{{sintoma.composicion}}" disabled>

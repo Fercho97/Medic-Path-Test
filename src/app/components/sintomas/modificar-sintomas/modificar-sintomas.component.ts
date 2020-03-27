@@ -8,6 +8,7 @@ import { Sintoma } from '../../../interfaces/sintoma.interface';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ErrorMsg } from '../../../interfaces/errorMsg.const';
 import { SymptomNameValidator } from '../../../validators/SymptomNameValidator';
+import { RegistryService } from '../../registry/registry.service'
 @Component({
   selector: 'app-modificar-sintomas',
   templateUrl: './modificar-sintomas.component.html',
@@ -74,9 +75,14 @@ export class ModificarSintomasComponent implements OnInit {
   public composicionFront : string = "";
   public composicionBack : string = "";
   public originalValue : any = "";
+  public especializaciones : any = [];
+  public especializacionesSeleccionadas : any = [];
+  public isEmpty = false;
+  public isNot100 = false;
+
   constructor(private sintServ : SintomasService, private router : Router,
               private toast : ToastrService, private url : ActivatedRoute,
-              private nameVal : SymptomNameValidator) {
+              private nameVal : SymptomNameValidator, private regServ : RegistryService) {
     this.modify = new FormGroup({
       nombre: new FormControl('', 
       [Validators.required,
@@ -103,11 +109,15 @@ export class ModificarSintomasComponent implements OnInit {
 
   ngOnInit() {
     //console.log(encodeURIComponent(this.url.snapshot.params.hash));
-
+    this.regServ.getEspecializaciones().subscribe(res =>{
+      this.especializaciones = res.body;
+    })
     //Carga de datos principales
     this.sintServ.getSint(this.url.snapshot.params.hash).subscribe( (res : any) =>{
-      console.log(res);
       this.sintoma = res.body.sintoma;
+      if(res.body.sintoma.porcentages!=null){
+      this.especializacionesSeleccionadas = JSON.parse(res.body.sintoma.porcentages);
+      }
 
       if(this.sintoma.compuesto==true){
         this.selectedCompuestos = res.body.compuestos;
@@ -160,11 +170,9 @@ export class ModificarSintomasComponent implements OnInit {
       this.moved = true;
       transferArrayItem(event.previousContainer.data,event.container.data,
                         event.previousIndex, event.currentIndex);
-                        console.log(this.selectedCompuestos);
     }else{
       this.moved = true;
       moveItemInArray(this.compuestos, event.previousIndex, event.currentIndex);
-      console.log(this.selectedCompuestos);
     }
   }
 
@@ -179,6 +187,7 @@ export class ModificarSintomasComponent implements OnInit {
       .set('composicion', '')
       .set('nivel_urgencia', this.modify.value.urgencia)
       .set('body_zone', this.modify.value.body_zone)
+      .set('porcentages', JSON.stringify(this.especializacionesSeleccionadas));
     }else{
       this.nameToId();
       this.values = new HttpParams()
@@ -190,9 +199,8 @@ export class ModificarSintomasComponent implements OnInit {
       .set('composicion', this.composicionBack)
       .set('nivel_urgencia', this.modify.value.urgencia)
       .set('body_zone', this.modify.value.body_zone)
+      .set('porcentages', JSON.stringify(this.especializacionesSeleccionadas));
     }
-    console.log(this.values);
-    console.log(this.selectedCompuestos.length);
     if((this.isChecked==true && this.selectedCompuestos.length<=1) || this.selectedCompuestos.length===undefined){
       this.toast.error('Un sintoma compuesto debe tener al menos otros 2 sintomas como parte de su composición', 'Error');
     }else{
@@ -265,6 +273,45 @@ export class ModificarSintomasComponent implements OnInit {
     }else{
       this.modify.get('nombre').clearAsyncValidators();
       this.modify.get('nombre').updateValueAndValidity();
+    }
+  }
+
+  ngDoCheck(){
+    if(this.especializacionesSeleccionadas!=null){
+    this.especializacionesSeleccionadas.forEach(element => {
+      let espe = this.especializaciones.find(e => e.id == element.id);
+
+      this.especializaciones = this.especializaciones.filter(function(value,index, arr){
+        return value != espe;
+      });
+    });
+  }
+  }
+
+  setPorcentage(espe : any,value : any){
+    espe.porcentaje  = Number(value);
+    if(value===""){
+      this.isEmpty=true;
+    }else{
+      this.isEmpty=false;
+    }
+    let sum : number = 0;
+    for(var selected of this.especializacionesSeleccionadas){
+      sum = sum + Number(selected.porcentaje);
+    }
+    if(sum>100 || sum<100){
+      this.isNot100=true;
+    }else{
+      this.isNot100=false;
+    }
+  }
+
+  validateKey(event){
+    var key = window.event ? event.keyCode : event.which;
+    if(event.keyCode == 38 || event.keyCode == 40){
+      return true;
+    }else{
+      return false;
     }
   }
 }

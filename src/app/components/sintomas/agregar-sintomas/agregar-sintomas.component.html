@@ -102,6 +102,36 @@
           </div>
         </div>
 
+        <div class="form-row">
+          <legend>Especialidades que lo pueden tratar</legend>
+          <div class="col">
+            
+            <div class="col" cdk-scrollable style="height: 300px; overflow-y:scroll" >
+              <div class="col" cdkDropList [cdkDropListData]="especializaciones" [cdkDropListConnectedTo]="secondList" #firstList="cdkDropList" (cdkDropListDropped)="drop($event)">
+                <legend class="CdkTitle">Especialidades</legend>
+                <div *ngFor="let espe of especializaciones" class="list" cdkDrag>{{espe.nombre_esp}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col" cdk-scrollable style="height: 300px; overflow-y:scroll" >
+            <div class="col" cdkDropList [cdkDropListData]="especializacionesSeleccionadas" [cdkDropListConnectedTo]="firstList" #secondList="cdkDropList" (cdkDropListDropped)="drop($event)">
+                <legend class="CdkTitle">Especialidades Seleccionadas</legend>
+                <div *ngFor="let selected of especializacionesSeleccionadas" class="list" cdkDrag>{{selected.nombre_esp}}
+                  <input type="number" min="1" max="100" class="porcentage" (focusout)="setPorcentage(selected,$event.target.value)" (keypress)='validateKey($event)'>%
+                </div>
+            </div>
+            <div class="validation-errors">
+              <div class="form-control-feedback" *ngIf="isEmpty===true">
+              <i class="fas fa-exclamation-circle"></i> No deje ninguna especialización sin porcentaje
+              </div>
+              <div class="form-control-feedback" *ngIf="isNot100===true">
+                <i class="fas fa-exclamation-circle"></i> El total de las especializaciones elegidas debe ser 100
+                </div>
+        </div>
+          </div>
+        </div>
+
         <div class="form-group row">
           <div class="col-md-8">
               <p>

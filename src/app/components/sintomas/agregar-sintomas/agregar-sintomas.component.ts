@@ -7,12 +7,13 @@ import { ToastrService } from 'ngx-toastr';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ErrorMsg } from '../../../interfaces/errorMsg.const';
 import { SymptomNameValidator } from '../../../validators/SymptomNameValidator';
-
+import { Catalogos } from '../../../interfaces/catalogos.const';
+import { RegistryService } from '../../registry/registry.service'
 @Component({
   selector: 'app-agregar-sintomas',
   templateUrl: './agregar-sintomas.component.html',
   styleUrls: ['./agregar-sintomas.component.css'],
-  providers : [SintomasService, HttpClient]
+  providers : [SintomasService, HttpClient, RegistryService]
 })
 export class AgregarSintomasComponent implements OnInit {
 
@@ -22,26 +23,7 @@ export class AgregarSintomasComponent implements OnInit {
   sintomas: FormGroup;
   public  isChecked : boolean = false;
   private values : HttpParams;
-  categorias = [
-    {
-      nombre: 'Estomacal'
-    },
-    {
-      nombre: 'Respiratoria'
-    },
-    {
-      nombre: 'Infecciosa'
-    },
-    {
-      nombre:'Alergica'
-    },
-    {
-      nombre: 'Ocular'
-    },
-    {
-      nombre: 'Corporal'
-    }
-  ];
+  categorias = Catalogos.CATEGORIAS;
 
   nivelesUrgencia = [
     {
@@ -72,9 +54,13 @@ export class AgregarSintomasComponent implements OnInit {
   public selectedCompuestos : any = [];
   public composicionFront : string = "";
   public composicionBack : string = "";
-
+  public especializaciones : any = [];
+  public especializacionesSeleccionadas : any = [];
+  public isEmpty = false;
+  public isNot100 = false;
   constructor(private sintServ : SintomasService, private router : Router, 
-              private toast : ToastrService, private nameVal : SymptomNameValidator) {
+              private toast : ToastrService, private nameVal : SymptomNameValidator,
+              private regServ : RegistryService) {
     this.sintomas = new FormGroup({
       nombre: new FormControl('', 
       [Validators.required,
@@ -106,6 +92,10 @@ export class AgregarSintomasComponent implements OnInit {
         this.compuestos = res.body;
         console.log(this.compuestos);
       })
+
+      this.regServ.getEspecializaciones().subscribe(res =>{
+        this.especializaciones = res.body;
+      })
   }
 
   guardar() {
@@ -120,6 +110,7 @@ export class AgregarSintomasComponent implements OnInit {
       .set('composicion', '')
       .set('nivel_urgencia', this.sintomas.value.urgencia)
       .set('body_zone', this.sintomas.value.body_zone)
+      .set('porcentages', JSON.stringify(this.especializacionesSeleccionadas));
     }else{
       this.nameToId();
       this.values = new HttpParams()
@@ -131,19 +122,18 @@ export class AgregarSintomasComponent implements OnInit {
       .set('composicion', this.composicionBack)
       .set('nivel_urgencia', this.sintomas.value.urgencia)
       .set('body_zone', this.sintomas.value.body_zone)
+      .set('porcentages', JSON.stringify(this.especializacionesSeleccionadas));
     }
 
     if((this.isChecked==true && this.selectedCompuestos.length<=1) || this.selectedCompuestos.length===undefined){
       this.toast.error('Un sintoma compuesto debe tener al menos otros 2 sintomas como parte de su composición', 'Error');
     }else{
-        console.log(this.values);
         this.sintServ.createSintoma(this.values).subscribe((res:any) =>{
-          console.log("Ok", res);
+        
           sessionStorage.setItem('token',res.body.token);
           this.toast.success('Se ha registrado el sintoma con éxito!', 'Registro Exitoso!');
         this.router.navigate(['/sintomas'])
       }, error =>{
-          console.log("Error", error.error);
           this.toast.error(error.error.message, 'Error');
       })
     }
@@ -158,17 +148,14 @@ export class AgregarSintomasComponent implements OnInit {
     if(event.previousContainer !== event.container){
       transferArrayItem(event.previousContainer.data,event.container.data,
                         event.previousIndex, event.currentIndex);
-                        console.log(this.selectedCompuestos);
     }else{
-      moveItemInArray(this.compuestos, event.previousIndex, event.currentIndex);
-      console.log(this.selectedCompuestos);
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      
     }
   }
 
   creacionComposicion(){
     var id = this.sintomas.value.componentes;
-
-    console.log(id);
 
     let item = this.compuestos.find(s => s.idSint == id );
 
@@ -184,7 +171,6 @@ export class AgregarSintomasComponent implements OnInit {
   }
 
   cambioContextual(){
-    console.log(this.sintomas.value.composite)
     this.composicionFront = this.sintomas.value.composite;
   }
 
@@ -200,6 +186,34 @@ export class AgregarSintomasComponent implements OnInit {
           }
       }
     }
-    console.log(this.composicionBack);
+    //console.log(this.composicionBack);
+  }
+
+  setPorcentage(espe : any,value : any){
+    espe.porcentaje  = Number(value);
+    console.log("entered")
+    if(value===""){
+      this.isEmpty=true;
+    }else{
+      this.isEmpty=false;
+    }
+    let sum : number = 0;
+    for(var selected of this.especializacionesSeleccionadas){
+      sum = sum + Number(selected.porcentaje);
+    }
+    if(sum>100 || sum<100){
+      this.isNot100=true;
+    }else{
+      this.isNot100=false;
+    }
+  }
+
+  validateKey(event){
+    var key = window.event ? event.keyCode : event.which;
+    if(event.keyCode == 38 || event.keyCode == 40){
+      return true;
+    }else{
+      return false;
+    }
   }
 }
