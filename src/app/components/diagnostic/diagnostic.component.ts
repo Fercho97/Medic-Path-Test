@@ -55,6 +55,7 @@ export class DiagnosticComponent implements OnInit {
   public zoneSelection : any = [];
   public sintomasShow : any = [];
   public zone_options = ErrorMsg.Zone_options.options;
+  public doc_recomendacion : any = [];
   constructor(private diagServ : DiagnosticService, private toast : ToastrService, 
               private router : Router, private sintServ : SintomasService, private modalService : NgbModal) {
 
@@ -256,6 +257,7 @@ export class DiagnosticComponent implements OnInit {
       });
       this.sintomasExtras = this.calculusClass.calculateCloseness(this.conocimientoEvaluado,this.baseConocimiento,this.memoriaDeTrabajo);
       this.checkUrgencyLevels();
+      this.doc_recomendacion = this.calculusClass.calculateRecommendation(this.memoriaDeTrabajo,this.sintomas);
       if(this.user==true){
         this.guardar();
       }

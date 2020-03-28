@@ -147,7 +147,20 @@
                   <p><ngb-progressbar type="success" [value]="sints.porcentaje" showValue="true"></ngb-progressbar></p>
                 </li>
             </ul>
-
+            <div>
+                <div>
+                <h3>Conforme sus sintomas le recomendamos asistir con:</h3>
+                    <legend class="response">
+                    {{doc_recomendacion[0].espe}}
+                    </legend>
+                </div>
+                <div *ngIf="doc_recomendacion.length>0">
+                    <h3>o bien con un:</h3>
+                    <legend class="response">
+                    {{doc_recomendacion[1].espe}}
+                    </legend>
+                </div>
+            </div>
             <button *ngIf='user' routerLink="/record" expand="block"  class="btn btn-primary btn-lg" >Continuar</button>
         </div>
     </div>
