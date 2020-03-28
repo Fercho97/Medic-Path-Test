@@ -127,6 +127,8 @@ export class AgregarSintomasComponent implements OnInit {
 
     if((this.isChecked==true && this.selectedCompuestos.length<=1) || this.selectedCompuestos.length===undefined){
       this.toast.error('Un sintoma compuesto debe tener al menos otros 2 sintomas como parte de su composición', 'Error');
+    }else if(this.especializacionesSeleccionadas.length===undefined || this.especializacionesSeleccionadas.length===0){
+      this.toast.error('Debe elegir al menos una especialidad capaz que sea capaz de ayudar con el sintoma', 'Error');
     }else{
         this.sintServ.createSintoma(this.values).subscribe((res:any) =>{
         

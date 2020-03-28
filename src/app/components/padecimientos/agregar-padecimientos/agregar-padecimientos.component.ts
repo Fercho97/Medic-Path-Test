@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ErrorMsg } from '../../../interfaces/errorMsg.const';
 import{ AilmentNameValidator } from '../../../validators/AilmentNameValidator';
+import { Catalogos } from '../../../interfaces/catalogos.const';
 @Component({
   selector: 'app-agregar-padecimientos',
   templateUrl: './agregar-padecimientos.component.html',
@@ -20,26 +21,7 @@ export class AgregarPadecimientosComponent implements OnInit {
   padecimiento: FormGroup;
   private values : HttpParams;
 
-  categorias = [
-    {
-      nombre: 'Estomacal'
-    },
-    {
-      nombre: 'Respiratoria'
-    },
-    {
-      nombre: 'Infecciosa'
-    },
-    {
-      nombre:'Alergica'
-    },
-    {
-      nombre: 'Ocular'
-    },
-    {
-      nombre: 'Corporal'
-    }
-  ];
+  categorias = Catalogos.CATEGORIAS;
 
   public sintomas : any = [];
   public selectedSints : any = [];

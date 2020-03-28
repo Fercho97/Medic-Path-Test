@@ -8,7 +8,8 @@ import { Sintoma } from '../../../interfaces/sintoma.interface';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ErrorMsg } from '../../../interfaces/errorMsg.const';
 import { SymptomNameValidator } from '../../../validators/SymptomNameValidator';
-import { RegistryService } from '../../registry/registry.service'
+import { RegistryService } from '../../registry/registry.service';
+import { Catalogos } from '../../../interfaces/catalogos.const';
 @Component({
   selector: 'app-modificar-sintomas',
   templateUrl: './modificar-sintomas.component.html',
@@ -22,26 +23,7 @@ export class ModificarSintomasComponent implements OnInit {
   moved = false;
   private values : HttpParams;
 
-  categorias = [
-    {
-      nombre: 'Estomacal'
-    },
-    {
-      nombre: 'Respiratoria'
-    },
-    {
-      nombre: 'Infecciosa'
-    },
-    {
-      nombre:'Alergica'
-    },
-    {
-      nombre: 'Ocular'
-    },
-    {
-      nombre: 'Corporal'
-    }
-  ];
+  categorias = Catalogos.CATEGORIAS;
 
   nivelesUrgencia = [
     {
@@ -171,8 +153,7 @@ export class ModificarSintomasComponent implements OnInit {
       transferArrayItem(event.previousContainer.data,event.container.data,
                         event.previousIndex, event.currentIndex);
     }else{
-      this.moved = true;
-      moveItemInArray(this.compuestos, event.previousIndex, event.currentIndex);
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     }
   }
 
@@ -203,6 +184,8 @@ export class ModificarSintomasComponent implements OnInit {
     }
     if((this.isChecked==true && this.selectedCompuestos.length<=1) || this.selectedCompuestos.length===undefined){
       this.toast.error('Un sintoma compuesto debe tener al menos otros 2 sintomas como parte de su composición', 'Error');
+    }else if(this.especializacionesSeleccionadas.length===undefined || this.especializacionesSeleccionadas.length===0){
+      this.toast.error('Debe elegir al menos una especialidad capaz que sea capaz de ayudar con el sintoma', 'Error');
     }else{
         this.sintServ.modificar(this.sintoma.hashId,this.values).subscribe((res:any) =>{
           console.log("Ok", res)

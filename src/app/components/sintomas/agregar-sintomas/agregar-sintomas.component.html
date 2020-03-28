@@ -166,7 +166,7 @@
 
           
 
-        <button type="submit" class="btn btn-outline-primary boton" [disabled]="!sintomas.valid">
+        <button type="submit" class="btn btn-outline-primary boton" [disabled]="!sintomas.valid || !isEmpty===false || !isNot100===false">
           Guardar
         </button>
 

@@ -17,6 +17,12 @@ export class Catalogos {
         },
         {
           nombre: 'Corporal'
+        },
+        {
+          nombre: 'Dental'
+        },
+        {
+          nombre: 'Bucal'
         }
       ];
 }

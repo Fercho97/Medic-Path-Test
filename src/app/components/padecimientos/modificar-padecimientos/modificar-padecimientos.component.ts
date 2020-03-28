@@ -9,6 +9,7 @@ import { Padecimiento } from '../../../interfaces/padecimiento.interface';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ErrorMsg } from '../../../interfaces/errorMsg.const';
 import { AilmentNameValidator } from '../../../validators/AilmentNameValidator';
+import { Catalogos } from '../../../interfaces/catalogos.const';
 @Component({
   selector: 'app-modificar-padecimientos',
   templateUrl: './modificar-padecimientos.component.html',
@@ -20,26 +21,7 @@ export class ModificarPadecimientosComponent implements OnInit {
   modify: FormGroup;
   mensajes_error = ErrorMsg.ERROR_MSG_SINT_PADS;
   moved = false;
-  categorias = [
-    {
-      nombre: 'Estomacal'
-    },
-    {
-      nombre: 'Respiratoria'
-    },
-    {
-      nombre: 'Infecciosa'
-    },
-    {
-      nombre:'Alergica'
-    },
-    {
-      nombre: 'Ocular'
-    },
-    {
-      nombre: 'Corporal'
-    }
-  ];
+  categorias = Catalogos.CATEGORIAS;
 
   public sintomas : any = [];
   public selectedSints : any = [];
