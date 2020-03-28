@@ -19,7 +19,7 @@
     "@angular/forms": "~8.2.14",
     "@angular/http": "^7.2.15",
     "@angular/localize": "^9.1.0",
-    "@angular/platform-browser": "^7.2.16",
+    "@angular/platform-browser": "^9.1.0",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
     "@auth0/angular-jwt": "^3.0.1",
