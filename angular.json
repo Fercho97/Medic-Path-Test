@@ -86,8 +86,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [
-            ]
+            "scripts": []
           }
         },
         "lint": {
@@ -116,6 +115,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "modular"
+    }
+  },
+  "defaultProject": "modular",
+  "cli": {
+    "analytics": "ba09a1e6-6de9-4fae-8763-3e4d72127cc3"
+  }
 }
