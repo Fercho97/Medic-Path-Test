@@ -127,6 +127,7 @@ export class Calculus{
         memoriaDeTrabajo.atomosAfirmados.forEach((element:Atomo) => {
             let sintoma = sintomas.find(sint => sint.idSint == element.sintoma);
             if(sintoma!=undefined){
+              if(sintoma.porcentages!=undefined){
               let porcentage = JSON.parse(sintoma.porcentages);
               
               porcentage.forEach(element => {
@@ -138,6 +139,7 @@ export class Calculus{
                   category.value = category.value + element.porcentaje;
                 }
               });
+            }
             }
         });
         let totales = memoriaDeTrabajo.atomosAfirmados.length-1;
