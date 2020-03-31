@@ -10,6 +10,7 @@ export class ProfileService{
     _urlListadoExpediente : string = '';
     _urlIndividualExp : string = '';
     _urlReglas : string = '';
+    _urlEspecialista : string = '';
     constructor(private _http: HttpClient) {
         this._urlIndividual = environment.url + 'usuarios/';
 
@@ -22,6 +23,8 @@ export class ProfileService{
         this._urlIndividualExp = environment.url + 'historial/usuarioHist/';
         
         this._urlReglas = environment.url + 'consulta/createRules';
+
+        this._urlEspecialista = environment.url + 'historial/selectedEspecializacion/';
     }
 
 
@@ -83,5 +86,14 @@ export class ProfileService{
                 .set('Content-Type', 'application/x-www-form-urlencoded'),
                 observe : 'response' 
         })
+    }
+
+    actualizacionEspecialista(hash : any, value){
+        return this._http.put(this._urlEspecialista + encodeURIComponent(hash), value.toString(),
+        {
+            headers: new HttpHeaders()
+            .set('Content-Type', 'application/x-www-form-urlencoded'),
+            observe : 'response' 
+        });
     }
 }

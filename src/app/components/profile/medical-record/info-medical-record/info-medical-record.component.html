@@ -17,10 +17,6 @@
     <label class="title">Categoria del padecimiento</label>
     <input type="text"  value="{{historial.categoria}}" disabled />
 
-    <label class="title"></label>
-    <label class="title">Especialidad Padecimiento</label>
-    <br>
-    <legend (click)="activeModal.dismiss('Cross click')" routerLink="/medics/{{historial.nombre_esp}}">{{historial.nombre_esp}}</legend>
     <div>
       <label class="title">Imagen</label><br>
       <img class="center" style="width:300px;height:200px;" [src]="url">
@@ -67,6 +63,17 @@
           </li>
       </ul>
       </div>
+
+    <div *ngIf="recomendaciones!=''">
+      <label class="title">Especialista consultado</label>
+      <label>En caso de ya haber asistido con un médico favor de elegir el especialista que le haya ayudado con su {{historial.nombre_pad}}</label>
+      <select  [(ngModel)] = "seleccionado" class="form-control">
+        <option value="">Seleccione una Especialidad</option>
+        <option *ngFor="let recomendacion of recomendaciones" [value]="recomendacion.espe">{{recomendacion.espe}}</option>
+      </select>
+
+      <button type="button" *ngIf="seleccionado!=''" class="btn btn-secondary" (click)="actualizar()">Guardar</button>
+    </div>  
     </div>
     <div class="modal-footer" >
       <button type="button" class="btn btn-secondary cancel" (click)="activeModal.close('Close click')">Volver</button>
