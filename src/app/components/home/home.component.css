@@ -6,7 +6,7 @@
 .back-img {
   display: table;
   width: 100%;
-  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, .5);
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5);
   background-size: 100% 140%;
   background-position: top;
   text-align: center;
@@ -14,18 +14,17 @@
   margin-bottom: 10px;
   min-height: 450px;
   overflow: hidden;
-  background-image: url('../../../assets/medic1.jpg') !important;
-
+  background-image: url("../../../assets/medic1.jpg") !important;
 }
 
-.back-img h1, h3{
+.back-img h1,
+h3 {
   color: white;
-  font-family: EuclidCircular,
-    sans-serif;
+  font-family: EuclidCircular, sans-serif;
   font-weight: 600;
   text-transform: uppercase;
   margin-bottom: 20px;
-  letter-spacing: .02em;
+  letter-spacing: 0.02em;
 }
 
 .header-content {
@@ -34,26 +33,25 @@
 }
 
 .imagen {
-    width: 100%;
-    height: 60%;
-    margin-top: 50px;
+  width: 100%;
+  height: 60%;
+  margin-top: 50px;
 }
 .contenedor {
-    width: 100%;
-    margin-left: 20px;
-    padding: 20px;
-    text-align: center;
+  width: 100%;
+  margin-left: 20px;
+  padding: 20px;
+  text-align: center;
 }
-.offers h1{
-    text-align: center;
-    color: Red;
-    font-family: EuclidCircular,
-    sans-serif;
-    font-size: 30px;
+.offers h1 {
+  text-align: center;
+  color: Red;
+  font-family: EuclidCircular, sans-serif;
+  font-size: 30px;
 }
 
 .offers {
-    font-size: 30px;
+  font-size: 30px;
 }
 
 .main-container {

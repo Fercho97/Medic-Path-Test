@@ -51,6 +51,7 @@ import { RegistryComponent } from './components/registry/registry.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { GuidedDiagnosticComponent } from './components/guided-diagnostic/guided-diagnostic.component';
 import { SintSelectionComponent } from './components/diagnostic/sintSelection/sintSelection.component';
+import { CardsComponent } from './components/cards/cards.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,7 +92,8 @@ import { SintSelectionComponent } from './components/diagnostic/sintSelection/si
     RegistryComponent,
     SearchPipe,
     GuidedDiagnosticComponent,
-    SintSelectionComponent
+    SintSelectionComponent,
+    CardsComponent
   ],
   imports: [
     BrowserModule,
