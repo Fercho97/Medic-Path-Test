@@ -42,10 +42,10 @@ export class questions {
       }
 
       public static SPECIFIC_NUMERIC_QUESTION = {
-        'Deshidratación' : [
+        'deshidratación' : [
           {message: 'Del 1 al 10 tanto se ve afectado por la falta de agua'}
         ],
-        'Debilidad': [
+        'debilidad': [
           {message: 'Del 1 al 10 indique que tanto afecta su vida diaria esta sensación de debilidad'}
         ]
       }
