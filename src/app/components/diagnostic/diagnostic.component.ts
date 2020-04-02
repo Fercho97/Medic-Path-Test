@@ -56,6 +56,8 @@ export class DiagnosticComponent implements OnInit {
   public sintomasShow : any = [];
   public zone_options = ErrorMsg.Zone_options.options;
   public doc_recomendacion : any = [];
+  public compare_historiales : any = [];
+  public user_recommendation : any = [];
   constructor(private diagServ : DiagnosticService, private toast : ToastrService, 
               private router : Router, private sintServ : SintomasService, private modalService : NgbModal) {
 
@@ -78,6 +80,11 @@ export class DiagnosticComponent implements OnInit {
         this.sintomasZona.push({zone: zona, sintomas: zone_sints});
         this.zoneSelection.push({zone: zona, sintomas: []});
       }
+    })
+
+    this.diagServ.withFeedback().subscribe((res:any) =>{
+      this.compare_historiales =res.body.resultado;
+      
     })
   }
 
@@ -218,11 +225,7 @@ export class DiagnosticComponent implements OnInit {
       }
     }
 
-    guardar(){
-      let details = "";
-      for(var atom of this.sintomasResultado){
-        details = details + atom.desc + ",";
-      }
+    guardar(details,detailsIds){
 
       var fecha = moment().tz('America/Mexico_City').format();
       let values = new HttpParams()
@@ -232,7 +235,8 @@ export class DiagnosticComponent implements OnInit {
       .set('visible', 'true')
       .set('fecha', fecha.toString())
       .set('detalles_especificos', JSON.stringify(this.niveles))
-      .set('recomendations', JSON.stringify(this.doc_recomendacion));
+      .set('recomendations', JSON.stringify(this.doc_recomendacion))
+      .set('detallesIds',detailsIds);
       this.diagServ.guardarHistorial(values).subscribe(res =>{
         console.log("Ok", res)
         
@@ -258,9 +262,19 @@ export class DiagnosticComponent implements OnInit {
       this.sintomasExtras = this.calculusClass.calculateCloseness(this.conocimientoEvaluado,this.baseConocimiento,this.memoriaDeTrabajo);
       this.checkUrgencyLevels();
       this.doc_recomendacion = this.calculusClass.calculateRecommendation(this.memoriaDeTrabajo,this.sintomas);
+      let details = "";
+      let detailsIds = "";
+      this.memoriaDeTrabajo.atomosAfirmados.forEach(atomo =>{
+        if(atomo.obj==false){
+          details = details + atomo.desc +  ",";
+          detailsIds = detailsIds + atomo.sintoma + ",";
+        }
+      });
+      
       if(this.user==true){
-        this.guardar();
+        this.guardar(details,detailsIds);
       }
+      this.user_recommendation = this.calculusClass.userFeedbackRecommendation(this.compare_historiales,detailsIds);
     }
     
 

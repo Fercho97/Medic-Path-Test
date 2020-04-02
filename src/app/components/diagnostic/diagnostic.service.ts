@@ -8,11 +8,13 @@ export class DiagnosticService{
     _url : string = '';
     _saveUrl : string = '';
     _registeredUsers : string = '';
+    _withFeedback : string = '';
     constructor(private _http : HttpClient){
         
         this._url = environment.url + 'consulta/getReglas';
         this._saveUrl = environment.url + 'historial/create';
         this._registeredUsers = environment.url + 'usuarios/pacientslist';
+        this._withFeedback = environment.url + 'historial/withFeedBack/returnFeedback';
     }
 
     consulta(mira : any){
@@ -43,6 +45,16 @@ export class DiagnosticService{
             .set('Content-Type', 'application/x-www-form-urlencoded'),
           observe : 'response'
       },
+    )
+    }
+
+    withFeedback(){
+      return this._http.get(this._withFeedback,
+        {
+          headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded'),
+          observe : 'response'
+        },
     )
     }
 

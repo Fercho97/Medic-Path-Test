@@ -161,6 +161,14 @@
                     </legend>
                 </div>
             </div>
+            <div>
+                <div>
+                <h3>Pacientes con sintomas similares a los suyos suelen asistir con:</h3>
+                    <legend class="response">
+                    {{user_recommendation[0].espe}}
+                    </legend>
+                </div>
+            </div>
             <button *ngIf='user' routerLink="/record" expand="block"  class="btn btn-primary btn-lg" >Continuar</button>
         </div>
     </div>

@@ -236,9 +236,13 @@ export class GuidedDiagnosticComponent implements OnInit {
 
     guardar(){
       let details = "";
-      for(var atom of this.sintomasResultado){
-        details = details + atom.desc + ",";
-      }
+      let detailsIds = "";
+      this.memoriaDeTrabajo.atomosAfirmados.forEach(atomo =>{
+        if(atomo.obj==false){
+          details = details + atomo.desc +  ",";
+          detailsIds = detailsIds + atomo.sintoma + ",";
+        }
+      });
       var fecha = moment().tz('America/Mexico_City').format();
       let values = new HttpParams()
       .set('detalles', details)
@@ -247,7 +251,8 @@ export class GuidedDiagnosticComponent implements OnInit {
       .set('visible', 'true')
       .set('fecha', fecha.toString())
       .set('detalles_especificos', JSON.stringify(this.niveles))
-      .set('recomendations', JSON.stringify(this.doc_recomendacion));
+      .set('recomendations', JSON.stringify(this.doc_recomendacion))
+      .set('detallesIds',detailsIds);
       this.diagServ.guardarHistorial(values).subscribe(res =>{
         console.log("Ok", res)
         
