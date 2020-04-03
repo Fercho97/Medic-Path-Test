@@ -64,7 +64,7 @@
       </ul>
       </div>
 
-    <div *ngIf="recomendaciones!=''">
+    <div *ngIf="recomendaciones!='' && hasOneSelected==false">
       <label class="title">Especialista consultado</label>
       <label>En caso de ya haber asistido con un médico favor de elegir el especialista que le haya ayudado con su {{historial.nombre_pad}}</label>
       <select  [(ngModel)] = "seleccionado" class="form-control">
@@ -72,8 +72,12 @@
         <option *ngFor="let recomendacion of recomendaciones" [value]="recomendacion.espe">{{recomendacion.espe}}</option>
       </select>
 
-      <button type="button" *ngIf="seleccionado!=''" class="btn btn-secondary" (click)="actualizar()">Guardar</button>
+      <button type="button" *ngIf="seleccionado!='' || hasOneSelected==false" class="btn btn-secondary" (click)="actualizar()">Guardar</button>
     </div>  
+    <div *ngIf="hasOneSelected==true">
+      <label class="title">Especialista consultado</label>
+      <input type="text"  value="{{seleccionado}}" disabled />
+    </div>
     </div>
     <div class="modal-footer" >
       <button type="button" class="btn btn-secondary cancel" (click)="activeModal.close('Close click')">Volver</button>

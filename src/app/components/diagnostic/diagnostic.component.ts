@@ -84,7 +84,6 @@ export class DiagnosticComponent implements OnInit {
 
     this.diagServ.withFeedback().subscribe((res:any) =>{
       this.compare_historiales =res.body.resultado;
-      
     })
   }
 
@@ -250,8 +249,7 @@ export class DiagnosticComponent implements OnInit {
     }
 
     showWhy(){
-      
-      this.question={message: "Usted padece de : " + this.reglaEvaluar.partesConclusion[0].desc }
+      this.question={message: "Usted padece de : " + this.reglaEvaluar.partesConclusion[0].desc };
       this.hasResult=true;
       this.idResultado=this.reglaEvaluar.partesConclusion[0].padecimiento;
       this.reglaEvaluar.partesCondicion.forEach(element => {
@@ -279,7 +277,7 @@ export class DiagnosticComponent implements OnInit {
       if(this.user==true){
         this.guardar(details,detailsIds);
       }
-      this.user_recommendation = this.calculusClass.userFeedbackRecommendation(this.compare_historiales,detailsIds);
+      this.user_recommendation = this.calculusClass.userFeedbackRecommendation(this.compare_historiales,detailsIds,window.sessionStorage.getItem('usuario'));
     }
     
 

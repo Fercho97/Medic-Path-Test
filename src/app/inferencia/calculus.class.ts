@@ -167,7 +167,7 @@ export class Calculus{
         return 0;
     }
 
-    userFeedbackRecommendation(historiales, sintomasUsuario){
+    userFeedbackRecommendation(historiales, sintomasUsuario,usuarioActual){
 
       let parecidos = [];
       let sintomasUser = sintomasUsuario.split(',');
@@ -175,6 +175,7 @@ export class Calculus{
       let sintomasComun;
       let resultadoFinal;
       historiales.forEach(element => {
+      if(element.usuario!=usuarioActual){
       sintomasComun = 0;
       let sintomas = element.detalles_ids.split(",");
       sintomasUser.forEach(userSint =>{
@@ -185,6 +186,7 @@ export class Calculus{
       let porcentage = sintomasComun * 100 / sintomas.length;
       if(porcentage > 70){
         parecidos.push(element);
+      }
       }
       });
       

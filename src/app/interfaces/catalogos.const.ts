@@ -23,6 +23,9 @@ export class Catalogos {
         },
         {
           nombre: 'Bucal'
+        },
+        {
+          nombre: 'Cutánea'
         }
       ];
 }

@@ -18,6 +18,7 @@ export class InfoMedicalRecordComponent implements OnInit {
   public niveles : any = { "Ninguno" : [], "Bajo" : [], "Medio" : [], "Alto" : [], "Severo" : []};
   public recomendaciones : any = [];
   public seleccionado = "";
+  public hasOneSelected = false;
   constructor(public activeModal: NgbActiveModal, private profileServ : ProfileService, private toast : ToastrService) { 
 
   }
@@ -36,6 +37,7 @@ export class InfoMedicalRecordComponent implements OnInit {
 
       if(this.historial.especialista_seleccionado!=null){
         this.seleccionado = this.historial.especialista_seleccionado;
+        this.hasOneSelected=true;
       }
       
       sessionStorage.setItem('token', res.body.token);
@@ -55,6 +57,7 @@ export class InfoMedicalRecordComponent implements OnInit {
     this.profileServ.actualizacionEspecialista(this.historial.hashId, values).subscribe( (res: any) =>{
       sessionStorage.setItem('token',res.body.token);
       this.toast.success('Se ha modificado el padecimiento con éxito!', 'Modificación Exitosa!');
+      this.hasOneSelected=true;
   }, error =>{
       console.log("Error", error.error);
       this.toast.error(error.error.message, 'Error');
