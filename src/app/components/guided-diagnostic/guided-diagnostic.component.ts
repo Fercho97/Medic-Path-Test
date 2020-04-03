@@ -238,9 +238,14 @@ export class GuidedDiagnosticComponent implements OnInit {
       let details = "";
       let detailsIds = "";
       this.memoriaDeTrabajo.atomosAfirmados.forEach(atomo =>{
-        if(atomo.obj==false){
+        if(atomo.padecimiento==null){
           details = details + atomo.desc +  ",";
+          if(atomo.sintoma!=null){
           detailsIds = detailsIds + atomo.sintoma + ",";
+          }else{
+            let found = this.sintomas.find(item => item['nombre_sint'] == atomo.desc);
+            detailsIds = detailsIds + found.idSint + ",";
+          }
         }
       });
       var fecha = moment().tz('America/Mexico_City').format();

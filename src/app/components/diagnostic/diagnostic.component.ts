@@ -267,7 +267,12 @@ export class DiagnosticComponent implements OnInit {
       this.memoriaDeTrabajo.atomosAfirmados.forEach(atomo =>{
         if(atomo.obj==false){
           details = details + atomo.desc +  ",";
+          if(atomo.sintoma!=null){
           detailsIds = detailsIds + atomo.sintoma + ",";
+            }else{
+              let found = this.sintomas.find(item => item['nombre_sint'] == atomo.desc);
+              detailsIds = detailsIds + found.idSint + ",";
+            }
         }
       });
       
