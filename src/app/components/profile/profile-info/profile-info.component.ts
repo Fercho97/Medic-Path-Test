@@ -47,7 +47,6 @@ export class ProfileInfoComponent implements OnInit {
 
   actualizarDatos(){
     console.log(this.datos_perfil.value);
-    console.log(sessionStorage.getItem('token'));
     this.formData.append('nickname', this.datos_perfil.value.nickname);
     this.formData.append('nombres', this.datos_perfil.value.nombres);
     this.formData.append('apellidos', this.datos_perfil.value.apellidos);

@@ -15,6 +15,7 @@ import * as moment from 'moment-timezone';
 moment.locale('es');
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {SintSelectionComponent} from './sintSelection/sintSelection.component'
+import {CryptoStorage} from '../../services/shared-service';
 @Component({
   selector: 'app-diagnostic',
   templateUrl: './diagnostic.component.html',
@@ -58,8 +59,10 @@ export class DiagnosticComponent implements OnInit {
   public doc_recomendacion : any = [];
   public compare_historiales : any = [];
   public user_recommendation : any = [];
+  public userId = '0';
   constructor(private diagServ : DiagnosticService, private toast : ToastrService, 
-              private router : Router, private sintServ : SintomasService, private modalService : NgbModal) {
+              private router : Router, private sintServ : SintomasService, private modalService : NgbModal,
+              private storage: CryptoStorage) {
 
                 this.numeric = new FormGroup({
                   temp: new FormControl('', [Validators.required,Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]) 
@@ -67,8 +70,9 @@ export class DiagnosticComponent implements OnInit {
                }
 
   ngOnInit() {
-    if(window.sessionStorage.getItem('usuario')!=null){
+    if(this.storage.decryptData('usuario')!=null){
       this.user = true;
+      this.userId = this.storage.decryptData('usuario');
     }
 
     this.sintServ.getSints().subscribe(res =>{
@@ -229,7 +233,7 @@ export class DiagnosticComponent implements OnInit {
       var fecha = moment().tz('America/Mexico_City').format();
       let values = new HttpParams()
       .set('detalles', details)
-      .set('usuario', window.sessionStorage.getItem('usuario'))
+      .set('usuario', this.userId)
       .set('padecimiento_final', this.idResultado)
       .set('visible', 'true')
       .set('fecha', fecha.toString())
@@ -277,7 +281,7 @@ export class DiagnosticComponent implements OnInit {
       if(this.user==true){
         this.guardar(details,detailsIds);
       }
-      this.user_recommendation = this.calculusClass.userFeedbackRecommendation(this.compare_historiales,detailsIds,window.sessionStorage.getItem('usuario'));
+      this.user_recommendation = this.calculusClass.userFeedbackRecommendation(this.compare_historiales,detailsIds,this.userId);
     }
     
 

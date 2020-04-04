@@ -51,6 +51,7 @@ import { RegistryComponent } from './components/registry/registry.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { GuidedDiagnosticComponent } from './components/guided-diagnostic/guided-diagnostic.component';
 import { SintSelectionComponent } from './components/diagnostic/sintSelection/sintSelection.component';
+import { CryptoStorage} from '../app/services/shared-service';
 @NgModule({
   declarations: [
     AppComponent,

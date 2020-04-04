@@ -3,11 +3,12 @@ import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from '../profile.service';
 import {Router} from '@angular/router';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import {CryptoStorage} from '../../../services/shared-service';
 @Component({
   selector: 'app-profile-pic',
   templateUrl: './profile-pic.component.html',
   styleUrls: ['./profile-pic.component.css'],
-  providers: [ProfileService]
+  providers: [ProfileService,CryptoStorage]
 })
 export class ProfilePicComponent implements OnInit {
 
@@ -15,8 +16,8 @@ export class ProfilePicComponent implements OnInit {
   formData: any = new FormData();
   public selectedFile : File = null;
   public selectedImg = false;
-  hash = sessionStorage.getItem('hash');
-  constructor(private profileServ : ProfileService, private toast : ToastrService, private router : Router) { 
+  constructor(private profileServ : ProfileService, private toast : ToastrService, private router : Router
+             ,private storage: CryptoStorage) { 
   }
 
   ngOnInit() {
@@ -29,7 +30,8 @@ export class ProfilePicComponent implements OnInit {
   }
 
   actualizarDatos(){
-        this.profileServ.updateProfilePic(this.hash, this.formData).subscribe( (res: any) =>{
+    let hash = this.storage.decryptData('hash');
+        this.profileServ.updateProfilePic(hash, this.formData).subscribe( (res: any) =>{
           sessionStorage.setItem('token',res.body.token);
           this.formData = new FormData();
           window.location.reload();

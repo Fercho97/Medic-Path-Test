@@ -16,11 +16,12 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { LoginService } from './login.service';
 import {Router} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
+import {CryptoStorage} from '../../services/shared-service'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [CryptoStorage]
 })
 
 export class LoginComponent implements OnInit {
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
   login: FormGroup;
   private values : HttpParams;
   
-  constructor(private logServ : LoginService, private http : HttpClient, private router : Router, private toast : ToastrService) { 
+  constructor(private logServ : LoginService, private http : HttpClient, private router : Router, private toast : ToastrService
+              ,private storage: CryptoStorage) { 
     
     
     this.login = new FormGroup({
@@ -50,13 +52,17 @@ export class LoginComponent implements OnInit {
       this.toast.info('Su cuenta aun no se encuentra verificada, favor de verificarla mediante su correo.', 'Cuenta sin verificar');
     }else{
     this.cerrar.nativeElement.click();
-    sessionStorage.setItem('usuario',res.body.usuario.id);
-    sessionStorage.setItem('tipoUsuario',res.body.usuario.tipoUsuario);
+    //sessionStorage.setItem('usuario',res.body.usuario.id);
+    //sessionStorage.setItem('tipoUsuario',res.body.usuario.tipoUsuario);
     sessionStorage.setItem('token',res.body.token);
-    sessionStorage.setItem('nickname',res.body.usuario.nickname);
-    sessionStorage.setItem('hash',res.body.usuario.hash_id);
+    //sessionStorage.setItem('nickname',res.body.usuario.nickname);
+    //sessionStorage.setItem('hash',res.body.usuario.hash_id);
     localStorage.setItem('action','login');
-    window.location.reload();
+    let data = { "usuario" : res.body.usuario.id, "tipoUsuario" : res.body.usuario.tipoUsuario,
+                 "nickname" : res.body.usuario.nickname, "hash" : res.body.usuario.hash_id}
+      
+      this.storage.encryptData(JSON.stringify(data));
+      window.location.reload();
     this.router.navigate(['/home']);
 
     }

@@ -1,25 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from './profile.service';
 import {Router} from '@angular/router';
-
+import {CryptoStorage} from '../../services/shared-service'
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  providers: [ProfileService]
+  providers: [ProfileService,CryptoStorage]
 })
 export class ProfileComponent implements OnInit {
-
-    hash = sessionStorage.getItem('hash');
     usuario = {} as any;
     public url : string = "/assets/default-image.jpg";
 
-  constructor(private profileServ : ProfileService, private router : Router) {
+  constructor(private profileServ : ProfileService, private router : Router,private storage: CryptoStorage) {
     
    }
 
   ngOnInit() {
-    this.profileServ.getUser(this.hash).subscribe( (res: any) =>{
+    let hashCryp = this.storage.decryptData('hash');
+    this.profileServ.getUser(hashCryp).subscribe( (res: any) =>{
       this.usuario = res.body.resultado;
       sessionStorage.setItem('token',res.body.token);
       console.log(this.usuario.imagen_perfil);

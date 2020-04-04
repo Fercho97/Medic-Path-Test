@@ -17,10 +17,12 @@ import { ResetPassService } from './reset-password.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ErrorMsg } from '../../interfaces/errorMsg.const';
+import {CryptoStorage} from '../../services/shared-service'
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css']
+  styleUrls: ['./reset-password.component.css'],
+  providers: [CryptoStorage]
 })
 
 export class ResetPasswordComponent implements OnInit {
@@ -30,7 +32,8 @@ export class ResetPasswordComponent implements OnInit {
   isValid : boolean = false;
   fromProfile: boolean = false;
   mensajes_error = ErrorMsg.ERROR_MSG_REGISTER;
-  constructor(private restServ : ResetPassService, private http : HttpClient, private router : Router, private toast : ToastrService, private url : ActivatedRoute) { 
+  constructor(private restServ : ResetPassService, private http : HttpClient, private router : Router,
+              private toast : ToastrService, private url : ActivatedRoute,private storage: CryptoStorage) { 
    
     this.reset = new FormGroup({
             
@@ -48,7 +51,7 @@ export class ResetPasswordComponent implements OnInit {
     if(this.url.snapshot.params.hash){
     this.verifyUrl(this.url.snapshot.params.hash);
     }
-    else if(sessionStorage.getItem('usuario')!=null){
+    else if(this.storage.decryptData('usuario')!=null){
       this.fromProfile=true;
       this.isValid=true;
     }else{
@@ -71,7 +74,7 @@ export class ResetPasswordComponent implements OnInit {
           this.toast.error(error.error.message, 'Error');
       })
     }else{
-      this.hash = sessionStorage.getItem('hash');
+      this.hash = this.storage.decryptData('hash');
       
         this.values = new HttpParams()
         .set('newPassword', this.reset.value.password_validations.newPass);

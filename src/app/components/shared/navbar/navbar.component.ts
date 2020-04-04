@@ -1,9 +1,11 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import {Router} from '@angular/router';
+import {CryptoStorage} from '../../../services/shared-service'
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  providers: [CryptoStorage]
 })
 export class NavbarComponent implements OnInit {
 
@@ -11,7 +13,7 @@ export class NavbarComponent implements OnInit {
   isAdmin;
   isDoctor;
   tipoUsuario;
-  constructor(private router : Router) { }
+  constructor(private router : Router,private storage: CryptoStorage) { }
 
   public ngOnInit() {
     this.checkPermission();
@@ -29,19 +31,16 @@ export class NavbarComponent implements OnInit {
     this.user = false;
     this.isAdmin = false;
     this.isDoctor = false;
-    this.tipoUsuario = sessionStorage.getItem('tipoUsuario');
-    if(sessionStorage.getItem('usuario')!=null){
+    this.tipoUsuario = this.storage.decryptData('tipoUsuario');
+    if(this.storage.decryptData('usuario')!=null){
       this.user = true;
     }
 
-    if(this.tipoUsuario==="2"){
+    if(this.tipoUsuario==='2'){
       this.isDoctor = true;
     }
-    else if(this.tipoUsuario=="3"){
+    else if(this.tipoUsuario==='3'){
       this.isAdmin = true;
     }
-    console.log(this.isDoctor);
-    console.log(this.isAdmin);
-    console.log(sessionStorage.getItem('usuario'));
   }
 }
