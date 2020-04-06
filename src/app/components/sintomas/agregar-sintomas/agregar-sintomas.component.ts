@@ -154,6 +154,7 @@ export class AgregarSintomasComponent implements OnInit {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
       
     }
+    this.totalPorcentage();
   }
 
   creacionComposicion(){
@@ -199,6 +200,11 @@ export class AgregarSintomasComponent implements OnInit {
     }else{
       this.isEmpty=false;
     }
+    
+    this.totalPorcentage()
+  }
+
+  totalPorcentage(){
     let sum : number = 0;
     for(var selected of this.especializacionesSeleccionadas){
       sum = sum + Number(selected.porcentaje);

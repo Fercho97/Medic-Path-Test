@@ -155,6 +155,8 @@ export class ModificarSintomasComponent implements OnInit {
     }else{
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     }
+
+    this.totalPorcentage();
   }
 
   modificar(){
@@ -278,6 +280,10 @@ export class ModificarSintomasComponent implements OnInit {
     }else{
       this.isEmpty=false;
     }
+    this.totalPorcentage();
+  }
+
+  totalPorcentage(){
     let sum : number = 0;
     for(var selected of this.especializacionesSeleccionadas){
       sum = sum + Number(selected.porcentaje);
