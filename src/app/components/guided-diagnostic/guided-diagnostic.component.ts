@@ -15,6 +15,7 @@ import * as moment from 'moment-timezone';
 moment.locale('es');
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {SintSelectionComponent} from '../diagnostic/sintSelection/sintSelection.component'
+import { Catalogos } from '../../interfaces/catalogos.const'
 @Component({
   selector: 'app-guided-diagnostic',
   templateUrl: './guided-diagnostic.component.html',
@@ -58,6 +59,7 @@ export class GuidedDiagnosticComponent implements OnInit {
   public sintomasShow : any = [];
   public zone_options = ErrorMsg.Zone_options.options;
   public doc_recomendacion : any = [];
+  public divisions = Catalogos.LETTERS;
   constructor(private diagServ : DiagnosticService, private toast : ToastrService,
               private router : Router, private sintServ : SintomasService, private modalService : NgbModal) { 
                 this.numeric = new FormGroup({
@@ -67,8 +69,8 @@ export class GuidedDiagnosticComponent implements OnInit {
 
   ngOnInit() {
     this.diagServ.obtenerUsuarios().subscribe((res: any) =>{
-      console.log(res.body);
       this.usuarios = res.body.usuarios;
+      this.usuarios = this.calculusClass.orderByFirstLetter(this.usuarios);
     })
 
     this.sintServ.getSints().subscribe(res =>{
@@ -79,7 +81,7 @@ export class GuidedDiagnosticComponent implements OnInit {
         this.sintomasZona.push({zone: zona, sintomas: zone_sints});
         this.zoneSelection.push({zone: zona, sintomas: []});
       }
-      console.log(this.sintomas);
+      //console.log(this.sintomas);
     })
 
     
@@ -90,14 +92,13 @@ export class GuidedDiagnosticComponent implements OnInit {
     let mira : string = "";
     this.diagServ.consulta(mira).subscribe((res : any)  =>{
       //this.hasPregunta = true;
-      console.log(res.body);
+      
       
      res.body.reglas.forEach(element => {
         let rule = new Regla();
         this.baseConocimiento.push(rule.desgloseReglas(element));
       });
 
-      console.log(this.baseConocimiento);
       this.hasPregunta = true;
       this.inferencia();
     }, error =>{
@@ -133,7 +134,7 @@ export class GuidedDiagnosticComponent implements OnInit {
             let almacenado = null;
 
             almacenado =  this.memoriaDeTrabajo.estaAlmacenado(element);
-            console.log("Esta en la memoria?" + almacenado)
+            //console.log("Esta en la memoria?" + almacenado)
             if(almacenado===false){
             this.atomosCondicion.push(new Atomo(element.desc,element.estado,element.obj,element.padecimiento,element.sintoma));
             let question = this.questionGen(element.desc); 
@@ -194,7 +195,7 @@ export class GuidedDiagnosticComponent implements OnInit {
     analize(){
       let condicion = false;
       condicion = this.reglaEvaluar.checarCondicion(this.memoriaDeTrabajo)
-      console.log(condicion);
+      //console.log(condicion);
       if(condicion===true){
         let atomos = this.reglaEvaluar.disparadorReglas(this.memoriaDeTrabajo)
         for(var atomo of atomos){
@@ -218,15 +219,12 @@ export class GuidedDiagnosticComponent implements OnInit {
           
         }
       }else{
-        console.log("No se cumplio: " + this.reglaEvaluar.partesConclusion)
         for(var noCumplido of this.reglaEvaluar.partesConclusion){
           let atomoNoCumplido = new Atomo(noCumplido.desc,false,noCumplido.obj,noCumplido.padecimiento, noCumplido.sintoma);
           this.memoriaDeTrabajo.almacenarAtomo(atomoNoCumplido);
         }
       }
       
-      console.log(this.memoriaDeTrabajo);
-      console.log(this.baseConocimiento.length);
       if(this.baseConocimiento.length!=0 && this.hasResult==false){
       this.inferencia();
       }else if(this.hasResult==false){
@@ -259,20 +257,24 @@ export class GuidedDiagnosticComponent implements OnInit {
       .set('recomendations', JSON.stringify(this.doc_recomendacion))
       .set('detallesIds',detailsIds);
       this.diagServ.guardarHistorial(values).subscribe(res =>{
-        console.log("Ok", res)
+        //console.log("Ok", res)
         
       this.toast.success('Se ha guardado con éxito en el historial del paciente', 'Guardado Exitoso!');
       
     }, error =>{
-        console.log("Error", error.error);
+        //console.log("Error", error.error);
         this.toast.error(error.error, 'Error');
         this.router.navigate(['/landing'])
     })
     }
 
     selectUser(event : any){
+      if(event.target.value!=""){
       this.usuario = event.target.value;
       this.selectedUser=true;
+      }else{
+        this.selectedUser=false;
+      }
     }
 
     selection(){
@@ -296,7 +298,6 @@ export class GuidedDiagnosticComponent implements OnInit {
       });
 
       this.avoidUnnecesaryQuestions();
-      console.log(this.memoriaDeTrabajo);
       if(this.preguntas.length>0){
         this.hasPregunta = true;
         this.fromSelected=true;
@@ -313,7 +314,7 @@ export class GuidedDiagnosticComponent implements OnInit {
         if(multiOption.length>1){
           multiOption.forEach(option =>{
             let atomo = new Atomo(option.nombre_sint,false,false,null,null);
-            console.log(this.memoriaDeTrabajo.estaAfirmado(atomo));
+            //console.log(this.memoriaDeTrabajo.estaAfirmado(atomo));
             if(this.memoriaDeTrabajo.estaAlmacenado(atomo)===false){
               this.memoriaDeTrabajo.almacenarAtomo(atomo);
             }
@@ -403,7 +404,7 @@ export class GuidedDiagnosticComponent implements OnInit {
         }else{
           question = 'Del 1 al 10 que rango de molestia le causa a su paciente el tener ' + atomSymp.nombre_sint
         }
-        console.log(question);
+        //console.log(question);
           this.preguntas.push({message:question, type: 'scale', index: sympIndex});
         }
        }
@@ -448,7 +449,7 @@ export class GuidedDiagnosticComponent implements OnInit {
         if(answer==="Si"){
           let atomsSize = atomos.length;
           this.atomos_opciones.push( atomos.slice());
-          console.log(this.atomos_opciones);
+          //console.log(this.atomos_opciones);
           let buttonOptions = [];
           for(var i = 0; i<atomsSize; i++){
             let showOption  = "";
@@ -467,7 +468,7 @@ export class GuidedDiagnosticComponent implements OnInit {
             let button = {message: showOption, value: atomo, desc: sintoma.descripcion};
             buttonOptions.push(button);
           }
-          console.log(buttonOptions);
+          //console.log(buttonOptions);
           let messageShow = questions.MULTIQUESTIONS_DOC[text.toLowerCase()];
           this.preguntas.push({message: messageShow[0].message,buttons: buttonOptions, type: 'selection'});
         }else{
@@ -494,7 +495,7 @@ export class GuidedDiagnosticComponent implements OnInit {
         this.memoriaDeTrabajo.atomosAfirmados.forEach(atomo =>{
           let atomSymp = this.sintomas.find(item => item['nombre_sint'].toString() === atomo.desc);
           if(atomSymp!=null){
-          console.log(atomSymp.nivel_urgencia);
+          //console.log(atomSymp.nivel_urgencia);
           let sympLev = {sintoma: atomSymp.nombre_sint, descripcion: atomSymp.descripcion};
           if(atomSymp.nivel_urgencia>=0 && atomSymp.nivel_urgencia<0.2){
             this.niveles.Ninguno.push(sympLev);
@@ -536,7 +537,6 @@ export class GuidedDiagnosticComponent implements OnInit {
           }
         })
         this.evaluateSypmtom(atomId);
-        console.log(this.memoriaDeTrabajo)
         if(this.preguntas.length>0){
           this.mostrarPregunta();
           }else{
@@ -570,9 +570,9 @@ export class GuidedDiagnosticComponent implements OnInit {
         for(let zone of this.zoneSelection){
           zones = zones.concat(zone.sintomas);
         }
-        console.log(zones);
+      
       this.sintomasSeleccionados = zones;
         this.sintomasShow = this.diagServ.showSymtoms(this.sintomasSeleccionados, this.sintomas);
-        console.log(this.sintomasShow);
+        
       }
 }

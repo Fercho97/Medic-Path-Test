@@ -1,6 +1,7 @@
 import {Atomo} from './atomo.class';
 import {Regla} from './regla.class';
 import { MemoriaTrabajo } from './memoriaTrabajo.class';
+import { Catalogos} from '../interfaces/catalogos.const'
 export class Calculus{
 
      calculateCloseness(conocimientoEvaluado,baseConocimiento,memoriaDeTrabajo){
@@ -203,5 +204,20 @@ export class Calculus{
       especializaciones.sort(this.compare);
 
       return especializaciones;
+    }
+
+    orderByFirstLetter(usuarios: any){
+      let letterOrder = Catalogos.LETTERS;
+      let order: any = [];
+
+      usuarios.forEach(element => {
+        let index = letterOrder.find(letter => letter.value==element.fullname.charAt(0).toLowerCase());
+        if(order[index.index]==undefined){
+          order[index.index] = [];
+        }
+
+        order[index.index].push(element);
+      });
+      return order;
     }
 }
