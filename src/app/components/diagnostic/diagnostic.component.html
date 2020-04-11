@@ -41,7 +41,7 @@
         <div class="col m12 margin-color" [hidden]="!hasPregunta">
             <h4>Sus sintomas: </h4>
             <h5>{{breadcrumb}}</h5>
-            <h4 *ngIf="!hasResult || question.type==='boolean'">{{descripcion}}</h4>
+            <h4 *ngIf="!hasResult && question.type==='boolean'">{{descripcion}}</h4>
             <h1>{{question.message}}</h1>
             
             <div *ngIf="question.type === 'boolean'">

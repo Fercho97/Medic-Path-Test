@@ -4,7 +4,7 @@
         <div class="col m10 margin-color" *ngIf="!hasPregunta">
             <div class="center">
                 <p>Bienvenido a la herramienta de diagnostico</p>
-                <p>Para comenzar elija un paciente para le cual se realizara la consulta</p>
+                <p>Para comenzar elija un paciente para el cual se realizara la consulta</p>
             </div>
             <select name="paciente" id="paciente" class="form-control" (change)="selectUser($event)">
                 <option value="">Seleccione un paciente</option>
@@ -48,7 +48,7 @@
         <div class="col m12 margin-color" [hidden]="!hasPregunta">
             <h4>Sus sintomas: </h4>
             <h5>{{breadcrumb}}</h5>
-            <h4 *ngIf="!hasResult || question.type==='boolean'">{{descripcion}}</h4>
+            <h4 *ngIf="!hasResult && question.type==='boolean'">{{descripcion}}</h4>
             <h1>{{question.message}}</h1>
             
             <div *ngIf="question.type === 'boolean'">
