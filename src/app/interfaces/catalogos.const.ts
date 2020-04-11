@@ -10,7 +10,7 @@ export class Catalogos {
           nombre: 'Infecciosa'
         },
         {
-          nombre:'Alergica'
+          nombre:'Alérgica'
         },
         {
           nombre: 'Ocular'
