@@ -356,7 +356,7 @@ export class GuidedDiagnosticComponent implements OnInit {
 
      questionGen(sint: any){
       
-      let hasCertainQuestion = questions.QUESTIONS[sint.toLowerCase()];
+      let hasCertainQuestion = questions.QUESTIONS_DOC[sint.toLowerCase()];
       let multiOption = this.checkMultipleTypes(sint);
       if(hasCertainQuestion!=undefined){
         return hasCertainQuestion[0];
@@ -398,7 +398,7 @@ export class GuidedDiagnosticComponent implements OnInit {
         
         if(atomSymp.nivel_urgencia==0.4 || atomSymp.nivel_urgencia==0.6){
           let question = "";
-        let hasSpecificQuestion = questions.SPECIFIC_NUMERIC_QUESTION[atomSymp.nombre_sint.toLowerCase()];
+        let hasSpecificQuestion = questions.SPECIFIC_NUMERIC_QUESTION_DOC[atomSymp.nombre_sint.toLowerCase()];
         if(hasSpecificQuestion!=null){
           question = hasSpecificQuestion[0].message;
         }else{
