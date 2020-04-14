@@ -281,7 +281,7 @@ export class DiagnosticComponent implements OnInit {
       if(this.user==true){
         this.guardar(details,detailsIds);
       }
-      this.user_recommendation = this.calculusClass.userFeedbackRecommendation(this.compare_historiales,detailsIds,this.userId);
+      this.user_recommendation = this.calculusClass.userFeedbackRecommendation(this.compare_historiales,detailsIds,this.userId,this.idResultado);
     }
     
 
