@@ -22,6 +22,7 @@ import { AdminGuardService } from './components/auth/admin-role-guard.service';
 import { DoctorGuardService } from './components/auth/doctor-role-guard.service';
 import { RegistryComponent } from './components/registry/registry.component';
 import { GuidedDiagnosticComponent } from './components/guided-diagnostic/guided-diagnostic.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'diagnostico', component: DiagnosticComponent },
@@ -53,7 +54,8 @@ const routes: Routes = [
   { path: 'usuarios/info/:hash', component : UsuarioInfoComponent, canActivate: [AdminGuardService]},
   { path: 'bdc', component : BDCComponent},
   { path: 'registry', component: RegistryComponent, canActivate: [AdminGuardService]},
-  { path: '**', pathMatch: 'full', redirectTo: 'home' }
+  { path: 'notificaciones', component: NotificationsComponent },
+  { path: '**', pathMatch: 'full', redirectTo: 'home' },
 ];
 
 @NgModule({

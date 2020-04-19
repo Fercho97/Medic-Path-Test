@@ -52,6 +52,7 @@ import { SearchPipe } from './pipes/search.pipe';
 import { GuidedDiagnosticComponent } from './components/guided-diagnostic/guided-diagnostic.component';
 import { SintSelectionComponent } from './components/diagnostic/sintSelection/sintSelection.component';
 import { CryptoStorage} from '../app/services/shared-service';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,7 +93,8 @@ import { CryptoStorage} from '../app/services/shared-service';
     RegistryComponent,
     SearchPipe,
     GuidedDiagnosticComponent,
-    SintSelectionComponent
+    SintSelectionComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,

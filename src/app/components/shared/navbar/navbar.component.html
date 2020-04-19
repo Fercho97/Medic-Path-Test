@@ -10,10 +10,10 @@
         <a class="nav-link" routerLinkActive="active-link" routerLink="home">Home</a>
       </li>
       <li class="nav-item" *ngIf="!isDoctor">
-        <a class="nav-link" routerLinkActive="active-link" routerLink="diagnostico">Diagnostico</a>
+        <a class="nav-link" routerLinkActive="active-link" routerLink="diagnostico">Diagnóstico</a>
       </li>
       <li class="nav-item" *ngIf="isDoctor">
-        <a class="nav-link" routerLinkActive="active-link" routerLink="diagnosticoGuiado">Diagnostico Guiado</a>
+        <a class="nav-link" routerLinkActive="active-link" routerLink="diagnosticoGuiado">Diagnóstico Guiado</a>
       </li>
       <li class="nav-item" *ngIf="isAdmin">
         <a class="nav-link" routerLinkActive="active-link" routerLink="usuarios">Usuarios</a>
@@ -38,6 +38,9 @@
       </li>
       <li class ="nav-item" *ngIf="isAdmin">
         <a class="nav-link" routerLinkActive="active-link" routerLink="/registry">Registro de Doctor</a>
+      </li>
+      <li class ="nav-item" *ngIf="!isAdmin && !isDoctor && user">
+        <a class="nav-link" routerLinkActive="active-link" routerLink="/notificaciones">Mis Notificaciones</a>
       </li>
       <li class="nav-item hidden" *ngIf=!user>
         <a class="nav-link" routerLinkActive="active-link" data-toggle="modal" data-target="#exampleModal">Login</a>
