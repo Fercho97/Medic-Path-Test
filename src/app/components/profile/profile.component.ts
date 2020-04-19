@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from './profile.service';
 import {Router} from '@angular/router';
-import {CryptoStorage} from '../../services/shared-service'
+import {CryptoStorage} from '../../services/shared-service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -21,7 +21,6 @@ export class ProfileComponent implements OnInit {
     this.profileServ.getUser(hashCryp).subscribe( (res: any) =>{
       this.usuario = res.body.resultado;
       sessionStorage.setItem('token',res.body.token);
-      console.log(this.usuario.imagen_perfil);
       if(this.usuario.imagen_perfil!=null){
         this.url = this.usuario.imagen_perfil;
       }

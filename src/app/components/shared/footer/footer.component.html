@@ -6,7 +6,8 @@
     <p class="footer-links">
       <a routerLink="home">Inicio</a>
       ·
-      <a routerLink="diagnostico">Diagnostico</a>
+      <a *ngIf="!isDoctor" routerLink="diagnostico">Diagnóstico</a>
+      <a *ngIf="isDoctor" routerLink="diagnosticoGuiado">Diagnóstico Guiado</a>
       ·
       <a routerLink="faq">FAQ</a>
     </p>

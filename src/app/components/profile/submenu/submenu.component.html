@@ -3,7 +3,7 @@
     <div class="col-md-12 ">
       <a class="nav-link" routerLinkActive="active-link" routerLink="/profile">Perfil</a>
     </div>
-    <div class="col-md-12 ">
+    <div class="col-md-12 " *ngIf="userType=='1'">
       <a class="nav-link" routerLinkActive="active-link" routerLink="/record">Expediente</a>
     </div>
   </div>
