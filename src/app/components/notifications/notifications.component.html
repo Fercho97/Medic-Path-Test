@@ -4,7 +4,7 @@
       <th>Mensaje</th>
       <th>Acción</th>
   </tr>
-  <tr ng-if="notificaciones.length>0" *ngFor="let notif of notificaciones | paginate:{itemsPerPage: 10, currentPage:pagina}">
+  <tr ng-if="notificaciones.length>0" *ngFor="let notif of notificaciones">
        <th>Es necesario que indique retroalimentación para su consulta del día <span style="color:blue">{{notif.filter_date}}</span> , para hacerlo haga click en el botón de Ir</th>
        <th><button class="btn btn-success btn-sm" (click)="openModal(content,notif.hashId)" >Ir</button></th>
   </tr>

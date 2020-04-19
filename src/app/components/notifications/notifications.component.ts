@@ -11,6 +11,7 @@ import { InfoMedicalRecordComponent } from '../profile/medical-record/info-medic
 })
 export class NotificationsComponent implements OnInit {
   public notificaciones = [];
+  content;
   constructor(private notifServ : NotificacionService, private storage: CryptoStorage, private modalService : NgbModal) {
    }
 
