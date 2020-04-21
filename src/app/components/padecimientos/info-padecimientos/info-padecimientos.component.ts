@@ -26,9 +26,9 @@ export class InfoPadecimientosComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.pad);
+    //console.log(this.pad);
     this.padServ.getPad(this.pad).subscribe( (res : any) =>{
-      console.log(res.body);
+      //console.log(res.body);
       this.padecimiento = res.body.padecimiento;
       this.sintomas = res.body.padecimiento.sintomas;
       
