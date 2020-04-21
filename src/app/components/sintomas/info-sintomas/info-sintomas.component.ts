@@ -42,22 +42,22 @@ export class InfoSintomasComponent implements OnInit {
 
   ngOnInit() {
     this.especialidades = JSON.parse(this.sintoma.porcentages);
-    console.log(this.especialidades);
+    //console.log(this.especialidades);
     this.compuesto = this.sintoma.compuesto;
     if(this.sintoma.compuesto == true){
 
       this.values = new HttpParams()
       .set('composicion', this.sintoma.composicion);
-      console.log(this.values);
+      //console.log(this.values);
 
       this.sintServ.getNames(this.values).subscribe( (res: any) =>{
-        console.log(res.body);
+        //console.log(res.body);
         for(let item of res.body){
           this.sintoma.composicion = this.sintoma.composicion.replace(item.idSint,item.nombre_sint);
         }
       },
     error =>{
-        console.log(error);
+        //console.log(error);
     })
 
     this.sintoma.composicion = this.sintoma.composicion.replace(/,/g,' ');

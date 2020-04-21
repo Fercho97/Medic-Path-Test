@@ -75,8 +75,8 @@ export class SignupComponent implements OnInit {
   ngOnInit() { }
 
   guardarCambios() {
-    console.log(this.forma.value);
-    console.log(this.forma);
+    //console.log(this.forma.value);
+    //console.log(this.forma);
     this.values = new HttpParams()
     .set('nickname', this.forma.value.username)
     .set('email', this.forma.value.correo)
@@ -88,11 +88,11 @@ export class SignupComponent implements OnInit {
     .set('tipoUsuario', '1')
     .set('fecha_nacimiento', this.forma.value.fechanacimiento);
     this.signupServ.checkRegister(this.values).subscribe(res =>{
-      console.log("Ok", res)
+      //console.log("Ok", res)
       this.toast.success('Le hemos enviado un correo para confirmar su cuenta', 'Registro Exitoso!');
     this.router.navigate(['/home'])
   }, error =>{
-      console.log("Error", error.error);
+      //console.log("Error", error.error);
       this.toast.error(error.error, 'Error');
   })
   }

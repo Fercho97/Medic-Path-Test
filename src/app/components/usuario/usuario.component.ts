@@ -44,13 +44,13 @@ export class UsuarioComponent implements OnInit {
           }
         }
         if (this.doctors.length !== 0) {
-          console.log('Ok');
+          //console.log('Ok');
         }
         this.users = this.doctors;
         this.pagina = 1;
       },
       error => {
-        console.log(error);
+        //console.log(error);
       }
     );
   }
@@ -71,7 +71,7 @@ export class UsuarioComponent implements OnInit {
     }
 
     tabcontent = document.getElementsByClassName('tabcontent');
-    console.log(tabcontent);
+    //console.log(tabcontent);
     for (i = 0; i < tabcontent.length; i++) {
       tabcontent[i].style.display = 'none';
     }

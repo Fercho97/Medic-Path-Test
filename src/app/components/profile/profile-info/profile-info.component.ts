@@ -46,12 +46,12 @@ export class ProfileInfoComponent implements OnInit {
   }
 
   actualizarDatos(){
-    console.log(this.datos_perfil.value);
+    //console.log(this.datos_perfil.value);
     this.formData.append('nickname', this.datos_perfil.value.nickname);
     this.formData.append('nombres', this.datos_perfil.value.nombres);
     this.formData.append('apellidos', this.datos_perfil.value.apellidos);
         this.profileServ.updateUser(this.usuarioInfo.hash_id, this.formData, sessionStorage.getItem('token')).subscribe( (res: any) =>{
-          console.log(res);
+          //console.log(res);
           if(res.body.mensaje != "Token no válido"){
           this.toast.success('Datos Modificados con éxito', 'Modificación Exitosa!');
           this.formData = new FormData();
@@ -63,7 +63,7 @@ export class ProfileInfoComponent implements OnInit {
           }
         },
       error =>{
-        console.log(error.message);
+        //console.log(error.message);
           this.toast.error(error.error.message,'Error');
           this.formData = new FormData();
       })

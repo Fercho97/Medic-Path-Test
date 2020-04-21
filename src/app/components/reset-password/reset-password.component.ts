@@ -70,7 +70,7 @@ export class ResetPasswordComponent implements OnInit {
         this.toast.success('Se ha modificado la contraseña con éxito ', 'Éxito!');
         this.router.navigate(['/home']);
       }, error =>{
-          console.log("Error", error.error.message);
+          //console.log("Error", error.error.message);
           this.toast.error(error.error.message, 'Error');
       })
     }else{
@@ -85,7 +85,7 @@ export class ResetPasswordComponent implements OnInit {
         window.location.reload();
         this.router.navigate(['/home']);
       }, error =>{
-          console.log("Error", error.error.message);
+          //console.log("Error", error.error.message);
           this.toast.error(error.error.message, 'Error');
       })
     }

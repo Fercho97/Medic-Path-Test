@@ -73,7 +73,7 @@ export class RegistryComponent implements OnInit {
     this.regServ.getEspecializaciones().subscribe((res: any) =>{
       this.especializaciones = res.body;
     }, error =>{
-      console.log(error);
+      //console.log(error);
     })
    }
 
@@ -103,7 +103,7 @@ export class RegistryComponent implements OnInit {
       this.toast.success('Le hemos enviado un correo al usuario registrado confirmar su cuenta', 'Registro Exitoso!');
     this.router.navigate(['/home'])
   }, error =>{
-      console.log("Error", error.error);
+      //console.log("Error", error.error);
       this.toast.error(error.error, 'Error');
   })
 }else{

@@ -23,7 +23,7 @@ export class InfoMedicComponent implements OnInit {
 
   ngOnInit() {
     this.userServ.getDoctorInfo(this.hash_doctor).subscribe( (res : any) =>{
-      console.log(res.body);
+      //console.log(res.body);
 
       this.infoDoc = res.body.usuario;
       this.nombreCompleto = res.body.usuario.nombres + " " + res.body.usuario.apellidos;

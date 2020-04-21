@@ -41,7 +41,7 @@ export class ForgotPasswordComponent implements OnInit {
       this.toastr.info("Se ha enviado un correo a la dirección que indico, llegara en un momento", "Enviado");
       this.router.navigate(['/home']);
     }, error =>{
-      console.log(error);
+      //console.log(error);
       this.router.navigate(['/home']);
     })
     

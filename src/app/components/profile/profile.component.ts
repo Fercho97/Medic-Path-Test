@@ -26,13 +26,13 @@ export class ProfileComponent implements OnInit {
       }
     },
   error =>{
-      console.log(error);
+      //console.log(error);
   })
   }
 
   actualizar(){
     this.profileServ.updateRules().subscribe(res =>{
-      console.log('Done');
+      //console.log('Done');
     })
   }
 }

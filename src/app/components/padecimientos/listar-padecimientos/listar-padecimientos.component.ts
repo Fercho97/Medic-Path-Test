@@ -33,7 +33,7 @@ export class ListarPadecimientosComponent implements OnInit {
       }
     },
   error =>{
-      console.log(error);
+      //console.log(error);
   })
   }
 

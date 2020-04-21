@@ -38,14 +38,14 @@ export class ListarSintomasComponent implements OnInit {
       }
     },
   error =>{
-      console.log(error);
+      //console.log(error);
   })
   }
 
 
   openModal(info, sint : any){
     const modalRef = this.modalService.open(InfoSintomasComponent, { windowClass : "myCustomModalClass"});
-    console.log(sint);
+    //console.log(sint);
     modalRef.componentInstance.sintoma = sint;
   }
 

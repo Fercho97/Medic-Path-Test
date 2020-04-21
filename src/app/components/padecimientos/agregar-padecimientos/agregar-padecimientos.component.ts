@@ -53,31 +53,31 @@ export class AgregarPadecimientosComponent implements OnInit {
     this.padServ.getEspecializaciones().subscribe((res: any) =>{
       this.especializaciones = res.body;
     }, error =>{
-      console.log(error);
+      //console.log(error);
     })
 
     this.sintServ.getSints().subscribe( (res: any) =>{
       this.sintomas = res.body;
     },
   error =>{
-      console.log(error);
+      //console.log(error);
   })
   }
 
   createFormData(event){
     this.selectedFile = <File>event.target.files[0];
     this.formData.append('image', this.selectedFile, this.selectedFile.name);
-    console.log(this.formData.get('image'));
+    //console.log(this.formData.get('image'));
   }
 
   drop(event: CdkDragDrop<string[]>){
     if(event.previousContainer !== event.container){
       transferArrayItem(event.previousContainer.data,event.container.data,
                         event.previousIndex, event.currentIndex);
-                        console.log(this.selectedSints);
+                        //console.log(this.selectedSints);
     }else{
       moveItemInArray(this.sintomas, event.previousIndex, event.currentIndex);
-      console.log(this.selectedSints);
+      //console.log(this.selectedSints);
     }
   }
 
@@ -94,15 +94,15 @@ export class AgregarPadecimientosComponent implements OnInit {
       this.formData.append('descripcion', this.padecimiento.value.descripcion);
       this.formData.append('sintomas', idsOnly);
       this.formData.append('especializacion', this.padecimiento.value.especializacion);
-    console.log(JSON.stringify(this.formData));
+    //console.log(JSON.stringify(this.formData));
     
     this.padServ.createPadecimiento(this.formData).subscribe((res:any) =>{
-      console.log("Ok", res)
+      //console.log("Ok", res)
       sessionStorage.setItem('token',res.body.token);
       this.toast.success('Se ha registrado el padecimiento con éxito!', 'Registro Exitoso!');
     this.router.navigate(['/padecimientos'])
   }, error =>{
-      console.log("Error", error.error);
+      //console.log("Error", error.error);
       this.toast.error(error.error, 'Error');
       this.formData = new FormData();
   })

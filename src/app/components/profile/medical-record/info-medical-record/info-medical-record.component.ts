@@ -25,7 +25,7 @@ export class InfoMedicalRecordComponent implements OnInit {
 
   ngOnInit() {
     this.profileServ.getHistory(this.historial).subscribe( (res: any) =>{
-       console.log(res.body);
+       //console.log(res.body);
       this.historial = res.body.resultado;
       this.sintomas = res.body.resultado.detalles.split(",");
       if(this.historial.detalles_especificos!=null){
@@ -46,7 +46,7 @@ export class InfoMedicalRecordComponent implements OnInit {
       }
     },
   error =>{
-      console.log(error);
+      //console.log(error);
   })
   }
 
@@ -59,7 +59,7 @@ export class InfoMedicalRecordComponent implements OnInit {
       this.toast.success('Se ha modificado el padecimiento con éxito!', 'Modificación Exitosa!');
       this.hasOneSelected=true;
   }, error =>{
-      console.log("Error", error.error);
+      //console.log("Error", error.error);
       this.toast.error(error.error.message, 'Error');
   }
     );

@@ -38,7 +38,7 @@ export class ProfilePicComponent implements OnInit {
           this.toast.success('Imagen cambiada con éxito!', 'Modificación Exitosa!');
         },
       error =>{
-        console.log(error.message);
+        //console.log(error.message);
           this.toast.error(error.error.message,'Error');
       })
     

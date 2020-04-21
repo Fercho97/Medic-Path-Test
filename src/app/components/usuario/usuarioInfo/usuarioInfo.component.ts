@@ -18,10 +18,10 @@ export class UsuarioInfoComponent implements OnInit {
   ngOnInit() {
     this.userServ.getUser(this.route.snapshot.params.hash).subscribe( (res: any) =>{
       this.user = res.body.resultado;
-      console.log(this.user);
+      //console.log(this.user);
     },
   error =>{
-      console.log(error);
+      //console.log(error);
   })
   }
 }

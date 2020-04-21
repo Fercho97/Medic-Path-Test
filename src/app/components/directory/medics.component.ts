@@ -28,11 +28,11 @@ export class MedicsComponent implements OnInit {
       this.tipo = this.route.snapshot.params.type
       this.hasEspe = true;
     }
-    console.log(this.tipo);
+    //console.log(this.tipo);
     this.userServ.getDoctors(this.tipo).subscribe((res: any) =>{
 
       this.medicos = res.body;
-      console.log(this.medicos);
+      //console.log(this.medicos);
     });
   }
 

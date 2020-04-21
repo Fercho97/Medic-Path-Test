@@ -111,13 +111,13 @@ export class ModificarSintomasComponent implements OnInit {
             return value != item;
           });
 
-          console.log(this.compuestos);
+          //console.log(this.compuestos);
         });
         this.composicionFront = this.sintoma.composicion.replace(/,/g,'_');
       }
 
       
-      console.log(this.selectedCompuestos);
+      //console.log(this.selectedCompuestos);
      
       this.modify.patchValue({
         nombre : this.sintoma.nombre_sint,
@@ -144,7 +144,7 @@ export class ModificarSintomasComponent implements OnInit {
 
   changed(evt){
     this.isChecked = evt.target.checked;
-    console.log(evt.target.checked);
+    //console.log(evt.target.checked);
   }
 
   drop(event: CdkDragDrop<string[]>){
@@ -190,12 +190,12 @@ export class ModificarSintomasComponent implements OnInit {
       this.toast.error('Debe elegir al menos una especialidad capaz que sea capaz de ayudar con el sintoma', 'Error');
     }else{
         this.sintServ.modificar(this.sintoma.hashId,this.values).subscribe((res:any) =>{
-          console.log("Ok", res)
+          //console.log("Ok", res)
           sessionStorage.setItem('token',res.body.token);
           this.toast.success('Se ha modificado el sintoma con éxito!', 'Modificación Exitosa!');
         this.router.navigate(['/sintomas'])
       }, error =>{
-          console.log("Error", error.error);
+          //console.log("Error", error.error);
           this.toast.error(error.error.message, 'Error');
       })
     }
@@ -204,7 +204,7 @@ export class ModificarSintomasComponent implements OnInit {
   creacionComposicion(){
     var id = this.modify.value.componentes;
 
-    console.log(id);
+    //console.log(id);
 
     let item = this.compuestos.find(s => s.idSint == id );
 
@@ -220,10 +220,10 @@ export class ModificarSintomasComponent implements OnInit {
   }
 
   cambioContextual(){
-    console.log(this.modify.value.composite)
+    //console.log(this.modify.value.composite)
     this.composicionFront = this.modify.value.composite;
-    console.log(this.composicionBack);
-    console.log(this.compuestos);
+    //console.log(this.composicionBack);
+    //console.log(this.compuestos);
   }
 
   nameToId(){
@@ -238,7 +238,7 @@ export class ModificarSintomasComponent implements OnInit {
                 }
             }
           }
-  console.log(this.composicionBack);
+  //console.log(this.composicionBack);
   }
 
   isTheSame(compuesto : any){

@@ -90,7 +90,7 @@ export class AgregarSintomasComponent implements OnInit {
   ngOnInit() {
       this.sintServ.getComponents().subscribe(res =>{
         this.compuestos = res.body;
-        console.log(this.compuestos);
+        //console.log(this.compuestos);
       })
 
       this.regServ.getEspecializaciones().subscribe(res =>{
@@ -99,7 +99,7 @@ export class AgregarSintomasComponent implements OnInit {
   }
 
   guardar() {
-    console.log(this.isChecked);
+    //console.log(this.isChecked);
     if(this.isChecked==false){
       this.values = new HttpParams()
       .set('nombre_sint', this.sintomas.value.nombre)
@@ -143,7 +143,7 @@ export class AgregarSintomasComponent implements OnInit {
 
   changed(evt){
     this.isChecked = evt.target.checked;
-    console.log(evt.target.checked);
+    //console.log(evt.target.checked);
   }
 
   drop(event: CdkDragDrop<string[]>){
@@ -194,7 +194,7 @@ export class AgregarSintomasComponent implements OnInit {
 
   setPorcentage(espe : any,value : any){
     espe.porcentaje  = Number(value);
-    console.log("entered")
+    //console.log("entered")
     if(value===""){
       this.isEmpty=true;
     }else{

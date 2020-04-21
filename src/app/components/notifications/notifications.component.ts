@@ -24,17 +24,19 @@ export class NotificationsComponent implements OnInit {
   openModal(info, hist : any){
     const modalRef = this.modalService.open(InfoMedicalRecordComponent, { windowClass : "myCustomModalClass"});
     modalRef.componentInstance.historial = hist;
+
+    modalRef.result.then((result) => {
+      this.loadNotif();
+    });
   }
 
   loadNotif(){
     let hashCryp = this.storage.decryptData('hash');
-    console.log(hashCryp);
     this.notifServ.getWithoutFeedback(hashCryp).subscribe( (res: any) =>{
-      console.log(res.body.resultados);
       this.notificaciones = res.body.resultados;
     },
   error =>{
-      console.log(error);
+      //console.log(error);
   })
   }
 }

@@ -27,10 +27,10 @@ export class MedicalRecordComponent implements OnInit {
     this.profileServ.historyList(id).subscribe( (res: any) =>{
       this.historiales = res.body.resultados;
       sessionStorage.setItem('token', res.body.token);
-      console.log(this.historiales);
+      //console.log(this.historiales);
     },
   error =>{
-      console.log(error);
+      //console.log(error);
   })
   }
 

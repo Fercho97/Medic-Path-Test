@@ -104,7 +104,7 @@ export class DiagnosticComponent implements OnInit {
         this.baseConocimiento.push(rule.desgloseReglas(element));
       });
 
-      console.log(this.baseConocimiento);
+      //console.log(this.baseConocimiento);
       this.hasPregunta = true;
       this.inferencia();
     }, error =>{
@@ -241,12 +241,12 @@ export class DiagnosticComponent implements OnInit {
       .set('recomendations', JSON.stringify(this.doc_recomendacion))
       .set('detallesIds',detailsIds);
       this.diagServ.guardarHistorial(values).subscribe(res =>{
-        console.log("Ok", res)
+        //console.log("Ok", res)
         
       this.toast.success('Se ha guardado con éxito en su historial', 'Guardado Exitoso!');
       
     }, error =>{
-        console.log("Error", error.error);
+        //console.log("Error", error.error);
         this.toast.error(error.error, 'Error');
         this.router.navigate(['/landing'])
     })
@@ -321,7 +321,7 @@ export class DiagnosticComponent implements OnInit {
         //Generar atomo
         let sint = this.sintomas.find(sintoma => sintoma['idSint'].toString() === element.toString());
         let atomoRegla = new Atomo(sint.nombre_sint,true,false,null,sint.idSint);
-        console.log(atomoRegla);
+        //console.log(atomoRegla);
         //Guardar en memoria de trabajo
         this.memoriaDeTrabajo.almacenarAtomo(atomoRegla);
         this.breadcrumb = this.breadcrumb + sint.nombre_sint + "->";
@@ -329,7 +329,7 @@ export class DiagnosticComponent implements OnInit {
       });
 
       this.avoidUnnecesaryQuestions();
-      console.log(this.memoriaDeTrabajo);
+      //console.log(this.memoriaDeTrabajo);
       if(this.preguntas.length>0){
         this.hasPregunta = true;
         this.fromSelected=true;
@@ -346,7 +346,7 @@ export class DiagnosticComponent implements OnInit {
         if(multiOption.length>1){
           multiOption.forEach(option =>{
             let atomo = new Atomo(option.nombre_sint,false,false,null,null);
-            console.log(this.memoriaDeTrabajo.estaAfirmado(atomo));
+            //console.log(this.memoriaDeTrabajo.estaAfirmado(atomo));
             if(this.memoriaDeTrabajo.estaAlmacenado(atomo)===false){
               this.memoriaDeTrabajo.almacenarAtomo(atomo);
             }
@@ -361,7 +361,7 @@ export class DiagnosticComponent implements OnInit {
       this.memoriaDeTrabajo.atomosAfirmados.forEach(atomo =>{
         let atomSymp = this.sintomas.find(item => item['nombre_sint'].toString() === atomo.desc);
         if(atomSymp!=null){
-        console.log(atomSymp.nivel_urgencia);
+        //console.log(atomSymp.nivel_urgencia);
         let sympLev = {sintoma: atomSymp.nombre_sint, descripcion: atomSymp.descripcion};
         if(atomSymp.nivel_urgencia>=0 && atomSymp.nivel_urgencia<0.2){
           this.niveles.Ninguno.push(sympLev);
@@ -473,7 +473,7 @@ export class DiagnosticComponent implements OnInit {
       if(answer==="Si"){
         let atomsSize = atomos.length;
         this.atomos_opciones.push( atomos.slice());
-        console.log(this.atomos_opciones);
+        //console.log(this.atomos_opciones);
         let buttonOptions = [];
         for(var i = 0; i<atomsSize; i++){
           let showOption  = "";
@@ -492,7 +492,7 @@ export class DiagnosticComponent implements OnInit {
           let button = {message: showOption, value: atomo, desc: sintoma.descripcion};
           buttonOptions.push(button);
         }
-        console.log(buttonOptions);
+        //console.log(buttonOptions);
         let messageShow = questions.MULTIQUESTIONS[text.toLowerCase()];
         this.preguntas.push({message: messageShow[0].message,buttons: buttonOptions, type: 'selection'});
       }else{
@@ -539,7 +539,7 @@ export class DiagnosticComponent implements OnInit {
         }
       })
       this.evaluateSypmtom(atomId);
-      console.log(this.memoriaDeTrabajo)
+      //console.log(this.memoriaDeTrabajo)
       if(this.preguntas.length>0){
         this.mostrarPregunta();
         }else{
@@ -561,7 +561,7 @@ export class DiagnosticComponent implements OnInit {
       let zoneSints = this.sintomasZona.find(zone => zone['zone']==label);
       let selectedZone = this.zoneSelection.find(zone => zone['zone']==label);
       
-      console.log(zoneSints['sintomas']);
+      //console.log(zoneSints['sintomas']);
       modalRef.componentInstance.selectableSints = zoneSints.sintomas;
       modalRef.componentInstance.sintomasSeleccionados = selectedZone.sintomas;
       
@@ -583,7 +583,7 @@ export class DiagnosticComponent implements OnInit {
       for(let zone of this.zoneSelection){
         zones = zones.concat(zone.sintomas);
       }
-      console.log(zones);
+      //console.log(zones);
       this.sintomasSeleccionados = zones;
       
       this.sintomasShow = this.diagServ.showSymtoms(this.sintomasSeleccionados, this.sintomas);

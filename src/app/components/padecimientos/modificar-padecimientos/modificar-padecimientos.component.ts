@@ -58,17 +58,17 @@ export class ModificarPadecimientosComponent implements OnInit {
     this.padServ.getEspecializaciones().subscribe((res: any) =>{
       this.especializaciones = res.body;
     }, error =>{
-      console.log(error);
+      //console.log(error);
     })
     this.sintServ.getSints().subscribe( (res: any) =>{
       this.sintomas = res.body;
     },
   error =>{
-      console.log(error);
+      //console.log(error);
   })
 
   this.padServ.getPad(this.url.snapshot.params.hash).subscribe( (res : any) =>{
-    console.log(res.body);
+    //console.log(res.body);
     this.padecimiento = res.body.padecimiento;
     this.originalValue = this.padecimiento.nombre_pad;
     this.selectedSints = res.body.padecimiento.sintomas;
@@ -103,7 +103,7 @@ export class ModificarPadecimientosComponent implements OnInit {
   createFormData(event){
     this.selectedFile = <File>event.target.files[0];
     this.formData.append('image', this.selectedFile, this.selectedFile.name);
-    console.log(this.formData.get('image'));
+    //console.log(this.formData.get('image'));
   }
 
   drop(event: CdkDragDrop<string[]>){
@@ -111,21 +111,21 @@ export class ModificarPadecimientosComponent implements OnInit {
       this.moved=true;
       transferArrayItem(event.previousContainer.data,event.container.data,
                         event.previousIndex, event.currentIndex);
-                        console.log(this.selectedSints);
+                        //console.log(this.selectedSints);
     }else{
       this.moved=true;
       moveItemInArray(this.sintomas, event.previousIndex, event.currentIndex);
-      console.log(this.selectedSints);
+      //console.log(this.selectedSints);
     }
   }
   seleccionSintomas(){
     var id = this.modify.value.sintomas;
 
-    console.log(id);
+    //console.log(id);
 
     let item = this.sintomas.find(s => s.idSint == id );
 
-    console.log(item);
+    //console.log(item);
 
     this.selectedSints.push(item);
 
@@ -147,18 +147,18 @@ export class ModificarPadecimientosComponent implements OnInit {
   quitarSintomas(){
     var id = this.modify.value.sintomasSeleccionados;
 
-    console.log(id);
+    //console.log(id);
 
     let item = this.selectedSints.find(s => s.idSint == id );
 
-    console.log(item);
+    //console.log(item);
 
     this.selectedSints = this.selectedSints.filter(function(value,index, arr){
       return value != item;
     });
 
     this.sintomas.push(item);
-    console.log(this.selectedSints);
+    //console.log(this.selectedSints);
 
   }
 
@@ -178,12 +178,12 @@ export class ModificarPadecimientosComponent implements OnInit {
       
         
         this.padServ.updatePadecimiento(this.formData, this.url.snapshot.params.hash).subscribe((res:any) =>{
-          console.log("Ok", res)
+          //console.log("Ok", res)
           sessionStorage.setItem('token',res.body.token);
           this.toast.success('Se ha modificado el padecimiento con éxito!', 'Modificación Exitosa!');
         this.router.navigate(['/padecimientos'])
       }, error =>{
-          console.log("Error", error.error);
+          //console.log("Error", error.error);
           this.toast.error(error.error.message, 'Error');
           this.formData = new FormData();
       })
@@ -193,7 +193,7 @@ export class ModificarPadecimientosComponent implements OnInit {
   }
 
   check(){
-    console.log(this.modify.value.nombre.toString().toLowerCase());
+    //console.log(this.modify.value.nombre.toString().toLowerCase());
     if(this.originalValue.toLowerCase()!=this.modify.value.nombre.toString().toLowerCase()){
       this.modify.get('nombre').updateValueAndValidity();
       this.modify.get('nombre').setAsyncValidators(this.nameVal.existingAilment());
