@@ -5,7 +5,7 @@ import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InfoSintomasComponent } from '../info-sintomas/info-sintomas.component';
-
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-listar-sintomas',
@@ -25,19 +25,23 @@ export class ListarSintomasComponent implements OnInit {
   public myFilter : any = "";
   public mySearch : any = "";
   public searching: boolean = false;
-  constructor(private sintServ : SintomasService, private http : HttpClient, private modalService: NgbModal) { 
+  constructor(private sintServ : SintomasService, private http : HttpClient,
+              private modalService: NgbModal, private spinner : NgxSpinnerService) { 
 
   }
 
   ngOnInit() {
+    this.spinner.show();
     this.sintServ.getSints().subscribe( (res: any) =>{
       this.sintomas = res.body;
 
       if(this.sintomas){
         this.pagina = 1;
       }
+      this.spinner.hide();
     },
   error =>{
+    this.spinner.hide();
       //console.log(error);
   })
   }

@@ -2,6 +2,7 @@ import { Component, OnInit, Input} from '@angular/core';
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { SintomasService } from '../sintomas.service';
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-info-sintomas',
   templateUrl: './info-sintomas.component.html',
@@ -36,11 +37,13 @@ export class InfoSintomasComponent implements OnInit {
   public compuesto = '';
   private values : HttpParams;
   public especialidades : any = [];
-  constructor(public activeModal: NgbActiveModal, private sintServ : SintomasService) { 
+  constructor(public activeModal: NgbActiveModal, private sintServ : SintomasService,
+              private spinner : NgxSpinnerService) { 
    
   }
 
   ngOnInit() {
+    this.spinner.show();
     this.especialidades = JSON.parse(this.sintoma.porcentages);
     //console.log(this.especialidades);
     this.compuesto = this.sintoma.compuesto;
@@ -68,7 +71,9 @@ export class InfoSintomasComponent implements OnInit {
       if(nivel.valor===this.sintoma.nivel_urgencia.toString()){
         this.sintoma.nivel_urgencia = nivel.nombre;
       }
+      this.spinner.hide();
     });
+    
   }
 
 }

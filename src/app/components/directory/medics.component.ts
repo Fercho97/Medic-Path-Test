@@ -3,6 +3,7 @@ import { UsuarioService } from '../usuario/usuario.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InfoMedicComponent } from './info-medic/info-medic.component';
 import {Router, ActivatedRoute} from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-medics',
   templateUrl: './medics.component.html',
@@ -21,9 +22,11 @@ export class MedicsComponent implements OnInit {
   hasEspe = false;
   content;
   public searching: boolean = false;
-  constructor(private userServ : UsuarioService, private modalService : NgbModal, private route : ActivatedRoute) { }
+  constructor(private userServ : UsuarioService, private modalService : NgbModal,
+              private route : ActivatedRoute, private spinner : NgxSpinnerService) { }
 
   ngOnInit() {
+    this.spinner.show();
     if(this.route.snapshot.params.type){
       this.tipo = this.route.snapshot.params.type
       this.hasEspe = true;
@@ -33,6 +36,9 @@ export class MedicsComponent implements OnInit {
 
       this.medicos = res.body;
       //console.log(this.medicos);
+      this.spinner.hide();
+    }, error =>{
+      this.spinner.hide();
     });
   }
 

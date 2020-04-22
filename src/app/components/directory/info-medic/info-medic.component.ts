@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { UsuarioService } from '../../usuario/usuario.service';
-
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-info-medic',
   templateUrl: './info-medic.component.html',
@@ -17,11 +17,13 @@ export class InfoMedicComponent implements OnInit {
   public url : string = "";
   public  hasInfo : boolean = false;
   public nombreCompleto = "";
-  constructor(public activeModal: NgbActiveModal, private userServ : UsuarioService, ) { 
+  constructor(public activeModal: NgbActiveModal, private userServ : UsuarioService, 
+              public spinner : NgxSpinnerService) { 
 
   }
 
   ngOnInit() {
+    this.spinner.show();
     this.userServ.getDoctorInfo(this.hash_doctor).subscribe( (res : any) =>{
       //console.log(res.body);
 
@@ -35,6 +37,9 @@ export class InfoMedicComponent implements OnInit {
         this.hasInfo = true;
         this.url = res.body.usuario.imagen_perfil.toString();
       }
+      this.spinner.hide();
+    }, error =>{
+      this.spinner.hide();
     });
   }
 }

@@ -16,7 +16,8 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { LoginService } from './login.service';
 import {Router} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import {CryptoStorage} from '../../services/shared-service'
+import {CryptoStorage} from '../../services/shared-service';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
   private values : HttpParams;
   
   constructor(private logServ : LoginService, private http : HttpClient, private router : Router, private toast : ToastrService
-              ,private storage: CryptoStorage) { 
+              ,private storage: CryptoStorage, private spinner : NgxSpinnerService) { 
     
     
     this.login = new FormGroup({
@@ -43,6 +44,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginCheck(){
+    this.spinner.show();
     this.values = new HttpParams()
     .set('nickOrEmail', this.login.value.emailOrNickname)
     .set('password', this.login.value.logPassword);
@@ -60,7 +62,7 @@ export class LoginComponent implements OnInit {
     localStorage.setItem('action','login');
     let data = { "usuario" : res.body.usuario.id, "tipoUsuario" : res.body.usuario.tipoUsuario,
                  "nickname" : res.body.usuario.nickname, "hash" : res.body.usuario.hash_id}
-      
+    this.spinner.hide();
       this.storage.encryptData(JSON.stringify(data));
       window.location.reload();
     this.router.navigate(['/home']);

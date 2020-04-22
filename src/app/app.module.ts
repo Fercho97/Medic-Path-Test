@@ -53,6 +53,7 @@ import { GuidedDiagnosticComponent } from './components/guided-diagnostic/guided
 import { SintSelectionComponent } from './components/diagnostic/sintSelection/sintSelection.component';
 import { CryptoStorage} from '../app/services/shared-service';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import {NgxSpinnerModule} from 'ngx-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -110,7 +111,8 @@ import { NotificationsComponent } from './components/notifications/notifications
     ScrollingModule,
     NgxPaginationModule,
     OrderModule,
-    NgbProgressbarModule
+    NgbProgressbarModule,
+    NgxSpinnerModule
     ],
   providers: [NgbActiveModal,{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
   bootstrap: [AppComponent],

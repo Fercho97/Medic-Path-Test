@@ -3,6 +3,7 @@ import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProfileService } from '../../profile.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-info-medical-record',
   templateUrl: './info-medical-record.component.html',
@@ -19,11 +20,13 @@ export class InfoMedicalRecordComponent implements OnInit {
   public recomendaciones : any = [];
   public seleccionado = "";
   public hasOneSelected = false;
-  constructor(public activeModal: NgbActiveModal, private profileServ : ProfileService, private toast : ToastrService) { 
+  constructor(public activeModal: NgbActiveModal, private profileServ : ProfileService, 
+              private toast : ToastrService, private spinner : NgxSpinnerService) { 
 
   }
 
   ngOnInit() {
+    this.spinner.show();
     this.profileServ.getHistory(this.historial).subscribe( (res: any) =>{
        //console.log(res.body);
       this.historial = res.body.resultado;
@@ -44,6 +47,7 @@ export class InfoMedicalRecordComponent implements OnInit {
       if(this.historial.url_imagen_pad!= null){
       this.url = this.historial.url_imagen_pad.toString();
       }
+      this.spinner.hide();
     },
   error =>{
       //console.log(error);

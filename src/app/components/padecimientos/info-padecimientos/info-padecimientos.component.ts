@@ -4,6 +4,7 @@ import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { PadecimientoService} from '../padecimientos.service';
 import { Padecimiento } from '../../../interfaces/padecimiento.interface';
 import { Sintoma } from '../../../interfaces/sintoma.interface';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-info-padecimientos',
@@ -21,12 +22,14 @@ export class InfoPadecimientosComponent implements OnInit {
   public sintomasCadena :  string = "";
   public url : string = "";
   public  hasInfo : boolean = false;
-  constructor(public activeModal: NgbActiveModal, private padServ : PadecimientoService, ) { 
+  constructor(public activeModal: NgbActiveModal, private padServ : PadecimientoService, 
+              public spinner: NgxSpinnerService) { 
 
   }
 
   ngOnInit() {
     //console.log(this.pad);
+    this.spinner.show();
     this.padServ.getPad(this.pad).subscribe( (res : any) =>{
       //console.log(res.body);
       this.padecimiento = res.body.padecimiento;
@@ -47,6 +50,9 @@ export class InfoPadecimientosComponent implements OnInit {
         this.hasInfo = true;
         this.url = this.padecimiento.url_imagen_pad.toString();
       }
+      this.spinner.hide();
+    }, error =>{
+      this.spinner.hide();
     });
   }
 

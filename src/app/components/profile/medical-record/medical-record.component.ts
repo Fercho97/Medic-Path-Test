@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InfoMedicalRecordComponent } from './info-medical-record/info-medical-record.component';
 import {CryptoStorage} from '../../../services/shared-service';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-medical-record',
   templateUrl: './medical-record.component.html',
@@ -20,16 +21,20 @@ export class MedicalRecordComponent implements OnInit {
   public mySearch : any = "";
   public searching : boolean = false;
   content;
-  constructor(private profileServ : ProfileService, private modalService : NgbModal,private storage: CryptoStorage) { }
+  constructor(private profileServ : ProfileService, private modalService : NgbModal,
+              private storage: CryptoStorage, private spinner : NgxSpinnerService) { }
 
   ngOnInit() {
+    this.spinner.show();
     let id = this.storage.decryptData('usuario');
     this.profileServ.historyList(id).subscribe( (res: any) =>{
       this.historiales = res.body.resultados;
       sessionStorage.setItem('token', res.body.token);
+      this.spinner.hide();
       //console.log(this.historiales);
     },
   error =>{
+     this.spinner.hide();
       //console.log(error);
   })
   }

@@ -10,6 +10,7 @@ import { ErrorMsg } from '../../../interfaces/errorMsg.const';
 import { SymptomNameValidator } from '../../../validators/SymptomNameValidator';
 import { RegistryService } from '../../registry/registry.service';
 import { Catalogos } from '../../../interfaces/catalogos.const';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-modificar-sintomas',
   templateUrl: './modificar-sintomas.component.html',
@@ -64,7 +65,8 @@ export class ModificarSintomasComponent implements OnInit {
 
   constructor(private sintServ : SintomasService, private router : Router,
               private toast : ToastrService, private url : ActivatedRoute,
-              private nameVal : SymptomNameValidator, private regServ : RegistryService) {
+              private nameVal : SymptomNameValidator, private regServ : RegistryService,
+              private spinner : NgxSpinnerService) {
     this.modify = new FormGroup({
       nombre: new FormControl('', 
       [Validators.required,
@@ -91,6 +93,7 @@ export class ModificarSintomasComponent implements OnInit {
 
   ngOnInit() {
     //console.log(encodeURIComponent(this.url.snapshot.params.hash));
+    this.spinner.show();
     this.regServ.getEspecializaciones().subscribe(res =>{
       this.especializaciones = res.body;
     })
@@ -134,12 +137,14 @@ export class ModificarSintomasComponent implements OnInit {
       this.modify.controls['urgencia'].setValue(this.sintoma.nivel_urgencia, {onlySelf : true});
       this.modify.controls['body_zone'].setValue(this.sintoma.body_zone, {onlySelf : true});
       this.originalValue = this.sintoma.nombre_sint;
+      this.spinner.hide();
     });
 
     //Carga de componentes
     this.sintServ.getComponents().subscribe(res =>{
       this.compuestos = res.body;
     })
+    
   }
 
   changed(evt){

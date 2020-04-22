@@ -10,6 +10,8 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { ErrorMsg } from '../../../interfaces/errorMsg.const';
 import { AilmentNameValidator } from '../../../validators/AilmentNameValidator';
 import { Catalogos } from '../../../interfaces/catalogos.const';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 @Component({
   selector: 'app-modificar-padecimientos',
   templateUrl: './modificar-padecimientos.component.html',
@@ -40,7 +42,7 @@ export class ModificarPadecimientosComponent implements OnInit {
   ]
   constructor(private padServ : PadecimientoService, private sintServ : SintomasService,
               private toast : ToastrService, private router : Router, 
-              private url : ActivatedRoute, private nameVal : AilmentNameValidator) {
+              private url : ActivatedRoute, private nameVal : AilmentNameValidator, private spinner : NgxSpinnerService) {
     this.modify = new FormGroup({
       nombre: new FormControl('', this.nameValidators),
       categoria: new FormControl('', Validators.required),
@@ -55,6 +57,7 @@ export class ModificarPadecimientosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinner.show();
     this.padServ.getEspecializaciones().subscribe((res: any) =>{
       this.especializaciones = res.body;
     }, error =>{
@@ -96,7 +99,9 @@ export class ModificarPadecimientosComponent implements OnInit {
       this.hasInfo = true;
       this.urlImage = this.padecimiento.url_imagen_pad.toString();
     }
-
+  this.spinner.hide();
+  }, error =>{
+    this.spinner.hide();
   });
   }
 
