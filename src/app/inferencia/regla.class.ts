@@ -57,7 +57,7 @@ objetivo : Boolean;
 }
 
 disparadorReglas(mt){
-    console.log("Se llego al disparador");
+    //console.log("Se llego al disparador");
     let atomoTemporal=null;
     let esObjetivo=false;
     this.disparo=true;
@@ -71,7 +71,7 @@ disparadorReglas(mt){
             atomoTemporal.estado=!atomoTemporal.estado;
         }
     };
-    console.log("Termina Disparador");
+    //console.log("Termina Disparador");
     return atomos;
 }
 

@@ -16,7 +16,7 @@ export class DateValidator {
         let todayDate = moment().format('L');
         let controlDate = moment(control.value).format('L');
         let years = today.diff(control.value, 'years');
-        console.log(years);
+        //console.log(years);
         if(years > 16){
             return null
         }else{
