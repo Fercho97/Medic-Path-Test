@@ -71,6 +71,7 @@ export class LoginComponent implements OnInit {
   }, error =>{
       //console.log("Error", error.error.message);
       this.toast.error(error.error.message, 'Error');
+      this.spinner.hide();
   })
   }
 

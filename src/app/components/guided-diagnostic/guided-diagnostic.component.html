@@ -3,7 +3,7 @@
         
         <div class="col m10 margin-color" *ngIf="!hasPregunta">
             <div class="center">
-                <p>Bienvenido a la herramienta de diagnostico</p>
+                <p>Bienvenido a la herramienta de diagnóstico</p>
                 <p>Para comenzar elija un paciente para el cual se realizara la consulta</p>
             </div>
             <select name="paciente" id="paciente" class="form-control" (change)="selectUser($event)">
@@ -13,13 +13,13 @@
                 </optgroup>
             </select>
 
-            <button class="btn" *ngIf="selectedUser" (click)="iniciarDiagnostico()">Iniciar diagnostico desde 0</button>
-            <button class="btn" (click)="selection()" *ngIf="selectedUser">Seleccionar sintomas iniciales</button>
+            <!---<button class="btn" *ngIf="selectedUser" (click)="iniciarDiagnostico()">Iniciar diagnostico desde 0</button>--->
+            <button class="btn" (click)="selection()" *ngIf="selectedUser">Seleccionar síntomas iniciales</button>
             <br>
             <br>
             <div *ngIf="isSelection">
                 <div style="float: left;">
-                  <label>Haga click en la zona y eliga los sintomas</label>
+                  <label>Haga click en la zona y elija los síntomas</label>
                         <img src="/assets/Body.PNG" usemap="#mapname" class="imgcent">
                         
                         <map name="mapname">
@@ -30,7 +30,7 @@
                         </map>
                     </div>
                     <div>
-                        <legend>Sintomas seleccionados:</legend>
+                        <legend>Síntomas seleccionados:</legend>
                         <div style="overflow-y: auto; height: 150px;" *ngIf="sintomasShow.length>0">
                             <div *ngFor="let sintoma of sintomasShow">
                                 <legend>{{sintoma.name}} <i class="far fa-question-circle" ngbTooltip="{{sintoma.descripcion}}"></i></legend>
@@ -46,7 +46,7 @@
 
         </div>
         <div class="col m12 margin-color" [hidden]="!hasPregunta">
-            <h4>Sus sintomas: </h4>
+            <h4>Sus síntomas: </h4>
             <h5>{{breadcrumb}}</h5>
             <h4 *ngIf="!hasResult && question.type==='boolean'">{{descripcion}}</h4>
             <h1>{{question.message}}</h1>

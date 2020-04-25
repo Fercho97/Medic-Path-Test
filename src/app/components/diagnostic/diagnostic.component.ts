@@ -16,6 +16,7 @@ moment.locale('es');
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {SintSelectionComponent} from './sintSelection/sintSelection.component'
 import {CryptoStorage} from '../../services/shared-service';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-diagnostic',
   templateUrl: './diagnostic.component.html',
@@ -62,7 +63,7 @@ export class DiagnosticComponent implements OnInit {
   public userId = '0';
   constructor(private diagServ : DiagnosticService, private toast : ToastrService, 
               private router : Router, private sintServ : SintomasService, private modalService : NgbModal,
-              private storage: CryptoStorage) {
+              private storage: CryptoStorage, private spinner : NgxSpinnerService) {
 
                 this.numeric = new FormGroup({
                   temp: new FormControl('', [Validators.required,Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]) 
@@ -117,8 +118,11 @@ export class DiagnosticComponent implements OnInit {
       let indice;
       if(this.nextObjective.length==0){
       indice = this.calculusClass.pathSelection(this.baseConocimiento,this.memoriaDeTrabajo);
-      
-      this.reglaEvaluar = this.baseConocimiento[indice];
+      if(indice==null){
+        this.noResultEnd();
+      }else{
+        this.reglaEvaluar = this.baseConocimiento[indice];
+      }
       }else{
         this.reglaEvaluar = this.nextObjective.pop();
         indice = this.searchNextObjectiveCurrentIndex();
@@ -178,6 +182,7 @@ export class DiagnosticComponent implements OnInit {
     }
 
     responder(resp : any){
+      this.spinner.show();
       let atomoEvaluado = this.atomosCondicion.pop();
       if(resp=='Si'){
         atomoEvaluado.estado = true; 
@@ -190,9 +195,11 @@ export class DiagnosticComponent implements OnInit {
       this.memoriaDeTrabajo.almacenarAtomo(atomoEvaluado);
 
       if(this.atomosCondicion.length>0 || this.preguntas.length>0){
+        this.spinner.hide();
         this.mostrarPregunta();
       }
       else{
+        this.spinner.hide();
         this.analize();
       }
     }
@@ -222,10 +229,15 @@ export class DiagnosticComponent implements OnInit {
       if(this.baseConocimiento.length!=0 && this.hasResult==false){
       this.inferencia();
       }else if(this.hasResult==false){
-        this.question={message: "Lo sentimos, no se pudo encontrar su padecimiento conforme sus respuestas"};
+        this.noResultEnd();
+      }
+    }
+
+    noResultEnd(){
+      this.question={message: "Lo sentimos, no se pudo encontrar su padecimiento conforme sus respuestas"};
         this.hasResult=true;
         this.sintomasExtras = this.calculusClass.calculateCloseness(this.conocimientoEvaluado,this.baseConocimiento,this.memoriaDeTrabajo);
-      }
+        this.doc_recomendacion = this.calculusClass.calculateRecommendation(this.memoriaDeTrabajo,this.sintomas);
     }
 
     guardar(details,detailsIds){

@@ -3,12 +3,11 @@
         
         <div class="col m10 margin-color" *ngIf="!hasPregunta">
             <div class="center">
-                <p>Bienvenido a la herramienta de diágnostico</p>
-                <p>Para comenzar simplemente haga click en el siguiente botón eliga iniciar un diágnostico desde 0 o bien</p>
-                <p>Seleccione que es lo que siente</p>
+                <p>Bienvenido a la herramienta de diagnóstico</p>
+                <p>Para comenzar simplemente haga click en el siguiente botón para elegir sus sintomas iniciales</p>
             </div>
 
-            <button class="btn" (click)="iniciarDiagnostico()">Comenzar</button>
+            <!---<button class="btn" (click)="iniciarDiagnostico()">Comenzar</button>--->
 
             <button class="btn" (click)="selection()">Seleccionar sintomas iniciales</button>
             <br>
@@ -39,7 +38,7 @@
               </div>
         </div>
         <div class="col m12 margin-color" [hidden]="!hasPregunta">
-            <h4>Sus sintomas: </h4>
+            <h4>Sus síntomas: </h4>
             <h5>{{breadcrumb}}</h5>
             <h4 *ngIf="!hasResult && question.type==='boolean'">{{descripcion}}</h4>
             <h1>{{question.message}}</h1>
@@ -103,46 +102,46 @@
         </div>
 
         <div *ngIf="hasResult">
-            <ul *ngIf="hasResult">
-                <h2>Esto debido a los siguientes sintomas: </h2>
+            <ul *ngIf="hasResult && idResultado!=''">
+                <h2>Esto debido a los siguientes síntomas: </h2>
                 <li *ngFor="let sintoma of sintomasResultado">
                   {{sintoma.desc}}
                 </li>
             </ul>
             <div>
             <ul *ngIf="niveles.Medio.length>0">
-                <h4>Sintomas destacados <i class="far fa-question-circle" ngbTooltip="Sintomas que pueden afectar su vida diaria debido a sus efectos"></i></h4>
+                <h4>Síntomas destacados <i class="far fa-question-circle" ngbTooltip="Sintomas que pueden afectar su vida diaria debido a sus efectos"></i></h4>
                 <li *ngFor="let niv of niveles.Medio">
                     <p>{{niv.sintoma}}</p>
                 </li>
             </ul>
             <ul *ngIf="niveles.Ninguno.length>0">
-                <h4>Sintomas sin urgencia <i class="far fa-question-circle" ngbTooltip="Sintomas que por si solos no presentan peligro alguno a menos que se descuiden por bastante tiempo o bien las afectaciones percibidas hacia la personas sean en exceso"></i></h4>
+                <h4>Síntomas sin urgencia <i class="far fa-question-circle" ngbTooltip="Sintomas que por si solos no presentan peligro alguno a menos que se descuiden por bastante tiempo o bien las afectaciones percibidas hacia la personas sean en exceso"></i></h4>
                 <li *ngFor="let niv of niveles.Ninguno">
                     <p>{{niv.sintoma}}</p>
                 </li>
             </ul>
             <ul *ngIf="niveles.Bajo.length>0">
-                    <h4>Sintomas de baja urgencia <i class="far fa-question-circle" ngbTooltip="Sintomas cuya persistencia por más de 3 días será necesario el checar con un médico"></i></h4>
+                    <h4>Síntomas de baja urgencia <i class="far fa-question-circle" ngbTooltip="Sintomas cuya persistencia por más de 3 días será necesario el checar con un médico"></i></h4>
                     <li *ngFor="let niv of niveles.Bajo">
                         <p>{{niv.sintoma}}</p>
                     </li>
             </ul>
             <ul *ngIf="niveles.Alto.length>0">
-                <h4>Sintomas de alta urgencia <i class="far fa-question-circle" ngbTooltip="Sintomas que por su naturaleza o bien su persistencia se recomienda encarecidamente acudir con un médico"></i></h4>
+                <h4>Síntomas de alta urgencia <i class="far fa-question-circle" ngbTooltip="Sintomas que por su naturaleza o bien su persistencia se recomienda encarecidamente acudir con un médico"></i></h4>
                 <li *ngFor="let niv of niveles.Alto">
                     <p>{{niv.sintoma}}</p>
                 </li>
             </ul>
             <ul *ngIf="niveles.Severo.length>0">
-                <h4>Sintomas de severidad <i class="far fa-question-circle" ngbTooltip="Si presenta alguno de estos sintomas es sumamente necesario el acudir con un especialista con el fin de tratar dicho sintoma, por lo regular requieren estudios."></i></h4>
+                <h4>Síntomas de severidad <i class="far fa-question-circle" ngbTooltip="Si presenta alguno de estos sintomas es sumamente necesario el acudir con un especialista con el fin de tratar dicho sintoma, por lo regular requieren estudios."></i></h4>
                 <li *ngFor="let niv of niveles.Severo">
                     <p>{{niv.sintoma}}</p>
                 </li>
             </ul>
             </div>
             <ul *ngIf="sintomasExtras.length>0">
-                <h2>Sin embargo presento ciertos sintomas que pueden concordar con las siguientes enfermedades: </h2>
+                <h2>Sin embargo los síntomas que indico concuerdan con las siguientes enfermedades con un porcentaje: </h2>
                 <li *ngFor="let sints of sintomasExtras">
                   {{sints.padecimiento}} 
                   <p><ngb-progressbar type="success" [value]="sints.porcentaje" showValue="true"></ngb-progressbar></p>
@@ -150,7 +149,7 @@
             </ul>
             <div>
                 <div>
-                <h3>Conforme sus sintomas le recomendamos asistir con:</h3>
+                <h3>Conforme sus síntomas le recomendamos asistir con:</h3>
                     <legend class="response">
                     {{doc_recomendacion[0].espe}}
                     </legend>
@@ -164,7 +163,7 @@
             </div>
             <div *ngIf="user_recommendation.length>0">
                 <div>
-                <h3>Pacientes con sintomas similares a los suyos suelen asistir con:</h3>
+                <h3>Pacientes con síntomas similares a los suyos suelen asistir con:</h3>
                     <legend class="response">
                     {{user_recommendation[0].espe}}
                     </legend>
