@@ -31,7 +31,7 @@ export class SignupComponent implements OnInit {
   forma: FormGroup;
   
   private values : HttpParams;
-  sexos = ['Hombre', 'Mujer', 'Indefinido'];
+  sexos = ['Hombre', 'Mujer'];
 
 
   constructor(private signupServ : SignupService, private http : HttpClient, 
@@ -55,7 +55,7 @@ export class SignupComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
       ], [this.emailVal.existingEmail()]),
-      genero: new FormControl('Indefinido', Validators.required),
+      genero: new FormControl('', Validators.required),
       username: new FormControl('', [Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20)],[this.nickVal.existingNickname()]),
