@@ -1,6 +1,6 @@
 <div class="container">
     <div class="main-container">
-      <h4>Formulario</h4>
+      <h4>Registro de Doctor</h4>
       <hr>
       <form [formGroup]="forma" (ngSubmit)="guardarCambios()">
 
@@ -121,8 +121,8 @@
         </div>
 
         <div class="form-group row">
-
-          <div class="col-md-8">
+          
+          <div class="col-md-11">
             <p>
               <label *ngFor="let s of sexos, let i = index">
                 <input formControlName="genero" class="with-gap myColor" name="genero" type="radio" checked
@@ -147,9 +147,9 @@
             </div>
           </div>
         </div>
-
+        <br>
         <div class="form-group row center">
-          <div class="input-group col-md-8">
+          <div class="input-group col-md-10">
             <button type="submit" class="btn btn-outline-primary boton" [disabled]="!forma.valid">
               Guardar
             </button>
@@ -159,3 +159,7 @@
       </form>
     </div>
 </div>
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  type="timer"></ngx-spinner>

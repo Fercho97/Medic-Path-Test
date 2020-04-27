@@ -17,6 +17,7 @@ import { map } from 'rxjs/operators';
 import { NicknameValidator } from "../../validators/NicknameValidator";
 import { EmailValidator } from "../../validators/EmailValidator";
 import { DateValidator } from '../../validators/DateValidator';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -36,7 +37,7 @@ export class SignupComponent implements OnInit {
 
   constructor(private signupServ : SignupService, private http : HttpClient, 
     private router : Router, private toast : ToastrService, private nickVal : NicknameValidator,
-    private emailVal : EmailValidator) {
+    private emailVal : EmailValidator, private spinner : NgxSpinnerService) {
     this.forma = new FormGroup({
 
       nombrecompleto: new FormGroup({
@@ -77,6 +78,7 @@ export class SignupComponent implements OnInit {
   guardarCambios() {
     //console.log(this.forma.value);
     //console.log(this.forma);
+    this.spinner.show();
     this.values = new HttpParams()
     .set('nickname', this.forma.value.username)
     .set('email', this.forma.value.correo)
@@ -89,10 +91,12 @@ export class SignupComponent implements OnInit {
     .set('fecha_nacimiento', this.forma.value.fechanacimiento);
     this.signupServ.checkRegister(this.values).subscribe(res =>{
       //console.log("Ok", res)
+      this.spinner.hide();
       this.toast.success('Le hemos enviado un correo para confirmar su cuenta', 'Registro Exitoso!');
     this.router.navigate(['/home'])
   }, error =>{
       //console.log("Error", error.error);
+      this.spinner.hide();
       this.toast.error(error.error, 'Error');
   })
   }

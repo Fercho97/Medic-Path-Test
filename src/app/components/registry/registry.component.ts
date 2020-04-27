@@ -16,6 +16,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { NicknameValidator } from "../../validators/NicknameValidator";
 import { EmailValidator } from "../../validators/EmailValidator";
 import { DateValidator } from '../../validators/DateValidator';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-registry',
   templateUrl: './registry.component.html',
@@ -30,13 +31,13 @@ export class RegistryComponent implements OnInit {
   forma: FormGroup;
   
   private values : HttpParams;
-  sexos = ['Hombre', 'Mujer', 'Indefinido'];
+  sexos = ['Hombre', 'Mujer'];
   public selectedEspe : any = [];
   public especializaciones : any = [];
   
   constructor(private regServ : RegistryService, private http : HttpClient, 
     private router : Router, private toast : ToastrService, private nickVal : NicknameValidator,
-    private emailVal : EmailValidator) {
+    private emailVal : EmailValidator, private spinner : NgxSpinnerService) {
     this.forma = new FormGroup({
 
       nombrecompleto: new FormGroup({
@@ -55,7 +56,7 @@ export class RegistryComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
       ], [this.emailVal.existingEmail()]),
-      genero: new FormControl('Indefinido', Validators.required),
+      genero: new FormControl('', Validators.required),
       username: new FormControl('', [Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20)],[this.nickVal.existingNickname()]),
@@ -79,6 +80,7 @@ export class RegistryComponent implements OnInit {
 
   guardarCambios() {
     if(this.selectedEspe.length>0){
+      this.spinner.show();
     var idsOnly : any = [];
     
    this.selectedEspe.forEach(element => {
@@ -100,14 +102,16 @@ export class RegistryComponent implements OnInit {
     formData.append('especialidades', idsOnly);
     this.regServ.checkRegister(formData).subscribe((res:any) =>{
       sessionStorage.setItem('token',res.body.token);
+      this.spinner.hide();
       this.toast.success('Le hemos enviado un correo al usuario registrado confirmar su cuenta', 'Registro Exitoso!');
     this.router.navigate(['/home'])
   }, error =>{
       //console.log("Error", error.error);
+      this.spinner.hide();
       this.toast.error(error.error, 'Error');
   })
 }else{
-  this.toast.error("elija al menos una especialización", 'Error');
+  this.toast.error("Elija al menos una especialización", 'Error');
 }
 
   }
