@@ -165,6 +165,7 @@ export class ModificarSintomasComponent implements OnInit {
   }
 
   modificar(){
+    this.spinner.show();
     if(this.isChecked==false){
       this.values = new HttpParams()
       .set('nombre_sint', this.modify.value.nombre)
@@ -191,17 +192,21 @@ export class ModificarSintomasComponent implements OnInit {
     }
     if((this.isChecked==true && this.selectedCompuestos.length<=1) || this.selectedCompuestos.length===undefined){
       this.toast.error('Un sintoma compuesto debe tener al menos otros 2 sintomas como parte de su composición', 'Error');
+      this.spinner.hide();
     }else if(this.especializacionesSeleccionadas.length===undefined || this.especializacionesSeleccionadas.length===0){
       this.toast.error('Debe elegir al menos una especialidad capaz que sea capaz de ayudar con el sintoma', 'Error');
+      this.spinner.hide();
     }else{
         this.sintServ.modificar(this.sintoma.hashId,this.values).subscribe((res:any) =>{
           //console.log("Ok", res)
           sessionStorage.setItem('token',res.body.token);
           this.toast.success('Se ha modificado el sintoma con éxito!', 'Modificación Exitosa!');
+          this.spinner.hide();
         this.router.navigate(['/sintomas'])
       }, error =>{
           //console.log("Error", error.error);
           this.toast.error(error.error.message, 'Error');
+          this.spinner.hide();
       })
     }
   }

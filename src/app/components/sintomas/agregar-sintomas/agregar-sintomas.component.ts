@@ -8,7 +8,8 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { ErrorMsg } from '../../../interfaces/errorMsg.const';
 import { SymptomNameValidator } from '../../../validators/SymptomNameValidator';
 import { Catalogos } from '../../../interfaces/catalogos.const';
-import { RegistryService } from '../../registry/registry.service'
+import { RegistryService } from '../../registry/registry.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-agregar-sintomas',
   templateUrl: './agregar-sintomas.component.html',
@@ -60,7 +61,7 @@ export class AgregarSintomasComponent implements OnInit {
   public isNot100 = false;
   constructor(private sintServ : SintomasService, private router : Router, 
               private toast : ToastrService, private nameVal : SymptomNameValidator,
-              private regServ : RegistryService) {
+              private regServ : RegistryService, private spinner : NgxSpinnerService) {
     this.sintomas = new FormGroup({
       nombre: new FormControl('', 
       [Validators.required,
@@ -100,6 +101,7 @@ export class AgregarSintomasComponent implements OnInit {
 
   guardar() {
     //console.log(this.isChecked);
+    this.spinner.show();
     if(this.isChecked==false){
       this.values = new HttpParams()
       .set('nombre_sint', this.sintomas.value.nombre)
@@ -127,16 +129,20 @@ export class AgregarSintomasComponent implements OnInit {
 
     if((this.isChecked==true && this.selectedCompuestos.length<=1) || this.selectedCompuestos.length===undefined){
       this.toast.error('Un sintoma compuesto debe tener al menos otros 2 sintomas como parte de su composición', 'Error');
+      this.spinner.hide();
     }else if(this.especializacionesSeleccionadas.length===undefined || this.especializacionesSeleccionadas.length===0){
       this.toast.error('Debe elegir al menos una especialidad capaz que sea capaz de ayudar con el sintoma', 'Error');
+      this.spinner.hide();
     }else{
         this.sintServ.createSintoma(this.values).subscribe((res:any) =>{
         
           sessionStorage.setItem('token',res.body.token);
           this.toast.success('Se ha registrado el sintoma con éxito!', 'Registro Exitoso!');
+          this.spinner.hide();
         this.router.navigate(['/sintomas'])
       }, error =>{
           this.toast.error(error.error.message, 'Error');
+          this.spinner.hide();
       })
     }
   }

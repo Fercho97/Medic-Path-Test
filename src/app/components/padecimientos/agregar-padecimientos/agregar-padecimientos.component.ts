@@ -9,6 +9,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { ErrorMsg } from '../../../interfaces/errorMsg.const';
 import{ AilmentNameValidator } from '../../../validators/AilmentNameValidator';
 import { Catalogos } from '../../../interfaces/catalogos.const';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-agregar-padecimientos',
   templateUrl: './agregar-padecimientos.component.html',
@@ -30,7 +31,8 @@ export class AgregarPadecimientosComponent implements OnInit {
   formData: any = new FormData();
   
   constructor(private padServ : PadecimientoService, private sintServ : SintomasService,
-              private toast : ToastrService, private router : Router, private nameVal : AilmentNameValidator) {
+              private toast : ToastrService, private router : Router, 
+              private nameVal : AilmentNameValidator, private spinner : NgxSpinnerService) {
     this.padecimiento = new FormGroup({
       nombre: new FormControl('', 
       [Validators.required,
@@ -83,6 +85,7 @@ export class AgregarPadecimientosComponent implements OnInit {
 
   guardar(){
     if(this.selectedSints.length>3){
+    this.spinner.show();
     var idsOnly : any = [];
      
     this.selectedSints.forEach(element => {
@@ -98,16 +101,18 @@ export class AgregarPadecimientosComponent implements OnInit {
     
     this.padServ.createPadecimiento(this.formData).subscribe((res:any) =>{
       //console.log("Ok", res)
+      this.spinner.hide();
       sessionStorage.setItem('token',res.body.token);
       this.toast.success('Se ha registrado el padecimiento con éxito!', 'Registro Exitoso!');
     this.router.navigate(['/padecimientos'])
   }, error =>{
       //console.log("Error", error.error);
+      this.spinner.hide();
       this.toast.error(error.error, 'Error');
       this.formData = new FormData();
   })
   }else{
-    this.toast.error('El padecimiento debe tener al menos 4 sintomas para que sea válido', 'Error');
+    this.toast.error('El padecimiento debe tener al menos 4 síntomas para que sea válido', 'Error');
   }
 }
 }

@@ -169,6 +169,7 @@ export class ModificarPadecimientosComponent implements OnInit {
 
   guardar(){
     if(this.selectedSints.length>3){
+      this.spinner.show();
         var idsOnly : any = [];
         
         this.selectedSints.forEach(element => {
@@ -184,12 +185,15 @@ export class ModificarPadecimientosComponent implements OnInit {
         
         this.padServ.updatePadecimiento(this.formData, this.url.snapshot.params.hash).subscribe((res:any) =>{
           //console.log("Ok", res)
+          
           sessionStorage.setItem('token',res.body.token);
           this.toast.success('Se ha modificado el padecimiento con éxito!', 'Modificación Exitosa!');
+          this.spinner.hide();
         this.router.navigate(['/padecimientos'])
       }, error =>{
           //console.log("Error", error.error);
           this.toast.error(error.error.message, 'Error');
+          this.spinner.hide();
           this.formData = new FormData();
       })
   }else{
