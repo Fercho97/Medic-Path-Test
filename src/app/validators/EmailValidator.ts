@@ -34,4 +34,24 @@ export class EmailValidator {
                                                }
                                            }
     }
+
+    nonExistingEmail(initialValue: string = "") : AsyncValidatorFn{
+        return (control: AbstractControl): | Promise<{ [key: string]: any} | null>
+                                           | Observable<{[key: string]: any} | null> =>{
+                                               if(isEmptyInputValue(control.value)){
+                                                   return of(null);
+                                               }else if (control.value === initialValue){
+                                                   return of(null);
+                                               }else{
+                                                   return control.valueChanges.pipe(
+                                                       debounceTime(500),
+                                                       take(1),
+                                                       switchMap(_ => this.signServ
+                                                        .checkEmail(control.value)
+                                                        .pipe(map((json:any) =>  json.body.message=="Libre" ? {nonExisting: true} : null))
+                                                    )
+                                                   )
+                                               }
+                                           }
+    }
 }

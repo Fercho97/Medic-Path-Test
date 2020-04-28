@@ -19,7 +19,8 @@ export class ErrorMsg {
         'correo' : [
           {type: 'required', message: 'Es necesario ingresar un correo'},
           {type: 'pattern', message: 'El texto ingresado no representa un correo'},
-          {type: 'emailTaken', message: 'Correo en uso, intente con otro'}
+          {type: 'emailTaken', message: 'Correo en uso, intente con otro'},
+          {type: 'nonExisting', message: 'Correo no existente en el sistema'}
         ],
         'fechanacimiento' : [
           {type: 'required', message: 'Debe seleccionar una fecha'},

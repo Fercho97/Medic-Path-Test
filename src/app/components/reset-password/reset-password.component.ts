@@ -17,7 +17,8 @@ import { ResetPassService } from './reset-password.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ErrorMsg } from '../../interfaces/errorMsg.const';
-import {CryptoStorage} from '../../services/shared-service'
+import {CryptoStorage} from '../../services/shared-service';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
@@ -33,7 +34,8 @@ export class ResetPasswordComponent implements OnInit {
   fromProfile: boolean = false;
   mensajes_error = ErrorMsg.ERROR_MSG_REGISTER;
   constructor(private restServ : ResetPassService, private http : HttpClient, private router : Router,
-              private toast : ToastrService, private url : ActivatedRoute,private storage: CryptoStorage) { 
+              private toast : ToastrService, private url : ActivatedRoute,private storage: CryptoStorage,
+              private spinner : NgxSpinnerService) { 
    
     this.reset = new FormGroup({
             
@@ -65,12 +67,14 @@ export class ResetPasswordComponent implements OnInit {
 
         this.values = new HttpParams()
         .set('newPassword', this.reset.value.password_validations.newPass);
-
+        this.spinner.show();
         this.restServ.restorePassword(this.hash,this.values).subscribe( (res : any) =>{
         this.toast.success('Se ha modificado la contraseña con éxito ', 'Éxito!');
+        this.spinner.hide();
         this.router.navigate(['/home']);
       }, error =>{
           //console.log("Error", error.error.message);
+          this.spinner.hide();
           this.toast.error(error.error.message, 'Error');
       })
     }else{
@@ -78,14 +82,16 @@ export class ResetPasswordComponent implements OnInit {
       
         this.values = new HttpParams()
         .set('newPassword', this.reset.value.password_validations.newPass);
-
+        this.spinner.show();
         this.restServ.changePassword(this.hash,this.values).subscribe( (res : any) =>{
         this.toast.success('Se ha modificado su contraseña con éxito es necesario que vuelva a iniciar sesión ', 'Éxito!');
         sessionStorage.clear();
+        this.spinner.hide();
         window.location.reload();
         this.router.navigate(['/home']);
       }, error =>{
           //console.log("Error", error.error.message);
+          this.spinner.hide();
           this.toast.error(error.error.message, 'Error');
       })
     }

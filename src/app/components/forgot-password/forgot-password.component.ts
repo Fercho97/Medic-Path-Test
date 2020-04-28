@@ -10,7 +10,9 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { RecoveryService } from './forgot-password.service';
 import {Router} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
+import { NgxSpinnerService } from 'ngx-spinner';
+import { EmailValidator } from "../../validators/EmailValidator";
+import { ErrorMsg } from '../../interfaces/errorMsg.const';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
@@ -18,15 +20,18 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ForgotPasswordComponent implements OnInit {
 
+  mensajes_error = ErrorMsg.ERROR_MSG_REGISTER;
   values : HttpParams;
   recovery : FormGroup;
-  constructor(private recServ : RecoveryService, private http : HttpClient, private toastr : ToastrService, private router : Router) { 
+  constructor(private recServ : RecoveryService, private http : HttpClient, 
+              private toastr : ToastrService, private router : Router, 
+              private spinner : NgxSpinnerService, private emailVal : EmailValidator) { 
 
     this.recovery = new FormGroup({
       email: new FormControl('', [
         Validators.required,
-        Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$'),
-      ])
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
+      ], [this.emailVal.nonExistingEmail()])
     });
   }
 
@@ -36,12 +41,14 @@ export class ForgotPasswordComponent implements OnInit {
   sendReset(){
     this.values = new HttpParams()
     .set('email', this.recovery.value.email);
-
+    this.spinner.show();
     this.recServ.resetRequest(this.values).subscribe((res :any) =>{
       this.toastr.info("Se ha enviado un correo a la dirección que indico, llegara en un momento", "Enviado");
+      this.spinner.hide();
       this.router.navigate(['/home']);
     }, error =>{
       //console.log(error);
+      this.spinner.hide();
       this.router.navigate(['/home']);
     })
     
