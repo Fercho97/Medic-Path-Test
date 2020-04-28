@@ -49,9 +49,9 @@ export class LoginComponent implements OnInit {
     .set('nickOrEmail', this.login.value.emailOrNickname)
     .set('password', this.login.value.logPassword);
     this.logServ.checkLogin(this.values).subscribe( (res : any) =>{
-
-    if(res.body.message=="Verificacion"){
+    if(res.body.message=="Verificación"){
       this.toast.info('Su cuenta aun no se encuentra verificada, favor de verificarla mediante su correo.', 'Cuenta sin verificar');
+      this.spinner.hide();
     }else{
     this.cerrar.nativeElement.click();
     //sessionStorage.setItem('usuario',res.body.usuario.id);
