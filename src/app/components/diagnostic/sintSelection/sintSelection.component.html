@@ -1,13 +1,15 @@
 <div class="myMod">
     <div class="modal-header">
-      <h5 class="modal-title" id="info">Seleccione sus sintomas</h5>
+      <h5 class="modal-title" id="info">Selección de síntomas</h5>
       <button type="button" class="close" (click)="activeModal.dismiss('Cross click')" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
 
-    <label>Para seleccionar multiples sintomas mantenga la tecla Ctrl presionada mientras los elige</label>
+    <label>Puede seleccionar multiples síntomas, si se encuentra en PC para seleccionar varios mantenga presionada
+           la tecla de Ctrl y vaya seleccionandolos
+    </label>
     <select class="selectpicker" multiple [(ngModel)] = "sintomasSeleccionados">
       <option *ngFor="let ini of selectableSints" value="{{ini.idSint}}">{{ini.nombre_sint}}</option>
     </select>

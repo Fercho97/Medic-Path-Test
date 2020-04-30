@@ -34,13 +34,23 @@
 }
 
 .imagen {
-    width: 70%;
+    max-width: 100%;
     height: 60%;
     margin-top: 50px;
     display: block;
   margin-left: auto;
   margin-right: auto;
 }
+
+.banner{
+  max-width: 100%;
+    height: 50%;
+    margin-top: 50px;
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .contenedor {
     width: 100%;
     margin-left: 20px;
@@ -85,4 +95,30 @@
 
 .card-action {
   text-align: center;
+}
+
+@media (max-width: 899px){
+  .imagen {
+    width: 100%;
+    height: 50%;
+  }
+  .banner{
+    width: 100%;
+    height: 45%;
+  }
+
+  
+}
+
+@media (max-width: 540px){
+  .imagen {
+    width: 100%;
+    height: 27%;
+    
+  }
+  .banner{
+    width: 100%;
+    height: 37%;
+  }
+
 }

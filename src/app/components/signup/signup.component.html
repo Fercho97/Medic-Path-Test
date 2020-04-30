@@ -8,7 +8,7 @@
         <div formGroupName="nombrecompleto">
 
           <div class="form-group row">
-            <div class="col-8">
+            <div class="col-md-8">
 
               <input [ngClass]="{'is-invalid': !forma.get('nombrecompleto.nombre').valid}"
                 formControlName="nombre" class="form-control is-valid" type="text" placeholder="Nombre">
@@ -24,7 +24,7 @@
           </div>
 
           <div class="form-group row">
-            <div class="col-8">
+            <div class="col-md-8">
 
               <input [ngClass]="{'is-invalid': !forma.get('nombrecompleto.apellido').valid}"
                 formControlName="apellido" class="form-control is-valid" type="text" placeholder="Apellido">
@@ -42,7 +42,7 @@
         </div>
 
         <div class="form-group row">
-          <div class="col-8">
+          <div class="col-md-8">
 
             <input [ngClass]="{'is-invalid': !forma.controls['fechanacimiento'].valid}"
               formControlName="fechanacimiento" class="form-control is-valid" type="date" placeholder="Fecha">
@@ -91,9 +91,9 @@
 
         <div class="form-group row">
 
-          <div class="col-md-8">
+          <div class="col-md-10">
             <p>
-              <label *ngFor="let s of sexos, let i = index">
+              <label class="sexSelector" *ngFor="let s of sexos, let i = index">
                 <input formControlName="genero" class="with-gap myColor" name="genero" type="radio" checked
                   [value]="s" />
                 <span class="space"> {{s}} </span>
@@ -112,7 +112,7 @@
                   <ng-container *ngFor="let validation of mensajes_error.password">
                     <div class="form-control-feedback" *ngIf="forma.get('password_validations.password1').hasError(validation.type) 
                       && (forma.get('password_validations.password1').dirty || forma.get('password_validations.password1').touched)">
-                      <i class="fas fa-exclamation-circle"></i>{{validation.message}}
+                      <i class="fas fa-exclamation-circle"></i> {{validation.message}}
                     </div>
                   </ng-container>
               </div>
@@ -128,7 +128,7 @@
                   <ng-container *ngFor="let validation of mensajes_error.passwordVerif">
                     <div class="form-control-feedback" *ngIf="forma.get('password_validations.password2').hasError(validation.type) 
                       && (forma.get('password_validations.password2').dirty || forma.get('password_validations.password2').touched)">
-                      <i class="fas fa-exclamation-circle"></i>{{validation.message}}
+                      <i class="fas fa-exclamation-circle"></i> {{validation.message}}
                     </div>
                   </ng-container>
               </div>
@@ -140,7 +140,7 @@
           <ng-container *ngFor="let validation of mensajes_error.same_password">
             <div class="form-control-feedback" *ngIf="forma.get('password_validations').hasError(validation.type) 
              && (forma.get('password_validations.password2').dirty || forma.get('password_validations.password2').touched)">
-             <i class="fas fa-exclamation-circle"></i>{{validation.message}}
+             <i class="fas fa-exclamation-circle"></i> {{validation.message}}
             </div>
           </ng-container>
       </div>
