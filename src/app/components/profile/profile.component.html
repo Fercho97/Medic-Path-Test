@@ -4,7 +4,7 @@
       <div class="">
         <a class="nav-link" routerLinkActive="active-link" routerLink="/profile">Perfil</a>
       </div>
-      <div>
+      <div *ngIf="userType=='1'">
         <a class="nav-link" routerLinkActive="active-link" routerLink="/record">Expediente</a>
       </div>
     </div>

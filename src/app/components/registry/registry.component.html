@@ -1,13 +1,12 @@
-<div class="container">
-    <div class="main-container">
-      <h4>Registro de Doctor</h4>
+<div class="container main-container">
+      <h4 class="align">Registro de Doctor</h4>
       <hr>
       <form [formGroup]="forma" (ngSubmit)="guardarCambios()">
 
         <div formGroupName="nombrecompleto">
 
           <div class="form-group row">
-            <div class="col-8">
+            <div class="col-md-8">
 
               <input [ngClass]="{'is-invalid': !forma.get('nombrecompleto.nombre').valid}"
                 formControlName="nombre" class="form-control is-valid" type="text" placeholder="Nombre">
@@ -23,7 +22,7 @@
           </div>
 
           <div class="form-group row">
-            <div class="col-8">
+            <div class="col-md-8">
 
               <input [ngClass]="{'is-invalid': !forma.get('nombrecompleto.apellido').valid}"
                 formControlName="apellido" class="form-control is-valid" type="text" placeholder="Apellido">
@@ -41,7 +40,7 @@
         </div>
 
         <div class="form-group row">
-          <div class="col-8">
+          <div class="col-md-8">
 
             <input [ngClass]="{'is-invalid': !forma.controls['fechanacimiento'].valid}"
               formControlName="fechanacimiento" class="form-control is-valid" type="date" placeholder="Fecha">
@@ -122,7 +121,7 @@
 
         <div class="form-group row">
           
-          <div class="col-md-11">
+          <div class="col-md-8">
             <p>
               <label *ngFor="let s of sexos, let i = index">
                 <input formControlName="genero" class="with-gap myColor" name="genero" type="radio" checked
@@ -158,7 +157,6 @@
 
       </form>
     </div>
-</div>
 <ngx-spinner
   bdColor="rgba(51,51,51,0.8)"
   size="medium"

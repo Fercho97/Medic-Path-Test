@@ -107,11 +107,19 @@
 
   .margin {
     
-    margin-right: 40px;
+    margin-right: 55px;
     margin-left: 40px;
   }
 
   .row{
     margin-left: 0px !important;
+  }
+}
+
+@media (max-width: 487px){
+  .margin {
+    
+    margin-right: auto;
+    margin-left: auto;
   }
 }
