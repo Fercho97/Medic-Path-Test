@@ -4,17 +4,20 @@ export class ErrorMsg {
           {type: 'required', message: 'Es necesario el ingresar un nombre de usuario'},
           {type: 'minlength', message: 'El nombre de usuario debe ser mayor a 3 caracteres'},
           {type: 'maxlength', message: 'El nombre de usuario debe ser menor a 20 caracteres'},
-          {type: 'userTaken', message: 'Usuario en uso, intente con otro'}
+          {type: 'userTaken', message: 'Usuario en uso, intente con otro'},
+          {type: 'pattern', message: 'El nombre de usuario solo puede contener letras y numeros'}
         ],
         'nombre' : [
           {type: 'required', message: 'El nombre es necesario'},
           {type: 'minlength', message: 'La longitud debe ser mayor a 3 caracteres'},
-          {type: 'maxlength', message: 'La longitud debe ser menor a 50 caracteres'}
+          {type: 'maxlength', message: 'La longitud debe ser menor a 50 caracteres'},
+          {type: 'pattern', message: 'El nombre solo puede contener letras'}
         ],
         'apellido' : [
           {type: 'required', message: 'El apellido es necesario'},
           {type: 'minlength', message: 'La longitud debe ser mayor a 3 caracteres'},
-          {type: 'maxlength', message: 'La longitud debe ser menor a 50 caracteres'}
+          {type: 'maxlength', message: 'La longitud debe ser menor a 50 caracteres'},
+          {type: 'pattern', message: 'El apellido solo puede contener letras'}
         ],
         'correo' : [
           {type: 'required', message: 'Es necesario ingresar un correo'},
@@ -51,9 +54,9 @@ export class ErrorMsg {
     public static ERROR_MSG_SINT_PADS = {
         'nombreSint' : [
             {type: 'required', message: 'Es necesario ingresar el nombre del síntoma'},
-            {type: 'minlength', message: 'El nombre del sintoma debe ser mayor a 3 caracteres'},
+            {type: 'minlength', message: 'El nombre del síntoma debe ser mayor a 3 caracteres'},
             {type: 'maxlength', message: 'La longitud debe ser menor a 50 caracteres'},
-            {type: 'nameUsed', message: 'Ya existe un sintoma con este nombre'}
+            {type: 'nameUsed', message: 'Ya existe un síntoma con este nombre'}
           ],
           'descripcion' : [
             {type: 'required', message: 'Es necesario ingresar una descripción'},
@@ -64,10 +67,10 @@ export class ErrorMsg {
             {type: 'required', message: 'Es necesario el seleccionar una categoría'}
           ],
           'urgencia' : [
-            {type: 'required', message: 'Es necesario el seleccionar un nive de urgencia para el sintoma'}
+            {type: 'required', message: 'Es necesario el seleccionar un nivel de urgencia para el síntoma'}
           ],
           'especializacion' : [
-            {type: 'required', message: 'Es necesario el seleccionar una especializacion para el padecimiento'}
+            {type: 'required', message: 'Es necesario el seleccionar una especialización para el padecimiento'}
           ],
           'nombrePad' : [
             {type: 'required', message: 'Es necesario ingresar el nombre del padecimiento'},
@@ -81,7 +84,7 @@ export class ErrorMsg {
             {type: 'maxlength', message: 'La longitud debe ser menor a 30 caracteres'}
           ],
           'body_zone' : [
-            {type: 'required', message: 'Es necesario elegir una zona para el sintoma'}
+            {type: 'required', message: 'Es necesario elegir una zona para el síntoma'}
           ]
     }
 

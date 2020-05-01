@@ -44,12 +44,14 @@ export class RegistryComponent implements OnInit {
         nombre: new FormControl('', [
           Validators.required,
           Validators.minLength(3),
-          Validators.maxLength(50)
+          Validators.maxLength(50),
+          Validators.pattern('^[a-zA-Z ]*$')
         ]),
         apellido: new FormControl('', [
           Validators.required,
           Validators.minLength(3),
-          Validators.maxLength(50)
+          Validators.maxLength(50),
+          Validators.pattern('^[a-zA-Z ]*$')
         ])
       }),
       correo: new FormControl('', [

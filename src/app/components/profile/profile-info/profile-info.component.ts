@@ -27,12 +27,14 @@ export class ProfileInfoComponent implements OnInit {
       nombres : new FormControl('', [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(50)
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z ]*$')
       ]),
       apellidos : new FormControl('', [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(50)
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z ]*$')
       ]),
       nickname : new FormControl('', [
         Validators.required,
