@@ -28,18 +28,19 @@ export class ProfileInfoComponent implements OnInit {
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z ]*$')
+        Validators.pattern('^([ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+ )*[ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+$')
       ]),
       apellidos : new FormControl('', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50),
-        Validators.pattern('^[a-zA-Z ]*$')
+        Validators.pattern('^([ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+ )*[ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+$')
       ]),
       nickname : new FormControl('', [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(20)
+        Validators.maxLength(20),
+        Validators.pattern('^([a-zA-Z0-9 ]+ )*[a-zA-Z0-9]+$')
       ])
     })
    }

@@ -45,13 +45,13 @@ export class SignupComponent implements OnInit {
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(50),
-          Validators.pattern('^[a-zA-Z ]*$')
+          Validators.pattern('^([ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+ )*[ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+$')
         ]),
         apellido: new FormControl('', [
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(50),
-          Validators.pattern('^[a-zA-Z ]*$')
+          Validators.pattern('^([ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+ )*[ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+$')
         ])
       }),
       correo: new FormControl('', [
@@ -61,7 +61,8 @@ export class SignupComponent implements OnInit {
       genero: new FormControl('', Validators.required),
       username: new FormControl('', [Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(20)],[this.nickVal.existingNickname()]),
+        Validators.maxLength(20),
+        Validators.pattern('^([a-zA-Z0-9 ]+ )*[a-zA-Z0-9]+$')],[this.nickVal.existingNickname()]),
         password_validations : new FormGroup({
           password1 : new FormControl('', [Validators.required, Validators.minLength(5)]),
           password2 : new FormControl('', Validators.required),

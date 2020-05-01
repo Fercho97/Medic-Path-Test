@@ -5,19 +5,19 @@ export class ErrorMsg {
           {type: 'minlength', message: 'El nombre de usuario debe ser mayor a 3 caracteres'},
           {type: 'maxlength', message: 'El nombre de usuario debe ser menor a 20 caracteres'},
           {type: 'userTaken', message: 'Usuario en uso, intente con otro'},
-          {type: 'pattern', message: 'El nombre de usuario solo puede contener letras y numeros'}
+          {type: 'pattern', message: 'El nombre de usuario solo puede contener letras y números, evitando caracteres especiales o puros espacios'}
         ],
         'nombre' : [
           {type: 'required', message: 'El nombre es necesario'},
           {type: 'minlength', message: 'La longitud debe ser mayor a 3 caracteres'},
           {type: 'maxlength', message: 'La longitud debe ser menor a 50 caracteres'},
-          {type: 'pattern', message: 'El nombre solo puede contener letras'}
+          {type: 'pattern', message: 'El nombre debe contener letras, evitando números, caracteres especiales o bien puros espacios'}
         ],
         'apellido' : [
           {type: 'required', message: 'El apellido es necesario'},
           {type: 'minlength', message: 'La longitud debe ser mayor a 3 caracteres'},
           {type: 'maxlength', message: 'La longitud debe ser menor a 50 caracteres'},
-          {type: 'pattern', message: 'El apellido solo puede contener letras'}
+          {type: 'pattern', message: 'El apellido debe contener letras, evitando números, caracteres especiales o bien puros espacios'}
         ],
         'correo' : [
           {type: 'required', message: 'Es necesario ingresar un correo'},
@@ -41,10 +41,10 @@ export class ErrorMsg {
           {type: 'equalPasswords', message: 'Las contraseñas no son iguales'}
         ],
         'telefono' : [
-          {type: 'required', message: 'Es necesario ingresar un numero telefonico'},
-          {type: 'minlength', message: 'Es necesario ingresar un numero teléfonico con 10 caracteres'},
+          {type: 'required', message: 'Es necesario ingresar un número telefonico'},
+          {type: 'minlength', message: 'Es necesario ingresar un número teléfonico con 10 caracteres'},
           {type: 'maxlength', message: 'La cantidad de digitos para el número telefonico debe ser menor a 15'},
-          {type: 'pattern', message: 'Solo ingrese numeros'}
+          {type: 'pattern', message: 'Solo ingrese números'}
         ],
         'direccion' :[
           {type: 'required', message: 'Es necesario ingresar un domicilio para el médico'}

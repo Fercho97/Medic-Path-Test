@@ -45,13 +45,13 @@ export class RegistryComponent implements OnInit {
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(50),
-          Validators.pattern('^[a-zA-Z ]*$')
+          Validators.pattern('^([ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+ )*[ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+$')
         ]),
         apellido: new FormControl('', [
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(50),
-          Validators.pattern('^[a-zA-Z ]*$')
+          Validators.pattern('^([ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+ )*[ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+$')
         ])
       }),
       correo: new FormControl('', [
@@ -61,7 +61,8 @@ export class RegistryComponent implements OnInit {
       genero: new FormControl('', Validators.required),
       username: new FormControl('', [Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(20)],[this.nickVal.existingNickname()]),
+        Validators.maxLength(20),
+        Validators.pattern('^([a-zA-Z0-9 ]+ )*[a-zA-Z0-9]+$')],[this.nickVal.existingNickname()]),
       fechanacimiento: new FormControl('', [Validators.required,DateValidator.isFutureDate,DateValidator.noValidAge]),
       telefono: new FormControl('', [Validators.required,Validators.minLength(10), 
          Validators.maxLength(15), Validators.pattern('[0-9]+')]),
