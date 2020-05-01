@@ -3,6 +3,7 @@ import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { UsuarioService } from '../../usuario/usuario.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-info-medic',
   templateUrl: './info-medic.component.html',
@@ -15,10 +16,9 @@ export class InfoMedicComponent implements OnInit {
   public infoDoc : any = {} as any;
   public especializaciones : any[] = [];
   public url : string = "";
-  public  hasInfo : boolean = false;
   public nombreCompleto = "";
   constructor(public activeModal: NgbActiveModal, private userServ : UsuarioService, 
-              public spinner : NgxSpinnerService) { 
+              public spinner : NgxSpinnerService, private toast : ToastrService) { 
 
   }
 
@@ -34,11 +34,11 @@ export class InfoMedicComponent implements OnInit {
       if(res.body.usuario.imagen_perfil==null){
         this.url = "/assets/default-image.jpg"
       }else{
-        this.hasInfo = true;
         this.url = res.body.usuario.imagen_perfil.toString();
       }
       this.spinner.hide();
     }, error =>{
+      this.toast.error('Hubo un error al cargar la información del médico', 'Error');
       this.spinner.hide();
     });
   }

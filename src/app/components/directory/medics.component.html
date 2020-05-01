@@ -18,16 +18,16 @@
                     <span class="fas" *ngIf="key == 'fullname'" [ngClass]="{'fa-chevron-up':reversa==true,'fa-chevron-down':reversa==false}"></span>    
                     
                 </th>
-                <th *ngIf="!hasEspe">Especializaciones</th>
-                <th>Direccion</th>
-                <th>Teléfono</th>
-                <th>Acciones</th>
+                <th class="show-text" *ngIf="!hasEspe">Especializaciones</th>
+                <th class="direction">Direccion</th>
+                <th class="telephone">Teléfono</th>
+                <th class="show-text">Acciones</th>
             </tr>
             <tr ng-if="medicos.length>0" *ngFor="let medico of medicos | orderBy : key : reversa : true | ListFilter: 'fullname' : myFilter | paginate:{itemsPerPage: 10, currentPage:pagina}">
-                <th>{{medico.fullname}}</th>
-                <th *ngIf="!hasEspe"><div *ngFor="let espe of medico.especializacions"><span>{{espe.nombre_esp}}</span></div></th>
-                <th>{{ medico.direccion}}</th>
-                <th>{{ medico.telefono}}</th>
+                <th class="show-text">{{medico.fullname}}</th>
+                <th class="show-text" *ngIf="!hasEspe"><div *ngFor="let espe of medico.especializacions"><span>{{espe.nombre_esp}}</span></div></th>
+                <th class="direction">{{ medico.direccion}}</th>
+                <th class="telephone">{{ medico.telefono}}</th>
                 <th><button class="btn btn-success btn-sm" (click)="openModal(content,medico.hash_id)" >Detalle</button></th>
         </tr>
         <tr *ngIf="medicos.length==0 && !hasEspe">

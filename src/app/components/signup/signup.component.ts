@@ -99,7 +99,7 @@ export class SignupComponent implements OnInit {
   }, error =>{
       //console.log("Error", error.error);
       this.spinner.hide();
-      this.toast.error(error.error, 'Error');
+      this.toast.error('Sucedio un error al registrar sus datos, favor de intentarlo de nuevo', 'Error');
   })
   }
 

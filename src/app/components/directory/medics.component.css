@@ -74,3 +74,25 @@ ul li:hover{
 .ordering {
   cursor: pointer;
 }
+
+@media (max-width: 570px){
+  .direction {
+    display: none;
+  }
+
+  .telephone {
+    display: none;
+  }
+
+  .show-text {
+    font-size: 11px;
+  }
+
+  .ordering{
+    font-size: 11px;
+  }
+
+  .container{
+    width: 90% !important;
+  }
+}

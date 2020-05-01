@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InfoMedicComponent } from './info-medic/info-medic.component';
 import {Router, ActivatedRoute} from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-medics',
   templateUrl: './medics.component.html',
@@ -23,7 +24,8 @@ export class MedicsComponent implements OnInit {
   content;
   public searching: boolean = false;
   constructor(private userServ : UsuarioService, private modalService : NgbModal,
-              private route : ActivatedRoute, private spinner : NgxSpinnerService) { }
+              private route : ActivatedRoute, private spinner : NgxSpinnerService,
+              private toast : ToastrService) { }
 
   ngOnInit() {
     this.spinner.show();
@@ -39,6 +41,7 @@ export class MedicsComponent implements OnInit {
       this.spinner.hide();
     }, error =>{
       this.spinner.hide();
+      this.toast.error('Hubo un error al cargar la información del directorio, favor de intentarlo más tarde', 'Error');
     });
   }
 
