@@ -29,3 +29,15 @@
     background-color: #0287a8;
     font-size: 20px;
 }
+
+@media (max-width: 770px){
+
+    .answer a {
+        height: 60px;
+        width: 100%;
+        background-color: #2196f3;
+        color: white;
+        font-size: 19px;
+    }
+
+  }

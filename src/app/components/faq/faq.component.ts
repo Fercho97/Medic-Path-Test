@@ -34,17 +34,11 @@ export class FaqComponent implements OnInit {
   }
 
   showAnswer(id) {
-
-    console.log(id);
-    
-
     if (this.botones[id]) {
       this.botones[id] = false;
     } else {
       this.botones[id] = true;
     }
-    console.log(this.botones);
-
   }
 
 }

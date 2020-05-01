@@ -4,12 +4,12 @@
         <div class="col m10 margin-color" *ngIf="!hasPregunta">
             <div class="center">
                 <p>Bienvenido a la herramienta de diagnóstico</p>
-                <p>Para comenzar simplemente haga click en el siguiente botón para elegir sus sintomas iniciales</p>
+                <p>Para comenzar simplemente haga click en el siguiente botón para elegir sus síntomas iniciales</p>
             </div>
 
             <!---<button class="btn" (click)="iniciarDiagnostico()">Comenzar</button>--->
 
-            <button class="btn" (click)="selection()">Seleccionar sintomas iniciales</button>
+            <button class="btn" (click)="selection()">Seleccionar síntomas iniciales</button>
             <br>
             <br>
             <div  *ngIf="isSelection">
@@ -24,7 +24,7 @@
                 </map>
                 </div>
                 <div>
-                    <legend>Mis sintomas seleccionados:</legend>
+                    <legend>Mis síntomas seleccionados:</legend>
                     <div style="overflow-y: auto; height: 150px;" *ngIf="sintomasShow.length>0">
                         <div *ngFor="let sintoma of sintomasShow">
                             <legend>{{sintoma.name}} <i class="far fa-question-circle" ngbTooltip="{{sintoma.descripcion}}"></i></legend>

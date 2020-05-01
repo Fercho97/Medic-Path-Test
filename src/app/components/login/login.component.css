@@ -41,3 +41,9 @@
 .send {
   background-color: #0d528b;
 }
+
+@media (max-width: 400px){
+  .modal-body a {
+    font-size: 12px;
+  }
+}
