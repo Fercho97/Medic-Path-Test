@@ -3,6 +3,7 @@
     <a>
       <img class="profile-pic" [src]="imagen" alt="profile-pic">
     </a>
+    <br>
     <input type="file" accept="image/jpeg" name="profile-pic" id="profile-pic" formclass="pic-select" (change)="createFormData($event)">
   <div>
     <button *ngIf="selectedImg" class="btn btn-outline-primary boton" (click)="actualizarDatos()">

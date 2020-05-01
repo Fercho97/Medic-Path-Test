@@ -1,13 +1,23 @@
 <div class="main-container">
+  <div clas="top">
+    <div class="topnav">
+      <div class="">
+        <a class="nav-link" routerLinkActive="active-link" routerLink="/profile">Perfil</a>
+      </div>
+      <div>
+        <a class="nav-link" routerLinkActive="active-link" routerLink="/record">Expediente</a>
+      </div>
+    </div>
+  </div>
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-3 sub">
         <app-submenu></app-submenu>
       </div>
 
         <div class="col-sm-8 margin">
             <app-profile-pic [imagen]="url"></app-profile-pic>
             <div class="row">
-                <div class="col-sm-12 margin">
+                <div class="col-sm-12 margin-inner">
                     <app-profile-info [usuarioInfo]="usuario"></app-profile-info>
                     <button class="btn btn-outline-primary boton" routerLink="/resetPass">Cambiar contraseña</button>
               </div>

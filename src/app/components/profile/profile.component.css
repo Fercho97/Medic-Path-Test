@@ -10,6 +10,15 @@
   border-color: red;
 }
 
+.margin-inner{
+    text-align: center;
+    padding: 50px;
+    margin: 40px 2%;
+    border-style: outset;
+    border-radius: 15px;
+    border-color: red;
+}
+
 .headers {
     font-family: 'Pacifico',
     cursive;
@@ -21,4 +30,88 @@
     margin-top: 15px;
     background-color: #00acee !important;
     color: white !important;
+}
+
+.row{
+  margin-right: 0px !important;
+}
+
+.top{
+  display: none;
+}
+
+.topnav{
+  display: none;
+}
+
+@media (max-width: 770px){
+
+  .sub{
+    display: none;
+  } 
+
+  .top {
+    display: block;
+    width: 25%;
+    text-align: center;
+    padding-left: 3%;
+    margin: 5px;
+    border-style: outset;
+    border-radius: 15px;
+    border-color: blue;
+    
+  }
+
+  .topnav {
+    width: 50%;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  .topnav div {
+    margin-top: 20px;
+    padding: 0px 0px;
+    width: 100%;
+    border-style: double;
+    border-color: black;
+    background-color: #00acee;
+  }
+  
+  .topnav a {
+    font-size: 30px;
+    color: white;
+  }
+  
+  .topnav div:hover,
+  a:hover {
+    background-color: #036186;
+    color: red;
+  }
+  
+  .navs .nav-link{
+    display: inline
+  }
+  .active-link {
+    background-color: #0d528b;
+  }
+
+  .margin {
+    
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 574px){
+
+  .margin {
+    
+    margin-right: 40px;
+    margin-left: 40px;
+  }
+
+  .row{
+    margin-left: 0px !important;
+  }
 }

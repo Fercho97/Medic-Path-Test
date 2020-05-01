@@ -1,6 +1,16 @@
 <div class="main-container">
+  <div clas="top">
+    <div class="topnav">
+      <div class="">
+        <a class="nav-link" routerLinkActive="active-link" routerLink="/profile">Perfil</a>
+      </div>
+      <div>
+        <a class="nav-link" routerLinkActive="active-link" routerLink="/record">Expediente</a>
+      </div>
+    </div>
+  </div>
   <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-3 sub">
       <app-submenu></app-submenu>
     </div>
 
@@ -29,7 +39,7 @@
       </tr>
       <tr ng-if="historiales.length>0" *ngFor="let historial of historiales | orderBy : key : reversa : true | ListFilter: 'filter_date' : myFilter | paginate:{itemsPerPage: 10, currentPage:pagina}">
               <th>{{historial.padecimiento_final}}</th>
-              <th>{{ historial.detalles}}</th>
+              <th class="description">{{ historial.detalles}}</th>
               <th>{{ historial.fecha_consulta}}</th>
               <th><button class="btn btn-success btn-sm" (click)="openModal(content,historial.hashId)" >Detalle</button></th>
       </tr>

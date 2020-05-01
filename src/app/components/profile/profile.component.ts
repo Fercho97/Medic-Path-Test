@@ -11,12 +11,13 @@ import {CryptoStorage} from '../../services/shared-service';
 export class ProfileComponent implements OnInit {
     usuario = {} as any;
     public url : string = "/assets/default-image.jpg";
-
+    userType;
   constructor(private profileServ : ProfileService, private router : Router,private storage: CryptoStorage) {
     
    }
 
   ngOnInit() {
+    this.userType= this.storage.decryptData('tipoUsuario');
     let hashCryp = this.storage.decryptData('hash');
     this.profileServ.getUser(hashCryp).subscribe( (res: any) =>{
       this.usuario = res.body.resultado;
