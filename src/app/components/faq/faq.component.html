@@ -1,13 +1,16 @@
 <div class="container main-container">
-    <div class="row">
-        <div class="col m12">
-            <h1>Preguntas Frecuentes</h1>
-            <hr>
-            <div class="answer" *ngFor="let boton of botones; let i=index">
-                <a class="waves-effect waves-light btn" (click)="showAnswer(i)">{{preguntas[i]}}</a>
-                <p *ngIf="botones[i]">{{respuestas[i]}}</p>
-                <br>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col m12">
+      <h1>Preguntas Frecuentes</h1>
+      <img src="/assets/faq.jpg" alt="faq" class="faq" />
+      <hr />
+      <div class="answer" *ngFor="let boton of botones; let i = index">
+        <a class="waves-effect waves-light btn" (click)="showAnswer(i)">{{
+          preguntas[i]
+        }}</a>
+        <p *ngIf="botones[i]">{{ respuestas[i] }}</p>
+        <br />
+      </div>
     </div>
+  </div>
 </div>

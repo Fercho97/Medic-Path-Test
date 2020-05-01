@@ -54,6 +54,7 @@ import { SintSelectionComponent } from './components/diagnostic/sintSelection/si
 import { CryptoStorage} from '../app/services/shared-service';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
+import { CardsComponent } from './components/cards/cards.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -95,7 +96,8 @@ import {NgxSpinnerModule} from 'ngx-spinner';
     SearchPipe,
     GuidedDiagnosticComponent,
     SintSelectionComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    CardsComponent
   ],
   imports: [
     BrowserModule,
