@@ -71,7 +71,7 @@ export class ModificarSintomasComponent implements OnInit {
       nombre: new FormControl('', 
       [Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(50)]),
+        Validators.maxLength(50),Validators.pattern('^([ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+ )*[ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+$')]),
 
       keyword: new FormControl('', 
       [Validators.required,

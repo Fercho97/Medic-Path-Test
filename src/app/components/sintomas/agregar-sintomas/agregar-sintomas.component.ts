@@ -66,7 +66,8 @@ export class AgregarSintomasComponent implements OnInit {
       nombre: new FormControl('', 
       [Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(50)], [this.nameVal.existingSymptomName()]),
+        Validators.maxLength(50),
+        Validators.pattern('^([ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+ )*[ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+$')], [this.nameVal.existingSymptomName()]),
 
       keyword: new FormControl('', 
       [Validators.required,

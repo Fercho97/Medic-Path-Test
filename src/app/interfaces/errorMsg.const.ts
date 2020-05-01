@@ -56,7 +56,8 @@ export class ErrorMsg {
             {type: 'required', message: 'Es necesario ingresar el nombre del síntoma'},
             {type: 'minlength', message: 'El nombre del síntoma debe ser mayor a 3 caracteres'},
             {type: 'maxlength', message: 'La longitud debe ser menor a 50 caracteres'},
-            {type: 'nameUsed', message: 'Ya existe un síntoma con este nombre'}
+            {type: 'nameUsed', message: 'Ya existe un síntoma con este nombre'},
+            {type: 'pattern', message: 'El nombre del síntoma debe contener solo letras, no debe iniciar o terminar con espacios o bien estar compuesto de puros espacios'}
           ],
           'descripcion' : [
             {type: 'required', message: 'Es necesario ingresar una descripción'},
@@ -76,7 +77,8 @@ export class ErrorMsg {
             {type: 'required', message: 'Es necesario ingresar el nombre del padecimiento'},
             {type: 'minlength', message: 'El nombre del padecimiento debe ser mayor a 4 caracteres'},
             {type: 'maxlength', message: 'La longitud debe ser menor a 50 caracteres'},
-            {type: 'nameUsed', message: 'Ya existe un padecimiento con este nombre'}
+            {type: 'nameUsed', message: 'Ya existe un padecimiento con este nombre'},
+            {type: 'pattern', message: 'El nombre del padecimiento debe contener solo letras, no debe iniciar o terminar con espacios o bien estar compuesto de puros espacios'}
           ],
           'keyword' : [
             {type: 'required', message: 'Es necesario ingresar una palabra clave para el síntoma'},

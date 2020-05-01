@@ -37,7 +37,7 @@ export class AgregarPadecimientosComponent implements OnInit {
       nombre: new FormControl('', 
       [Validators.required,
        Validators.minLength(4),
-       Validators.maxLength(50)], [this.nameVal.existingAilment()]),
+       Validators.maxLength(50), Validators.pattern('^([ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+ )*[ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+$')], [this.nameVal.existingAilment()]),
 
       categoria: new FormControl('', Validators.required),
       especializacion: new FormControl('', Validators.required),

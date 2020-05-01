@@ -38,7 +38,8 @@ export class ModificarPadecimientosComponent implements OnInit {
   private nameValidators = [
     Validators.required,
     Validators.minLength(4),
-    Validators.maxLength(50)
+    Validators.maxLength(50),
+    Validators.pattern('^([ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+ )*[ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+$')
   ]
   constructor(private padServ : PadecimientoService, private sintServ : SintomasService,
               private toast : ToastrService, private router : Router, 
