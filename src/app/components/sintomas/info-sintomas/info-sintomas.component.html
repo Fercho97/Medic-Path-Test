@@ -1,32 +1,32 @@
 <div class="myMod">
   <div class="modal-header">
-      <h5 class="modal-title" id="info">Detalles de sintoma</h5>
+      <h5 class="modal-title" id="info">Detalles de síntoma</h5>
       <button type="button" class="close" (click)="activeModal.dismiss('Cross click')" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-    <label class="title">Nombre del sintoma</label>
+    <label class="title">Nombre del síntoma</label>
     <input type="text"  value="{{sintoma.nombre_sint}}" disabled>
 
     <label class="title"></label>
-    <label class="title">Categoria del sintoma</label>
+    <label class="title">Categoria del síntoma</label>
     <input type="text"  value="{{sintoma.categoria_sint}}" disabled>
 
     <label class="title"></label>
-    <label class="title">Nivel de Urgencia del sintoma</label>
+    <label class="title">Nivel de Urgencia del síntoma</label>
     <input type="text"  value="{{sintoma.nivel_urgencia}}" disabled>
 
     <label class="title"></label>
-    <label class="title">Palabra clave del sintoma</label>
+    <label class="title">Palabra clave del síntoma</label>
     <input type="text"  value="{{sintoma.keyWord}}" disabled>
 
     <label class="title"></label>
-    <label class="title">Zona del sintoma</label>
+    <label class="title">Zona del síntoma</label>
     <input type="text"  value="{{sintoma.body_zone}}" disabled>
 
     <label class="title"></label>
-    <label class="title">Descripcion del sintoma</label>
+    <label class="title">Descripción del síntoma</label>
     <textarea rows="10" disabled>{{sintoma.descripcion}}</textarea>
 
     <div *ngIf="especialidades.length>0">

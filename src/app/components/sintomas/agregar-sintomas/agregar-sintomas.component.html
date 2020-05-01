@@ -2,7 +2,7 @@
 
   <div class="row">
     <div class="col m12 s6">
-      <h1>Agregar Sintomas</h1>
+      <h1>Agregar Síntoma</h1>
       <hr>
       <form [formGroup]="sintomas" (ngSubmit)="guardar()">
 
@@ -39,7 +39,7 @@
         <div class="form-group row">
           <div class="col-md-8">
             <select formControlName="categoria" name="categoria" id="categoria" class="form-control">
-              <option value="">Seleccione una Categoria</option>
+              <option value="">Seleccione una Categoría</option>
               <option *ngFor="let item of categorias" [value]="item.nombre">{{item.nombre}}</option>
             </select>
             <div class="validation-errors">
@@ -73,7 +73,7 @@
         <div class="form-group row">
           <div class="col-md-8">
             <select formControlName="body_zone" name="body_zone" id="body_zone" class="form-control">
-              <option value="">Seleccione la zona a la que pertenece el sintoma</option>
+              <option value="">Seleccione la zona a la que pertenece el síntoma</option>
               <option *ngFor="let item of zone_options" [value]="item">{{item}}</option>
             </select>
             <div class="validation-errors">
