@@ -22,9 +22,10 @@
         </div>
 
         <div class="form-group row">
+          <legend class="input-label">Descripción del padecimiento</legend>
           <div class="col-md-8">
-            <input [ngClass]="{'is-invalid': !padecimiento.controls['descripcion'].valid}" formControlName="descripcion"
-              class="form-control is-valid descripcion" type="text" placeholder="Descripcion">
+            <textarea [ngClass]="{'is-invalid': !padecimiento.controls['descripcion'].valid}" formControlName="descripcion"
+              class="form-control is-valid descripcion" type="text" placeholder="Descripción"></textarea>
               <div class="validation-errors">
                 <ng-container *ngFor="let validation of mensajes_error.descripcion">
                   <div class="form-control-feedback" *ngIf="padecimiento.get('descripcion').hasError(validation.type) 
@@ -39,7 +40,7 @@
         <div class="form-group row">
           <div class="col-md-8">
             <select formControlName="categoria" name="categoria" id="categoria" class="form-control">
-              <option value="">Seleccione una Categoria</option>
+              <option value="">Seleccione una Categoría</option>
               <option *ngFor="let item of categorias" [value]="item.nombre">{{item.nombre}}</option>
             </select>
             <div class="validation-errors">

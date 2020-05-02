@@ -13,16 +13,16 @@
             <th (click)="sorting('nombre_pad')" class="ordering">Padecimiento
                 <span class="fas" *ngIf="key == 'nombre_pad'" [ngClass]="{'fa-chevron-up':reversa==true,'fa-chevron-down':reversa==false}"></span>    
             </th>
-            <th>Descripcion</th>
-            <th (click)="sorting('categoria')" class="ordering">Categoria
+            <th class="description">Descripción</th>
+            <th (click)="sorting('categoria')" class="ordering">Categoría
                 <span class="fas" *ngIf="key == 'categoria'" [ngClass]="{'fa-chevron-up':reversa==true,'fa-chevron-down':reversa==false}"></span>     
             </th>
-            <th>Acciones</th>
+            <th class="show-text">Acciones</th>
         </tr>
         <tr ng-if="padecimientos.length>0" *ngFor="let padecimiento of padecimientos | orderBy : key : reversa : true | ListFilter: 'nombre_pad' : myFilter | paginate:{itemsPerPage: 10, currentPage:pagina}">
-                <th>{{padecimiento.nombre_pad}}</th>
-                <th>{{ padecimiento.descripcion}}</th>
-                <th>{{ padecimiento.categoria}}</th>
+                <th class="show-text">{{padecimiento.nombre_pad}}</th>
+                <th class="description">{{ padecimiento.descripcion}}</th>
+                <th class="show-text">{{ padecimiento.categoria}}</th>
                 <th style="text-align:center; width: 20%;"><a routerLinkActive="active-link" routerLink="/padecimientos/modificar/{{padecimiento.hashId}}"><button class="btn btn-info btn-sm" style="float:left">Modificar</button></a>
                 <button class="btn btn-success btn-sm" (click)="openModal(content,padecimiento.hashId)" >Detalle</button></th>
         </tr>
