@@ -73,3 +73,28 @@
   .ordering {
     cursor: pointer;
   }
+
+  @media (max-width: 770px){
+    .btn-success{
+      margin-top: 10px;
+    }
+  }
+
+  @media (max-width: 420px){
+
+    .show-text{
+      font-size: 11px;
+    }
+  
+    .ordering{
+      font-size:11px;
+    }
+
+    .description{
+      max-width: 80px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: 11px;
+    }
+  }

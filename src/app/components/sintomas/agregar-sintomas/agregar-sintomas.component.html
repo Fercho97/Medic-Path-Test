@@ -9,7 +9,7 @@
         <div class="form-group row">
           <div class="col-md-8">
             <input [ngClass]="{'is-invalid': !sintomas.controls['nombre'].valid}" formControlName="nombre"
-              class="form-control is-valid" type="text" placeholder="Nombre del Sintoma">
+              class="form-control is-valid" type="text" placeholder="Nombre del Síntoma">
               <div class="validation-errors">
                 <ng-container *ngFor="let validation of mensajes_error.nombreSint">
                   <div class="form-control-feedback" *ngIf="sintomas.get('nombre').hasError(validation.type) 
@@ -88,9 +88,10 @@
         </div>
 
         <div class="form-group row">
+          <legend class="input-label">Descripción del síntoma</legend>
           <div class="col-md-8">
-            <input [ngClass]="{'is-invalid': !sintomas.controls['descripcion'].valid}" formControlName="descripcion" 
-             class="form-control is-valid descripcion" type="text" placeholder="Descripcion">
+            <textarea [ngClass]="{'is-invalid': !sintomas.controls['descripcion'].valid}" formControlName="descripcion" 
+             class="form-control is-valid descripcion" type="text" placeholder="Descripción"></textarea>
               <div class="validation-errors">
                 <ng-container *ngFor="let validation of mensajes_error.descripcion">
                   <div class="form-control-feedback" *ngIf="sintomas.get('descripcion').hasError(validation.type) 
@@ -121,17 +122,16 @@
                   <input type="number" min="1" max="100" class="porcentage" (focusout)="setPorcentage(selected,$event.target.value)" (keypress)='validateKey($event)'>%
                 </div>
             </div>
-            <div class="validation-errors">
-              <div class="form-control-feedback" *ngIf="isEmpty===true">
-              <i class="fas fa-exclamation-circle"></i> No deje ninguna especialización sin porcentaje
-              </div>
-              <div class="form-control-feedback" *ngIf="isNot100===true">
-                <i class="fas fa-exclamation-circle"></i> El total de las especializaciones elegidas debe ser 100
-                </div>
-        </div>
           </div>
         </div>
-
+        <div class="validation-errors">
+          <div class="form-control-feedback" *ngIf="isEmpty===true">
+            <i class="fas fa-exclamation-circle"></i> No deje ninguna especialización sin porcentaje
+          </div>
+          <div class="form-control-feedback" *ngIf="isNot100===true">
+            <i class="fas fa-exclamation-circle"></i> El total de las especializaciones elegidas debe ser 100
+          </div>
+        </div>
         <div class="form-group row">
           <div class="col-md-8">
               <p>

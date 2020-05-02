@@ -14,16 +14,16 @@
             <th (click)="sorting('nombre_sint')" class="ordering">Síntoma
                 <span class="fas" *ngIf="key == 'nombre_sint'" [ngClass]="{'fa-chevron-up':reversa==true,'fa-chevron-down':reversa==false}"></span>    
             </th>
-            <th>Descripción</th>
+            <th class="description">Descripción</th>
             <th (click)="sorting('categoria_sint')" class="ordering">Categoría
                 <span class="fas" *ngIf="key == 'categoria_sint'" [ngClass]="{'fa-chevron-up':reversa==true,'fa-chevron-down':reversa==false}"></span>    
             </th>
-            <th>Acciones</th>
+            <th class="show-text">Acciones</th>
         </tr>
         <tr ng-if="sintomas.length>0" *ngFor="let sintoma of sintomas | orderBy : key : reversa : true | ListFilter: 'nombre_sint' : myFilter | paginate:{itemsPerPage: 10, currentPage:pagina}">
-                <th>{{sintoma.nombre_sint}}</th>
-                <th>{{ sintoma.descripcion}}</th>
-                <th>{{ sintoma.categoria_sint}}</th>
+                <th class="show-text">{{sintoma.nombre_sint}}</th>
+                <th class="description">{{ sintoma.descripcion}}</th>
+                <th class="show-text">{{ sintoma.categoria_sint}}</th>
                 <th style="text-align:center; width: 20%;"><a routerLinkActive="active-link" routerLink="/sintomas/modificar/{{sintoma.hashId}}"><button class="btn btn-info btn-sm" style="float:left">Modificar</button></a>
                 <button class="btn btn-success btn-sm" (click)="openModal(content,sintoma)" >Detalle</button></th>
         </tr>

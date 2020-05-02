@@ -9,7 +9,7 @@
         <div class="form-group row">
           <div class="col-md-8">
             <input [ngClass]="{'is-invalid': !modify.controls['nombre'].valid}" formControlName="nombre"
-              class="form-control is-valid" type="text"  placeholder="Nombre del sintoma a modificar" (keyup)="check()">
+              class="form-control is-valid" type="text"  placeholder="Nombre del síntoma a modificar" (keyup)="check()">
               <div class="validation-errors">
                 <ng-container *ngFor="let validation of mensajes_error.nombreSint">
                   <div class="form-control-feedback" *ngIf="modify.get('nombre').hasError(validation.type) 
@@ -24,7 +24,7 @@
         <div class="form-group row">
           <div class="col-md-8">
             <input [ngClass]="{'is-invalid': !modify.controls['keyword'].valid}" formControlName="keyword"
-              class="form-control is-valid" type="text" placeholder="Palabra clave del sintoma a modificar">
+              class="form-control is-valid" type="text" placeholder="Palabra clave del síntoma a modificar">
               <div class="validation-errors">
                 <ng-container *ngFor="let validation of mensajes_error.keyword">
                   <div class="form-control-feedback" *ngIf="modify.get('keyword').hasError(validation.type) 
@@ -88,9 +88,10 @@
         </div>
 
         <div class="form-group row">
+          <legend class="input-label">Descripción del síntoma</legend>
           <div class="col-md-8">
-            <input [ngClass]="{'is-invalid': !modify.controls['descripcion'].valid}" 
-            formControlName="descripcion" class="form-control is-valid descripcion" type="text" placeholder="Descripcion del sintoma a modificar">
+            <textarea [ngClass]="{'is-invalid': !modify.controls['descripcion'].valid}" 
+            formControlName="descripcion" class="form-control is-valid descripcion" type="text" placeholder="Descripción del síntoma a modificar"></textarea>
             <div class="validation-errors">
               <ng-container *ngFor="let validation of mensajes_error.descripcion">
                 <div class="form-control-feedback" *ngIf="modify.get('descripcion').hasError(validation.type) 
@@ -105,7 +106,6 @@
         <div class="form-row">
           <legend>Especialidades que lo pueden tratar</legend>
           <div class="col">
-            
             <div class="col" cdk-scrollable style="height: 300px; overflow-y:scroll" >
               <div class="col" cdkDropList [cdkDropListData]="especializaciones" [cdkDropListConnectedTo]="secondList" #firstList="cdkDropList" (cdkDropListDropped)="drop($event)">
                 <legend class="CdkTitle">Especialidades</legend>
@@ -121,17 +121,17 @@
                   <input type="number" min="1" max="100" class="porcentage" value="{{selected.porcentaje}}" (focusout)="setPorcentage(selected,$event.target.value)" (keypress)='validateKey($event)'>%
                 </div>
             </div>
-            <div class="validation-errors">
-              <div class="form-control-feedback" *ngIf="isEmpty===true">
-              <i class="fas fa-exclamation-circle"></i> No deje ninguna especialización sin porcentaje
-              </div>
-              <div class="form-control-feedback" *ngIf="isNot100===true">
-                <i class="fas fa-exclamation-circle"></i> El total de las especializaciones elegidas debe ser 100
-                </div>
-        </div>
           </div>
         </div>
 
+        <div class="validation-errors">
+          <div class="form-control-feedback" *ngIf="isEmpty===true">
+            <i class="fas fa-exclamation-circle"></i> No deje ninguna especialización sin porcentaje
+          </div>
+          <div class="form-control-feedback" *ngIf="isNot100===true">
+            <i class="fas fa-exclamation-circle"></i> El total de las especializaciones elegidas debe ser 100
+          </div>
+        </div>
         <div class="form-group row">
           <div class="col-md-8">
               <p>
