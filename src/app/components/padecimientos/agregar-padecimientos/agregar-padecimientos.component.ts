@@ -43,7 +43,8 @@ export class AgregarPadecimientosComponent implements OnInit {
       especializacion: new FormControl('', Validators.required),
       descripcion: new FormControl('', [Validators.required,
       Validators.minLength(20),
-      Validators.maxLength(200)]),
+      Validators.maxLength(200),
+      Validators.pattern('^([ñÑáÁéÉíÍóÓúÚüÜa-zA-Z,.]+ )*[ñÑáÁéÉíÍóÓúÚüÜa-zA-Z,.]+$')]),
 
       sintomas: new FormControl(''),
       imagen : new FormControl(''),
@@ -78,7 +79,7 @@ export class AgregarPadecimientosComponent implements OnInit {
                         event.previousIndex, event.currentIndex);
                         //console.log(this.selectedSints);
     }else{
-      moveItemInArray(this.sintomas, event.previousIndex, event.currentIndex);
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
       //console.log(this.selectedSints);
     }
   }
