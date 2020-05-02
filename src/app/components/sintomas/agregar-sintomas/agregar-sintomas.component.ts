@@ -72,7 +72,8 @@ export class AgregarSintomasComponent implements OnInit {
       keyword: new FormControl('', 
       [Validators.required,
         Validators.minLength(4),
-        Validators.maxLength(30)]),
+        Validators.maxLength(30),
+        Validators.pattern('^([ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+ )*[ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+$')]),
 
       categoria: new FormControl('', Validators.required),
 
@@ -81,7 +82,8 @@ export class AgregarSintomasComponent implements OnInit {
       descripcion: new FormControl('',
       [Validators.required,
         Validators.minLength(20),
-        Validators.maxLength(200)]),
+        Validators.maxLength(200),
+        Validators.pattern('^([ñÑáÁéÉíÍóÓúÚüÜa-zA-Z,.]+ )*[ñÑáÁéÉíÍóÓúÚüÜa-zA-Z,.]+$')]),
 
       compuesto: new FormControl(''),
       componentes: new FormControl(''),

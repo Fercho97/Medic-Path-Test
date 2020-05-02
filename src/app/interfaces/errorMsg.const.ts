@@ -62,7 +62,8 @@ export class ErrorMsg {
           'descripcion' : [
             {type: 'required', message: 'Es necesario ingresar una descripción'},
             {type: 'minlength', message: 'La descripción debe ser mayor a 20 caracteres'},
-            {type: 'maxlength', message: 'La longitud debe ser menor a 200 caracteres'}
+            {type: 'maxlength', message: 'La longitud debe ser menor a 200 caracteres'},
+            {type: 'pattern', message: 'La descripción puede contener letras, números, puntos y comas, no debe iniciar o terminar con espacios o bien estar compuesta de puros espacios'}
           ],
           'categoria' : [
             {type: 'required', message: 'Es necesario el seleccionar una categoría'}
@@ -83,7 +84,8 @@ export class ErrorMsg {
           'keyword' : [
             {type: 'required', message: 'Es necesario ingresar una palabra clave para el síntoma'},
             {type: 'minlength', message: 'La palabra clave debe ser mayor a 4 caracteres'},
-            {type: 'maxlength', message: 'La longitud debe ser menor a 30 caracteres'}
+            {type: 'maxlength', message: 'La longitud debe ser menor a 30 caracteres'},
+            {type: 'pattern', message: 'La palabra clave puede contener solo números y letras, no debe iniciar o terminar con espacios o bien estar compuesto de puros espacios'}
           ],
           'body_zone' : [
             {type: 'required', message: 'Es necesario elegir una zona para el síntoma'}
