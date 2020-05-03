@@ -5,7 +5,7 @@ import { PadecimientoService} from '../padecimientos.service';
 import { Padecimiento } from '../../../interfaces/padecimiento.interface';
 import { Sintoma } from '../../../interfaces/sintoma.interface';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-info-padecimientos',
   templateUrl: './info-padecimientos.component.html',
@@ -23,7 +23,7 @@ export class InfoPadecimientosComponent implements OnInit {
   public url : string = "";
   public  hasInfo : boolean = false;
   constructor(public activeModal: NgbActiveModal, private padServ : PadecimientoService, 
-              public spinner: NgxSpinnerService) { 
+              public spinner: NgxSpinnerService, private toast : ToastrService) { 
 
   }
 
@@ -53,6 +53,7 @@ export class InfoPadecimientosComponent implements OnInit {
       this.spinner.hide();
     }, error =>{
       this.spinner.hide();
+      this.toast.error('Error al conseguir la información del padecimiento', 'Error');
     });
   }
 

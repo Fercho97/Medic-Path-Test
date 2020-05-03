@@ -3,6 +3,7 @@ import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { SintomasService } from '../sintomas.service';
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-info-sintomas',
   templateUrl: './info-sintomas.component.html',
@@ -38,7 +39,7 @@ export class InfoSintomasComponent implements OnInit {
   private values : HttpParams;
   public especialidades : any = [];
   constructor(public activeModal: NgbActiveModal, private sintServ : SintomasService,
-              private spinner : NgxSpinnerService) { 
+              private spinner : NgxSpinnerService, private toast: ToastrService) { 
    
   }
 
@@ -60,6 +61,7 @@ export class InfoSintomasComponent implements OnInit {
         }
       },
     error =>{
+      this.toast.error('Error al conseguir los nombres de los componentes', 'Error');
         //console.log(error);
     })
 

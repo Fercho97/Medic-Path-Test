@@ -63,12 +63,14 @@ export class ModificarPadecimientosComponent implements OnInit {
     this.padServ.getEspecializaciones().subscribe((res: any) =>{
       this.especializaciones = res.body;
     }, error =>{
+      this.toast.error('Hubo un error al conseguir información del catálogo de especializaciones', 'Error');
       //console.log(error);
     })
     this.sintServ.getSints().subscribe( (res: any) =>{
       this.sintomas = res.body;
     },
   error =>{
+    this.toast.error('Hubo un error al conseguir la información del catálogo de síntomas', 'Error');
       //console.log(error);
   })
 
@@ -104,6 +106,7 @@ export class ModificarPadecimientosComponent implements OnInit {
   this.spinner.hide();
   }, error =>{
     this.spinner.hide();
+    this.toast.error('Hubo un error al conseguir la información del padecimiento', 'Error');
   });
   }
 

@@ -95,10 +95,14 @@ export class AgregarSintomasComponent implements OnInit {
       this.sintServ.getComponents().subscribe(res =>{
         this.compuestos = res.body;
         //console.log(this.compuestos);
+      }, error =>{
+        this.toast.error('Hubo un error al conseguir la información del catálogo de síntomas, favor de recargar la página', 'Error');
       })
 
       this.regServ.getEspecializaciones().subscribe(res =>{
         this.especializaciones = res.body;
+      }, error=>{
+        this.toast.error('Hubo un error al conseguir la información del catálogo de especializaciones, favor de recargar la página', 'Error');
       })
   }
 
@@ -144,7 +148,7 @@ export class AgregarSintomasComponent implements OnInit {
           this.spinner.hide();
         this.router.navigate(['/sintomas'])
       }, error =>{
-          this.toast.error(error.error.message, 'Error');
+          this.toast.error('Hubo un error al registrar el síntoma, intentelo de nuevo', 'Error');
           this.spinner.hide();
       })
     }

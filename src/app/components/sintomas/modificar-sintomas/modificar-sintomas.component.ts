@@ -98,6 +98,8 @@ export class ModificarSintomasComponent implements OnInit {
     this.spinner.show();
     this.regServ.getEspecializaciones().subscribe(res =>{
       this.especializaciones = res.body;
+    }, error =>{
+      this.toast.error('Hubo un error al conseguir la información del catálogo de especializaciones, favor de recargar la página', 'Error');
     })
     //Carga de datos principales
     this.sintServ.getSint(this.url.snapshot.params.hash).subscribe( (res : any) =>{
@@ -140,6 +142,9 @@ export class ModificarSintomasComponent implements OnInit {
       this.modify.controls['body_zone'].setValue(this.sintoma.body_zone, {onlySelf : true});
       this.originalValue = this.sintoma.nombre_sint;
       this.spinner.hide();
+    }, error =>{
+      this.spinner.hide();
+      this.toast.error('Error al conseguir la información del síntoma', 'Error');
     });
 
     //Carga de componentes
@@ -207,7 +212,7 @@ export class ModificarSintomasComponent implements OnInit {
         this.router.navigate(['/sintomas'])
       }, error =>{
           //console.log("Error", error.error);
-          this.toast.error(error.error.message, 'Error');
+          this.toast.error('Hubo un error al modificar el síntomas, favor de verificar la información', 'Error');
           this.spinner.hide();
       })
     }

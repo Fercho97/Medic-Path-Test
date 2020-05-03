@@ -6,7 +6,7 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InfoSintomasComponent } from '../info-sintomas/info-sintomas.component';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-listar-sintomas',
   templateUrl: './listar-sintomas.component.html',
@@ -26,7 +26,8 @@ export class ListarSintomasComponent implements OnInit {
   public mySearch : any = "";
   public searching: boolean = false;
   constructor(private sintServ : SintomasService, private http : HttpClient,
-              private modalService: NgbModal, private spinner : NgxSpinnerService) { 
+              private modalService: NgbModal, private spinner : NgxSpinnerService,
+              private toast: ToastrService) { 
 
   }
 
@@ -42,6 +43,7 @@ export class ListarSintomasComponent implements OnInit {
     },
   error =>{
     this.spinner.hide();
+    this.toast.error('Error al conseguir la información de los síntomas');
       //console.log(error);
   })
   }

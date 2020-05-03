@@ -56,6 +56,7 @@ export class AgregarPadecimientosComponent implements OnInit {
     this.padServ.getEspecializaciones().subscribe((res: any) =>{
       this.especializaciones = res.body;
     }, error =>{
+      this.toast.error('Hubo un error al conseguir información del catálogo de especializaciones', 'Error');
       //console.log(error);
     })
 
@@ -63,6 +64,7 @@ export class AgregarPadecimientosComponent implements OnInit {
       this.sintomas = res.body;
     },
   error =>{
+    this.toast.error('Hubo un error al conseguir información del catálogo de síntomas', 'Error');
       //console.log(error);
   })
   }
@@ -109,7 +111,7 @@ export class AgregarPadecimientosComponent implements OnInit {
   }, error =>{
       //console.log("Error", error.error);
       this.spinner.hide();
-      this.toast.error(error.error, 'Error');
+      this.toast.error('Error al registrar el padecimiento', 'Error');
       this.formData = new FormData();
   })
   }else{
