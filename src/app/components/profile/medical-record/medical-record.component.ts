@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InfoMedicalRecordComponent } from './info-medical-record/info-medical-record.component';
 import {CryptoStorage} from '../../../services/shared-service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-medical-record',
   templateUrl: './medical-record.component.html',
@@ -22,7 +23,8 @@ export class MedicalRecordComponent implements OnInit {
   public searching : boolean = false;
   content;
   constructor(private profileServ : ProfileService, private modalService : NgbModal,
-              private storage: CryptoStorage, private spinner : NgxSpinnerService) { }
+              private storage: CryptoStorage, private spinner : NgxSpinnerService,
+              private toast : ToastrService) { }
 
   ngOnInit() {
     this.spinner.show();
@@ -35,6 +37,7 @@ export class MedicalRecordComponent implements OnInit {
     },
   error =>{
      this.spinner.hide();
+     this.toast.error('Hubo un error al conseguir la información de su historial, favor de recargar la página','Error')
       //console.log(error);
   })
   }

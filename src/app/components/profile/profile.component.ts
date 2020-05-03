@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProfileService } from './profile.service';
 import {Router} from '@angular/router';
 import {CryptoStorage} from '../../services/shared-service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -12,7 +13,8 @@ export class ProfileComponent implements OnInit {
     usuario = {} as any;
     public url : string = "/assets/default-image.jpg";
     userType;
-  constructor(private profileServ : ProfileService, private router : Router,private storage: CryptoStorage) {
+  constructor(private profileServ : ProfileService, private router : Router,
+              private storage: CryptoStorage, private toast: ToastrService) {
     
    }
 
@@ -27,6 +29,7 @@ export class ProfileComponent implements OnInit {
       }
     },
   error =>{
+    this.toast.error('Hubo un error al conseguir su información, favor de recargar la página','Error');
       //console.log(error);
   })
   }

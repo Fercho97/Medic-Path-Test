@@ -4,6 +4,7 @@ import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProfileService } from '../../profile.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+
 @Component({
   selector: 'app-info-medical-record',
   templateUrl: './info-medical-record.component.html',
@@ -50,6 +51,7 @@ export class InfoMedicalRecordComponent implements OnInit {
       this.spinner.hide();
     },
   error =>{
+    this.toast.error('Hubo un error al conseguir la información de su consulta, favor de recargar la página','Error')
       //console.log(error);
   })
   }
@@ -60,11 +62,11 @@ export class InfoMedicalRecordComponent implements OnInit {
       .set('seleccion', this.seleccionado)
     this.profileServ.actualizacionEspecialista(this.historial.hashId, values).subscribe( (res: any) =>{
       sessionStorage.setItem('token',res.body.token);
-      this.toast.success('Se ha modificado el padecimiento con éxito!', 'Modificación Exitosa!');
+      this.toast.success('Ha hecho su retroalimentación con exíto con éxito!', 'Retroalimentación Exitosa!');
       this.hasOneSelected=true;
   }, error =>{
       //console.log("Error", error.error);
-      this.toast.error(error.error.message, 'Error');
+      this.toast.error('Hubo un error al guardar su retroalimentación, favor de intentarlo de nuevo', 'Error');
   }
     );
   }

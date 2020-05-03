@@ -111,7 +111,7 @@ export class RegistryComponent implements OnInit {
   }, error =>{
       //console.log("Error", error.error);
       this.spinner.hide();
-      this.toast.error(error.error, 'Error');
+      this.toast.error('Sucedio un error al registar los datos del médico, favor de verificar la información e intentarlo de nuevo', 'Error');
   })
 }else{
   this.toast.error("Elija al menos una especialización", 'Error');

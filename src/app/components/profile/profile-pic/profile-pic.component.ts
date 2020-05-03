@@ -39,7 +39,7 @@ export class ProfilePicComponent implements OnInit {
         },
       error =>{
         //console.log(error.message);
-          this.toast.error(error.error.message,'Error');
+          this.toast.error('Hubo un error al actualizar su imagen, favor de reintentarlo','Error');
       })
     
   }
