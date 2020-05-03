@@ -36,31 +36,36 @@
       <ul *ngIf="niveles.Medio.length>0">
           <h5>Sintomas destacados <i class="far fa-question-circle" ngbTooltip="Sintomas que pueden afectar su vida diaria"></i></h5>
           <li *ngFor="let niv of niveles.Medio">
-              <p>{{niv.sintoma}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
+              <p *ngIf="niv.reason=='' || niv.reason==undefined">{{niv.sintoma}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
+              <p *ngIf="niv.reason!='' && niv.reason!=undefined">{{niv.sintoma}} - {{niv.reason}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
           </li>
       </ul>
       <ul *ngIf="niveles.Ninguno.length>0">
         <h5>Sintomas sin urgencia <i class="far fa-question-circle" ngbTooltip="Sintomas que por si solos no presentan peligro alguno a menos que se descuiden por bastante tiempo o bien las afectaciones percibidas hacia la personas sean en exceso"></i></h5>
         <li *ngFor="let niv of niveles.Ninguno">
-            <p>{{niv.sintoma}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
+          <p *ngIf="niv.reason=='' || niv.reason==undefined">{{niv.sintoma}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
+          <p *ngIf="niv.reason!='' && niv.reason!=undefined">{{niv.sintoma}} - {{niv.reason}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
         </li>
     </ul>
       <ul *ngIf="niveles.Bajo.length>0">
               <h5>Sintomas de baja urgencia <i class="far fa-question-circle" ngbTooltip="Sintomas cuya persistencia por más de 3 días será necesario el checar con un médico"></i></h5>
               <li *ngFor="let niv of niveles.Bajo">
-                  <p>{{niv.sintoma}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
+                <p *ngIf="niv.reason=='' || niv.reason==undefined">{{niv.sintoma}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
+              <p *ngIf="niv.reason!='' && niv.reason!=undefined">{{niv.sintoma}} - {{niv.reason}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
               </li>
       </ul>
       <ul *ngIf="niveles.Alto.length>0">
           <h5>Sintomas de alta urgencia <i class="far fa-question-circle" ngbTooltip="Sintomas que por su naturaleza o bien su persistencia se recomienda encarecidamente acudir con un médico"></i></h5>
           <li *ngFor="let niv of niveles.Alto">
-              <p>{{niv.sintoma}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
+            <p *ngIf="niv.reason=='' || niv.reason==undefined">{{niv.sintoma}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
+            <p *ngIf="niv.reason!='' && niv.reason!=undefined">{{niv.sintoma}} - {{niv.reason}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
           </li>
       </ul>
       <ul *ngIf="niveles.Severo.length>0">
           <h5>Sintomas de severidad <i class="far fa-question-circle" ngbTooltip="Si presenta alguno de estos sintomas es sumamente necesario el acudir con un especialista con el fin de tratar dicho sintoma, por lo regular requieren estudios."></i></h5>
           <li *ngFor="let niv of niveles.Severo">
-              <p>{{niv.sintoma}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
+            <p *ngIf="niv.reason=='' || niv.reason==undefined">{{niv.sintoma}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
+            <p *ngIf="niv.reason!='' && niv.reason!=undefined">{{niv.sintoma}} - {{niv.reason}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
           </li>
       </ul>
       </div>
@@ -73,7 +78,7 @@
         <option *ngFor="let recomendacion of recomendaciones" [value]="recomendacion.espe">{{recomendacion.espe}}</option>
       </select>
 
-      <button type="button" *ngIf="seleccionado!='' || hasOneSelected==false" class="btn btn-secondary" (click)="actualizar()">Guardar</button>
+      <button type="button" *ngIf="seleccionado!='' || hasOneSelected==false" class="btn btn-secondary save" (click)="actualizar()">Guardar</button>
     </div>  
     <div *ngIf="hasOneSelected==true">
       <label class="title">Especialista consultado</label>

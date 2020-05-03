@@ -421,6 +421,7 @@ export class GuidedDiagnosticComponent implements OnInit {
       let atomSymp = this.sintomas[index];
       let calculatedUrgency = (atomSymp.nivel_urgencia*num)/4;
       this.sintomas[index].nivel_urgencia = calculatedUrgency;
+      this.sintomas[index].reason = "Esto debido a que usted lo indico con una intensidad de " + num;
       if(this.preguntas.length>0){
         this.mostrarPregunta();
         }else if(this.fromSelected==true){
@@ -504,7 +505,11 @@ export class GuidedDiagnosticComponent implements OnInit {
           let atomSymp = this.sintomas.find(item => item['nombre_sint'].toString() === atomo.desc);
           if(atomSymp!=null){
           //console.log(atomSymp.nivel_urgencia);
-          let sympLev = {sintoma: atomSymp.nombre_sint, descripcion: atomSymp.descripcion};
+          let reason = "";
+          if(atomSymp.hasOwnProperty("reason")){
+            reason = atomSymp.reason;
+          }
+          let sympLev = {sintoma: atomSymp.nombre_sint, descripcion: atomSymp.descripcion, reason: reason};
           if(atomSymp.nivel_urgencia>=0 && atomSymp.nivel_urgencia<0.2){
             this.niveles.Ninguno.push(sympLev);
           }else if(atomSymp.nivel_urgencia>=0.2 && atomSymp.nivel_urgencia<0.4){
