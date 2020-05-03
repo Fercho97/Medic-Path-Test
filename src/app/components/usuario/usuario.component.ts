@@ -10,6 +10,8 @@ import { UsuarioService } from './usuario.service';
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Usuario } from '../../interfaces/usuario.interface';
+import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-usuario',
@@ -29,10 +31,12 @@ export class UsuarioComponent implements OnInit {
   public myFilter : any = "";
   public mySearch : any = "";
   public searching : boolean = false;
-  constructor(private userServ: UsuarioService, private http: HttpClient) {}
+  constructor(private userServ: UsuarioService, private http: HttpClient,
+              private toast: ToastrService, private spinner: NgxSpinnerService) {}
 
   ngOnInit() {
     document.getElementById('defaultOpen').click();
+    this.spinner.show();
     this.userServ.getUsers().subscribe(
       (res: any) => {
         sessionStorage.setItem('token',res.body.token);
@@ -48,8 +52,11 @@ export class UsuarioComponent implements OnInit {
         }
         this.users = this.doctors;
         this.pagina = 1;
+        this.spinner.hide();
       },
       error => {
+        this.spinner.hide();
+        this.toast.error('Hubo un error al conseguir la información de los usuarios', 'Error');
         //console.log(error);
       }
     );
