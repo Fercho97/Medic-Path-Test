@@ -5,11 +5,13 @@
     text-align: left;
     padding: 25px;
     margin-bottom: 20px;
+    overflow-x: hidden;
   }
 
-  .main-container input{
-      margin: 0 25px 8px;
+  .main-container legend{
+      color:blue;
   }
+
   .center {
     padding: 0 40%;
   }
@@ -70,6 +72,16 @@ article{
   
     .control{
       display: none;
+    }
+  }
+
+  @media (max-width: 489px){
+    legend{
+      font-size:12px;
+    }
+
+    h5{
+      font-size:12px;
     }
   }
   

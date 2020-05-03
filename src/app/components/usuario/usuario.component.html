@@ -21,19 +21,20 @@
             <th (click)="sorting('fullname')" class="ordering">Nombre
                 <span class="fas" *ngIf="key == 'fullname'" [ngClass]="{'fa-chevron-up':reversa==true,'fa-chevron-down':reversa==false}"></span>                
             </th>
-            <th>Nickname</th>
-            <th>Email</th>
+            <th class="email">Email</th>
             <th (click)="sorting('createdAt')" class="ordering">Creación
                 <span class="fas" *ngIf="key == 'createdAt'" [ngClass]="{'fa-chevron-up':reversa==true,'fa-chevron-down':reversa==false}"></span>                
             </th>
-            <th>Enabled</th>
+            <th class="icon">Verificado</th>
+            <th>Acciones</th>
         </tr>
         <tr ng-if="doctors.length>0" *ngFor="let doctor of users | orderBy : key : reversa : true | ListFilter: 'fullname' : myFilter | paginate:{itemsPerPage: 10, currentPage:pagina}">
-        <a routerLink="info/{{doctor.hash_id}}"><th>{{doctor.fullname}}</th></a>
-                <th>{{ doctor.nickname}}</th>
-                <th>{{ doctor.email}}</th>
+                <th>{{doctor.fullname}}</th>
+                <th class="email">{{ doctor.email}}</th>
                 <th>{{ doctor.since}}</th>
-                <th>{{ doctor.enabled}}</th>
+                <th *ngIf="doctor.enabled==true" class="icon"><i class="fas fa-check success"></i></th>
+                <th *ngIf="doctor.enabled==false" class="icon"><i class="fas fa-times error"></i></th>
+                <th><a routerLinkActive="active-link" routerLink="info/{{doctor.hash_id}}"><button class="btn btn-info btn-sm">Detalles</button></a></th>
         </tr>
         <tr *ngIf="doctors.length==0">
             <th colspan="5">No hay registro de doctores en el sistema</th>
@@ -47,19 +48,20 @@
                 <th (click)="sorting('fullname')" class="ordering">Nombre
                     <span class="fas" *ngIf="key == 'fullname'" [ngClass]="{'fa-chevron-up':reversa==true,'fa-chevron-down':reversa==false}"></span>                
                 </th>
-                <th>Nickname</th>
-                <th>Email</th>
+                <th class="email">Email</th>
                 <th (click)="sorting('createdAt')" class="ordering">Creación
                     <span class="fas" *ngIf="key == 'createdAt'" [ngClass]="{'fa-chevron-up':reversa==true,'fa-chevron-down':reversa==false}"></span>                
                 </th>
-                <th>Enabled</th>
+                <th class="icon">Verificado</th>
+                <th>Acciones</th>
             </tr>
             <tr ng-if="patients.length>0" *ngFor="let patient of users | orderBy : key : reversa : true | ListFilter: 'fullname' : myFilter | paginate:{itemsPerPage: 10, currentPage:pagina}">
-                <a routerLink="info/{{patient.hash_id}}"><th>{{patient.fullname}}</th></a>
-                    <th>{{ patient.nickname}}</th>
-                    <th>{{ patient.email}}</th>
+                    <th>{{patient.fullname}}</th>
+                    <th class="email">{{ patient.email}}</th>
                     <th>{{ patient.since}}</th>
-                    <th>{{ patient.enabled}}</th>
+                    <th *ngIf="patient.enabled==true" class="icon"><i class="fas fa-check success"></i></th>
+                    <th *ngIf="patient.enabled==false"class="icon"><i class="fas fa-times error"></i></th>
+                    <th><a routerLinkActive="active-link" routerLink="info/{{patient.hash_id}}"><button class="btn btn-info btn-sm">Detalles</button></a></th>
             </tr>
             <tr *ngIf="patients.length==0">
                     <th colspan="5">No hay registro de pacientes en el sistema</th>
@@ -71,6 +73,6 @@
     previousLabel="Anterior"
     nextLabel="Siguiente"
     autoHide="true"></pagination-controls>
-
+</div>
 
 

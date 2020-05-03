@@ -143,10 +143,55 @@
   tr:nth-child(even) {
     background-color: #F3F0F0;
   }
-  @media (max-width: 992px){
+
+  .icon{
+    text-align: center;
+  }
+
+  .success{
+    color: green;
+  }
+
+  .error{
+    color: red;
+  }
+  @media (max-width: 942px){
   
     .control{
       display: none;
+    }
+
+    .email{
+      max-width: 80px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  @media(max-width: 770px){
+
+    .email{
+      display: none;
+    }
+    .icon{
+      display: none;
+    }
+  }
+
+  @media(max-width: 445px){
+    .main-container th {
+      font-size: 10px;
+    }
+
+    .btn {
+      font-size: 10px;
+    }
+  }
+
+  @media(max-width: 380px){
+    .icon {
+      display:none;
     }
   }
   
