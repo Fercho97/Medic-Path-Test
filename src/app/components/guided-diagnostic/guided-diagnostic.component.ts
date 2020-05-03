@@ -559,7 +559,7 @@ export class GuidedDiagnosticComponent implements OnInit {
       
       modalRef.componentInstance.selectableSints = zoneSints.sintomas;
       modalRef.componentInstance.sintomasSeleccionados = selectedZone.sintomas;
-      
+      modalRef.componentInstance.zone = label;
   
         
   

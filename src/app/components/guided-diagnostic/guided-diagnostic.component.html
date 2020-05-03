@@ -29,7 +29,7 @@
                             <area class="point" shape="rect" coords="230,270,130,140" (click)="selectSintomas('Abdomen')" title="Abdomen">
                         </map>
                     </div>
-                    <div>
+                    <div class="selection">
                         <legend>Síntomas seleccionados:</legend>
                         <div style="overflow-y: auto; height: 150px;" *ngIf="sintomasShow.length>0">
                             <div *ngFor="let sintoma of sintomasShow">
@@ -40,7 +40,7 @@
                 
               </div>
 
-            <button class="btn" *ngIf="sintomasSeleccionados.length>0" (click)="fromSintomasIniciales()">Iniciar diagnostico con sintomas iniciales</button>
+            <button class="btn" *ngIf="sintomasSeleccionados.length>0" (click)="fromSintomasIniciales()">Iniciar diagnóstico con síntomas iniciales</button>
             <br>
             
 
