@@ -59,7 +59,7 @@ export class DiagnosticService{
     }
 
     showSymtoms(seleccion : any, totales: any){
-      console.log(seleccion);
+      //console.log(seleccion);
       let selectedNames : any  = [];
       for(let sintoma of seleccion){
         let found = totales.find(sint => sint['idSint']==sintoma);

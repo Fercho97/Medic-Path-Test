@@ -10,6 +10,7 @@ export class SintSelectionComponent implements OnInit {
   @Input() public selectableSints;
   
   @Input() sintomasSeleccionados;
+  @Input() zone;
   constructor(public activeModal: NgbActiveModal) { 
 
   }

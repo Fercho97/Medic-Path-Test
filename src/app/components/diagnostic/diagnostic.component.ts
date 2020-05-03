@@ -149,7 +149,7 @@ export class DiagnosticComponent implements OnInit {
             if(question!=null){
               this.preguntas.push(question);
             }else{
-            this.preguntas.push({message: "¿Ha tenido " + element.desc + " ?", type: "boolean"});
+            this.preguntas.push({message: "¿Ha tenido " + element.desc + "?", type: "boolean"});
             }
              this.descs.push(element.sintoma);
             }
@@ -576,7 +576,7 @@ export class DiagnosticComponent implements OnInit {
       //console.log(zoneSints['sintomas']);
       modalRef.componentInstance.selectableSints = zoneSints.sintomas;
       modalRef.componentInstance.sintomasSeleccionados = selectedZone.sintomas;
-      
+      modalRef.componentInstance.zone = label;
 
       
 

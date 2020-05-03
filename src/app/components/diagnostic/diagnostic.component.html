@@ -13,7 +13,7 @@
             <br>
             <br>
             <div  *ngIf="isSelection">
-                <div style="float: left;">
+                <div class="imag-div">
                 <img src="/assets/Body.PNG" usemap="#mapname" class="imgcent">
                 
                 <map name="mapname">
@@ -34,7 +34,7 @@
             </div>
             
               <div>
-              <button class="btn" *ngIf="sintomasSeleccionados.length>0" (click)="fromSintomasIniciales()">Iniciar diagnostico con sintomas iniciales</button>
+              <button class="btn" *ngIf="sintomasSeleccionados.length>0" (click)="fromSintomasIniciales()">Iniciar diagnóstico con síntomas iniciales</button>
               </div>
         </div>
         <div class="col m12 margin-color" [hidden]="!hasPregunta">
@@ -172,6 +172,7 @@
             <button *ngIf='user' routerLink="/record" expand="block"  class="btn btn-primary btn-lg" >Continuar</button>
         </div>
     </div>
-    <a routerLink="home" routerLinkActive="active"><button type="button" class="btn btn-dark cancel">Volver</button></a>
-    
+    <div class="cancel">
+     <a routerLink="home" routerLinkActive="active"><button type="button" class="btn btn-dark">Volver</button></a>
+    </div>
 </div>

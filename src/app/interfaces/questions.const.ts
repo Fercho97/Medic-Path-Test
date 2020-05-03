@@ -136,6 +136,9 @@ export class questions {
         ],
         'escalofrios' : [
           {message: 'En escala del 1 al 10 ¿Cómo describiria la intensidad de sus escalofrios?'}
+        ],
+        'dolor de cabeza punzante' : [
+          {message: 'En un rango del 1 al 10 ¿Qué tan fuertes son las punzaciones que tiene?'}
         ]
       }
 
