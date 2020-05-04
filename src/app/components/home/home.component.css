@@ -1,6 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap");
+
 .medic {
   width: 100%;
   height: 80%;
+}
+
+.info {
+  border: 2px solid #1864a3;
+  border-radius: 5px;
+  border-style: groove;
+  background-color: #2196f3;
+  color: white;
+  padding: 0;
+  text-align: center;
+}
+
+.sized {
+  height: 500px;
+  width: 100%;
+}
+
+.fonts {
+  margin-top: 20px;
+  font-family: "Lobster", cursive;
+  font-size: 38px;
+  color: gold;
+}
+
+.fonts-tones {
+  font-family: "Bree Serif", serif;
+  font-size: 30px;
+  padding: 1%;
+}
+
+.fonts-tones li {
+  margin-top: 30px;
 }
 
 .back-img {
@@ -93,11 +128,6 @@ h3 {
 
 .card-action {
   text-align: center;
-}
-
-.info {
-  background-color: #2196f3;
-  color: white;
 }
 
 @media (max-width: 899px) {
