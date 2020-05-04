@@ -36,7 +36,7 @@ export class FaqComponent implements OnInit {
     this.respuestas[2] =
       "Tan simple como registrarse y comenzar a disfrutar los beneficios y servicios de la página";
     this.respuestas[3] =
-      "Por supuesto que no, la página y los servicios son siempre gratuitos de uso siempre y cuando usted tenga una cuenta en la página";
+      "Por supuesto que no, la página y los servicios son totalmente gratuitos, no se necesita de suscripción ni nada por el estilo";
   }
 
   ngOnInit() {}
