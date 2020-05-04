@@ -14,8 +14,8 @@
           <input class="form-control" formControlName="emailOrNickname" type="email" placeholder="Correo electronico o Nombre de Usuario">
           <input class="form-control" formControlName="logPassword" type="password" placeholder="Contraseña">
           <br>
-          <a routerLink="recovery" (click)="resetModal()" data-dismiss="modal">Recupera tu Contraseña</a>
-          <a routerLink="registro" (click)="resetModal()" data-dismiss="modal">Registrate con Nosotros</a>
+          <a routerLink="recovery" (click)="resetModal()" data-dismiss="modal" data-toggle="collapse" data-target=".navbar-collapse.show">Recupera tu Contraseña</a>
+          <a routerLink="registro" (click)="resetModal()" data-dismiss="modal" data-toggle="collapse" data-target=".navbar-collapse.show">Registrate con Nosotros</a>
         </div>
         <div class="modal-footer">
           <button type="button" (click)="resetModal()" class="btn btn-secondary cancel" data-dismiss="modal" #cerrar>Cancelar</button>
