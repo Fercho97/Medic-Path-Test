@@ -146,7 +146,7 @@
             </ul>
             </div>
             <ul *ngIf="sintomasExtras.length>0">
-                <h2>Sin embargo los síntomas que indico concuerdan con las siguientes enfermedades con un porcentaje: </h2>
+                <h2>Sin embargo conforme los síntomas que indico notamos que concuerdan con las siguientes enfermedades con un porcentaje: </h2>
                 <li *ngFor="let sints of sintomasExtras">
                   {{sints.padecimiento}} 
                   <p><ngb-progressbar type="success" [value]="sints.porcentaje" showValue="true"></ngb-progressbar></p>
@@ -159,7 +159,7 @@
                     {{doc_recomendacion[0].espe}}
                     </legend>
                 </div>
-                <div *ngIf="doc_recomendacion.length>0">
+                <div *ngIf="doc_recomendacion.length>1">
                     <h3>o bien con un:</h3>
                     <legend class="response">
                     {{doc_recomendacion[1].espe}}

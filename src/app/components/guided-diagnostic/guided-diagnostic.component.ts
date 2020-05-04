@@ -16,6 +16,7 @@ moment.locale('es');
 import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {SintSelectionComponent} from '../diagnostic/sintSelection/sintSelection.component'
 import { Catalogos } from '../../interfaces/catalogos.const'
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-guided-diagnostic',
   templateUrl: './guided-diagnostic.component.html',
@@ -61,7 +62,8 @@ export class GuidedDiagnosticComponent implements OnInit {
   public doc_recomendacion : any = [];
   public divisions = Catalogos.LETTERS;
   constructor(private diagServ : DiagnosticService, private toast : ToastrService,
-              private router : Router, private sintServ : SintomasService, private modalService : NgbModal) { 
+              private router : Router, private sintServ : SintomasService, 
+              private modalService : NgbModal, private spinner : NgxSpinnerService) { 
                 this.numeric = new FormGroup({
                   temp: new FormControl('', [Validators.required,Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]) 
                 });
@@ -176,6 +178,7 @@ export class GuidedDiagnosticComponent implements OnInit {
     }
 
     responder(resp : any){
+      this.spinner.show();
       let atomoEvaluado = this.atomosCondicion.pop();
       if(resp=='Si'){
         atomoEvaluado.estado = true; 
@@ -188,9 +191,11 @@ export class GuidedDiagnosticComponent implements OnInit {
       this.memoriaDeTrabajo.almacenarAtomo(atomoEvaluado);
 
       if(this.atomosCondicion.length>0 || this.preguntas.length>0){
+        this.spinner.hide();
         this.mostrarPregunta();
       }
       else{
+        this.spinner.hide();
         this.analize();
       }
     }
@@ -236,7 +241,11 @@ export class GuidedDiagnosticComponent implements OnInit {
     }
 
     noResultEnd(){
-      this.question={message: "Lo sentimos, no se pudo encontrar su padecimiento conforme sus respuestas"};
+      if(this.memoriaDeTrabajo.atomosAfirmados.length<=3){
+        this.question={message: "Conforme la cantidad de síntomas que presenta su paciente no es posible llegar a una conclusión satifactoria,sin embargo es recomendable el que se mantenga al pendiente sobre sus síntomas por si estos llegaran a empeorar"}
+      }else{
+      this.question={message: "No fue posible el encontrar un padecimiento conforme los síntomas de su paciente"};
+      }
         this.hasResult=true;
     }
 
@@ -418,15 +427,19 @@ export class GuidedDiagnosticComponent implements OnInit {
        }
   
       scaleAnswer(num : any, index : any){
+      this.spinner.show();
       let atomSymp = this.sintomas[index];
       let calculatedUrgency = (atomSymp.nivel_urgencia*num)/4;
       this.sintomas[index].nivel_urgencia = calculatedUrgency;
       this.sintomas[index].reason = "Esto debido a que usted lo indico con una intensidad de " + num;
       if(this.preguntas.length>0){
+        this.spinner.hide();
         this.mostrarPregunta();
         }else if(this.fromSelected==true){
+          this.spinner.hide();
           this.iniciarDiagnostico();
         }else{
+          this.spinner.hide();
         this.analize();
         }
        }
