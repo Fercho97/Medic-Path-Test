@@ -1,0 +1,31 @@
+.info {
+  border: 2px solid #1864a3;
+  border-radius: 5px;
+  border-style: groove;
+  background-color: #2196f3;
+  color: white;
+  padding: 0;
+  text-align: center;
+}
+
+.sized {
+  height: 500px;
+  width: 100%;
+}
+
+.fonts {
+  margin-top: 20px;
+  font-family: "Lobster", cursive;
+  font-size: 38px;
+  color: gold;
+}
+
+.fonts-tones {
+  font-family: "Bree Serif", serif;
+  font-size: 30px;
+  padding: 1%;
+}
+
+.fonts-tones li {
+  margin-top: 30px;
+}

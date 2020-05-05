@@ -15,11 +15,7 @@ export class HomeComponent implements OnInit {
     {
       img: "assets/slogan.png",
     },
-    {
-      img: "assets/sintomas-main.jpg",
-    },
   ];
-
   constructor(private toast: ToastrService, private storage: CryptoStorage) {}
 
   ngOnInit() {

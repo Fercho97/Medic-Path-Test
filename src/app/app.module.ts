@@ -55,6 +55,7 @@ import { CryptoStorage} from '../app/services/shared-service';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import { CardsComponent } from './components/cards/cards.component';
+import { HomeInfoComponent } from './components/home-info/home-info.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,7 +98,8 @@ import { CardsComponent } from './components/cards/cards.component';
     GuidedDiagnosticComponent,
     SintSelectionComponent,
     NotificationsComponent,
-    CardsComponent
+    CardsComponent,
+    HomeInfoComponent
   ],
   imports: [
     BrowserModule,

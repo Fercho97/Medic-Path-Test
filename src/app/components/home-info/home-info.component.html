@@ -1,0 +1,24 @@
+<div class="main-container" *ngFor="let content of contents; let i = index">
+  <div class="row">
+    <div class="col m12" *ngIf="i === 1">
+      <img [src]="content.img" alt="" class="sized" />
+    </div>
+    <div class="col m12 info">
+      <h1 class="fonts">{{ content.header }}</h1>
+      <ul class="fonts-tones">
+        <li>
+          {{ content.li1 }}
+        </li>
+        <li>
+          {{ content.li2 }}
+        </li>
+        <li>
+          {{ content.li3 }}
+        </li>
+      </ul>
+    </div>
+    <div class="col m12" *ngIf="i !== 1">
+      <img [src]="content.img" alt="" class="sized" />
+    </div>
+  </div>
+</div>
