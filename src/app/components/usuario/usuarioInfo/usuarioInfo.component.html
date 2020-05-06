@@ -17,7 +17,8 @@
             <legend>Fecha Nacimiento: </legend>
             <h5>{{user.fecha_nacimiento}}</h5>
             <legend>Miembro desde: </legend>
-            <h5>{{user.since}}</h5>
+            <h5 *ngIf="user.since!='Invalid date'">{{user.since}}</h5>
+            <h5 *ngIf="user.since=='Invalid date'">Sin información</h5>
         </article>
 
         <article *ngIf="user.tipoUsuario==2">

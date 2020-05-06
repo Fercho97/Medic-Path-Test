@@ -31,7 +31,8 @@
         <tr ng-if="doctors.length>0" *ngFor="let doctor of users | orderBy : key : reversa : true | ListFilter: 'fullname' : myFilter | paginate:{itemsPerPage: 10, currentPage:pagina}">
                 <th>{{doctor.fullname}}</th>
                 <th class="email">{{ doctor.email}}</th>
-                <th>{{ doctor.since}}</th>
+                <th *ngIf="doctor.hasOwnProperty('since')">{{ doctor.since}}</th>
+                <th *ngIf="!doctor.hasOwnProperty('since')">Sin información</th>
                 <th *ngIf="doctor.enabled==true" class="icon"><i class="fas fa-check success"></i></th>
                 <th *ngIf="doctor.enabled==false" class="icon"><i class="fas fa-times error"></i></th>
                 <th><a routerLinkActive="active-link" routerLink="info/{{doctor.hash_id}}"><button class="btn btn-info btn-sm">Detalles</button></a></th>
@@ -58,7 +59,8 @@
             <tr ng-if="patients.length>0" *ngFor="let patient of users | orderBy : key : reversa : true | ListFilter: 'fullname' : myFilter | paginate:{itemsPerPage: 10, currentPage:pagina}">
                     <th>{{patient.fullname}}</th>
                     <th class="email">{{ patient.email}}</th>
-                    <th>{{ patient.since}}</th>
+                    <th *ngIf="patient.hasOwnProperty('since')">{{ patient.since}}</th>
+                    <th *ngIf="!patient.hasOwnProperty('since')">Sin información</th>
                     <th *ngIf="patient.enabled==true" class="icon"><i class="fas fa-check success"></i></th>
                     <th *ngIf="patient.enabled==false"class="icon"><i class="fas fa-times error"></i></th>
                     <th><a routerLinkActive="active-link" routerLink="info/{{patient.hash_id}}"><button class="btn btn-info btn-sm">Detalles</button></a></th>
