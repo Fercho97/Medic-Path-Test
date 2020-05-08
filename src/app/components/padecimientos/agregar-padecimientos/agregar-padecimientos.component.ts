@@ -111,7 +111,7 @@ export class AgregarPadecimientosComponent implements OnInit {
   }, error =>{
       //console.log("Error", error.error);
       this.spinner.hide();
-      this.toast.error('Error al registrar el padecimiento', 'Error');
+      this.toast.error(error.error.message, 'Error');
       this.formData = new FormData();
   })
   }else{
