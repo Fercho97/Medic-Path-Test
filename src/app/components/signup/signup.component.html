@@ -1,17 +1,17 @@
 <div class="container">
   <div class="row">
     <div class="col-md-7 main-container">
-      <h4>Formulario</h4>
+      <h4>Ingresa tus datos</h4>
       <hr>
       <form [formGroup]="forma" (ngSubmit)="guardarCambios()">
 
         <div formGroupName="nombrecompleto">
 
           <div class="form-group row">
+            <legend class="input-label">Nombres</legend>
             <div class="col-md-8">
-
               <input [ngClass]="{'is-invalid': !forma.get('nombrecompleto.nombre').valid}"
-                formControlName="nombre" class="form-control is-valid" type="text" placeholder="Nombre">
+                formControlName="nombre" class="form-control is-valid" type="text">
                 <div class="validation-errors">
                   <ng-container *ngFor="let validation of mensajes_error.nombre">
                     <div class="form-control-feedback" *ngIf="forma.get('nombrecompleto.nombre').hasError(validation.type) 
@@ -24,10 +24,10 @@
           </div>
 
           <div class="form-group row">
+            <legend class="input-label">Apellidos</legend>
             <div class="col-md-8">
-
               <input [ngClass]="{'is-invalid': !forma.get('nombrecompleto.apellido').valid}"
-                formControlName="apellido" class="form-control is-valid" type="text" placeholder="Apellido">
+                formControlName="apellido" class="form-control is-valid" type="text">
                 <div class="validation-errors">
                   <ng-container *ngFor="let validation of mensajes_error.apellido">
                     <div class="form-control-feedback" *ngIf="forma.get('nombrecompleto.apellido').hasError(validation.type) 
@@ -42,8 +42,8 @@
         </div>
 
         <div class="form-group row">
+          <legend class="input-label">Fecha de nacimiento</legend>
           <div class="col-md-8">
-
             <input [ngClass]="{'is-invalid': !forma.controls['fechanacimiento'].valid}"
               formControlName="fechanacimiento" class="form-control is-valid" type="date" placeholder="Fecha">
               <div class="validation-errors">
@@ -58,10 +58,10 @@
         </div>
 
         <div class="form-group row">
+          <legend class="input-label">Correo electrónico</legend>
           <div class="col-md-8">
-
             <input [ngClass]="{'is-invalid': !forma.controls['correo'].valid}" formControlName="correo"
-              class="form-control is-valid" type="email" placeholder="Correo electrónico">
+              class="form-control is-valid" type="email">
               <div class="validation-errors">
                 <ng-container *ngFor="let validation of mensajes_error.correo">
                   <div class="form-control-feedback" *ngIf="forma.get('correo').hasError(validation.type) 
@@ -74,10 +74,10 @@
         </div>
 
         <div class="form-group row">
+          <legend class="input-label">Nombre de usuario</legend>
           <div class="col-md-8">
-
             <input [ngClass]="{'is-invalid': !forma.controls['username'].valid}" formControlName="username"
-              class="form-control is-valid" type="text" placeholder="Nombre de Usuario">
+              class="form-control is-valid" type="text">
               <div class="validation-errors">
                 <ng-container *ngFor="let validation of mensajes_error.nickname">
                   <div class="form-control-feedback" *ngIf="forma.get('username').hasError(validation.type) 
@@ -90,7 +90,7 @@
         </div>
 
         <div class="form-group row">
-
+          <legend class="input-label">Sexo</legend>
           <div class="col-md-10">
             <p>
               <label class="sexSelector" *ngFor="let s of sexos, let i = index">
@@ -104,8 +104,8 @@
         
         <div formGroupName="password_validations">
           <div class="form-group row">
+            <legend class="input-label">Contraseña</legend>
             <div class="col-md-8">
-
               <input [ngClass]="{'is-invalid': !forma.get('password_validations.password1').valid}" formControlName="password1"
                 class="form-control is-valid" type="password" placeholder="Contraseña">
                 <div class="validation-errors">
@@ -120,8 +120,8 @@
           </div>
           
           <div class="form-group row">
+            <legend class="input-label">Validación de contraseña</legend>
             <div class="col-md-8">
-
               <input [ngClass]="{'is-invalid': !forma.get('password_validations.password2').valid}" formControlName="password2"
                 class="form-control is-valid" type="password" placeholder="Repetir Contraseña">
                 <div class="validation-errors">
