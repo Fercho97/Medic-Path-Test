@@ -29,3 +29,32 @@
 .fonts-tones li {
   margin-top: 30px;
 }
+
+@media (max-width: 540px) {
+  .info {
+    margin: 50px 16% 0;
+    padding: 0 14%;
+  }
+
+  .sized {
+    height: 300px;
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  .fonts {
+    margin-top: 20px;
+    font-family: "Lobster", cursive;
+    font-size: 22px;
+    color: gold;
+  }
+
+  .fonts-tones {
+    font-family: "Bree Serif", serif;
+    font-size: 20px;
+    padding: 1%;
+  }
+  .fonts-tones li {
+    margin-top: 10px;
+  }
+}
