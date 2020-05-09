@@ -2,23 +2,36 @@
   <div class="row">
     <div class="col-md-7 main-container">
       <h4>Ingresa tus datos</h4>
-      <hr>
+      <hr />
       <form [formGroup]="forma" (ngSubmit)="guardarCambios()">
-
         <div formGroupName="nombrecompleto">
-
           <div class="form-group row">
-            <legend class="input-label">Nombres</legend>
+            <legend class="input-label">Nombre(s)</legend>
             <div class="col-md-8">
-              <input [ngClass]="{'is-invalid': !forma.get('nombrecompleto.nombre').valid}"
-                formControlName="nombre" class="form-control is-valid" type="text">
-                <div class="validation-errors">
-                  <ng-container *ngFor="let validation of mensajes_error.nombre">
-                    <div class="form-control-feedback" *ngIf="forma.get('nombrecompleto.nombre').hasError(validation.type) 
-                    && (forma.get('nombrecompleto.nombre').dirty || forma.get('nombrecompleto.nombre').touched)">
-                    <i class="fas fa-exclamation-circle"></i> {{validation.message}}
-                    </div>
-                  </ng-container>
+              <input
+                [ngClass]="{
+                  'is-invalid': !forma.get('nombrecompleto.nombre').valid
+                }"
+                formControlName="nombre"
+                class="form-control is-valid"
+                type="text"
+              />
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes_error.nombre">
+                  <div
+                    class="form-control-feedback"
+                    *ngIf="
+                      forma
+                        .get('nombrecompleto.nombre')
+                        .hasError(validation.type) &&
+                      (forma.get('nombrecompleto.nombre').dirty ||
+                        forma.get('nombrecompleto.nombre').touched)
+                    "
+                  >
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
               </div>
             </div>
           </div>
@@ -26,33 +39,65 @@
           <div class="form-group row">
             <legend class="input-label">Apellidos</legend>
             <div class="col-md-8">
-              <input [ngClass]="{'is-invalid': !forma.get('nombrecompleto.apellido').valid}"
-                formControlName="apellido" class="form-control is-valid" type="text">
-                <div class="validation-errors">
-                  <ng-container *ngFor="let validation of mensajes_error.apellido">
-                    <div class="form-control-feedback" *ngIf="forma.get('nombrecompleto.apellido').hasError(validation.type) 
-                    && (forma.get('nombrecompleto.apellido').dirty || forma.get('nombrecompleto.apellido').touched)">
-                    <i class="fas fa-exclamation-circle"></i> {{validation.message}}
-                    </div>
-                  </ng-container>
+              <input
+                [ngClass]="{
+                  'is-invalid': !forma.get('nombrecompleto.apellido').valid
+                }"
+                formControlName="apellido"
+                class="form-control is-valid"
+                type="text"
+              />
+              <div class="validation-errors">
+                <ng-container
+                  *ngFor="let validation of mensajes_error.apellido"
+                >
+                  <div
+                    class="form-control-feedback"
+                    *ngIf="
+                      forma
+                        .get('nombrecompleto.apellido')
+                        .hasError(validation.type) &&
+                      (forma.get('nombrecompleto.apellido').dirty ||
+                        forma.get('nombrecompleto.apellido').touched)
+                    "
+                  >
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
               </div>
             </div>
           </div>
-
         </div>
 
         <div class="form-group row">
           <legend class="input-label">Fecha de nacimiento</legend>
           <div class="col-md-8">
-            <input [ngClass]="{'is-invalid': !forma.controls['fechanacimiento'].valid}"
-              formControlName="fechanacimiento" class="form-control is-valid" type="date" placeholder="Fecha">
-              <div class="validation-errors">
-                <ng-container *ngFor="let validation of mensajes_error.fechanacimiento">
-                  <div class="form-control-feedback" *ngIf="forma.get('fechanacimiento').hasError(validation.type) 
-                  && (forma.get('fechanacimiento').dirty || forma.get('fechanacimiento').touched)">
-                  <i class="fas fa-exclamation-circle"></i> {{validation.message}}
-                  </div>
-                </ng-container>
+            <input
+              [ngClass]="{
+                'is-invalid': !forma.controls['fechanacimiento'].valid
+              }"
+              formControlName="fechanacimiento"
+              class="form-control is-valid"
+              type="date"
+              placeholder="Fecha"
+            />
+            <div class="validation-errors">
+              <ng-container
+                *ngFor="let validation of mensajes_error.fechanacimiento"
+              >
+                <div
+                  class="form-control-feedback"
+                  *ngIf="
+                    forma.get('fechanacimiento').hasError(validation.type) &&
+                    (forma.get('fechanacimiento').dirty ||
+                      forma.get('fechanacimiento').touched)
+                  "
+                >
+                  <i class="fas fa-exclamation-circle"></i>
+                  {{ validation.message }}
+                </div>
+              </ng-container>
             </div>
           </div>
         </div>
@@ -60,15 +105,25 @@
         <div class="form-group row">
           <legend class="input-label">Correo electrónico</legend>
           <div class="col-md-8">
-            <input [ngClass]="{'is-invalid': !forma.controls['correo'].valid}" formControlName="correo"
-              class="form-control is-valid" type="email">
-              <div class="validation-errors">
-                <ng-container *ngFor="let validation of mensajes_error.correo">
-                  <div class="form-control-feedback" *ngIf="forma.get('correo').hasError(validation.type) 
-                  && (forma.get('correo').dirty || forma.get('correo').touched)">
-                  <i class="fas fa-exclamation-circle"></i> {{validation.message}}
-                  </div>
-                </ng-container>
+            <input
+              [ngClass]="{ 'is-invalid': !forma.controls['correo'].valid }"
+              formControlName="correo"
+              class="form-control is-valid"
+              type="email"
+            />
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of mensajes_error.correo">
+                <div
+                  class="form-control-feedback"
+                  *ngIf="
+                    forma.get('correo').hasError(validation.type) &&
+                    (forma.get('correo').dirty || forma.get('correo').touched)
+                  "
+                >
+                  <i class="fas fa-exclamation-circle"></i>
+                  {{ validation.message }}
+                </div>
+              </ng-container>
             </div>
           </div>
         </div>
@@ -76,15 +131,26 @@
         <div class="form-group row">
           <legend class="input-label">Nombre de usuario</legend>
           <div class="col-md-8">
-            <input [ngClass]="{'is-invalid': !forma.controls['username'].valid}" formControlName="username"
-              class="form-control is-valid" type="text">
-              <div class="validation-errors">
-                <ng-container *ngFor="let validation of mensajes_error.nickname">
-                  <div class="form-control-feedback" *ngIf="forma.get('username').hasError(validation.type) 
-                  && (forma.get('username').dirty || forma.get('username').touched)">
-                  <i class="fas fa-exclamation-circle"></i> {{validation.message}}
-                  </div>
-                </ng-container>
+            <input
+              [ngClass]="{ 'is-invalid': !forma.controls['username'].valid }"
+              formControlName="username"
+              class="form-control is-valid"
+              type="text"
+            />
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of mensajes_error.nickname">
+                <div
+                  class="form-control-feedback"
+                  *ngIf="
+                    forma.get('username').hasError(validation.type) &&
+                    (forma.get('username').dirty ||
+                      forma.get('username').touched)
+                  "
+                >
+                  <i class="fas fa-exclamation-circle"></i>
+                  {{ validation.message }}
+                </div>
+              </ng-container>
             </div>
           </div>
         </div>
@@ -93,99 +159,154 @@
           <legend class="input-label">Sexo</legend>
           <div class="col-md-10">
             <p>
-              <label class="sexSelector" *ngFor="let s of sexos, let i = index">
-                <input formControlName="genero" class="with-gap myColor" name="genero" type="radio" checked
-                  [value]="s" />
-                <span class="space"> {{s}} </span>
+              <label class="sexSelector" *ngFor="let s of sexos; let i = index">
+                <input
+                  formControlName="genero"
+                  class="with-gap myColor"
+                  name="genero"
+                  type="radio"
+                  checked
+                  [value]="s"
+                />
+                <span class="space"> {{ s }} </span>
               </label>
             </p>
           </div>
         </div>
-        
+
         <div formGroupName="password_validations">
           <div class="form-group row">
             <legend class="input-label">Contraseña</legend>
             <div class="col-md-8">
-              <input [ngClass]="{'is-invalid': !forma.get('password_validations.password1').valid}" formControlName="password1"
-                class="form-control is-valid" type="password" placeholder="Contraseña">
-                <div class="validation-errors">
-                  <ng-container *ngFor="let validation of mensajes_error.password">
-                    <div class="form-control-feedback" *ngIf="forma.get('password_validations.password1').hasError(validation.type) 
-                      && (forma.get('password_validations.password1').dirty || forma.get('password_validations.password1').touched)">
-                      <i class="fas fa-exclamation-circle"></i> {{validation.message}}
-                    </div>
-                  </ng-container>
+              <input
+                [ngClass]="{
+                  'is-invalid': !forma.get('password_validations.password1')
+                    .valid
+                }"
+                formControlName="password1"
+                class="form-control is-valid"
+                type="password"
+                placeholder="Contraseña"
+              />
+              <div class="validation-errors">
+                <ng-container
+                  *ngFor="let validation of mensajes_error.password"
+                >
+                  <div
+                    class="form-control-feedback"
+                    *ngIf="
+                      forma
+                        .get('password_validations.password1')
+                        .hasError(validation.type) &&
+                      (forma.get('password_validations.password1').dirty ||
+                        forma.get('password_validations.password1').touched)
+                    "
+                  >
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
               </div>
             </div>
           </div>
-          
+
           <div class="form-group row">
             <legend class="input-label">Validación de contraseña</legend>
             <div class="col-md-8">
-              <input [ngClass]="{'is-invalid': !forma.get('password_validations.password2').valid}" formControlName="password2"
-                class="form-control is-valid" type="password" placeholder="Repetir Contraseña">
-                <div class="validation-errors">
-                  <ng-container *ngFor="let validation of mensajes_error.passwordVerif">
-                    <div class="form-control-feedback" *ngIf="forma.get('password_validations.password2').hasError(validation.type) 
-                      && (forma.get('password_validations.password2').dirty || forma.get('password_validations.password2').touched)">
-                      <i class="fas fa-exclamation-circle"></i> {{validation.message}}
-                    </div>
-                  </ng-container>
+              <input
+                [ngClass]="{
+                  'is-invalid': !forma.get('password_validations.password2')
+                    .valid
+                }"
+                formControlName="password2"
+                class="form-control is-valid"
+                type="password"
+                placeholder="Repetir Contraseña"
+              />
+              <div class="validation-errors">
+                <ng-container
+                  *ngFor="let validation of mensajes_error.passwordVerif"
+                >
+                  <div
+                    class="form-control-feedback"
+                    *ngIf="
+                      forma
+                        .get('password_validations.password2')
+                        .hasError(validation.type) &&
+                      (forma.get('password_validations.password2').dirty ||
+                        forma.get('password_validations.password2').touched)
+                    "
+                  >
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="validation-errors">
-          <ng-container *ngFor="let validation of mensajes_error.same_password">
-            <div class="form-control-feedback" *ngIf="forma.get('password_validations').hasError(validation.type) 
-             && (forma.get('password_validations.password2').dirty || forma.get('password_validations.password2').touched)">
-             <i class="fas fa-exclamation-circle"></i> {{validation.message}}
-            </div>
-          </ng-container>
-      </div>
+        <div class="col-md-8">
+          <div class="validation-errors">
+            <ng-container
+              *ngFor="let validation of mensajes_error.same_password"
+            >
+              <div
+                class="form-control-feedback"
+                *ngIf="
+                  forma.get('password_validations').hasError(validation.type) &&
+                  (forma.get('password_validations.password2').dirty ||
+                    forma.get('password_validations.password2').touched)
+                "
+              >
+                <i class="fas fa-exclamation-circle"></i>
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </div>
 
         <div class="form-group row center">
           <div class="input-group col-md-8">
-            <button type="submit" class="btn btn-outline-primary boton" [disabled]="!forma.valid">
+            <button
+              type="submit"
+              class="btn btn-outline-primary boton"
+              [disabled]="!forma.valid"
+            >
               Enviar
             </button>
           </div>
         </div>
-
       </form>
     </div>
 
-    <div class="col-md-1 control">
-
-    </div>
-
+    <div class="col-md-1 control"></div>
 
     <div class="col main-container example">
       <h2>Verifica tus datos antes de continuar</h2>
-      <br>
+      <br />
       <div class="container">
-
         <h5>Nombre</h5>
         <h3 *ngIf="forma.get('nombrecompleto.nombre').value">
-          {{forma.get('nombrecompleto.nombre').value | firstLetter}} </h3>
-        <br>
+          {{ forma.get("nombrecompleto.nombre").value | firstLetter }}
+        </h3>
+        <br />
         <h5>Apellido</h5>
         <h3 *ngIf="forma.get('nombrecompleto.apellido').value">
-          {{forma.get('nombrecompleto.apellido').value | firstLetter}} </h3>
-        <br>
+          {{ forma.get("nombrecompleto.apellido").value | firstLetter }}
+        </h3>
+        <br />
         <h5 clas>Correo</h5>
-        <h3> {{forma.get('correo').value}} </h3>
-        <br>
+        <h3>{{ forma.get("correo").value }}</h3>
+        <br />
         <h5>Nombre de Usuario</h5>
-        <h3> {{forma.get('username').value}} </h3>
+        <h3>{{ forma.get("username").value }}</h3>
       </div>
     </div>
-
-
   </div>
 </div>
 <ngx-spinner
   bdColor="rgba(51,51,51,0.8)"
   size="medium"
-  type="timer"></ngx-spinner>
+  type="timer"
+></ngx-spinner>

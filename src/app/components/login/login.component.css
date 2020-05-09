@@ -4,34 +4,39 @@
 }
 
 .modal-content {
+  font-family: "Bree Serif", serif;
   padding: 0;
   border-radius: 18px;
 }
 
 .modal-header {
+  font-family: "Lobster", cursive;
   border-radius: 15px 15px 0 0;
   background-color: #2196f3;
   color: white;
+}
 
+.modal-header h5 {
+  font-size: 25px;
+  margin-left: 35%;
 }
 
 .modal-body a {
+  font-size: 18px;
   margin-left: 10px;
   padding: 10px;
 }
 
 .modal-footer {
   border-radius: 0 0 15px 15px;
-
+  font-family: "Bree Serif", serif;
   background-color: #2196f3;
   color: white;
 }
 
 .modal-footer button {
-
   padding: 5px 10px;
   margin: 10px;
-
 }
 
 .cancel {
@@ -42,8 +47,15 @@
   background-color: #0d528b;
 }
 
-@media (max-width: 400px){
+@media (max-width: 400px) {
   .modal-body a {
-    font-size: 12px;
+    font-size: 14px;
+    margin-left: 0;
+    padding: 4px;
+  }
+
+  .modal-header h5 {
+    font-size: 25px;
+    margin-left: 30%;
   }
 }

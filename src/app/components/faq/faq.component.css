@@ -1,4 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
 .main-container h1 {
+  font-family: "Lobster", cursive;
   color: red;
   text-align: center;
 }
@@ -12,6 +15,7 @@
 .answer a {
   height: 60px;
   width: 100%;
+  font-family: "Lobster", cursive;
   background-color: #2196f3;
   color: white;
   font-size: 25px;
@@ -21,7 +25,9 @@
   background-color: #0287a8;
 }
 .answer p {
+  padding: 20px;
   height: 100%;
+  font-family: "Bree Serif", serif;
   text-align: center;
   margin-top: 0;
   margin-bottom: 0;

@@ -8,25 +8,40 @@
   border-style: outset;
   border-radius: 15px;
   border-color: blue;
+  font-family: "Bree Serif", serif;
 }
-.main-container input{
-    margin: 0 90px 8px;
+.main-container input {
+  margin: 0 90px 8px;
+}
+
+.main-container h4 {
+  font-size: 30px;
+  color: red;
 }
 .center {
+  margin-top: 20px;
   padding: 0 40%;
 }
-.example{
+.example {
   padding: 40px 10px;
   height: 100%;
 }
-.example h2{
-  color: blue;
+.example h2,
+h3 {
+  padding: 0 60px;
+  color: red;
+}
+
+.example h5 {
+  color: black;
 }
 .form-control-feedback {
   color: red;
-  margin: 0 90px 8px;
+  margin: 0;
+  width: 100%;
+  margin-left: 30%;
 }
-.checking{
+.checking {
   color: blue;
 }
 .space {
@@ -35,38 +50,35 @@
   margin-left: 15px;
 }
 
-.sexSelector{
+.sexSelector {
   margin-left: 20px;
 }
 
-@media (max-width: 980px){
-
-   .main-container input{
+@media (max-width: 980px) {
+  .main-container input {
     margin: 0px 60px 8px;
-   }
+  }
 
-   legend{
-     font-size: 14px;
-   }
+  legend {
+    font-size: 14px;
+  }
 
-   .form-control-feedback {
-    margin: 0px 0px 8px 110px
+  .form-control-feedback {
+    margin: 0px 0px 8px 110px;
   }
 }
 
+@media (max-width: 770px) {
+  .main-container input {
+    margin: 0px;
+  }
 
-@media (max-width: 770px){
-
-  .main-container input{
-    margin: 0px
-  } 
-
-  .sexSelector{
+  .sexSelector {
     margin-right: 20px;
     margin-left: 0px;
   }
 
   .form-control-feedback {
-    margin: 0 90px 8px;
+    margin: 0;
   }
 }
