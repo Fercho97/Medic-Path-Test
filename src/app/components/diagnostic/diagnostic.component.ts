@@ -236,6 +236,9 @@ export class DiagnosticComponent implements OnInit {
     noResultEnd(){
         this.hasResult=true;
         this.checkUrgencyLevels();
+        if(this.memoriaDeTrabajo.atomosAfirmados.length!=0){
+          this.doc_recomendacion = this.calculusClass.calculateRecommendation(this.memoriaDeTrabajo,this.sintomas);
+        }
         this.sintomasExtras = this.calculusClass.calculateCloseness(this.conocimientoEvaluado,this.baseConocimiento,this.memoriaDeTrabajo, 40);
         if(this.sintomasExtras.length==0){
           if(this.memoriaDeTrabajo.atomosAfirmados.length<=3){
@@ -244,15 +247,32 @@ export class DiagnosticComponent implements OnInit {
           this.question={message: "Debido a sus síntomas no fue posible el encontrar un padecimiento en especifico"};
           }
         }else{
-          this.question={message: "Lo sentimos, no se ha podido encontrar un padecimiento en especifico conforme sus síntomas"};
-        }
-
-        if(this.memoriaDeTrabajo.atomosAfirmados.length!=0){
-          this.doc_recomendacion = this.calculusClass.calculateRecommendation(this.memoriaDeTrabajo,this.sintomas);
+          if(this.sintomasExtras[0].porcentaje>=75 && this.user==true){
+            this.question={message: "No se encontro un resultado en especifico, sin embargo por similitud de síntomas, encontramos que usted presenta un porcentaje elevado de tener " + this.sintomasExtras[0].padecimiento + " por lo tanto se guarda para observación"}
+            this.idResultado=this.sintomasExtras[0].id;
+            let comment = "Se guardo para observación ya que presento una similitud de sintomatología del " + this.sintomasExtras[0].porcentaje + " porciento con el resultado mostrado";
+            let details = "";
+            let detailsIds = "";
+            this.memoriaDeTrabajo.atomosAfirmados.forEach(atomo =>{
+              if(atomo.obj==false){
+                details = details + atomo.desc +  ",";
+                if(atomo.sintoma!=null){
+                detailsIds = detailsIds + atomo.sintoma + ",";
+                  }else{
+                    let found = this.sintomas.find(item => item['nombre_sint'] == atomo.desc);
+                    detailsIds = detailsIds + found.idSint + ",";
+                  }
+              }
+            });
+            this.guardar(details,detailsIds,comment);
+            this.user_recommendation = this.calculusClass.userFeedbackRecommendation(this.compare_historiales,detailsIds,this.userId,this.idResultado);
+          }else{
+            this.question={message: "Lo sentimos, no se ha podido encontrar un padecimiento en especifico conforme sus síntomas"};
+          }
         }
     }
 
-    guardar(details,detailsIds){
+    guardar(details,detailsIds,comment){
 
       var fecha = moment().tz('America/Mexico_City').format();
       let values = new HttpParams()
@@ -263,7 +283,8 @@ export class DiagnosticComponent implements OnInit {
       .set('fecha', fecha.toString())
       .set('detalles_especificos', JSON.stringify(this.niveles))
       .set('recomendations', JSON.stringify(this.doc_recomendacion))
-      .set('detallesIds',detailsIds);
+      .set('detallesIds',detailsIds)
+      .set('comentario',comment);
       this.diagServ.guardarHistorial(values).subscribe(res =>{
         //console.log("Ok", res)
         
@@ -303,7 +324,7 @@ export class DiagnosticComponent implements OnInit {
       });
       
       if(this.user==true){
-        this.guardar(details,detailsIds);
+        this.guardar(details,detailsIds,'');
       }
       this.user_recommendation = this.calculusClass.userFeedbackRecommendation(this.compare_historiales,detailsIds,this.userId,this.idResultado);
     }

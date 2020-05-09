@@ -27,7 +27,7 @@
 .menu a {
   color: white;
   padding: 0 25px;
-  font-size: 20px;
+  font-size: 16px;
 }
 .menu a:hover {
   background-color: #0d528b;
@@ -65,7 +65,7 @@
 
 @media (max-width: 992px) {
   .mod-color a {
-    font-size: 18px;
+    font-size: 14px;
     float: right;
     width: 150px;
     text-align: center;

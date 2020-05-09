@@ -14,6 +14,11 @@
     <label class="title">Padecimiento resultante</label>
     <input type="text" value="{{historial.nombre_pad}}" disabled />
 
+    <div *ngIf="historial.comentario!=null && historial.comentario!=''">
+      <label class="title">Comentario</label><br>
+      <textarea rows="10" disabled>{{historial.comentario}}</textarea>
+    </div>
+
     <label class="title"></label>
     <label class="title">Categoria del padecimiento</label>
     <input type="text"  value="{{historial.categoria}}" disabled />

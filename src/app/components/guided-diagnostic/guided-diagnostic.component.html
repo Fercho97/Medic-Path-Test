@@ -109,6 +109,51 @@
             </div>
             
         </div>
+        <div *ngIf="hasResult">
+            <ul *ngIf="hasResult && idResultado!=''">
+                <h2>Esto debido a los siguientes síntomas: </h2>
+                <li *ngFor="let sintoma of sintomasResultado">
+                  {{sintoma.desc}}
+                </li>
+            </ul>
+            <div>
+            <ul *ngIf="niveles.Medio.length>0">
+                <h4>Síntomas destacados <i class="far fa-question-circle" ngbTooltip="Sintomas que pueden afectar su vida diaria debido a sus efectos"></i></h4>
+                <li *ngFor="let niv of niveles.Medio">
+                    <p *ngIf="niv.reason==''">{{niv.sintoma}}</p>
+                    <p *ngIf="niv.reason!=''">{{niv.sintoma}} - {{niv.reason}}</p>
+                </li>
+            </ul>
+            <ul *ngIf="niveles.Ninguno.length>0">
+                <h4>Síntomas sin urgencia <i class="far fa-question-circle" ngbTooltip="Sintomas que por si solos no presentan peligro alguno a menos que se descuiden por bastante tiempo o bien las afectaciones percibidas hacia la personas sean en exceso"></i></h4>
+                <li *ngFor="let niv of niveles.Ninguno">
+                    <p *ngIf="niv.reason==''">{{niv.sintoma}}</p>
+                    <p *ngIf="niv.reason!=''">{{niv.sintoma}} - {{niv.reason}}</p>
+                </li>
+            </ul>
+            <ul *ngIf="niveles.Bajo.length>0">
+                <h4>Síntomas de baja urgencia <i class="far fa-question-circle" ngbTooltip="Sintomas cuya persistencia por más de 3 días será necesario el checar con un médico"></i></h4>
+                <li *ngFor="let niv of niveles.Bajo">
+                    <p *ngIf="niv.reason==''">{{niv.sintoma}}</p>
+                    <p *ngIf="niv.reason!=''">{{niv.sintoma}} - {{niv.reason}}</p>
+                </li>
+            </ul>
+            <ul *ngIf="niveles.Alto.length>0">
+                <h4>Síntomas de alta urgencia <i class="far fa-question-circle" ngbTooltip="Sintomas que por su naturaleza o bien su persistencia se recomienda encarecidamente acudir con un médico"></i></h4>
+                <li *ngFor="let niv of niveles.Alto">
+                    <p *ngIf="niv.reason==''">{{niv.sintoma}}</p>
+                    <p *ngIf="niv.reason!=''">{{niv.sintoma}} - {{niv.reason}}</p>
+                </li>
+            </ul>
+            <ul *ngIf="niveles.Severo.length>0">
+                <h4>Síntomas de severidad <i class="far fa-question-circle" ngbTooltip="Si presenta alguno de estos sintomas es sumamente necesario el acudir con un especialista con el fin de tratar dicho sintoma, por lo regular requieren estudios."></i></h4>
+                <li *ngFor="let niv of niveles.Severo">
+                    <p *ngIf="niv.reason==''">{{niv.sintoma}}</p>
+                    <p *ngIf="niv.reason!=''">{{niv.sintoma}} - {{niv.reason}}</p>
+                </li>
+            </ul>
+            </div>
+        </div>
     </div>
     <a routerLink="home" routerLinkActive="active"><button type="button" class="btn btn-dark cancel">Volver</button></a>
     

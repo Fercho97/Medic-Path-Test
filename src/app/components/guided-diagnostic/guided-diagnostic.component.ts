@@ -61,6 +61,7 @@ export class GuidedDiagnosticComponent implements OnInit {
   public zone_options = ErrorMsg.Zone_options.options;
   public doc_recomendacion : any = [];
   public divisions = Catalogos.LETTERS;
+  public sintomasExtras : any =[];
   constructor(private diagServ : DiagnosticService, private toast : ToastrService,
               private router : Router, private sintServ : SintomasService, 
               private modalService : NgbModal, private spinner : NgxSpinnerService) { 
@@ -223,7 +224,7 @@ export class GuidedDiagnosticComponent implements OnInit {
         });
           this.checkUrgencyLevels();
           this.doc_recomendacion = this.calculusClass.calculateRecommendation(this.memoriaDeTrabajo,this.sintomas);
-            this.guardar();
+            this.guardar('');
           
         }
       }else{
@@ -241,15 +242,31 @@ export class GuidedDiagnosticComponent implements OnInit {
     }
 
     noResultEnd(){
-      if(this.memoriaDeTrabajo.atomosAfirmados.length<=3){
-        this.question={message: "Conforme la cantidad de síntomas que presenta su paciente no es posible llegar a una conclusión satifactoria,sin embargo es recomendable el que se mantenga al pendiente sobre sus síntomas por si estos llegaran a empeorar"}
-      }else{
-      this.question={message: "No fue posible el encontrar un padecimiento conforme los síntomas de su paciente"};
+      this.hasResult=true;
+      this.checkUrgencyLevels();
+      if(this.memoriaDeTrabajo.atomosAfirmados.length!=0){
+        this.doc_recomendacion = this.calculusClass.calculateRecommendation(this.memoriaDeTrabajo,this.sintomas);
       }
-        this.hasResult=true;
-    }
+      this.sintomasExtras = this.calculusClass.calculateCloseness(this.conocimientoEvaluado,this.baseConocimiento,this.memoriaDeTrabajo, 40);
+      if(this.sintomasExtras.length==0){
+        if(this.memoriaDeTrabajo.atomosAfirmados.length<=3){
+          this.question={message: "Conforme la cantidad de síntomas que presenta su paciente no es posible llegar a una conclusión satifactoria,sin embargo es recomendable el que se mantenga al pendiente sobre sus síntomas por si estos llegaran a empeorar"}
+        }else{
+          this.question={message: "No fue posible el encontrar un padecimiento conforme los síntomas de su paciente"};
+        }
+      }else{
+        if(this.sintomasExtras[0].porcentaje>=75){
+          this.question={message: "No se encontro un resultado en especifico, sin embargo por similitud de síntomas, encontramos que su paciente presenta un porcentaje elevado de tener " + this.sintomasExtras[0].padecimiento + " por lo tanto se guarda para observación"}
+          this.idResultado=this.sintomasExtras[0].id;
+          let comment = "Se guardo para observación ya que presento una similitud de sintomatología del " + this.sintomasExtras[0].porcentaje + " porciento con el resultado mostrado";
+          this.guardar(comment);
+        }else{
+          this.question={message: "Lo sentimos, no se ha podido encontrar un padecimiento en especifico conforme los síntomas de su paciente"};
+        }
+      }
+  }
 
-    guardar(){
+    guardar(comment){
       let details = "";
       let detailsIds = "";
       this.memoriaDeTrabajo.atomosAfirmados.forEach(atomo =>{
@@ -272,7 +289,8 @@ export class GuidedDiagnosticComponent implements OnInit {
       .set('fecha', fecha.toString())
       .set('detalles_especificos', JSON.stringify(this.niveles))
       .set('recomendations', JSON.stringify(this.doc_recomendacion))
-      .set('detallesIds',detailsIds);
+      .set('detallesIds',detailsIds)
+      .set('comentario',comment);
       this.diagServ.guardarHistorial(values).subscribe(res =>{
         //console.log("Ok", res)
         
