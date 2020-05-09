@@ -49,7 +49,7 @@
 
 @media (max-width: 400px) {
   .modal-body a {
-    font-size: 14px;
+    font-size: 12px;
     margin-left: 0;
     padding: 4px;
   }

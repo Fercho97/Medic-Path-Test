@@ -37,8 +37,12 @@ export class MedicalRecordComponent implements OnInit {
     },
   error =>{
      this.spinner.hide();
+     if(error.error.message==undefined){
      this.toast.error('Hubo un error al conseguir la información de su historial, favor de recargar la página','Error')
-      //console.log(error);
+     }else{
+      this.toast.error(error.error.message,'Error');
+     } 
+     //console.log(error);
   })
   }
 
