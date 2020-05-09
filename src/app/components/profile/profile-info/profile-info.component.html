@@ -4,31 +4,15 @@
   <div>
     <div class="row">
       <div class="col-8">
-        <input class="form-control" type="text" placeholder="Nombre" formControlName="nombres" [(ngModel)]="usuarioInfo.nombres"/>
+        <input class="form-control" disabled type="text" placeholder="Nombre" value="{{usuarioInfo.nombres}}"/>
       </div>
     </div>
-    <div class="validation-errors">
-      <ng-container *ngFor="let validation of mensajes_error.nombre">
-        <div class="form-control-feedback" *ngIf="datos_perfil.get('nombres').hasError(validation.type) 
-        && (datos_perfil.get('nombres').dirty || datos_perfil.get('nombres').touched)">
-        <i class="fas fa-exclamation-circle"></i> {{validation.message}}
-        </div>
-      </ng-container>
-  </div>
 
     <div class="row">
       <div class="col-8">
-        <input class="form-control " type="text" placeholder="Apellido" formControlName="apellidos" [(ngModel)]="usuarioInfo.apellidos"/>
+        <input class="form-control" disabled type="text" placeholder="Apellido" value="{{usuarioInfo.apellidos}}"/>
       </div>
     </div>
-    <div class="validation-errors">
-      <ng-container *ngFor="let validation of mensajes_error.apellido">
-        <div class="form-control-feedback" *ngIf="datos_perfil.get('apellidos').hasError(validation.type) 
-        && (datos_perfil.get('apellidos').dirty || datos_perfil.get('apellidos').touched)">
-        <i class="fas fa-exclamation-circle"></i> {{validation.message}}
-        </div>
-      </ng-container>
-  </div>
   </div>
 
   <div class="row">

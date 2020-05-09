@@ -24,18 +24,6 @@ export class ProfileInfoComponent implements OnInit {
   constructor(private profileServ : ProfileService, private toast : ToastrService, 
               private router : Router, private nickVal : NicknameValidator) {
     this.datos_perfil = new FormGroup({
-      nombres : new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(50),
-        Validators.pattern('^([ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+ )*[ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+$')
-      ]),
-      apellidos : new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(50),
-        Validators.pattern('^([ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+ )*[ñÑáÁéÉíÍóÓúÚüÜa-zA-Z]+$')
-      ]),
       nickname : new FormControl('', [
         Validators.required,
         Validators.minLength(3),
@@ -51,12 +39,14 @@ export class ProfileInfoComponent implements OnInit {
   actualizarDatos(){
     //console.log(this.datos_perfil.value);
     this.formData.append('nickname', this.datos_perfil.value.nickname);
-    this.formData.append('nombres', this.datos_perfil.value.nombres);
-    this.formData.append('apellidos', this.datos_perfil.value.apellidos);
         this.profileServ.updateUser(this.usuarioInfo.hash_id, this.formData, sessionStorage.getItem('token')).subscribe( (res: any) =>{
           //console.log(res);
           if(res.body.mensaje != "Token no válido"){
-          this.toast.success('Datos Modificados con éxito', 'Modificación Exitosa!');
+            if(res.body.message=="No hubo cambios"){
+              this.toast.info(res.body.message);
+            }else{
+                this.toast.success("Se actualizo su nombre de usuario con éxito", 'Modificación Exitosa!');
+            }
           this.formData = new FormData();
           sessionStorage.setItem('token', res.body.token);
           }else{
