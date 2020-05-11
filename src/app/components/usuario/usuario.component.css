@@ -75,6 +75,10 @@
     border-color: rgb(124, 131, 132);
   }
 
+  .act-btn{
+    text-align: center;
+  }
+
   ul{
     position: absolute;
     width: 100%;
@@ -179,7 +183,7 @@
     }
   }
 
-  @media(max-width: 445px){
+  @media(max-width: 475px){
     .main-container th {
       font-size: 10px;
     }
@@ -192,6 +196,9 @@
   @media(max-width: 380px){
     .icon {
       display:none;
+    }
+    .main-container th {
+      font-size: 8px;
     }
   }
   

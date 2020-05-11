@@ -126,4 +126,12 @@ export class UsuarioComponent implements OnInit {
   focusLost(){
     this.myFilter=this.mySearch;
   }
+
+  actualizar(){
+    this.spinner.show();
+    this.userServ.updateRules().subscribe(res =>{
+      this.toast.info('Se han actualizado las reglas del sistema con éxito', 'Éxito!');
+      this.spinner.hide();
+    })
+  }
 }

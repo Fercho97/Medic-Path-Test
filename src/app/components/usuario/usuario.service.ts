@@ -8,12 +8,13 @@ export class UsuarioService {
   _urlIndividual: string = "";
   _urlDoctor: string = "";
   _urlAllDocs: string = "";
+  _urlReglas : string = '';
   constructor(private _http: HttpClient) {
     this._url = environment.url + 'usuarios/userlist/';
     this._urlIndividual = environment.url + 'usuarios/';
     this._urlDoctor = environment.url + 'usuarios/doctor/';
     this._urlAllDocs = environment.url + 'usuarios/doctorlist/';
-
+    this._urlReglas = environment.url + 'consulta/createRules';
   }
 
   getUsers() {
@@ -55,4 +56,12 @@ export class UsuarioService {
       observe: "response"
     });
   }
+
+  updateRules(){
+    return this._http.get(this._urlReglas,{
+        headers: new HttpHeaders()
+            .set('Content-Type', 'application/x-www-form-urlencoded'),
+            observe : 'response' 
+    })
+}
 }
