@@ -11,7 +11,7 @@ export class AboutComponent implements OnInit {
       id: 1,
       nombres: "Cristopher Sinhue",
       apellidos: "Estrada Panduro",
-      carrera: "Ingenieria en Computacion",
+      carrera: "Ingeniería en Computación",
       colaboracion: "Frontend Developer",
       url: "/assets/panduro.jpg",
       objetivo:
@@ -23,9 +23,9 @@ export class AboutComponent implements OnInit {
     },
     {
       id: 2,
-      nombres: "Fernando Martin",
-      apellidos: "Jaime Ramirez",
-      carrera: "Ingenieria en Informatica",
+      nombres: "Fernando Martín",
+      apellidos: "Jaime Ramírez",
+      carrera: "Ingeniería en Informática",
       colaboracion: "Project Manager, Backend Developer",
       url: "/assets/fercho.jpg",
       objetivo:
@@ -39,7 +39,7 @@ export class AboutComponent implements OnInit {
       id: 3,
       nombres: "Joel",
       apellidos: "Gonzalez Lara",
-      carrera: "Ingenieria en Informatica",
+      carrera: "Ingeniería en Informática",
       colaboracion: "QA, Tester, Data Manager",
       url: "/assets/profile-pic.jpg",
       objetivo:
