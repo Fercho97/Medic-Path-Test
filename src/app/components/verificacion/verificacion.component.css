@@ -4,23 +4,28 @@
 }
 
 .main-container div {
-  border-style: dotted;
-  border-color: red;
+  height: 200px;
+  border-style: ridge;
+  border-color: #0d528b;
   border-radius: 10px;
 }
 
-.main-container h1, h3{
+.main-container h1,
+h3 {
+  font-family: "Bree Serif", serif;
   text-align: center;
-  margin-top: 15px;
+  margin-top: 50px;
   margin-bottom: 15px;
 }
 
 .main-container input {
+  font-family: "Bree Serif", serif;
   width: 60%;
   margin: 15px 20%;
 }
 
 .main-container label {
+  font-family: "Bree Serif", serif;
   text-align: center;
   display: block;
   margin-top: 20px;

@@ -1,61 +1,207 @@
 <nav class="navbar navbar-expand-lg navbar-dark menu">
   <a class="navbar-brand titulo" routerLink="home">Medic Path</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarText"
+    aria-controls="navbarText"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse mod-color" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" routerLinkActive="active-link" routerLink="home">Home</a>
+        <a
+          class="nav-link"
+          data-toggle="collapse"
+          data-target=".navbar-collapse.show"
+          routerLinkActive="active-link"
+          routerLink="home"
+          >Home</a
+        >
       </li>
       <li class="nav-item" *ngIf="!isDoctor">
-        <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" routerLinkActive="active-link" routerLink="diagnostico">Diagnóstico</a>
+        <a
+          class="nav-link"
+          data-toggle="collapse"
+          data-target=".navbar-collapse.show"
+          routerLinkActive="active-link"
+          routerLink="diagnostico"
+          >Diagnóstico</a
+        >
       </li>
       <li class="nav-item" *ngIf="isDoctor">
-        <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" routerLinkActive="active-link" routerLink="diagnosticoGuiado">Diagnóstico Guiado</a>
+        <a
+          class="nav-link"
+          data-toggle="collapse"
+          data-target=".navbar-collapse.show"
+          routerLinkActive="active-link"
+          routerLink="diagnosticoGuiado"
+          >Diagnóstico Guiado</a
+        >
       </li>
       <li class="nav-item" *ngIf="isAdmin">
-        <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" routerLinkActive="active-link" routerLink="usuarios">Usuarios</a>
+        <a
+          class="nav-link"
+          data-toggle="collapse"
+          data-target=".navbar-collapse.show"
+          routerLinkActive="active-link"
+          routerLink="usuarios"
+          >Usuarios</a
+        >
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" routerLinkActive="active-link" routerLink="faq">FAQ</a>
+        <a
+          class="nav-link"
+          data-toggle="collapse"
+          data-target=".navbar-collapse.show"
+          routerLinkActive="active-link"
+          routerLink="faq"
+          >FAQ</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          data-toggle="collapse"
+          data-target=".navbar-collapse.show"
+          routerLinkActive="active-link"
+          routerLink="about"
+          >Acerca de Nosotros</a
+        >
       </li>
       <li class="nav-item dropdown" *ngIf="isDoctor">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
           Base de conocimiento
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" routerLinkActive="active-link" routerLink="padecimientos">Padecimientos</a>
-          <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" routerLinkActive="active-link" routerLink="sintomas">Síntomas</a>
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            routerLinkActive="active-link"
+            routerLink="padecimientos"
+            >Padecimientos</a
+          >
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            routerLinkActive="active-link"
+            routerLink="sintomas"
+            >Síntomas</a
+          >
         </div>
       </li>
-      <li class="nav-item" *ngIf=user>
-        <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" routerLinkActive="active-link" routerLink="profile">Mi Perfil</a>
+      <li class="nav-item" *ngIf="user">
+        <a
+          class="nav-link"
+          data-toggle="collapse"
+          data-target=".navbar-collapse.show"
+          routerLinkActive="active-link"
+          routerLink="profile"
+          >Mi Perfil</a
+        >
       </li>
-      <li class ="nav-item">
-        <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" routerLinkActive="active-link" routerLink="/medics">Directorio Médico</a>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          data-toggle="collapse"
+          data-target=".navbar-collapse.show"
+          routerLinkActive="active-link"
+          routerLink="/medics"
+          >Directorio Médico</a
+        >
       </li>
-      <li class ="nav-item" *ngIf="isAdmin">
-        <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" routerLinkActive="active-link" routerLink="/registry">Registro de Doctor</a>
+      <li class="nav-item" *ngIf="isAdmin">
+        <a
+          class="nav-link"
+          data-toggle="collapse"
+          data-target=".navbar-collapse.show"
+          routerLinkActive="active-link"
+          routerLink="/registry"
+          >Registro de Doctor</a
+        >
       </li>
-      <li class ="nav-item" *ngIf="!isAdmin && !isDoctor && user">
-        <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" routerLinkActive="active-link" routerLink="/notificaciones">Mis Notificaciones</a>
+      <li class="nav-item" *ngIf="!isAdmin && !isDoctor && user">
+        <a
+          class="nav-link"
+          data-toggle="collapse"
+          data-target=".navbar-collapse.show"
+          routerLinkActive="active-link"
+          routerLink="/notificaciones"
+          >Mis Notificaciones</a
+        >
       </li>
-      <li class="nav-item hidden" *ngIf=!user>
-        <a class="nav-link" routerLinkActive="active-link" data-toggle="modal" data-target="#exampleModal">Login</a>
+      <li class="nav-item hidden" *ngIf="!user">
+        <a
+          class="nav-link"
+          routerLinkActive="active-link"
+          data-toggle="modal"
+          data-target="#exampleModal"
+          >Login</a
+        >
       </li>
-      <li class="nav-item hidden" *ngIf=!user>
-        <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" routerLinkActive="active-link" routerLink="registro">Registrate</a>
+      <li class="nav-item hidden" *ngIf="!user">
+        <a
+          class="nav-link"
+          data-toggle="collapse"
+          data-target=".navbar-collapse.show"
+          routerLinkActive="active-link"
+          routerLink="registro"
+          >Registrate</a
+        >
       </li>
-      <li class="nav-item hidden" *ngIf=user>
-        <a class="nav-link" data-toggle="collapse" data-target=".navbar-collapse.show" routerLinkActive="active-link" (click)="logout()">Logout</a>
+      <li class="nav-item hidden" *ngIf="user">
+        <a
+          class="nav-link"
+          data-toggle="collapse"
+          data-target=".navbar-collapse.show"
+          routerLinkActive="active-link"
+          (click)="logout()"
+          >Logout</a
+        >
       </li>
     </ul>
-<button *ngIf=!user class="btn waves-effect waves-light boton" type="button" name="action" routerLink="registro">Registrate</button>
-<button *ngIf=user class="btn waves-effect waves-light boton" type="button" name="action" (click)="logout()">Logout</button>
-<button *ngIf=!user class="btn waves-effect waves-light boton" type="button" name="action" data-toggle="modal"
-  data-target="#exampleModal">Login</button>
+    <button
+      *ngIf="!user"
+      class="btn waves-effect waves-light boton"
+      type="button"
+      name="action"
+      routerLink="registro"
+    >
+      Registrate
+    </button>
+    <button
+      *ngIf="user"
+      class="btn waves-effect waves-light boton"
+      type="button"
+      name="action"
+      (click)="logout()"
+    >
+      Logout
+    </button>
+    <button
+      *ngIf="!user"
+      class="btn waves-effect waves-light boton"
+      type="button"
+      name="action"
+      data-toggle="modal"
+      data-target="#exampleModal"
+    >
+      Login
+    </button>
   </div>
 </nav>
 

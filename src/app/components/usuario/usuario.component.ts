@@ -4,20 +4,20 @@ import {
   Output,
   Input,
   EventEmitter,
-  SimpleChanges
-} from '@angular/core';
-import { UsuarioService } from './usuario.service';
-import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Usuario } from '../../interfaces/usuario.interface';
-import { ToastrService } from 'ngx-toastr';
-import { NgxSpinnerService } from 'ngx-spinner';
+  SimpleChanges,
+} from "@angular/core";
+import { UsuarioService } from "./usuario.service";
+import { HttpParams, HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
+import { Usuario } from "../../interfaces/usuario.interface";
+import { ToastrService } from "ngx-toastr";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
-  selector: 'app-usuario',
-  templateUrl: './usuario.component.html',
-  styleUrls: ['./usuario.component.css'],
-  providers: [UsuarioService]
+  selector: "app-usuario",
+  templateUrl: "./usuario.component.html",
+  styleUrls: ["./usuario.component.css"],
+  providers: [UsuarioService],
 })
 export class UsuarioComponent implements OnInit {
   pagina = 0;
@@ -25,21 +25,25 @@ export class UsuarioComponent implements OnInit {
   public users: Usuario[] = [];
   public doctors: Usuario[] = [];
   public patients: Usuario[] = [];
-  key = 'fullname';
+  key = "fullname";
   reversa = false;
   content;
-  public myFilter : any = "";
-  public mySearch : any = "";
-  public searching : boolean = false;
-  constructor(private userServ: UsuarioService, private http: HttpClient,
-              private toast: ToastrService, private spinner: NgxSpinnerService) {}
+  public myFilter: any = "";
+  public mySearch: any = "";
+  public searching: boolean = false;
+  constructor(
+    private userServ: UsuarioService,
+    private http: HttpClient,
+    private toast: ToastrService,
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit() {
-    document.getElementById('defaultOpen').click();
+    document.getElementById("defaultOpen").click();
     this.spinner.show();
     this.userServ.getUsers().subscribe(
       (res: any) => {
-        sessionStorage.setItem('token',res.body.token);
+        sessionStorage.setItem("token", res.body.token);
         for (let i = 0; i < res.body.users.length; i++) {
           if (res.body.users[i].tipoUsuario === 2) {
             this.doctors.push(res.body.users[i]);
@@ -54,9 +58,12 @@ export class UsuarioComponent implements OnInit {
         this.pagina = 1;
         this.spinner.hide();
       },
-      error => {
+      (error) => {
         this.spinner.hide();
-        this.toast.error('Hubo un error al conseguir la información de los usuarios', 'Error');
+        this.toast.error(
+          "Hubo un error al conseguir la información de los usuarios",
+          "Error"
+        );
         //console.log(error);
       }
     );
@@ -67,9 +74,9 @@ export class UsuarioComponent implements OnInit {
     let tabcontent;
     let links;
     let active;
-    this.myFilter="";
-    this.mySearch="";
-    if (tipo === 'Paciente') {
+    this.myFilter = "";
+    this.mySearch = "";
+    if (tipo === "Paciente") {
       this.users = this.patients;
       this.pagina = 1;
     } else {
@@ -77,61 +84,62 @@ export class UsuarioComponent implements OnInit {
       this.pagina = 1;
     }
 
-    tabcontent = document.getElementsByClassName('tabcontent');
+    tabcontent = document.getElementsByClassName("tabcontent");
     //console.log(tabcontent);
     for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = 'none';
+      tabcontent[i].style.display = "none";
     }
 
-    links = document.getElementsByClassName('tablinks');
+    links = document.getElementsByClassName("tablinks");
     for (i = 0; i < links.length; i++) {
-      links[i].className = links[i].className.replace(' active', '');
+      links[i].className = links[i].className.replace(" active", "");
     }
 
-    document.getElementById(tipo).style.display = 'block';
+    document.getElementById(tipo).style.display = "block";
     active = document.getElementsByName(tipo);
-    active[0].className += ' active';
+    active[0].className += " active";
   }
 
-  filtering() {
-    
-  }
+  filtering() {}
 
   sorting(key: any) {
     this.key = key;
     this.reversa = !this.reversa;
   }
 
-  showResults(event :any){
-    if(event.target.value.length >= 1){
-      this.searching= true;
-    }else{
-      this.searching=false;
+  showResults(event: any) {
+    if (event.target.value.length >= 1) {
+      this.searching = true;
+    } else {
+      this.searching = false;
     }
   }
 
-  selection(medico: any){
-    this.mySearch =medico;
-    this.myFilter=medico;
+  selection(medico: any) {
+    this.mySearch = medico;
+    this.myFilter = medico;
     this.pagina = 1;
-    this.searching=false;
-  }
-  
-  remove(){
-    this.myFilter="";
-    this.mySearch="";
-    this.searching=false;
+    this.searching = false;
   }
 
-  focusLost(){
-    this.myFilter=this.mySearch;
+  remove() {
+    this.myFilter = "";
+    this.mySearch = "";
+    this.searching = false;
   }
 
-  actualizar(){
+  focusLost() {
+    this.myFilter = this.mySearch;
+  }
+
+  actualizar() {
     this.spinner.show();
-    this.userServ.updateRules().subscribe(res =>{
-      this.toast.info('Se han actualizado las reglas del sistema con éxito', 'Éxito!');
+    this.userServ.updateRules().subscribe((res) => {
+      this.toast.info(
+        "Se han actualizado las reglas del sistema con éxito",
+        "Éxito!"
+      );
       this.spinner.hide();
-    })
+    });
   }
 }

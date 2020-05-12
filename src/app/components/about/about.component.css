@@ -1,36 +1,59 @@
 .main-container {
-    z-index: 900;
-    margin: 50px;
+  font-family: "Bree Serif", serif;
+  z-index: 900;
+  margin: 50px;
 }
 
 .back {
-    z-index: 900;
+  z-index: 900;
 }
 
 .description {
-    text-align: center;
+  width: 100% !important;
+  height: auto;
+  padding: 38px;
+  border-style: ridge;
+  border-color: #0d528b;
+  border-radius: 10px;
+  text-align: center;
+  margin-right: 1%;
 }
 
-.card-image span{
-    font-weight: bold;
-    color: rgb(204, 0, 0);
-    text-align: center;
+.description h1 {
+  color: rgb(245, 208, 1);
+  margin-top: 0;
 }
 
-.card-content{
-    text-align: center;
-    font-size: 20px;
+.description p {
+  font-size: 19px;
 }
 
-.facebook {
-    color: #0078FF;
-    margin-right: 10px;
+.card-image span {
+  font-weight: bold;
+  color: rgb(204, 0, 0);
+  text-align: center;
 }
-.instagram {
-    color: #e95950;
-    margin-right: 10px;
+
+.card-content {
+  color: rgb(245, 208, 1);
+
+  text-align: center;
+  font-size: 20px;
 }
 
 .card-action {
-    text-align: center;
+  font-size: 18px;
+}
+
+.facebook {
+  color: #0078ff;
+  margin-right: 10px;
+}
+.instagram {
+  color: #e95950;
+  margin-right: 10px;
+}
+
+.card-action {
+  text-align: center;
 }
