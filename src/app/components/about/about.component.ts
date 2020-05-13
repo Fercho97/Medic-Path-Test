@@ -13,7 +13,7 @@ export class AboutComponent implements OnInit {
       apellidos: "Estrada Panduro",
       carrera: "Ingeniería en Computación",
       colaboracion: "Frontend Developer",
-      url: "/assets/panduro.jpg",
+      url: "assets/panduro.jpg",
       objetivo:
         "Crear las interfaces mas llamativas e intuitivas para que los usuarios se sientan comodos al usar nuestro sistema",
       sueno:
@@ -27,7 +27,7 @@ export class AboutComponent implements OnInit {
       apellidos: "Jaime Ramírez",
       carrera: "Ingeniería en Informática",
       colaboracion: "Project Manager, Backend Developer",
-      url: "/assets/fercho.jpg",
+      url: "assets/fercho.jpg",
       objetivo:
         "Gestionar, administrar, y asegurar la informacion del sistema, crear todo el Backend del sistema, asi como encargarme de la seguridad, solicitudes y acceso al sistema por parte del servidor, crear la aplicacion movil, encargarme de dirigir esta operacion y corregir sus errores",
       sueno:
@@ -41,7 +41,7 @@ export class AboutComponent implements OnInit {
       apellidos: "Gonzalez Lara",
       carrera: "Ingeniería en Informática",
       colaboracion: "QA, Tester, Data Manager",
-      url: "/assets/profile-pic.jpg",
+      url: "assets/profile-pic.jpg",
       objetivo:
         "Investigar, obtener y clasificar los datos para su procesamiento asi como brindar retroalimentacion para mejorar la experiencia de la plataforma",
       sueno:
