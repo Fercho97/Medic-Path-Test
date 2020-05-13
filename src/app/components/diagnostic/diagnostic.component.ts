@@ -74,9 +74,12 @@ export class DiagnosticComponent implements OnInit {
     if(this.storage.decryptData('usuario')!=null){
       this.user = true;
       this.userId = this.storage.decryptData('usuario');
+      this.diagServ.withFeedback().subscribe((res:any) =>{
+        this.compare_historiales =res.body.resultado;
+      })
     }
 
-    this.sintServ.getSints().subscribe(res =>{
+    this.sintServ.getSintsForDiagnostic().subscribe(res =>{
       this.sintomas = res.body;
       this.iniciales = this.sintomas.filter(sintoma => sintoma['compuesto']==false);
 
@@ -85,10 +88,6 @@ export class DiagnosticComponent implements OnInit {
         this.sintomasZona.push({zone: zona, sintomas: zone_sints});
         this.zoneSelection.push({zone: zona, sintomas: []});
       }
-    })
-
-    this.diagServ.withFeedback().subscribe((res:any) =>{
-      this.compare_historiales =res.body.resultado;
     })
   }
 
