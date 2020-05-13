@@ -29,8 +29,8 @@ export class ListarPadecimientosComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.padServ.getPads().subscribe( (res: any) =>{
-      this.padecimientos = res.body;
-
+      this.padecimientos = res.body.padecimientos;
+      sessionStorage.setItem('token',res.body.token);
       if(this.padecimientos){
         this.pagina=1;
       }

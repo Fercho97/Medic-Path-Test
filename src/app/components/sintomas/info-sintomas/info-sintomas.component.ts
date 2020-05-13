@@ -62,6 +62,7 @@ export class InfoSintomasComponent implements OnInit {
       },
     error =>{
       this.toast.error('Error al conseguir los nombres de los componentes', 'Error');
+      this.activeModal.close();
         //console.log(error);
     })
 

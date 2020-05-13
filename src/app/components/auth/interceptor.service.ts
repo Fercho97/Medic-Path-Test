@@ -32,6 +32,9 @@ export class AuthInterceptorService implements HttpInterceptor{
                     sessionStorage.clear();
                     window.localStorage.setItem('action','inactividad');
                     this.router.navigate(['/home']);
+                }else if(err.status === 403){
+                    window.localStorage.setItem('action','restricted');
+                    this.router.navigate(['/home']);
                 }
 
                 return throwError( err );

@@ -11,7 +11,7 @@
       </div>
       <form [formGroup]="login" (ngSubmit)="loginCheck()">
         <div class="modal-body">
-          <input class="form-control" formControlName="emailOrNickname" type="email" placeholder="Correo electronico o Nombre de Usuario">
+          <input class="form-control" formControlName="emailOrNickname" type="email" placeholder="Correo electrónico o Nombre de Usuario">
           <input class="form-control" formControlName="logPassword" type="password" placeholder="Contraseña">
           <br>
           <a routerLink="recovery" (click)="resetModal()" data-dismiss="modal" data-toggle="collapse" data-target=".navbar-collapse.show">Recupera tu Contraseña</a>

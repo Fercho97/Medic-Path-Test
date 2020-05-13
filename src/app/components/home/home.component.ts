@@ -30,6 +30,8 @@ export class HomeComponent implements OnInit {
     } else if (localStorage.getItem("action") == "inactividad") {
       this.toast.warning("Sesión cerrada por inactividad", "Termino de sesión");
       window.location.reload();
+    } else if (localStorage.getItem("action") == "restricted") {
+      this.toast.warning("Restringido", "Sin acceso");
     }
     localStorage.clear();
   }
