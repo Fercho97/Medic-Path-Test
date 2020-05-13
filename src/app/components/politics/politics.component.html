@@ -1,0 +1,44 @@
+<div class="container main-container">
+  <div class="row">
+    <div class="col m12">
+      <h1>Politicas de Medic Path</h1>
+      <div
+        class="col m12 politics"
+        *ngFor="let politic of politics; let i = index"
+      >
+        <h1>{{ politic.title }}</h1>
+        <p>{{ politic.parraph }}</p>
+        <div *ngIf="i === 1">
+          <ul *ngFor="let point of points">
+            <li>{{ point.uno }}</li>
+            <li>{{ point.dos }}</li>
+            <li>{{ point.tres }}</li>
+            <li>{{ point.cuatro }}</li>
+            <li>{{ point.cinco }}</li>
+            <li>{{ point.seis }}</li>
+            <li>{{ point.siete }}</li>
+            <li>{{ point.ocho }}</li>
+          </ul>
+        </div>
+
+        <ng-container *ngIf="i >= 3" ;>
+          <div *ngFor="let content of contenidos">
+            <h3>{{ content.subtittle }}</h3>
+            <ul>
+              <li *ngIf="i === 3">{{ content.content1 }}</li>
+              <li *ngIf="i === 4">{{ content.content2 }}</li>
+              <li *ngIf="i === 5">{{ content.content3 }}</li>
+            </ul>
+          </div>
+
+          <div class="data" *ngFor="let dat of data">
+            <p>Telefono: {{ dat.telefono }}</p>
+            <p>
+              Correo: <a href="mailto:{{ dat.email }}"> {{ dat.email }} </a>
+            </p>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

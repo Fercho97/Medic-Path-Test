@@ -56,6 +56,7 @@ import { NotificationsComponent } from './components/notifications/notifications
 import {NgxSpinnerModule} from 'ngx-spinner';
 import { CardsComponent } from './components/cards/cards.component';
 import { HomeInfoComponent } from './components/home-info/home-info.component';
+import { PoliticsComponent } from './components/politics/politics.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -99,7 +100,8 @@ import { HomeInfoComponent } from './components/home-info/home-info.component';
     SintSelectionComponent,
     NotificationsComponent,
     CardsComponent,
-    HomeInfoComponent
+    HomeInfoComponent,
+    PoliticsComponent
   ],
   imports: [
     BrowserModule,
