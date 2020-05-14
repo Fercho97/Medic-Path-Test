@@ -13,6 +13,7 @@ export class SintomasService {
   _urlCompList: string = "";
   _urlModificar: string = "";
   _urlCheckName: string = "";
+  _urlForDiagnostic: string = "";
   constructor(private _http: HttpClient) {
     this._url = environment.url + 'sintomas/sintlist/';
     this._urlIndividual = environment.url + 'sintomas/';
@@ -21,10 +22,21 @@ export class SintomasService {
     this._urlCompList = environment.url + 'sintomas/comp/getComponents/';
     this._urlModificar = environment.url + 'sintomas/update/';
     this._urlCheckName = environment.url + 'sintomas/checkName/';
+    this._urlForDiagnostic = environment.url + 'sintomas/sintsForDiagnostic';
   }
 
   getSints() {
     return this._http.get(this._url, {
+      headers: new HttpHeaders().set(
+        "Content-Type",
+        "application/x-www-form-urlencoded"
+      ),
+      observe: "response"
+    });
+  }
+
+  getSintsForDiagnostic() {
+    return this._http.get(this._urlForDiagnostic, {
       headers: new HttpHeaders().set(
         "Content-Type",
         "application/x-www-form-urlencoded"
