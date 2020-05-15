@@ -11,16 +11,16 @@ export class CardsComponent implements OnInit {
       title: "Consultas En linea",
       img: "assets/diagnostico-main.jpg",
       content:
-        "Tienes la oportunidad de diagnosticarte en linea, con una precision de mas del 98%, gracias a la inteligencia artificial",
+        "Tienes la oportunidad de diagnosticarte en linea, con una precisión de mas del 98%, gracias a la inteligencia artificial",
     },
     {
-      title: "Expedientes Clinicos",
+      title: "Expedientes Clínicos",
       img: "assets/expediente-main.jpg",
       content:
-        "Podrás acceder a tus consultas y diagnosticos medicos en cualquier momento",
+        "Podrás acceder a tus consultas y diagnósticos médicos en cualquier momento",
     },
     {
-      title: "Directorio Medico",
+      title: "Directorio Médico",
       img: "assets/medicos-main.jpg",
       content:
         "Un directorio médico al cual puede acceder y ponerse en contacto con alguno de nuestros expertos",

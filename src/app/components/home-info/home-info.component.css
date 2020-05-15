@@ -36,9 +36,24 @@
     padding: 0 10%;
   }
 
-  .sized {
+  .body{
     height: 300px;
-    width: 100%;
+    width: auto;
+    margin-top: 30px;
+  }
+
+  .col{
+    text-align: center;
+  }
+
+  .devices{
+    height: 200px;
+    width: 400px;
+  }
+
+  .showdoc{
+    height: 200px;
+    width: 400px;
     margin-top: 30px;
   }
 

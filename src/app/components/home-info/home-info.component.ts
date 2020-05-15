@@ -15,6 +15,7 @@ export class HomeInfoComponent implements OnInit {
         "Resultados que te apoyaran a saber que es lo que padeces",
       li3: "Apoyado y valorado por médicos con mas de 30 años de carrera.",
       img: "assets/sintomas-main.jpg",
+      class: "body"
     },
     {
       header: "Queremos que te sientas seguro",
@@ -24,6 +25,7 @@ export class HomeInfoComponent implements OnInit {
       li3:
         "Contamos con una aplicación móvil para brindarte mayor comodidad y accesibilidad.",
       img: "assets/responsive-main.png",
+      class: "devices"
     },
     {
       header: "Actualizamos nuestro sistema todo el tiempo",
@@ -33,6 +35,7 @@ export class HomeInfoComponent implements OnInit {
       li3:
         "Los médicos y especialistas brindan su conocimiento para hacer de este sistema mas fiable.",
       img: "assets/update-main.jpg",
+      class: "showdoc"
     },
   ];
 
