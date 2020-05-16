@@ -12,21 +12,25 @@ export class CardsComponent implements OnInit {
       img: "assets/diagnostico-main.jpg",
       content:
         "Tienes la oportunidad de diagnosticarte en linea, con una precisión de mas del 98%, gracias a la inteligencia artificial",
+      anim: "fromRight"
     },
     {
       title: "Expedientes Clínicos",
       img: "assets/expediente-main.jpg",
       content:
         "Podrás acceder a tus consultas y diagnósticos médicos en cualquier momento",
+      anim: "downside"
     },
     {
       title: "Directorio Médico",
       img: "assets/medicos-main.jpg",
       content:
         "Un directorio médico al cual puede acceder y ponerse en contacto con alguno de nuestros expertos",
+      anim: "fromLeft"
     },
   ];
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit(): void {}
 }

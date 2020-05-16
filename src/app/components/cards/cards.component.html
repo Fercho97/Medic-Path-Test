@@ -1,7 +1,7 @@
 <div *ngFor="let card of cards">
   <div>
     <div class="col s12 m4">
-      <div class="card">
+      <div class="card {{card.anim}}">
         <div class="card-image">
           <img src=" {{ card.img }} " />
         </div>

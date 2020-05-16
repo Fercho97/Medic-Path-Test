@@ -11,6 +11,7 @@
   top: 0;
   background-color: transparent;
   max-height: 100%;
+  box-shadow: none !important;
 }
 
 .myCustomModalClass .modal-content {
@@ -75,4 +76,95 @@
 .btn-flat[disabled]{
     background-color: #00acee !important;
     color: white !important;
+}
+
+.upside{
+  animation-name: upside;
+  -webkit-animation-name: upside;
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  animation-timing-function: ease;
+  -webkit-animation-timing-function: ease;
+  visibility: visible !important;
+}
+
+@keyframes upside{
+  0%{transform: translateY(-100%);}
+  50%{transform: translateY(8%);}
+  95%{transform: translateY(-2%)}
+  100%{transform: translateY(0%)}
+}
+
+.downside{
+  animation-name: downside;
+  -webkit-animation-name: downside;
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  animation-timing-function: ease;
+  -webkit-animation-timing-function: ease;
+  visibility: visible !important;
+}
+
+@keyframes downside{
+  0%{transform: translateY(40%);}
+  50%{transform: translateY(-5%);}
+  65%{transform: translateY(2%);}
+  80%{transform: translateY(-2%);}
+  95%{transform: translateY(1%)}
+  100%{transform: translateY(0%)}
+}
+
+.fromLeft{
+  animation-name: fromLeft;
+  -webkit-animation-name: fromLeft;
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
+  visibility: visible !important;
+}
+
+@keyframes fromLeft{
+  0%{transform: translateX(150%);}
+  50%{transform: translateX(-8%);}
+  65%{transform: translateX(4%);}
+  80%{transform: translateX(-4%);}
+  95%{transform: translateX(2%)}
+  100%{transform: translateX(0%)}
+}
+
+.fromRight{
+  animation-name: fromRight;
+  -webkit-animation-name: fromRight;
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
+  visibility: visible !important;
+}
+
+@keyframes fromRight{
+  0%{transform: translateX(-150%);}
+  50%{transform: translateX(8%);}
+  65%{transform: translateX(-4%);}
+  80%{transform: translateX(4%);}
+  95%{transform: translateX(-2%)}
+  100%{transform: translateX(0%)}
+}
+
+.fadeIn{
+  animation-name: fadeIn;
+  -webkit-animation-name: fadeIn;
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
+  visibility: visible !important;
+}
+
+@keyframes fadeIn{
+  0%{transform: scale(0); opacity: 0.0;}
+  60%{transform: scale(1.1);}
+  80%{transform: translateX(0.9); opacity: 1;}
+  100%{transform: translateX(1); opacity: 1;}
 }

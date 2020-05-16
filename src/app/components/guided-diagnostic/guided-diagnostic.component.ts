@@ -589,7 +589,7 @@ export class GuidedDiagnosticComponent implements OnInit {
       }
 
       selectSintomas(label : any){
-        const modalRef = this.modalService.open(SintSelectionComponent, { windowClass : "myCustomModalClass"});
+        const modalRef = this.modalService.open(SintSelectionComponent, { windowClass : "myCustomModalClass fadeIn"});
         let zoneSints = this.sintomasZona.find(zone => zone['zone']==label);
         let selectedZone = this.zoneSelection.find(zone => zone['zone']==label);
       
