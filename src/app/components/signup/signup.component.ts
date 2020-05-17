@@ -90,7 +90,6 @@ export class SignupComponent implements OnInit {
     .set('apellidos', this.forma.value.nombrecompleto.apellido)
     .set('password', this.forma.value.password_validations.password1)
     .set('passwordVerif', this.forma.value.password_validations.password2)
-    .set('tipoUsuario', '1')
     .set('fecha_nacimiento', this.forma.value.fechanacimiento);
     this.signupServ.checkRegister(this.values).subscribe(res =>{
       //console.log("Ok", res)

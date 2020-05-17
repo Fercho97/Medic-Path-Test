@@ -43,7 +43,7 @@ export class ForgotPasswordComponent implements OnInit {
     .set('email', this.recovery.value.email);
     this.spinner.show();
     this.recServ.resetRequest(this.values).subscribe((res :any) =>{
-      this.toastr.info("Se ha enviado un correo a la dirección que indico, llegara en un momento", "Enviado");
+      this.toastr.info("Si la dirección de correo esta registrada en el sistema recibirá un email", "Entrega");
       this.spinner.hide();
       this.router.navigate(['/home']);
     }, error =>{

@@ -98,7 +98,6 @@ export class RegistryComponent implements OnInit {
     formData.append('apellidos', this.forma.value.nombrecompleto.apellido)
     formData.append('password', password)
     formData.append('passwordVerif', password)
-    formData.append('tipoUsuario', '2')
     formData.append('fecha_nacimiento', this.forma.value.fechanacimiento);
     formData.append('telefono', this.forma.value.telefono);
     formData.append('direccion', this.forma.value.direccion);
