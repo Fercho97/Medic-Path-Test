@@ -1,21 +1,34 @@
 <div class="myMod">
-    <div class="modal-header">
-      <h5 class="modal-title" id="info">Selección de síntomas de {{zone}}</h5>
-      <button type="button" class="close" (click)="activeModal.dismiss('Cross click')" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-
-    <label>Puede seleccionar multiples síntomas, si se encuentra en PC para seleccionar varios mantenga presionada
-           la tecla de Ctrl y vaya seleccionandolos
+  <div class="modal-header">
+    <h5 class="modal-title" id="info">Selección de síntomas de {{ zone }}</h5>
+    <button
+      type="button"
+      class="close"
+      (click)="activeModal.dismiss('Cross click')"
+      aria-label="Close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <label
+      >Puede seleccionar multiples síntomas, si se encuentra en PC para
+      seleccionar varios mantenga presionada la tecla de Ctrl y vaya
+      seleccionandolos
     </label>
-    <select class="selectpicker" multiple [(ngModel)] = "sintomasSeleccionados">
-      <option *ngFor="let ini of selectableSints" value="{{ini.idSint}}">{{ini.nombre_sint}}</option>
+    <select class="selectpicker" multiple [(ngModel)]="sintomasSeleccionados">
+      <option *ngFor="let ini of selectableSints" value="{{ ini.idSint }}">{{
+        ini.nombre_sint
+      }}</option>
     </select>
-    </div>
-    <div class="modal-footer" >
-      <button type="button" class="btn btn-secondary cancel" (click)="return()">Continuar</button>
-    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-secondary cancel mibtn"
+      (click)="return()"
+    >
+      Continuar
+    </button>
+  </div>
 </div>
-    

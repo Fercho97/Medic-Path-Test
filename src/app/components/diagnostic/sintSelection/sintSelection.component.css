@@ -2,7 +2,6 @@
   border-radius: 15px 15px 0 0;
   background-color: #2196f3;
   color: white;
-
 }
 .modal-body a {
   margin-left: 10px;
@@ -17,6 +16,16 @@
   text-align: center;
 }
 
+.mibtn {
+  background-color: #1864a3;
+  color: white;
+}
+
+.mibtn:hover {
+  background-color: #0f4169;
+  color: white;
+}
+
 .pad-img {
   width: 50%;
   height: 60%;
@@ -29,24 +38,24 @@
   width: 50%;
 }
 
-legend{
+legend {
   color: blue;
 }
 
-legend:hover{
+legend:hover {
   cursor: pointer;
 }
 
-.title{
+.title {
   color: blue;
   font-size: 15px;
 }
 
-i{
+i {
   color: cornflowerblue;
 }
 
-select.selectpicker{
+select.selectpicker {
   display: block !important;
   height: 160px;
 }

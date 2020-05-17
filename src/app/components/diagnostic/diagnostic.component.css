@@ -37,11 +37,23 @@ h2,
 h3,
 h4 {
   margin-top: 15px;
-  color: white;
+  color: gold;
+}
+
+.sized legend {
+  color: red;
 }
 
 .form-control-feedback {
   color: red;
+}
+
+.my-inp {
+  color: white;
+}
+
+.my-inp::placeholder {
+  color: white;
 }
 
 .margin-color-main {
