@@ -6,7 +6,11 @@
   font-family: "Bree Serif", serif;
 }
 
-.miBoton:hover {
+.mibtn {
+  width: auto !important;
+}
+
+.mibtn:hover {
   background-color: #1864a3;
   color: white;
 }
@@ -22,12 +26,27 @@
   color: red;
 }
 
-.margin-color {
+.margin-color-main {
+  border: 2px solid #1864a3;
+  border-radius: 5px;
+  border-style: groove;
   text-align: center;
+}
+.margin-color {
+  border: 2px solid #1864a3;
+  border-radius: 5px;
+  border-style: groove;
+  text-align: center;
+  background-color: #2196f3;
+  color: white;
+}
+
+.margin-color h4 {
+  color: gold;
 }
 
 .margin-color h1 {
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
 .center {
@@ -45,7 +64,8 @@
 }
 
 .btn {
-  margin-left: 5px;
+  width: 18%;
+  margin-left: 5%;
   margin-bottom: 5px;
 }
 .form-group select {
@@ -108,7 +128,7 @@ i {
 }
 
 .cancel {
-  margin-bottom: 179px;
+  margin-bottom: 154px;
   text-align: center;
 }
 @media (max-width: 560px) {

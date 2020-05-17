@@ -1,17 +1,19 @@
 <div class="container main-container fonts">
   <div class="row sized">
-    <div class="col m10 margin-color" *ngIf="!hasPregunta">
+    <div class="col m10 margin-color-main" *ngIf="!hasPregunta">
       <div class="center">
         <p>Bienvenido a la sección de Diagnóstico</p>
-        <p>
+        <p *ngIf="isSelection === false">
           Para comenzar simplemente haz click en el siguiente botón
+        </p>
+        <p *ngIf="isSelection === true">
+          Selecciona el area correspondiente de tu malestar, presionando en
+          nuestro individuo
         </p>
       </div>
 
-      <!---<button class="btn" (click)="iniciarDiagnostico()">Comenzar</button>--->
-
       <button
-        class="btn miBoton"
+        class="btn mibtn"
         (click)="selection()"
         *ngIf="isSelection === false"
       >
@@ -75,7 +77,7 @@
 
       <div>
         <button
-          class="btn"
+          class="btn mibtn"
           *ngIf="sintomasSeleccionados.length > 0"
           (click)="fromSintomasIniciales()"
         >
