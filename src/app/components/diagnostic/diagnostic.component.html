@@ -184,31 +184,31 @@
       <div *ngIf="question.type === 'scale'">
         <div>
           <button
-            class="btn btn-primary"
+            class="btn btn-primary btn-option"
             (click)="scaleAnswer(1, question.index)"
           >
             1
           </button>
           <button
-            class="btn btn-primary"
+            class="btn btn-primary btn-option"
             (click)="scaleAnswer(2, question.index)"
           >
             2
           </button>
           <button
-            class="btn btn-success"
+            class="btn btn-success btn-option"
             (click)="scaleAnswer(3, question.index)"
           >
             3
           </button>
           <button
-            class="btn btn-success"
+            class="btn btn-success btn-option"
             (click)="scaleAnswer(4, question.index)"
           >
             4
           </button>
           <button
-            class="btn btn-warning"
+            class="btn btn-warning btn-option"
             (click)="scaleAnswer(5, question.index)"
           >
             5
@@ -217,31 +217,31 @@
 
         <div>
           <button
-            class="btn btn-warning"
+            class="btn btn-warning btn-option"
             (click)="scaleAnswer(6, question.index)"
           >
             6
           </button>
           <button
-            class="btn btn-warning"
+            class="btn btn-warning btn-option"
             (click)="scaleAnswer(7, question.index)"
           >
             7
           </button>
           <button
-            class="btn btn-danger"
+            class="btn btn-danger btn-option"
             (click)="scaleAnswer(8, question.index)"
           >
             8
           </button>
           <button
-            class="btn btn-danger"
+            class="btn btn-danger btn-option"
             (click)="scaleAnswer(9, question.index)"
           >
             9
           </button>
           <button
-            class="btn btn-danger"
+            class="btn btn-danger btn-option"
             (click)="scaleAnswer(10, question.index)"
           >
             10
@@ -259,7 +259,7 @@
       </div>
     </div>
 
-    <div *ngIf="hasResult">
+    <div class="results" *ngIf="hasResult">
       <ul *ngIf="hasResult && idResultado != ''">
         <h2>Esto debido a los siguientes síntomas:</h2>
         <li *ngFor="let sintoma of sintomasResultado">

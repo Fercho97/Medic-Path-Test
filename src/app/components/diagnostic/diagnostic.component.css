@@ -10,8 +10,18 @@
   width: auto !important;
 }
 
+.btn-option {
+  width: 8% !important;
+}
+
 .mibtn:hover {
   background-color: #1864a3;
+  color: white;
+}
+
+.results {
+  text-align: center;
+  background-color: #2196f3;
   color: white;
 }
 
@@ -20,6 +30,14 @@
   border: 2px solid #1864a3;
   border-radius: 5px;
   border-style: groove;
+}
+
+.sized h1,
+h2,
+h3,
+h4 {
+  margin-top: 15px;
+  color: white;
 }
 
 .form-control-feedback {
