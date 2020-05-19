@@ -19,7 +19,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class AgregarSintomasComponent implements OnInit {
 
   mensajes_error = ErrorMsg.ERROR_MSG_SINT_PADS;
-  zone_options = ErrorMsg.Zone_options.options;
   
   sintomas: FormGroup;
   public  isChecked : boolean = false;
@@ -50,7 +49,7 @@ export class AgregarSintomasComponent implements OnInit {
   ];
 
   
-
+  public zone_options : any = [];
   public compuestos : any = [];
   public selectedCompuestos : any = [];
   public composicionFront : string = "";
@@ -97,6 +96,13 @@ export class AgregarSintomasComponent implements OnInit {
         //console.log(this.compuestos);
       }, error =>{
         this.toast.error('Hubo un error al conseguir la información del catálogo de síntomas, favor de recargar la página', 'Error');
+      })
+
+      this.sintServ.getZones().subscribe((res:any) =>{
+        this.zone_options = res.body.resultado;
+        //console.log(this.compuestos);
+      }, error =>{
+        this.toast.error('Hubo un error al conseguir la información del catálogo de zonas, favor de recargar la página', 'Error');
       })
 
       this.regServ.getEspecializaciones().subscribe(res =>{

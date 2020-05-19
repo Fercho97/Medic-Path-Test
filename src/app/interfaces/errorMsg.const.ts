@@ -221,8 +221,4 @@ export class ErrorMsg {
       { type: "pattern", message: "Ingrese una cantidad válida" },
     ],
   };
-
-  public static Zone_options = {
-    options: ["Cabeza", "Abdomen", "Corporal", "Pecho", "Garganta y Cuello"],
-  };
 }

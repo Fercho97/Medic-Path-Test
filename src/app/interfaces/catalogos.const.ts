@@ -26,6 +26,9 @@ export class Catalogos {
         },
         {
           nombre: 'Cutánea'
+        },
+        {
+          nombre: 'Muscular'
         }
       ];
 

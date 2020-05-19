@@ -58,10 +58,11 @@ export class GuidedDiagnosticComponent implements OnInit {
   public sintomasZona : any = [];
   public zoneSelection : any = [];
   public sintomasShow : any = [];
-  public zone_options = ErrorMsg.Zone_options.options;
+  public zone_options : any = [];
   public doc_recomendacion : any = [];
   public divisions = Catalogos.LETTERS;
   public sintomasExtras : any =[];
+  public view = "Front";
   constructor(private diagServ : DiagnosticService, private toast : ToastrService,
               private router : Router, private sintServ : SintomasService, 
               private modalService : NgbModal, private spinner : NgxSpinnerService) { 
@@ -70,19 +71,26 @@ export class GuidedDiagnosticComponent implements OnInit {
                 });
               }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.diagServ.obtenerUsuarios().subscribe((res: any) =>{
       this.usuarios = res.body.usuarios;
       this.usuarios = this.calculusClass.orderByFirstLetter(this.usuarios);
+    })
+
+    await this.sintServ.getZones().subscribe((res:any) =>{
+      this.zone_options = res.body.resultado;
+      //console.log(this.compuestos);
+    }, error =>{
+      this.toast.error('Hubo un error al conseguir la información del catálogo de zonas, favor de recargar la página', 'Error');
     })
 
     this.sintServ.getSints().subscribe(res =>{
       this.sintomas = res.body;
       this.iniciales = this.sintomas.filter(sintoma => sintoma['compuesto']==false);
       for( var zona of this.zone_options){
-        let zone_sints = this.sintomas.filter(sintoma => sintoma['compuesto']==false && sintoma['body_zone']==zona);
-        this.sintomasZona.push({zone: zona, sintomas: zone_sints});
-        this.zoneSelection.push({zone: zona, sintomas: []});
+        let zone_sints = this.sintomas.filter(sintoma => sintoma['compuesto']==false && sintoma['body_zone']==zona.body_zone);
+        this.sintomasZona.push({zone: zona.body_zone, sintomas: zone_sints});
+        this.zoneSelection.push({zone: zona.body_zone, sintomas: []});
       }
       //console.log(this.sintomas);
     })
@@ -618,5 +626,13 @@ export class GuidedDiagnosticComponent implements OnInit {
       this.sintomasSeleccionados = zones;
         this.sintomasShow = this.diagServ.showSymtoms(this.sintomasSeleccionados, this.sintomas);
         
+      }
+
+      turnAround(){
+        if(this.view=="Front"){
+          this.view="Back";
+        }else{
+          this.view="Front";
+        }
       }
 }

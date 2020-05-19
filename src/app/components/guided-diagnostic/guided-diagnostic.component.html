@@ -19,15 +19,23 @@
             <br>
             <div *ngIf="isSelection">
                 <div style="float: left;">
+                    <div>
+                        <button type="button" class="btn btn-dark" (click)="turnAround()">Girar</button>
+                    </div>
                   <label>Haga click en la zona y elija los síntomas</label>
-                        <img src="/assets/Body.PNG" usemap="#mapname" class="imgcent">
-                        
+                        <img src="/assets/frontbody.png" usemap="#mapname" class="imgcent" *ngIf="view=='Front'">
+                        <img src="/assets/backbody.png" usemap="#backside" class="imgcent" *ngIf="view=='Back'"/>
                         <map name="mapname">
                             <area class="point" shape="rect" coords="210,10,150,68" (click)="selectSintomas('Cabeza')" title="Cabeza">
                             <area class="point" shape="rect" coords="210,70,150,89" (click)="selectSintomas('Garganta y Cuello')" title="Garganta y Cuello">
                             <area class="point" shape="rect" coords="230,140,130,90" (click)="selectSintomas('Pecho')" title="Pecho">
                             <area class="point" shape="rect" coords="230,270,130,140" (click)="selectSintomas('Abdomen')" title="Abdomen">
                         </map>
+                        <map name="backside">
+                            <area class="point" shape="rect" coords="210,10,150,68" (click)="selectSintomas('Cabeza')" title="Cabeza"/>
+                            <area class="point" shape="rect" coords="210,70,150,89" (click)="selectSintomas('Garganta y Cuello')" title="Garganta y Cuello"/>
+                            <area class="point" shape="rect" coords="230,250,130,90" (click)="selectSintomas('Espalda')" title="Espalda"/>
+                          </map>
                     </div>
                     <div class="selection">
                         <legend>Síntomas seleccionados:</legend>

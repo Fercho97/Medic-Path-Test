@@ -60,11 +60,12 @@ export class DiagnosticComponent implements OnInit {
   public sintomasZona: any = [];
   public zoneSelection: any = [];
   public sintomasShow: any = [];
-  public zone_options = ErrorMsg.Zone_options.options;
+  public zone_options: any = [];
   public doc_recomendacion: any = [];
   public compare_historiales: any = [];
   public user_recommendation: any = [];
   public userId = "0";
+  public view = "Front";
   constructor(
     private diagServ: DiagnosticService,
     private toast: ToastrService,
@@ -84,11 +85,12 @@ export class DiagnosticComponent implements OnInit {
 
   image = [
     {
-      img: "assets/Body.PNG",
+      img: "assets/frontbody.png",
+      back: "assets/backbody.png"
     },
   ];
 
-  ngOnInit() {
+  async ngOnInit() {
     if (this.storage.decryptData("usuario") != null) {
       this.user = true;
       this.userId = this.storage.decryptData("usuario");
@@ -97,19 +99,25 @@ export class DiagnosticComponent implements OnInit {
       });
     }
 
+    await this.sintServ.getZones().subscribe((res:any) =>{
+       return this.zone_options = res.body.resultado;
+      //console.log(this.compuestos);
+    }, error =>{
+      this.toast.error('Hubo un error al conseguir la información del catálogo de zonas, favor de recargar la página', 'Error');
+    })
+
     this.sintServ.getSintsForDiagnostic().subscribe((res) => {
       this.sintomas = res.body;
       this.iniciales = this.sintomas.filter(
         (sintoma) => sintoma["compuesto"] == false
       );
-
       for (var zona of this.zone_options) {
         let zone_sints = this.sintomas.filter(
           (sintoma) =>
-            sintoma["compuesto"] == false && sintoma["body_zone"] == zona
+            sintoma["compuesto"] == false && sintoma["body_zone"] == zona.body_zone
         );
-        this.sintomasZona.push({ zone: zona, sintomas: zone_sints });
-        this.zoneSelection.push({ zone: zona, sintomas: [] });
+        this.sintomasZona.push({ zone: zona.body_zone, sintomas: zone_sints });
+        this.zoneSelection.push({ zone: zona.body_zone, sintomas: [] });
       }
     });
   }
@@ -209,7 +217,7 @@ export class DiagnosticComponent implements OnInit {
     //console.log(this.preguntas);
     this.question = this.preguntas.pop();
     //console.log(this.question);
-    if (this.question.type === "boolean" || this.question.type === "numeric") {
+    if (this.question.type === "boolean" || this.question.type === "numeric" || this.question.type==="selection") {
       let id = this.descs.pop();
       //console.log(id);
 
@@ -366,10 +374,7 @@ export class DiagnosticComponent implements OnInit {
       (res) => {
         //console.log("Ok", res)
 
-        this.toast.success(
-          "Se ha guardado con éxito en su historial",
-          "Guardado Exitoso!"
-        );
+        this.toast.success("Se ha guardado con éxito en su historial","Guardado Exitoso!");
       },
       (error) => {
         //console.log("Error", error.error);
@@ -796,5 +801,13 @@ export class DiagnosticComponent implements OnInit {
       this.sintomasSeleccionados,
       this.sintomas
     );
+  }
+
+  turnAround(){
+    if(this.view=="Front"){
+      this.view="Back";
+    }else{
+      this.view="Front";
+    }
   }
 }

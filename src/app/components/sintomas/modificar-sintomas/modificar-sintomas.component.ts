@@ -49,8 +49,7 @@ export class ModificarSintomasComponent implements OnInit {
     }
   ];
 
-  public zone_options = ErrorMsg.Zone_options.options;
-
+  public zone_options : any = [];
   public compuestos : any = [];
   public selectedCompuestos : any = [];
   public sintoma : Sintoma = {} as any;
@@ -101,6 +100,13 @@ export class ModificarSintomasComponent implements OnInit {
     }, error =>{
       this.toast.error('Hubo un error al conseguir la información del catálogo de especializaciones, favor de recargar la página', 'Error');
     })
+    this.sintServ.getZones().subscribe((res:any) =>{
+      this.zone_options = res.body.resultado;
+      //console.log(this.compuestos);
+    }, error =>{
+      this.toast.error('Hubo un error al conseguir la información del catálogo de zonas, favor de recargar la página', 'Error');
+    })
+
     //Carga de datos principales
     this.sintServ.getSint(this.url.snapshot.params.hash).subscribe( (res : any) =>{
       this.sintoma = res.body.sintoma;

@@ -98,6 +98,7 @@ h4 {
   margin-left: 5%;
   margin-bottom: 5px;
 }
+
 .form-group select {
   width: 30%;
   display: inline-block;
@@ -126,6 +127,12 @@ h4 {
 
 i {
   color: cornflowerblue;
+}
+
+.description {
+  color: white;
+  margin-left: 10px;
+  font-size:15px;
 }
 
 .CdkTitle {
@@ -161,6 +168,7 @@ i {
   margin-bottom: 154px;
   text-align: center;
 }
+
 @media (max-width: 560px) {
   .main-container li {
     margin-left: 30px;
@@ -173,6 +181,7 @@ i {
 
   .btn {
     font-size: 12px;
+    width: auto;
   }
 
   h3 {
