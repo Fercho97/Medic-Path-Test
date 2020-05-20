@@ -25,30 +25,7 @@ export class AgregarSintomasComponent implements OnInit {
   private values : HttpParams;
   categorias = Catalogos.CATEGORIAS;
 
-  nivelesUrgencia = [
-    {
-      nombre: 'Ninguno',
-      valor: '0'
-    },
-    {
-      nombre: 'Bajo',
-      valor: '0.2'
-    },
-    {
-      nombre: 'Medio',
-      valor: '0.4'
-    },
-    {
-      nombre: 'Alto',
-      valor: '0.6'
-    },
-    {
-      nombre: 'Severo',
-      valor: '0.8'
-    }
-  ];
-
-  
+  public nivelesUrgencia : any = [];
   public zone_options : any = [];
   public compuestos : any = [];
   public selectedCompuestos : any = [];
@@ -58,6 +35,7 @@ export class AgregarSintomasComponent implements OnInit {
   public especializacionesSeleccionadas : any = [];
   public isEmpty = false;
   public isNot100 = false;
+  public sum : number = 0;
   constructor(private sintServ : SintomasService, private router : Router, 
               private toast : ToastrService, private nameVal : SymptomNameValidator,
               private regServ : RegistryService, private spinner : NgxSpinnerService) {
@@ -103,6 +81,13 @@ export class AgregarSintomasComponent implements OnInit {
         //console.log(this.compuestos);
       }, error =>{
         this.toast.error('Hubo un error al conseguir la información del catálogo de zonas, favor de recargar la página', 'Error');
+      })
+
+      this.sintServ.getNiveles().subscribe((res:any) =>{
+        this.nivelesUrgencia = res.body.resultado;
+        //console.log(this.compuestos);
+      }, error =>{
+        this.toast.error('Hubo un error al conseguir la información del catálogo de niveles de urgencia, favor de recargar la página', 'Error');
       })
 
       this.regServ.getEspecializaciones().subscribe(res =>{
@@ -224,11 +209,11 @@ export class AgregarSintomasComponent implements OnInit {
   }
 
   totalPorcentage(){
-    let sum : number = 0;
+    
     for(var selected of this.especializacionesSeleccionadas){
-      sum = sum + Number(selected.porcentaje);
+      this.sum = this.sum + Number(selected.porcentaje);
     }
-    if(sum>100 || sum<100){
+    if(this.sum>100 || this.sum<100){
       this.isNot100=true;
     }else{
       this.isNot100=false;

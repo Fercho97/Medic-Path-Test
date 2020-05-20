@@ -12,28 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class InfoSintomasComponent implements OnInit {
 
-  nivelesUrgencia = [
-    {
-      nombre: 'Ninguno',
-      valor: '0'
-    },
-    {
-      nombre: 'Bajo',
-      valor: '0.2'
-    },
-    {
-      nombre: 'Medio',
-      valor: '0.4'
-    },
-    {
-      nombre: 'Alto',
-      valor: '0.6'
-    },
-    {
-      nombre: 'Severo',
-      valor: '0.8'
-    }
-  ];
+  public nivelesUrgencia :any = []
   @Input() public sintoma; 
   public compuesto = '';
   private values : HttpParams;
@@ -44,7 +23,20 @@ export class InfoSintomasComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.sintServ.getNiveles().subscribe((res:any) =>{
+      this.nivelesUrgencia = res.body.resultado;
+      //console.log(this.compuestos);
+      this.nivelesUrgencia.forEach(nivel => {
+      
+        if(nivel.valor===this.sintoma.nivel_urgencia){
+          this.sintoma.nivel_urgencia = nivel.nombre;
+        }
+      });
+    }, error =>{
+      this.toast.error('Hubo un error al conseguir la información del catálogo de niveles de urgencia, favor de recargar la página', 'Error');
+    });
     this.spinner.show();
+
     this.especialidades = JSON.parse(this.sintoma.porcentages);
     //console.log(this.especialidades);
     this.compuesto = this.sintoma.compuesto;
@@ -69,14 +61,8 @@ export class InfoSintomasComponent implements OnInit {
     this.sintoma.composicion = this.sintoma.composicion.replace(/,/g,' ');
     this.sintoma.composicion = this.sintoma.composicion.replace(/&/g,'Y');
     }
-    this.nivelesUrgencia.forEach(nivel => {
-      
-      if(nivel.valor===this.sintoma.nivel_urgencia.toString()){
-        this.sintoma.nivel_urgencia = nivel.nombre;
-      }
-      this.spinner.hide();
-    });
     
+    this.spinner.hide();
   }
 
 }

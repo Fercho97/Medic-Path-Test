@@ -7,8 +7,8 @@
           Para comenzar simplemente haz click en el siguiente botón
         </p>
         <p *ngIf="isSelection === true">
-          Selecciona el area correspondiente de tu malestar, presionando en
-          nuestro individuo
+          Selecciona el area correspondiente de tu malestar, presionando en la zona de la
+          imagen
         </p>
       </div>
 
@@ -49,7 +49,7 @@
             <div *ngFor="let sintoma of sintomasShow">
               <legend>
                 {{ sintoma.name }}
-                <i class="far fa-question-circle" ngbTooltip="{{ sintoma.descripcion }}"></i>
+                <i class="far fa-question-circle info" ngbTooltip="{{ sintoma.descripcion }}"></i>
               </legend>
             </div>
           </div>
@@ -70,7 +70,7 @@
       <h4>Sus síntomas:</h4>
       <h5>{{ breadcrumb }}</h5>
       <h4 *ngIf="!hasResult && question.type === 'boolean'">
-        <i class="far fa-question-circle description" ngbTooltip="{{ descripcion }}"></i>
+        <i class="far fa-question-circle description" ngbTooltip="{{ descripcion }}" placement="right"></i>
       </h4>
       <h1>{{ question.message }}</h1>
 
@@ -135,7 +135,6 @@
             formControlName="temp"
             class="form-control is-valid my-inp"
             type="text"
-            placeholder="Temperatura corporal"
           />
           <div class="validation-errors">
             <ng-container *ngFor="let validation of errores_Diag.temp">
@@ -154,7 +153,7 @@
 
           <button
             type="submit"
-            class="btn btn-outline-primary boton"
+            class="btn btn-light"
             [disabled]="!numeric.valid"
           >
             Enviar

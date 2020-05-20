@@ -45,7 +45,7 @@ h4 {
 }
 
 .form-control-feedback {
-  color: red;
+  color: white;
 }
 
 .my-inp {
@@ -125,14 +125,14 @@ h4 {
   font-size: 32px !important;
 }
 
-i {
+.info{
   color: cornflowerblue;
 }
 
 .description {
   color: white;
   margin-left: 10px;
-  font-size:15px;
+  font-size:20px;
 }
 
 .CdkTitle {

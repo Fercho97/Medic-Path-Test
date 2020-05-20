@@ -79,6 +79,8 @@ export class DiagnosticComponent implements OnInit {
       temp: new FormControl("", [
         Validators.required,
         Validators.pattern("^-?[0-9]\\d*(\\.\\d{1,2})?$"),
+        Validators.max(40),
+        Validators.min(35),
       ]),
     });
   }

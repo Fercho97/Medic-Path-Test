@@ -26,29 +26,7 @@ export class ModificarSintomasComponent implements OnInit {
 
   categorias = Catalogos.CATEGORIAS;
 
-  nivelesUrgencia = [
-    {
-      nombre: 'Ninguno',
-      valor: '0'
-    },
-    {
-      nombre: 'Bajo',
-      valor: '0.2'
-    },
-    {
-      nombre: 'Medio',
-      valor: '0.4'
-    },
-    {
-      nombre: 'Alto',
-      valor: '0.6'
-    },
-    {
-      nombre: 'Severo',
-      valor: '0.8'
-    }
-  ];
-
+  public nivelesUrgencia : any = [];
   public zone_options : any = [];
   public compuestos : any = [];
   public selectedCompuestos : any = [];
@@ -105,6 +83,13 @@ export class ModificarSintomasComponent implements OnInit {
       //console.log(this.compuestos);
     }, error =>{
       this.toast.error('Hubo un error al conseguir la información del catálogo de zonas, favor de recargar la página', 'Error');
+    })
+
+    this.sintServ.getNiveles().subscribe((res:any) =>{
+      this.nivelesUrgencia = res.body.resultado;
+      //console.log(this.compuestos);
+    }, error =>{
+      this.toast.error('Hubo un error al conseguir la información del catálogo de niveles de urgencia, favor de recargar la página', 'Error');
     })
 
     //Carga de datos principales

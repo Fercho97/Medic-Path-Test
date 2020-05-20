@@ -15,6 +15,7 @@ export class SintomasService {
   _urlCheckName: string = "";
   _urlForDiagnostic: string = "";
   _urlZones: string = "";
+  _urlNiveles: string = "";
   constructor(private _http: HttpClient) {
     this._url = environment.url + 'sintomas/sintlist/';
     this._urlIndividual = environment.url + 'sintomas/';
@@ -25,6 +26,7 @@ export class SintomasService {
     this._urlCheckName = environment.url + 'sintomas/checkName/';
     this._urlForDiagnostic = environment.url + 'sintomas/sintsForDiagnostic';
     this._urlZones = environment.url + 'sintomas/zones/list';
+    this._urlNiveles = environment.url + 'sintomas/niveles/list';
   }
 
   getSints() {
@@ -111,6 +113,16 @@ export class SintomasService {
 
   getZones() {
     return this._http.get(this._urlZones, {
+      headers: new HttpHeaders().set(
+        "Content-Type",
+        "application/x-www-form-urlencoded"
+      ),
+      observe: "response"
+    });
+  }
+
+  getNiveles() {
+    return this._http.get(this._urlNiveles, {
       headers: new HttpHeaders().set(
         "Content-Type",
         "application/x-www-form-urlencoded"
