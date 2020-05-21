@@ -3,6 +3,7 @@ export class questions {
         'fiebre' : [
           {type: 'numeric', message: '¿Cuál es o ha sido su temperatura corporal?', validValue: 38},
         ],
+        /*
         'default' : [
           {type: 'boolean', message: ''},
         ],
@@ -51,7 +52,7 @@ export class questions {
         'dolor por movimiento' : [
           {message: '¿Su dolor empeora con el movimiento?', type: "boolean"}
         ]
-
+*/
       }
 
       public static QUESTIONS_DOC = {
@@ -132,7 +133,7 @@ export class questions {
           {message: '¿En que parte del abdomen presenta dolor el paciente?'}
         ]
       }
-
+/*
       public static SPECIFIC_NUMERIC_QUESTION = {
         'deshidratación' : [
           {message: 'Del 1 al 10 tanto se ve afectado por la falta de agua'}
@@ -161,7 +162,7 @@ export class questions {
         'dolor de espalda baja' : [
           {message: 'En una escala del 1 al 10 ¿Que tan intenso es su dolor de espalda?'}
         ]
-      }
+      }*/
 
       public static SPECIFIC_NUMERIC_QUESTION_DOC = {
         'deshidratación' : [

@@ -36,6 +36,7 @@ export class AgregarSintomasComponent implements OnInit {
   public isEmpty = false;
   public isNot100 = false;
   public sum : number = 0;
+  public hasIndex = false;
   constructor(private sintServ : SintomasService, private router : Router, 
               private toast : ToastrService, private nameVal : SymptomNameValidator,
               private regServ : RegistryService, private spinner : NgxSpinnerService) {
@@ -61,7 +62,8 @@ export class AgregarSintomasComponent implements OnInit {
         Validators.minLength(20),
         Validators.maxLength(200),
         Validators.pattern('^([ñÑáÁéÉíÍóÓúÚüÜa-zA-Z,.]+ )*[ñÑáÁéÉíÍóÓúÚüÜa-zA-Z,.]+$')]),
-
+      question: new FormControl('', [Validators.minLength(20), Validators.maxLength(120)]),
+      index_question: new FormControl('', [Validators.minLength(20), Validators.maxLength(120)]),
       compuesto: new FormControl(''),
       componentes: new FormControl(''),
       composite: new FormControl('')
@@ -99,6 +101,23 @@ export class AgregarSintomasComponent implements OnInit {
 
   guardar() {
     //console.log(this.isChecked);
+    let question = {};
+    if(this.sintomas.value.question==='' || this.sintomas.value.question===null){
+      question = { message: "¿Ha tenido " + this.sintomas.value.nombre + "?", type: "boolean"};
+    }else{
+      question = { message: this.sintomas.value.question, type: "boolean"}
+    }
+
+    let index_question = '';
+    if(this.sintomas.value.urgencia>=0.4 && (this.sintomas.value.index_question == '' || this.sintomas.value.index_question == null)){
+      index_question = 'En un rango del 1 al 10 que tanta molestia le causa ' + this.sintomas.value.nombre;
+    }else if(this.sintomas.value.urgencia>=0.4 && (this.sintomas.value.index_question != '' || this.sintomas.value.index_question != null)){
+      index_question = this.sintomas.value.index_question;
+    }else{
+      index_question = '';
+    }
+
+
     this.spinner.show();
     if(this.isChecked==false){
       this.values = new HttpParams()
@@ -110,7 +129,9 @@ export class AgregarSintomasComponent implements OnInit {
       .set('composicion', '')
       .set('nivel_urgencia', this.sintomas.value.urgencia)
       .set('body_zone', this.sintomas.value.body_zone)
-      .set('porcentages', JSON.stringify(this.especializacionesSeleccionadas));
+      .set('porcentages', JSON.stringify(this.especializacionesSeleccionadas))
+      .set('question', JSON.stringify(question))
+      .set('index_question',index_question);
     }else{
       this.nameToId();
       this.values = new HttpParams()
@@ -122,7 +143,9 @@ export class AgregarSintomasComponent implements OnInit {
       .set('composicion', this.composicionBack)
       .set('nivel_urgencia', this.sintomas.value.urgencia)
       .set('body_zone', this.sintomas.value.body_zone)
-      .set('porcentages', JSON.stringify(this.especializacionesSeleccionadas));
+      .set('porcentages', JSON.stringify(this.especializacionesSeleccionadas))
+      .set('question', JSON.stringify(question))
+      .set('index_question',index_question);
     }
 
     if((this.isChecked==true && this.selectedCompuestos.length<=1) || this.selectedCompuestos.length===undefined){
@@ -209,11 +232,13 @@ export class AgregarSintomasComponent implements OnInit {
   }
 
   totalPorcentage(){
+    let sum : number = 0;
     
     for(var selected of this.especializacionesSeleccionadas){
-      this.sum = this.sum + Number(selected.porcentaje);
+      sum = sum + Number(selected.porcentaje);
     }
-    if(this.sum>100 || this.sum<100){
+
+    if(sum>100 || sum<100 || Number.isNaN(sum)){
       this.isNot100=true;
     }else{
       this.isNot100=false;
@@ -226,6 +251,14 @@ export class AgregarSintomasComponent implements OnInit {
       return true;
     }else{
       return false;
+    }
+  }
+
+  indexed(){
+    if(this.sintomas.value.urgencia >= 0.4){
+      this.hasIndex=true;
+    }else{
+      this.hasIndex=false;
     }
   }
 }

@@ -66,6 +66,7 @@ export class DiagnosticComponent implements OnInit {
   public user_recommendation: any = [];
   public userId = "0";
   public view = "Front";
+  public questionTypes = questions.QUESTIONS;
   constructor(
     private diagServ: DiagnosticService,
     private toast: ToastrService,
@@ -93,6 +94,7 @@ export class DiagnosticComponent implements OnInit {
   ];
 
   async ngOnInit() {
+    this.spinner.show();
     if (this.storage.decryptData("usuario") != null) {
       this.user = true;
       this.userId = this.storage.decryptData("usuario");
@@ -122,6 +124,7 @@ export class DiagnosticComponent implements OnInit {
         this.zoneSelection.push({ zone: zona.body_zone, sintomas: [] });
       }
     });
+    this.spinner.hide();
   }
 
   iniciarDiagnostico() {
@@ -193,7 +196,7 @@ export class DiagnosticComponent implements OnInit {
               element.sintoma
             )
           );
-          let question = this.questionGen(element.desc);
+          let question = this.questionGen(element.desc,element.sintoma);
           if (question != null) {
             this.preguntas.push(question);
           } else {
@@ -216,7 +219,6 @@ export class DiagnosticComponent implements OnInit {
   }
 
   mostrarPregunta() {
-    //console.log(this.preguntas);
     this.question = this.preguntas.pop();
     //console.log(this.question);
     if (this.question.type === "boolean" || this.question.type === "numeric" || this.question.type==="selection") {
@@ -500,7 +502,7 @@ export class DiagnosticComponent implements OnInit {
 
   avoidUnnecesaryQuestions() {
     this.memoriaDeTrabajo.atomosAfirmados.forEach((sintoma) => {
-      let multiOption = this.checkMultipleTypes(sintoma.desc);
+      let multiOption = this.checkMultipleTypes(sintoma.sintoma);
 
       if (multiOption.length > 1) {
         multiOption.forEach((option) => {
@@ -558,17 +560,24 @@ export class DiagnosticComponent implements OnInit {
     });
   }
 
-  questionGen(sint: any) {
-    let hasCertainQuestion = questions.QUESTIONS[sint.toLowerCase()];
-    let multiOption = this.checkMultipleTypes(sint);
-    if (hasCertainQuestion != undefined) {
+  questionGen(sint: any, id: any) {
+    var hasCertainQuestion = questions.QUESTIONS[sint.toLowerCase()];
+    if(hasCertainQuestion!=undefined){
       return hasCertainQuestion[0];
+    }else{
+    let sintoma = this.sintomas.find((item) => item["idSint"].toString() === id);
+    
+    let containsQuestion = JSON.parse(sintoma.question);
+    let multiOption = this.checkMultipleTypes(id);
+    if (containsQuestion != undefined && multiOption.length==1) {
+      return containsQuestion;
     } else if (multiOption.length > 1) {
-      hasCertainQuestion = this.generateMultiOptionQuestion(multiOption, sint);
-      return hasCertainQuestion;
+      containsQuestion = this.generateMultiOptionQuestion(multiOption, sint);
+      return containsQuestion;
     } else {
       return null;
     }
+  }
   }
 
   numericAnswer() {
@@ -600,10 +609,9 @@ export class DiagnosticComponent implements OnInit {
     );
     if (atomSymp.nivel_urgencia == 0.4 || atomSymp.nivel_urgencia == 0.6) {
       let question = "";
-      let hasSpecificQuestion =
-        questions.SPECIFIC_NUMERIC_QUESTION[atomSymp.nombre_sint.toLowerCase()];
+      let hasSpecificQuestion = atomSymp.index_question;
       if (hasSpecificQuestion != null) {
-        question = hasSpecificQuestion[0].message;
+        question = hasSpecificQuestion;
       } else {
         question =
           "Del 1 al 10 que rango de molestia le causa el tener " +
@@ -638,7 +646,8 @@ export class DiagnosticComponent implements OnInit {
   }
 
   checkMultipleTypes(sint: any) {
-    let sintoma = this.sintomas.find((symp) => symp["nombre_sint"] == sint);
+    let sintoma = this.sintomas.find((symp) => symp["idSint"] == sint);
+    console.log(sintoma);
     let sameSynts = this.sintomas.filter(
       (symp) =>
         symp["categoria_sint"] == sintoma.categoria_sint &&

@@ -213,6 +213,26 @@ export class ErrorMsg {
         message: "Es necesario elegir una zona para el síntoma",
       },
     ],
+    question: [
+      {
+        type: "maxlength",
+        message: "El texto supera la cantidad válida de caracteres"
+      },
+      {
+        type: "minlength",
+        message: "El texto no cumple con la cantidad válida de caracteres"
+      }
+    ],
+    index_question: [
+      {
+        type: "maxlength",
+        message: "El texto supera la cantidad válida de caracteres"
+      },
+      {
+        type: "minlength",
+        message: "El texto no cumple con la cantidad válida de caracteres"
+      }
+    ]
   };
 
   public static ERROR_DIAG = {

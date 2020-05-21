@@ -10,5 +10,7 @@ export interface Sintoma{
     compuesto: boolean,
     composicion: String,
     nivel_urgencia: Number,
-    body_zone: String
+    body_zone: String,
+    question: String,
+    index_question: String
 }

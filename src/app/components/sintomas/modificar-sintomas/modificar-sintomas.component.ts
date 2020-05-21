@@ -39,7 +39,8 @@ export class ModificarSintomasComponent implements OnInit {
   public especializacionesSeleccionadas : any = [];
   public isEmpty = false;
   public isNot100 = false;
-
+  public pregunta : any = {};
+  public hasIndex = false;
   constructor(private sintServ : SintomasService, private router : Router,
               private toast : ToastrService, private url : ActivatedRoute,
               private nameVal : SymptomNameValidator, private regServ : RegistryService,
@@ -66,6 +67,8 @@ export class ModificarSintomasComponent implements OnInit {
         Validators.pattern('^([ñÑáÁéÉíÍóÓúÚüÜa-zA-Z,.]+ )*[ñÑáÁéÉíÍóÓúÚüÜa-zA-Z,.]+$')]),
       compuesto: new FormControl(''),
       componentes: new FormControl(''),
+      question: new FormControl('', [Validators.minLength(20), Validators.maxLength(120)]),
+      index_question: new FormControl('', [Validators.minLength(20), Validators.maxLength(120)]),
       composite: new FormControl('')
     });
   }
@@ -94,9 +97,20 @@ export class ModificarSintomasComponent implements OnInit {
 
     //Carga de datos principales
     this.sintServ.getSint(this.url.snapshot.params.hash).subscribe( (res : any) =>{
+      let question = '';
       this.sintoma = res.body.sintoma;
       if(res.body.sintoma.porcentages!=null){
       this.especializacionesSeleccionadas = JSON.parse(res.body.sintoma.porcentages);
+      }
+
+      if(res.body.sintoma.question!=null){
+        this.pregunta = JSON.parse(res.body.sintoma.question);
+
+        question = this.pregunta.message;
+      }
+
+      if(this.sintoma.nivel_urgencia>=0.4){
+        this.hasIndex=true;
       }
 
       if(this.sintoma.compuesto==true){
@@ -116,7 +130,7 @@ export class ModificarSintomasComponent implements OnInit {
 
       
       //console.log(this.selectedCompuestos);
-     
+
       this.modify.patchValue({
         nombre : this.sintoma.nombre_sint,
         keyword : this.sintoma.keyWord,
@@ -125,7 +139,9 @@ export class ModificarSintomasComponent implements OnInit {
         compuesto : this.sintoma.compuesto,
         categoria: this.sintoma.categoria_sint,
         urgencia: this.sintoma.nivel_urgencia,
-        body_zone: this.sintoma.body_zone
+        body_zone: this.sintoma.body_zone,
+        question: question,
+        index_question: this.sintoma.index_question
       })
       this.isChecked = this.sintoma.compuesto;
       this.modify.controls['categoria'].setValue(this.sintoma.categoria_sint, {onlySelf : true});
@@ -163,6 +179,23 @@ export class ModificarSintomasComponent implements OnInit {
   }
 
   modificar(){
+    let question = {};
+    if(this.modify.value.question==='' || this.modify.value.question===null){
+      question = { message: "¿Ha tenido " + this.modify.value.nombre + "?", type: "boolean"};
+    }else{
+      question = { message: this.modify.value.question, type: "boolean"}
+    }
+
+    let index_question = '';
+    console.log(this.modify.value.urgencia);
+    if(this.modify.value.urgencia>=0.4 && (this.modify.value.index_question == '' || this.modify.value.index_question == null)){
+      index_question = 'En un rango del 1 al 10 que tanta molestia le causa ' + this.modify.value.nombre;
+    }else if(this.modify.value.urgencia>=0.4 && (this.modify.value.index_question != '' || this.modify.value.index_question != null)){
+      index_question = this.modify.value.index_question;
+    }else{
+      index_question = '';
+    }
+
     this.spinner.show();
     if(this.isChecked==false){
       this.values = new HttpParams()
@@ -174,7 +207,9 @@ export class ModificarSintomasComponent implements OnInit {
       .set('composicion', '')
       .set('nivel_urgencia', this.modify.value.urgencia)
       .set('body_zone', this.modify.value.body_zone)
-      .set('porcentages', JSON.stringify(this.especializacionesSeleccionadas));
+      .set('porcentages', JSON.stringify(this.especializacionesSeleccionadas))
+      .set('question', JSON.stringify(question))
+      .set('index_question',index_question);
     }else{
       this.nameToId();
       this.values = new HttpParams()
@@ -186,7 +221,9 @@ export class ModificarSintomasComponent implements OnInit {
       .set('composicion', this.composicionBack)
       .set('nivel_urgencia', this.modify.value.urgencia)
       .set('body_zone', this.modify.value.body_zone)
-      .set('porcentages', JSON.stringify(this.especializacionesSeleccionadas));
+      .set('porcentages', JSON.stringify(this.especializacionesSeleccionadas))
+      .set('question', JSON.stringify(question))
+      .set('index_question',index_question);
     }
     if((this.isChecked==true && this.selectedCompuestos.length<=1) || this.selectedCompuestos.length===undefined){
       this.toast.error('Un sintoma compuesto debe tener al menos otros 2 sintomas como parte de su composición', 'Error');
@@ -296,7 +333,7 @@ export class ModificarSintomasComponent implements OnInit {
     for(var selected of this.especializacionesSeleccionadas){
       sum = sum + Number(selected.porcentaje);
     }
-    if(sum>100 || sum<100){
+    if(sum>100 || sum<100 || Number.isNaN(sum)){
       this.isNot100=true;
     }else{
       this.isNot100=false;
@@ -309,6 +346,14 @@ export class ModificarSintomasComponent implements OnInit {
       return true;
     }else{
       return false;
+    }
+  }
+
+  indexed(){
+    if(this.modify.value.urgencia >= 0.4){
+      this.hasIndex=true;
+    }else{
+      this.hasIndex=false;
     }
   }
 }

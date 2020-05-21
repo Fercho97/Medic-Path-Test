@@ -84,7 +84,7 @@ export class GuidedDiagnosticComponent implements OnInit {
       this.toast.error('Hubo un error al conseguir la información del catálogo de zonas, favor de recargar la página', 'Error');
     })
 
-    this.sintServ.getSints().subscribe(res =>{
+    this.sintServ.getSintsForDiagnostic().subscribe(res =>{
       this.sintomas = res.body;
       this.iniciales = this.sintomas.filter(sintoma => sintoma['compuesto']==false);
       for( var zona of this.zone_options){
@@ -151,7 +151,7 @@ export class GuidedDiagnosticComponent implements OnInit {
             //console.log("Esta en la memoria?" + almacenado)
             if(almacenado===false){
             this.atomosCondicion.push(new Atomo(element.desc,element.estado,element.obj,element.padecimiento,element.sintoma));
-            let question = this.questionGen(element.desc); 
+            let question = this.questionGen(element.desc,element.sintoma); 
             if(question!=null){
               this.preguntas.push(question);
             }else{
@@ -352,7 +352,7 @@ export class GuidedDiagnosticComponent implements OnInit {
 
     avoidUnnecesaryQuestions(){
       this.memoriaDeTrabajo.atomosAfirmados.forEach(sintoma =>{
-        let multiOption = this.checkMultipleTypes(sintoma.desc);
+        let multiOption = this.checkMultipleTypes(sintoma.sintoma);
 
         if(multiOption.length>1){
           multiOption.forEach(option =>{
@@ -397,10 +397,10 @@ export class GuidedDiagnosticComponent implements OnInit {
        return lastId;
      }
 
-     questionGen(sint: any){
+     questionGen(sint: any,id :any){
       
       let hasCertainQuestion = questions.QUESTIONS_DOC[sint.toLowerCase()];
-      let multiOption = this.checkMultipleTypes(sint);
+      let multiOption = this.checkMultipleTypes(id);
       if(hasCertainQuestion!=undefined){
         return hasCertainQuestion[0];
       }
@@ -471,7 +471,7 @@ export class GuidedDiagnosticComponent implements OnInit {
        }
   
        checkMultipleTypes(sint:any){
-         let sintoma = this.sintomas.find(symp => symp['nombre_sint']==sint);
+         let sintoma = this.sintomas.find(symp => symp['idSint']==sint);
          let sameSynts = this.sintomas.filter(symp => symp['categoria_sint']==sintoma.categoria_sint && symp['keyWord'].toLowerCase()==sintoma.keyWord.toLowerCase());
          return sameSynts;
        }

@@ -55,7 +55,7 @@
 
         <div class="form-group row">
           <div class="col-md-8">
-            <select formControlName="urgencia" name="urgencia" id="urgencia" class="form-control">
+            <select formControlName="urgencia" name="urgencia" id="urgencia" class="form-control" (change)="indexed()">
               <option value="">Seleccione un nivel de urgencia</option>
               <option *ngFor="let item of nivelesUrgencia" [value]="item.valor">{{item.nombre}}</option>
             </select>
@@ -96,6 +96,39 @@
                 <ng-container *ngFor="let validation of mensajes_error.descripcion">
                   <div class="form-control-feedback" *ngIf="sintomas.get('descripcion').hasError(validation.type) 
                   && (sintomas.get('descripcion').dirty || sintomas.get('descripcion').touched)">
+                  <i class="fas fa-exclamation-circle"></i> {{validation.message}}
+                  </div>
+                </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <legend class="input-label">Pregunta para el síntoma <i class="fas fa-question-circle" ngbTooltip="En este campo se puede ingresar la pregunta que verán los usuarios durante el diagnóstico para responder, en caso de no llenarlo esta sera por default ¿Ha tenido nombre del sintoma?"></i></legend>
+          <div class="col-md-8">
+            <textarea [ngClass]="{'is-invalid': !sintomas.controls['question'].valid}" formControlName="question"
+              class="form-control is-valid descripcion" type="text" placeholder="Pregunta"></textarea>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes_error.question">
+                  <div class="form-control-feedback" *ngIf="sintomas.get('question').hasError(validation.type) 
+                  && (sintomas.get('question').dirty || sintomas.get('question').touched)">
+                  <i class="fas fa-exclamation-circle"></i> {{validation.message}}
+                  </div>
+                </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="hasIndex==true" class="form-group row">
+          <legend class="input-label">Pregunta índice de dolor <i class="fas fa-question-circle" 
+            ngbTooltip="Esta pregunta de igual manera es opcional, la cual permite al usuario indicar del 1 al 10 el índice de molestia del síntoma, al omitirse será por defaul 'En un rango del 1 al 10 que tanta molestia le causa nombre del sintoma'"></i></legend>
+          <div class="col-md-8">
+            <textarea [ngClass]="{'is-invalid': !sintomas.controls['index_question'].valid}" formControlName="index_question"
+              class="form-control is-valid descripcion fromLeft" type="text" placeholder="Pregunta"></textarea>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes_error.index_question">
+                  <div class="form-control-feedback" *ngIf="sintomas.get('index_question').hasError(validation.type) 
+                  && (sintomas.get('index_question').dirty || sintomas.get('index_question').touched)">
                   <i class="fas fa-exclamation-circle"></i> {{validation.message}}
                   </div>
                 </ng-container>
