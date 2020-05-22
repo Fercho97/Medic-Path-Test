@@ -64,8 +64,7 @@ export class LoginComponent implements OnInit {
                  "name" : res.body.usuario.nombres, "hash" : res.body.usuario.hash_id}
     this.spinner.hide();
       this.storage.encryptData(JSON.stringify(data));
-      window.location.reload();
-    this.router.navigate(['/home']);
+      window.location.replace('/home');
 
     }
   }, error =>{

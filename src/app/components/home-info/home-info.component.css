@@ -32,15 +32,14 @@
   margin-top: 30px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 500px) {
   .info {
-    margin: 50px 27% 0;
     padding: 0 10%;
   }
 
   .body {
     height: 400px;
-    width: 100%;
+    width: 400px;
     margin-top: 30px;
   }
 
@@ -50,12 +49,13 @@
 
   .devices {
     height: 200px;
-    width: 100%;
+    width: 350px;
+    margin-bottom: 30px;
   }
 
   .showdoc {
     height: 200px;
-    width: 100%;
+    width: 400px;
     margin-top: 30px;
   }
 
@@ -75,5 +75,26 @@
   }
   .fonts-tones li {
     margin-top: 10px;
+  }
+}
+
+@media(max-width:400px){
+
+  .body {
+    height: 400px;
+    width: 300px;
+    margin-top: 30px;
+  }
+
+  .devices {
+    height: 200px;
+    width: 300px;
+    margin-bottom: 30px;
+  }
+
+  .showdoc {
+    height: 200px;
+    width: 300px;
+    margin-top: 30px;
   }
 }

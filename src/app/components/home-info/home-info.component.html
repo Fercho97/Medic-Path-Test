@@ -1,9 +1,9 @@
 <div class="main-container" *ngFor="let content of contents; let i = index">
   <div class="row">
-    <div class="col m12" *ngIf="i === 1">
+    <div class="col" *ngIf="i === 1">
       <img [src]="content.img" alt="" class="{{ content.class }}" />
     </div>
-    <div class="col m12 info">
+    <div class="col info">
       <span class="fonts">{{ content.header }}</span>
       <ul class="fonts-tones">
         <li>
@@ -17,7 +17,7 @@
         </li>
       </ul>
     </div>
-    <div class="col m12" *ngIf="i !== 1">
+    <div class="col" *ngIf="i !== 1">
       <img [src]="content.img" alt="" class="{{ content.class }}" />
     </div>
   </div>
