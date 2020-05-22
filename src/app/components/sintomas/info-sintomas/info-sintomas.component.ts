@@ -16,7 +16,7 @@ export class InfoSintomasComponent implements OnInit {
   @Input() public sintoma; 
   public compuesto = '';
   public urgency_value = 0;
-  public pregunta = '';
+  public pregunta : any = '';
   private values : HttpParams;
   public especialidades : any = [];
   constructor(public activeModal: NgbActiveModal, private sintServ : SintomasService,
