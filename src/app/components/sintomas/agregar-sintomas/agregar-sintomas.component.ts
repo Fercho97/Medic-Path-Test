@@ -233,11 +233,9 @@ export class AgregarSintomasComponent implements OnInit {
 
   totalPorcentage(){
     let sum : number = 0;
-    
     for(var selected of this.especializacionesSeleccionadas){
       sum = sum + Number(selected.porcentaje);
     }
-
     if(sum>100 || sum<100 || Number.isNaN(sum)){
       this.isNot100=true;
     }else{
