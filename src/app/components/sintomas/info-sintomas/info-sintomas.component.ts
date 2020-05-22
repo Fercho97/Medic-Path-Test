@@ -15,6 +15,8 @@ export class InfoSintomasComponent implements OnInit {
   public nivelesUrgencia :any = []
   @Input() public sintoma; 
   public compuesto = '';
+  public urgency_value = 0;
+  public pregunta = '';
   private values : HttpParams;
   public especialidades : any = [];
   constructor(public activeModal: NgbActiveModal, private sintServ : SintomasService,
@@ -23,6 +25,8 @@ export class InfoSintomasComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.urgency_value = this.sintoma.nivel_urgencia;
+
     this.sintServ.getNiveles().subscribe((res:any) =>{
       this.nivelesUrgencia = res.body.resultado;
       //console.log(this.compuestos);
@@ -36,7 +40,9 @@ export class InfoSintomasComponent implements OnInit {
       this.toast.error('Hubo un error al conseguir la información del catálogo de niveles de urgencia, favor de recargar la página', 'Error');
     });
     this.spinner.show();
-
+    if(this.sintoma.question!=null){
+      this.pregunta = JSON.parse(this.sintoma.question);
+    }
     this.especialidades = JSON.parse(this.sintoma.porcentages);
     //console.log(this.especialidades);
     this.compuesto = this.sintoma.compuesto;

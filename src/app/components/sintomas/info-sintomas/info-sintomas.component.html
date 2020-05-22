@@ -29,6 +29,17 @@
     <label class="title">Descripción del síntoma</label>
     <textarea rows="10" disabled>{{sintoma.descripcion}}</textarea>
 
+    <div *ngIf="pregunta!=''">
+      <label class="title"></label>
+      <label class="title">Pregunta</label>
+      <textarea rows="10" disabled>{{pregunta.message}}</textarea>  
+    </div>
+    <div *ngIf="urgency_value>=0.4">
+      <label class="title"></label>
+      <label class="title">Pregunta índice de dolor</label>
+      <textarea rows="10" disabled>{{sintoma.index_question}}</textarea>
+    </div>
+
     <div *ngIf="especialidades.length>0">
       <label class="title">Especialidades</label>
       <ul>
