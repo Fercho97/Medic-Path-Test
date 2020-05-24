@@ -75,7 +75,7 @@
                 <form [formGroup]="numeric" (ngSubmit)="numericAnswer()">
             
                         <input [ngClass]="{'is-invalid': !numeric.controls['temp'].valid}" formControlName="temp"
-                            class="form-control is-valid" type="text" placeholder="Temperatura corporal">
+                            class="form-control is-valid" type="text">
                             <div class="validation-errors">
                             <ng-container *ngFor="let validation of errores_Diag.temp">
                                 <div class="form-control-feedback" *ngIf="numeric.get('temp').hasError(validation.type) 

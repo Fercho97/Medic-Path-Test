@@ -67,7 +67,10 @@ export class GuidedDiagnosticComponent implements OnInit {
               private router : Router, private sintServ : SintomasService, 
               private modalService : NgbModal, private spinner : NgxSpinnerService) { 
                 this.numeric = new FormGroup({
-                  temp: new FormControl('', [Validators.required,Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]) 
+                  temp: new FormControl('', [Validators.required,
+                                             Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$'),
+                                             Validators.max(40),
+                                             Validators.min(35),]) 
                 });
               }
 
@@ -174,7 +177,7 @@ export class GuidedDiagnosticComponent implements OnInit {
     mostrarPregunta(){
       this.question = this.preguntas.pop();
       //console.log(this.question);
-      if(this.question.type==='boolean' || this.question.type==='numeric'){
+      if(this.question.type==='boolean' || this.question.type==='numeric' || this.question.type==="selection"){
       let id = this.descs.pop();
       //console.log(id);
       
