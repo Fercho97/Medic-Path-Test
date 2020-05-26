@@ -10,7 +10,7 @@ export class PoliticsComponent implements OnInit {
     {
       title: "CALIDAD",
       parraph:
-        "Es nuestro compromiso ofrecer consultas médicas que satisfagan las necesidades y cumplan las expectativas de nuestros pacientes y darle oportunidad a los médicos participantes de que demuestren sus conocimientos ante diversos pacientes y les permitan competir con éxito en mercados cada vez más globalizados, exigentes y cambiantes. Nuestra organización se fundamenta en el mejoramiento y aprendizaje continuo, todo para cumplir con las responsabilidades adquiridas. Nos apoyamos utilizando la ayuda de diversos médicos especializados en diferentes áreas y especialidades, médicos comprometidos con los objetivos de Medic Path, poseedores de una gran calidad humana y solvencia moral.",
+        "Es nuestro compromiso ofrecer consultas médicas que satisfagan las necesidades de información de los y cumplan las expectativas de nuestros pacientes y darle oportunidad a los médicos participantes de que demuestren sus conocimientos ante diversos pacientes y les permitan competir con éxito en mercados cada vez más globalizados, exigentes y cambiantes. Nuestra organización se fundamenta en el mejoramiento y aprendizaje continuo, todo para cumplir con las responsabilidades adquiridas. Nos apoyamos utilizando la ayuda de diversos médicos especializados en diferentes áreas y especialidades, médicos comprometidos con los objetivos de Medic Path, poseedores de una gran calidad humana y solvencia moral.",
     },
     {
       title: "SEGURIDAD",
@@ -35,7 +35,7 @@ export class PoliticsComponent implements OnInit {
     {
       title: "Realización de consultas médicas",
       parraph:
-        "Medic Path se compromete a ofrecer un diagnóstico preciso y seguro en menos de 3 minutos, el cual se basará en los síntomas mencionados por el usuario.",
+        "Medic Path se compromete a ofrecer un diagnóstico informativo preciso y seguro en menos de 3 minutos, el cual se basará en los síntomas mencionados por el usuario.",
     },
   ];
 

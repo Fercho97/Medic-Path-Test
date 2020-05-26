@@ -391,7 +391,7 @@ export class DiagnosticComponent implements OnInit {
   showWhy() {
     this.question = {
       message:
-        "Usted padece de : " + this.reglaEvaluar.partesConclusion[0].desc,
+        "El sistema detecto que usted puede padecer de : " + this.reglaEvaluar.partesConclusion[0].desc,
     };
     this.hasResult = true;
     this.idResultado = this.reglaEvaluar.partesConclusion[0].padecimiento;
