@@ -6,5 +6,5 @@ export interface Padecimiento{
     categoria: String,
     url_imagen_pad: String,
     espe_id: Number,
-    nombre_esp : String,
+    especializacion : any,
 }

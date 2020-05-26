@@ -21,7 +21,8 @@ export class InfoPadecimientosComponent implements OnInit {
   public sintomas : Sintoma[] = [];
   public sintomasCadena :  string = "";
   public url : string = "";
-  public  hasInfo : boolean = false;
+  public hasInfo : boolean = false;
+  public especialidad : any = "";
   constructor(public activeModal: NgbActiveModal, private padServ : PadecimientoService, 
               public spinner: NgxSpinnerService, private toast : ToastrService) { 
 
@@ -35,6 +36,9 @@ export class InfoPadecimientosComponent implements OnInit {
       this.padecimiento = res.body.padecimiento;
       this.sintomas = res.body.padecimiento.sintomas;
       
+      if(this.padecimiento.especializacion!=null){
+        this.especialidad= this.padecimiento.especializacion.nombre_esp;
+      }
       this.sintomas.forEach(sintoma => {
         if(this.sintomasCadena==""){
           this.sintomasCadena += sintoma.nombre_sint;
