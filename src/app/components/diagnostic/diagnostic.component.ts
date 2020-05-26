@@ -320,9 +320,18 @@ export class DiagnosticComponent implements OnInit {
       }
     } else {
       if (this.sintomasExtras[0].porcentaje >= 75 && this.user == true) {
+        if(this.sintomasExtras.length>1){
+          if(this.sintomasExtras[0].porcentaje == this.sintomasExtras[1].porcentaje){
+            this.question = {
+              message: 
+              "No se encontró un resultado único, esto debido a que usted presenta síntomas que tienen un mismo rango de similitud entre " + this.sintomasExtras[0].padecimiento +
+              " y " + this.sintomasExtras[1].padecimiento + " por lo tanto le recomendamos asistir con un médico para poder saber con exactitud que es lo que tiene."
+            }
+          }
+        }else{
         this.question = {
           message:
-            "No se encontro un resultado en especifico, sin embargo por similitud de síntomas, encontramos que usted presenta un porcentaje elevado de tener " +
+            "No se encontró un resultado en especifico, sin embargo por similitud de síntomas, encontramos que usted presenta un porcentaje elevado de tener " +
             this.sintomasExtras[0].padecimiento +
             " por lo tanto se guarda para observación",
         };
@@ -353,6 +362,7 @@ export class DiagnosticComponent implements OnInit {
           this.userId,
           this.idResultado
         );
+      }
       } else {
         this.question = {
           message:

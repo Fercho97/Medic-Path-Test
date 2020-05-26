@@ -35,7 +35,7 @@ export class PoliticsComponent implements OnInit {
     {
       title: "Realización de consultas médicas",
       parraph:
-        "Medic Path se compromete a ofrecer un diagnóstico informativo preciso y seguro en menos de 3 minutos, el cual se basará en los síntomas mencionados por el usuario.",
+        "Medic Path se compromete a ofrecer un diagnóstico preciso y seguro en menos de 3 minutos que permite al usuario informarse acerca de lo que pudiera estar padeciendo, el cual se basará en los síntomas mencionados por el usuario. Sin embargo se recomienda al usuario que los resultados mostrados los comunique con un médico real esto con el fin de evitar la automedicación o bien para resolver dudas con respecto al resultado.",
     },
   ];
 
