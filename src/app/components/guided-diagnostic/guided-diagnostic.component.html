@@ -115,6 +115,14 @@
                     <i class="far fa-question-circle" title="{{boton.desc}}"></i>
                 </div>
             </div>
+
+            <div *ngIf="question.type === 'indecision'">
+                <div *ngFor="let boton of question.data">
+                    <button class="btn btn-primary" (click)=selectedResult(boton.id)>{{boton.padecimiento}}</button>
+                    <i class="far fa-question-circle" title="Con un total de: {{boton.porcentaje}}"></i>
+                </div>
+                <button class="btn btn-primary" (click)=selectedResult(null)>Niguna de las opciones</button>
+            </div>
             
         </div>
         <div *ngIf="hasResult">
