@@ -10,7 +10,7 @@
     <input type="text"  value="{{padecimiento.nombre_pad}}" disabled>
 
     <label class="title"></label>
-    <label class="title">Categoria del padecimiento</label>
+    <label class="title">Categoría del padecimiento</label>
     <input type="text"  value="{{padecimiento.categoria}}" disabled>
 
     <label class="title"></label>
@@ -18,7 +18,7 @@
     <input type="text"  value="{{especialidad}}" disabled>
 
     <label class="title"></label>
-    <label class="title">Descripcion del padecimiento</label>
+    <label class="title">Descripción del padecimiento</label>
     <textarea rows="10" disabled>{{padecimiento.descripcion}}</textarea>
     
     <div>
@@ -26,8 +26,10 @@
       <img class="center" [src]="url">
     </div>
       <br><br>
-    <label class="title">Sintomas</label>
-    <textarea rows="10" disabled>{{sintomasCadena}}</textarea>
+    <label class="title">Síntomas</label>
+    <ul *ngFor="let sintoma of sintomas">
+      <li>{{sintoma.nombre_sint}}</li>
+    </ul>
     </div>
     <div class="modal-footer" >
       <button type="button" class="btn btn-secondary cancel" (click)="activeModal.close('Close click')">Volver</button>
