@@ -645,11 +645,15 @@ export class GuidedDiagnosticComponent implements OnInit {
         
       }
 
-      selectedResult(id: any){
+      selectedResult(id: any,name: any){
         if(id!=null){
         this.idResultado=id;
           let comment = "Se guardo para observación ya que presento una similitud de sintomatología del " + this.sintomasExtras[0].porcentaje + " porciento con el resultado mostrado";
           this.guardar(comment);
+          this.question = {
+            message: 
+            "Se guardo con resultado de " + name + " para su observación",
+          }
         }else{
           this.question = {
             message: 

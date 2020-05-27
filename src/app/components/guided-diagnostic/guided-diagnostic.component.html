@@ -118,10 +118,10 @@
 
             <div *ngIf="question.type === 'indecision'">
                 <div *ngFor="let boton of question.data">
-                    <button class="btn btn-primary" (click)=selectedResult(boton.id)>{{boton.padecimiento}}</button>
+                    <button class="btn btn-primary" (click)=selectedResult(boton.id,boton.padecimiento)>{{boton.padecimiento}}</button>
                     <i class="far fa-question-circle" title="Con un total de: {{boton.porcentaje}}"></i>
                 </div>
-                <button class="btn btn-primary" (click)=selectedResult(null)>Niguna de las opciones</button>
+                <button class="btn btn-primary" (click)=selectedResult(null,null)>Niguna de las opciones</button>
             </div>
             
         </div>
