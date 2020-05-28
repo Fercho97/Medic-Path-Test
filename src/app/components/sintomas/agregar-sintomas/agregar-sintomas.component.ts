@@ -24,6 +24,22 @@ export class AgregarSintomasComponent implements OnInit {
   public  isChecked : boolean = false;
   private values : HttpParams;
   categorias = Catalogos.CATEGORIAS;
+  respuestas = [
+    {
+      tipo: 'Verdadero o falso'
+    },
+    {
+      tipo: 'Numérica'
+    }
+  ]
+  rangos = [
+    {
+      nombre: 'Mayor que'
+    },
+    {
+      nombre: 'Menor que'
+    }
+  ]
 
   public nivelesUrgencia : any = [];
   public zone_options : any = [];
@@ -37,6 +53,7 @@ export class AgregarSintomasComponent implements OnInit {
   public isNot100 = false;
   public sum : number = 0;
   public hasIndex = false;
+  public expectsNumericAnswer = false;
   constructor(private sintServ : SintomasService, private router : Router, 
               private toast : ToastrService, private nameVal : SymptomNameValidator,
               private regServ : RegistryService, private spinner : NgxSpinnerService) {
@@ -66,7 +83,10 @@ export class AgregarSintomasComponent implements OnInit {
       index_question: new FormControl('', [Validators.minLength(20), Validators.maxLength(120)]),
       compuesto: new FormControl(''),
       componentes: new FormControl(''),
-      composite: new FormControl('')
+      composite: new FormControl(''),
+      answerType: new FormControl('Verdadero o falso',Validators.required),
+      valorNum: new FormControl(''),
+      rango: new FormControl('')
     });
   }
 
@@ -102,12 +122,16 @@ export class AgregarSintomasComponent implements OnInit {
   guardar() {
     //console.log(this.isChecked);
     let question = {};
-    if(this.sintomas.value.question==='' || this.sintomas.value.question===null){
-      question = { message: "¿Ha tenido " + this.sintomas.value.nombre + "?", type: "boolean"};
+    if(this.sintomas.value.answerType=='Numérica'){
+       question = {type: 'numeric', message: this.sintomas.value.question, 
+                  valorNum: this.sintomas.value.valorNum, range: this.sintomas.value.rango}
     }else{
-      question = { message: this.sintomas.value.question, type: "boolean"}
+      if(this.sintomas.value.question==='' || this.sintomas.value.question===null){
+        question = { message: "¿Ha tenido " + this.sintomas.value.nombre + "?", type: "boolean"};
+      }else{
+        question = { message: this.sintomas.value.question, type: "boolean"}
+      }
     }
-
     let index_question = '';
     if(this.sintomas.value.urgencia>=0.4 && (this.sintomas.value.index_question == '' || this.sintomas.value.index_question == null)){
       index_question = 'En un rango del 1 al 10 que tanta molestia le causa ' + this.sintomas.value.nombre;
@@ -152,7 +176,7 @@ export class AgregarSintomasComponent implements OnInit {
       this.toast.error('Un sintoma compuesto debe tener al menos otros 2 sintomas como parte de su composición', 'Error');
       this.spinner.hide();
     }else if(this.especializacionesSeleccionadas.length===undefined || this.especializacionesSeleccionadas.length===0){
-      this.toast.error('Debe elegir al menos una especialidad capaz que sea capaz de ayudar con el sintoma', 'Error');
+      this.toast.error('Debe indicar al menos una especialidad para el síntoma', 'Error');
       this.spinner.hide();
     }else{
         this.sintServ.createSintoma(this.values).subscribe((res:any) =>{
@@ -257,6 +281,26 @@ export class AgregarSintomasComponent implements OnInit {
       this.hasIndex=true;
     }else{
       this.hasIndex=false;
+    }
+  }
+
+  changeType(){
+    if(this.sintomas.value.answerType=="Numérica"){
+      this.expectsNumericAnswer=true;
+      this.sintomas.get('question').setValidators([Validators.minLength(20), Validators.maxLength(120), Validators.required]);
+      this.sintomas.get('valorNum').setValidators([Validators.required,Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]);
+      this.sintomas.get('rango').setValidators([Validators.required]);
+      this.sintomas.get('question').updateValueAndValidity();
+      this.sintomas.get('valorNum').updateValueAndValidity();
+      this.sintomas.get('rango').updateValueAndValidity();
+    }else{
+      this.expectsNumericAnswer=false;
+      this.sintomas.get('question').setValidators([Validators.minLength(20), Validators.maxLength(120)]);
+      this.sintomas.get('valorNum').clearValidators();
+      this.sintomas.get('rango').clearValidators();
+      this.sintomas.get('question').updateValueAndValidity();
+      this.sintomas.get('valorNum').updateValueAndValidity();
+      this.sintomas.get('rango').updateValueAndValidity();
     }
   }
 }

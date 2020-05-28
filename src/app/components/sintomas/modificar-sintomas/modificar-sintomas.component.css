@@ -37,6 +37,11 @@ select {
   width: 100% !important;
 }
 
+.subtitle{
+  margin-left: 50%;
+  font-size: 15px;
+}
+
 .form-control-feedback {
   color: red;
   margin-left: 50%;
@@ -76,6 +81,11 @@ select {
     width: 100% !important;
   }
 
+  .subtitle{
+    margin-left: 20%;
+    font-size: 15px;
+  }
+  
   .form-control-feedback {
     margin-left: 20%;
     width: 60%;

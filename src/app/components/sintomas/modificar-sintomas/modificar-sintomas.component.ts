@@ -25,7 +25,22 @@ export class ModificarSintomasComponent implements OnInit {
   private values : HttpParams;
 
   categorias = Catalogos.CATEGORIAS;
-
+  respuestas = [
+    {
+      tipo: 'Verdadero o falso'
+    },
+    {
+      tipo: 'Numérica'
+    }
+  ]
+  rangos = [
+    {
+      nombre: 'Mayor que'
+    },
+    {
+      nombre: 'Menor que'
+    }
+  ]
   public nivelesUrgencia : any = [];
   public zone_options : any = [];
   public compuestos : any = [];
@@ -41,6 +56,7 @@ export class ModificarSintomasComponent implements OnInit {
   public isNot100 = false;
   public pregunta : any = {};
   public hasIndex = false;
+  public expectsNumericAnswer = false;
   constructor(private sintServ : SintomasService, private router : Router,
               private toast : ToastrService, private url : ActivatedRoute,
               private nameVal : SymptomNameValidator, private regServ : RegistryService,
@@ -69,7 +85,10 @@ export class ModificarSintomasComponent implements OnInit {
       componentes: new FormControl(''),
       question: new FormControl('', [Validators.minLength(20), Validators.maxLength(120)]),
       index_question: new FormControl('', [Validators.minLength(20), Validators.maxLength(120)]),
-      composite: new FormControl('')
+      composite: new FormControl(''),
+      answerType: new FormControl('',Validators.required),
+      valorNum: new FormControl(''),
+      rango: new FormControl('')
     });
   }
 
@@ -98,6 +117,9 @@ export class ModificarSintomasComponent implements OnInit {
     //Carga de datos principales
     this.sintServ.getSint(this.url.snapshot.params.hash).subscribe( (res : any) =>{
       let question = '';
+      let type = 'Verdadero o falso';
+      let valor = '';
+      let valorRango = '';
       this.sintoma = res.body.sintoma;
       if(res.body.sintoma.porcentages!=null){
       this.especializacionesSeleccionadas = JSON.parse(res.body.sintoma.porcentages);
@@ -107,6 +129,13 @@ export class ModificarSintomasComponent implements OnInit {
         this.pregunta = JSON.parse(res.body.sintoma.question);
 
         question = this.pregunta.message;
+        if(this.pregunta.type=='numeric'){
+          this.expectsNumericAnswer=true;
+          type="Numérica";
+          valor=this.pregunta.valorNum;
+          valorRango=this.pregunta.range;
+          this.updateValidatorsForNumeric();
+        }
       }
 
       if(this.sintoma.nivel_urgencia>=0.4){
@@ -141,12 +170,16 @@ export class ModificarSintomasComponent implements OnInit {
         urgencia: this.sintoma.nivel_urgencia,
         body_zone: this.sintoma.body_zone,
         question: question,
-        index_question: this.sintoma.index_question
+        index_question: this.sintoma.index_question,
+        answerType: type,
+        valorNum: valor,
+        rango: valorRango
       })
       this.isChecked = this.sintoma.compuesto;
       this.modify.controls['categoria'].setValue(this.sintoma.categoria_sint, {onlySelf : true});
       this.modify.controls['urgencia'].setValue(this.sintoma.nivel_urgencia, {onlySelf : true});
       this.modify.controls['body_zone'].setValue(this.sintoma.body_zone, {onlySelf : true});
+      this.modify.controls['answerType'].setValue(type,{onlySelf: true});
       this.originalValue = this.sintoma.nombre_sint;
       this.spinner.hide();
     }, error =>{
@@ -180,11 +213,16 @@ export class ModificarSintomasComponent implements OnInit {
 
   modificar(){
     let question = {};
+    if(this.modify.value.answerType=='Numérica'){
+      question = {type: 'numeric', message: this.modify.value.question, 
+                  valorNum: this.modify.value.valorNum, range: this.modify.value.rango}
+   }else{
     if(this.modify.value.question==='' || this.modify.value.question===null){
       question = { message: "¿Ha tenido " + this.modify.value.nombre + "?", type: "boolean"};
     }else{
       question = { message: this.modify.value.question, type: "boolean"}
     }
+  } 
 
     let index_question = '';
     console.log(this.modify.value.urgencia);
@@ -229,7 +267,7 @@ export class ModificarSintomasComponent implements OnInit {
       this.toast.error('Un sintoma compuesto debe tener al menos otros 2 sintomas como parte de su composición', 'Error');
       this.spinner.hide();
     }else if(this.especializacionesSeleccionadas.length===undefined || this.especializacionesSeleccionadas.length===0){
-      this.toast.error('Debe elegir al menos una especialidad capaz que sea capaz de ayudar con el sintoma', 'Error');
+      this.toast.error('Debe indicar al menos una especialidad para el síntoma', 'Error');
       this.spinner.hide();
     }else{
         this.sintServ.modificar(this.sintoma.hashId,this.values).subscribe((res:any) =>{
@@ -355,5 +393,29 @@ export class ModificarSintomasComponent implements OnInit {
     }else{
       this.hasIndex=false;
     }
+  }
+
+  changeType(){
+    if(this.modify.value.answerType=="Numérica"){
+      this.expectsNumericAnswer=true;
+      this.updateValidatorsForNumeric();  
+    }else{
+      this.expectsNumericAnswer=false;
+      this.modify.get('question').setValidators([Validators.minLength(20), Validators.maxLength(120)]);
+      this.modify.get('valorNum').clearValidators();
+      this.modify.get('rango').clearValidators();
+      this.modify.get('question').updateValueAndValidity();
+      this.modify.get('valorNum').updateValueAndValidity();
+      this.modify.get('rango').updateValueAndValidity();
+    }
+  }
+
+  updateValidatorsForNumeric(){
+    this.modify.get('question').setValidators([Validators.minLength(20), Validators.maxLength(120), Validators.required]);
+    this.modify.get('valorNum').setValidators([Validators.required,Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]);
+    this.modify.get('rango').setValidators([Validators.required]);
+    this.modify.get('question').updateValueAndValidity();
+    this.modify.get('valorNum').updateValueAndValidity();
+    this.modify.get('rango').updateValueAndValidity();
   }
 }

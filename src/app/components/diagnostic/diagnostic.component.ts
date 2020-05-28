@@ -571,10 +571,6 @@ export class DiagnosticComponent implements OnInit {
   }
 
   questionGen(sint: any, id: any) {
-    var hasCertainQuestion = questions.QUESTIONS[sint.toLowerCase()];
-    if(hasCertainQuestion!=undefined){
-      return hasCertainQuestion[0];
-    }else{
     let sintoma = this.sintomas.find((item) => item["idSint"].toString() === id);
     
     let containsQuestion = JSON.parse(sintoma.question);
@@ -588,17 +584,25 @@ export class DiagnosticComponent implements OnInit {
       return null;
     }
   }
-  }
 
   numericAnswer() {
-    let expectedValue = this.question.validValue;
+    let expectedValue = this.question.valorNum;
 
     let atomoEvaluado = this.atomosCondicion.pop();
-    if (this.numeric.value.temp >= expectedValue) {
-      atomoEvaluado.estado = true;
-      this.breadcrumb = this.breadcrumb + atomoEvaluado.desc + "->";
-    } else {
-      atomoEvaluado.estado = false;
+    if(this.question.range=='Mayor que'){
+      if (this.numeric.value.temp >= expectedValue) {
+        atomoEvaluado.estado = true;
+        this.breadcrumb = this.breadcrumb + atomoEvaluado.desc + "->";
+      } else {
+        atomoEvaluado.estado = false;
+      }
+    }else{
+      if (this.numeric.value.temp <= expectedValue) {
+        atomoEvaluado.estado = true;
+        this.breadcrumb = this.breadcrumb + atomoEvaluado.desc + "->";
+      } else {
+        atomoEvaluado.estado = false;
+      }
     }
     this.memoriaDeTrabajo.almacenarAtomo(atomoEvaluado);
 

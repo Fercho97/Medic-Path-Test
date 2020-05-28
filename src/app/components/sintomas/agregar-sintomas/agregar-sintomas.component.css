@@ -32,6 +32,11 @@ select {
   margin-left: 17%;
 }
 
+.subtitle{
+  margin-left: 50%;
+  font-size: 15px;
+}
+
 .descripcion {
   margin-left: 25% !important;
   width: 100% !important;
@@ -74,6 +79,11 @@ select {
   .descripcion {
     margin-left: 0% !important;
     width: 100% !important;
+  }
+
+  .subtitle{
+    margin-left: 20%;
+    font-size: 15px;
   }
 
   .form-control-feedback {

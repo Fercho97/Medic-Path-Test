@@ -19,6 +19,7 @@ export class InfoSintomasComponent implements OnInit {
   public pregunta : any = '';
   private values : HttpParams;
   public especialidades : any = [];
+  public numeric = false;
   constructor(public activeModal: NgbActiveModal, private sintServ : SintomasService,
               private spinner : NgxSpinnerService, private toast: ToastrService) { 
    
@@ -42,6 +43,9 @@ export class InfoSintomasComponent implements OnInit {
     this.spinner.show();
     if(this.sintoma.question!=null){
       this.pregunta = JSON.parse(this.sintoma.question);
+      if(this.pregunta.type=='numeric'){
+        this.numeric=true;
+      }
     }
     this.especialidades = JSON.parse(this.sintoma.porcentages);
     //console.log(this.especialidades);

@@ -415,15 +415,15 @@ export class GuidedDiagnosticComponent implements OnInit {
      }
 
      questionGen(sint: any,id :any){
-      
-      let hasCertainQuestion = questions.QUESTIONS_DOC[sint.toLowerCase()];
+      let sintoma = this.sintomas.find((item) => item["idSint"].toString() === id);
+      let containsQuestion = JSON.parse(sintoma.question);
       let multiOption = this.checkMultipleTypes(id);
-      if(hasCertainQuestion!=undefined){
-        return hasCertainQuestion[0];
+      if(containsQuestion!=undefined && multiOption.length==1){
+        return containsQuestion;
       }
       else if(multiOption.length>1){
-        hasCertainQuestion = this.generateMultiOptionQuestion(multiOption,sint);
-        return hasCertainQuestion;
+        containsQuestion = this.generateMultiOptionQuestion(multiOption,sint);
+        return containsQuestion;
       }
       else{
         return null;
@@ -432,16 +432,25 @@ export class GuidedDiagnosticComponent implements OnInit {
     }
       
       numericAnswer(){
-        let expectedValue = this.question.validValue;
+        let expectedValue = this.question.valorNum;
 
         let atomoEvaluado = this.atomosCondicion.pop();
-        if(this.numeric.value.temp >= expectedValue){
-          atomoEvaluado.estado = true; 
-          this.breadcrumb = this.breadcrumb + atomoEvaluado.desc + "->"
-        }
-        else{
-          atomoEvaluado.estado = false; 
-        }
+        if(this.question.range=='Mayor que'){
+          if(this.numeric.value.temp >= expectedValue){
+            atomoEvaluado.estado = true; 
+            this.breadcrumb = this.breadcrumb + atomoEvaluado.desc + "->"
+          }
+          else{
+            atomoEvaluado.estado = false; 
+          }
+        }else{
+          if (this.numeric.value.temp <= expectedValue) {
+            atomoEvaluado.estado = true;
+            this.breadcrumb = this.breadcrumb + atomoEvaluado.desc + "->";
+          } else {
+            atomoEvaluado.estado = false;
+          }
+      }
         this.memoriaDeTrabajo.almacenarAtomo(atomoEvaluado);
   
         if(this.atomosCondicion.length>0){

@@ -104,6 +104,14 @@
         </div>
 
         <div class="form-group row">
+          <div class="col-md-8">
+            <select formControlName="answerType" name="answerType" id="answerType" class="form-control" (change)="changeType()">
+              <option *ngFor="let item of respuestas" [value]="item.tipo">{{item.tipo}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
           <legend class="input-label">Pregunta para el síntoma <i class="fas fa-question-circle" ngbTooltip="En este campo se puede ingresar la pregunta que verán los usuarios durante el diagnóstico para responder, en caso de no llenarlo esta sera por default ¿Ha tenido nombre del sintoma?"></i></legend>
           <div class="col-md-8">
             <textarea [ngClass]="{'is-invalid': !sintomas.controls['question'].valid}" formControlName="question"
@@ -116,6 +124,29 @@
                   </div>
                 </ng-container>
             </div>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="expectsNumericAnswer==true">
+          <legend class="input-label">Especificaciones numéricas <i class="fas fa-question-circle" ngbTooltip="Este apartado esta presente solo cuando se elige el tipo numérico en la respuesta que puede dar el usuario para el síntoma"></i></legend>
+          <div class="col-md-5">
+            <legend class="subtitle">Valor numérico <i class="fas fa-question-circle" ngbTooltip="Este valor es el que el sistema usara para detectar el síntoma, por ejemplo la temperatura"></i></legend>
+            <input [ngClass]="{'is-invalid': !sintomas.controls['valorNum'].valid}" formControlName="valorNum"
+              class="form-control is-valid" type="text">
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of mensajes_error.valorNum">
+                  <div class="form-control-feedback" *ngIf="sintomas.get('valorNum').hasError(validation.type) 
+                  && (sintomas.get('valorNum').dirty || sintomas.get('valorNum').touched)">
+                  <i class="fas fa-exclamation-circle"></i> {{validation.message}}
+                  </div>
+                </ng-container>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <legend class="subtitle">Rango de valor <i class="fas fa-question-circle" ngbTooltip="Aquí se indica hacia donde son validos los valores de respuesta del usuario, ya sea mayor que o menor que el valor numérico asígnado"></i></legend>
+            <select formControlName="rango" name="rango" id="rango" class="form-control">
+              <option *ngFor="let item of rangos" [value]="item.nombre">{{item.nombre}}</option>
+            </select>
           </div>
         </div>
 

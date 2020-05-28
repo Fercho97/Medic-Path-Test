@@ -232,6 +232,12 @@ export class ErrorMsg {
         type: "minlength",
         message: "El texto no cumple con la cantidad válida de caracteres"
       }
+    ],
+    valorNum: [
+      {
+        type: "pattern",
+        message: "Valor no válido para el campo, solo es válido un valor numérico o bien numérico con dos puntos decimales"
+      }
     ]
   };
 
