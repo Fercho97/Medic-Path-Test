@@ -258,7 +258,7 @@ export class GuidedDiagnosticComponent implements OnInit {
       if(this.memoriaDeTrabajo.atomosAfirmados.length!=0){
         this.doc_recomendacion = this.calculusClass.calculateRecommendation(this.memoriaDeTrabajo,this.sintomas);
       }
-      this.sintomasExtras = this.calculusClass.calculateCloseness(this.conocimientoEvaluado,this.baseConocimiento,this.memoriaDeTrabajo, 40);
+      this.sintomasExtras = this.calculusClass.calculateCloseness(this.conocimientoEvaluado,this.baseConocimiento,this.memoriaDeTrabajo, 50);
       if(this.sintomasExtras.length==0){
         if(this.memoriaDeTrabajo.atomosAfirmados.length<=3){
           this.question={message: "Conforme la cantidad de síntomas que presenta su paciente no es posible llegar a una conclusión satifactoria,sin embargo es recomendable el que se mantenga al pendiente sobre sus síntomas por si estos llegaran a empeorar"}

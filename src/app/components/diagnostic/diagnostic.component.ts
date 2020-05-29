@@ -304,7 +304,7 @@ export class DiagnosticComponent implements OnInit {
       this.conocimientoEvaluado,
       this.baseConocimiento,
       this.memoriaDeTrabajo,
-      40
+      50
     );
     if (this.sintomasExtras.length == 0) {
       if (this.memoriaDeTrabajo.atomosAfirmados.length <= 3) {
