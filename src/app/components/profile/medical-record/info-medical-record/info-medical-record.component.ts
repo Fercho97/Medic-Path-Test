@@ -62,7 +62,7 @@ export class InfoMedicalRecordComponent implements OnInit {
       .set('seleccion', this.seleccionado)
     this.profileServ.actualizacionEspecialista(this.historial.hashId, values).subscribe( (res: any) =>{
       sessionStorage.setItem('token',res.body.token);
-      this.toast.success('Ha hecho su retroalimentación con exíto con éxito!', 'Retroalimentación Exitosa!');
+      this.toast.success('Se ha guardado su retroalimentación con éxito!', 'Retroalimentación Exitosa!');
       this.hasOneSelected=true;
   }, error =>{
       //console.log("Error", error.error);
