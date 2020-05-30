@@ -3,6 +3,7 @@ import { ProfileService } from './profile.service';
 import {Router} from '@angular/router';
 import {CryptoStorage} from '../../services/shared-service';
 import { ToastrService } from 'ngx-toastr';
+import {TokenService} from '../../services/token-service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -14,13 +15,16 @@ export class ProfileComponent implements OnInit {
     public url : string = "/assets/default-image.jpg";
     userType;
   constructor(private profileServ : ProfileService, private router : Router,
-              private storage: CryptoStorage, private toast: ToastrService) {
+              private storage: CryptoStorage, private toast: ToastrService, 
+              private tokenServ : TokenService) {
     
    }
 
   ngOnInit() {
-    this.userType= this.storage.decryptData('tipoUsuario');
-    let hashCryp = this.storage.decryptData('hash');
+    this.userType = this.tokenServ.getRole();
+    //this.storage.decryptData('tipoUsuario');
+    let hashCryp = this.tokenServ.getHash();
+    //this.storage.decryptData('hash');
     this.profileServ.getUser(hashCryp).subscribe( (res: any) =>{
       this.usuario = res.body.resultado;
       sessionStorage.setItem('token',res.body.token);

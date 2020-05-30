@@ -9,6 +9,8 @@ import { ToastrService } from "ngx-toastr";
 import { ErrorMsg } from "../../interfaces/errorMsg.const";
 import { CryptoStorage } from "../../services/shared-service";
 import { NgxSpinnerService } from "ngx-spinner";
+import {TokenService} from '../../services/token-service';
+
 @Component({
   selector: "app-reset-password",
   templateUrl: "./reset-password.component.html",
@@ -29,7 +31,8 @@ export class ResetPasswordComponent implements OnInit {
     private toast: ToastrService,
     private url: ActivatedRoute,
     private storage: CryptoStorage,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private tokenServ : TokenService
   ) {
     this.reset = new FormGroup({
       password_validations: new FormGroup(
@@ -50,7 +53,7 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit() {
     if (this.url.snapshot.params.hash) {
       this.verifyUrl(this.url.snapshot.params.hash);
-    } else if (this.storage.decryptData("usuario") != null) {
+    } else if (this.tokenServ.getHash() != null) {
       this.fromProfile = true;
       this.isValid = true;
     } else {

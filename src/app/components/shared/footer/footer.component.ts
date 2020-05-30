@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CryptoStorage} from '../../../services/shared-service'
+import {TokenService} from '../../../services/token-service';
+
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -10,7 +12,7 @@ export class FooterComponent implements OnInit {
   year: number = new Date().getFullYear();
 
   isDoctor;
-  constructor(private storage: CryptoStorage) { }
+  constructor(private storage: CryptoStorage, private tokenServ : TokenService) { }
 
   ngOnInit() {
     this.checkPermission();
@@ -18,7 +20,8 @@ export class FooterComponent implements OnInit {
 
   checkPermission(){
     this.isDoctor = false;
-    let tipoUsuario = this.storage.decryptData('tipoUsuario');
+    let tipoUsuario = this.tokenServ.getRole();
+    //this.storage.decryptData('tipoUsuario');
     
 
     if(tipoUsuario==='2'){

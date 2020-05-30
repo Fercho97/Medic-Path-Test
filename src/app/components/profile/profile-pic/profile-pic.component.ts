@@ -4,6 +4,9 @@ import { ProfileService } from '../profile.service';
 import {Router} from '@angular/router';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import {CryptoStorage} from '../../../services/shared-service';
+import {TokenService} from '../../../services/token-service';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 @Component({
   selector: 'app-profile-pic',
   templateUrl: './profile-pic.component.html',
@@ -17,7 +20,7 @@ export class ProfilePicComponent implements OnInit {
   public selectedFile : File = null;
   public selectedImg = false;
   constructor(private profileServ : ProfileService, private toast : ToastrService, private router : Router
-             ,private storage: CryptoStorage) { 
+             ,private storage: CryptoStorage, private tokenServ : TokenService, private spinner : NgxSpinnerService) { 
   }
 
   ngOnInit() {
@@ -30,15 +33,19 @@ export class ProfilePicComponent implements OnInit {
   }
 
   actualizarDatos(){
-    let hash = this.storage.decryptData('hash');
+    let hash = this.tokenServ.getHash();
+    //this.storage.decryptData('hash');
+    this.spinner.show();
         this.profileServ.updateProfilePic(hash, this.formData).subscribe( (res: any) =>{
           sessionStorage.setItem('token',res.body.token);
           this.formData = new FormData();
+          this.spinner.hide();
           window.location.reload();
           this.toast.success('Imagen cambiada con éxito!', 'Modificación Exitosa!');
         },
       error =>{
         //console.log(error.message);
+          this.spinner.hide();
           this.toast.error('Hubo un error al actualizar su imagen, favor de reintentarlo','Error');
       })
     

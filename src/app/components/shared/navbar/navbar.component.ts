@@ -1,6 +1,8 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import {Router} from '@angular/router';
-import {CryptoStorage} from '../../../services/shared-service'
+import {CryptoStorage} from '../../../services/shared-service';
+import {TokenService} from '../../../services/token-service';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -13,7 +15,8 @@ export class NavbarComponent implements OnInit {
   isAdmin;
   isDoctor;
   tipoUsuario;
-  constructor(private router : Router,private storage: CryptoStorage) { }
+  constructor(private router : Router, private storage: CryptoStorage,
+              private tokenServ : TokenService) { }
 
   public ngOnInit() {
     this.checkPermission();
@@ -31,8 +34,9 @@ export class NavbarComponent implements OnInit {
     this.user = false;
     this.isAdmin = false;
     this.isDoctor = false;
-    this.tipoUsuario = this.storage.decryptData('tipoUsuario');
-    if(this.storage.decryptData('usuario')!=null){
+    this.tipoUsuario = this.tokenServ.getRole();
+    //this.storage.decryptData('tipoUsuario');
+    if(this.tokenServ.getHash()!=null){
       this.user = true;
     }
 

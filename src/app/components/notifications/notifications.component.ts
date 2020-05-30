@@ -5,6 +5,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InfoMedicalRecordComponent } from '../profile/medical-record/info-medical-record/info-medical-record.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import {TokenService} from '../../services/token-service';
+
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
@@ -16,7 +18,7 @@ export class NotificationsComponent implements OnInit {
   content;
   constructor(private notifServ : NotificacionService, private storage: CryptoStorage,
               private modalService : NgbModal, private spinner : NgxSpinnerService,
-              private toast: ToastrService) {
+              private toast: ToastrService, private tokenServ : TokenService) {
    }
 
   ngOnInit() {
@@ -36,7 +38,8 @@ export class NotificationsComponent implements OnInit {
 
   loadNotif(){
     this.spinner.show();
-    let hashCryp = this.storage.decryptData('hash');
+    let hashCryp = this.tokenServ.getHash();
+    //this.storage.decryptData('hash');
     this.notifServ.getWithoutFeedback(hashCryp).subscribe( (res: any) =>{
       this.notificaciones = res.body.resultados;
       this.spinner.hide();
