@@ -1,5 +1,5 @@
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { Injectable } from '@angular/core';
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable({
     providedIn: 'root',
@@ -13,10 +13,8 @@ export class TokenService{
     getRole(){
         let token = sessionStorage.getItem('token');
         if(token!=null){
-        const helper = new JwtHelperService();
 
-        const decodedToken = helper.decodeToken(token);
-
+        const decodedToken = jwt_decode(token);
         return decodedToken.type.toString();
         }else{
             return null;
@@ -26,9 +24,8 @@ export class TokenService{
     getHash(){
         let token = sessionStorage.getItem('token');
         if(token!=null){
-        const helper = new JwtHelperService();
 
-        const decodedToken = helper.decodeToken(token);
+        const decodedToken = jwt_decode(token);
 
         return decodedToken.hash;
         }else{
