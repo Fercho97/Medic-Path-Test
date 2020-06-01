@@ -17,7 +17,7 @@ export class DateValidator {
         let controlDate = moment(control.value).format('L');
         let years = today.diff(control.value, 'years');
         //console.log(years);
-        if(years > 16){
+        if((years > 16 && years < 99) || controlDate > todayDate){
             return null
         }else{
             return{'noValidAge': true}  
