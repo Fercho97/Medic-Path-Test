@@ -8,24 +8,24 @@ import { Component, OnInit } from "@angular/core";
 export class CardsComponent implements OnInit {
   cards = [
     {
-      title: "Consultas En linea",
+      title: "Consultas En línea",
       img: "assets/diagnostico-main.jpg",
       content:
-        "Tienes la oportunidad de diagnosticarte en linea, con una precisión de mas del 98%, gracias a la inteligencia artificial",
+        "Diagnósticos en base de tus síntomas que te permitirán saber que es lo pudieras padecer",
       anim: "fromRight"
     },
     {
       title: "Expedientes Clínicos",
       img: "assets/expediente-main.jpg",
       content:
-        "Podrás acceder a tus consultas y diagnósticos médicos en cualquier momento",
+        "Una vez registrado podrás acceder a los resultados de tus consultas desde tu perfil",
       anim: "downside"
     },
     {
       title: "Directorio Médico",
       img: "assets/medicos-main.jpg",
       content:
-        "Un directorio médico al cual puede acceder y ponerse en contacto con alguno de nuestros expertos",
+        "Un directorio médico el cual puede utilizar para ponerse en contacto con alguno de nuestros expertos",
       anim: "fromLeft"
     },
   ];
