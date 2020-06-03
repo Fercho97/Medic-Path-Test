@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {CryptoStorage} from '../../services/shared-service';
 import { ToastrService } from 'ngx-toastr';
 import {TokenService} from '../../services/token-service';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',

@@ -244,11 +244,11 @@ export class Calculus{
     }
 
     checkPeriod(date:any,compareTo:any){
-      let formattedComparison = moment(moment(date).tz('America/Mexico_City').format('L'));
+      let formattedComparison = moment(date).tz('America/Mexico_City');
       let isViable = true;
 
       compareTo.forEach(element => {
-          let dateToCompare = moment(moment(element.fecha_consulta).tz('America/Mexico_City').format('L'));
+          let dateToCompare = moment(element.fecha_consulta).tz('America/Mexico_City');
 
           let daysDiff = Math.abs(formattedComparison.diff(dateToCompare, 'days'))+1
 

@@ -86,7 +86,8 @@ export class ResetPasswordComponent implements OnInit {
         }
       );
     } else {
-      this.hash = this.storage.decryptData("hash");
+      this.hash = this.tokenServ.getHash();
+      //this.storage.decryptData("hash");
 
       this.values = new HttpParams().set(
         "newPassword",

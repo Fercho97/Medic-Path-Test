@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
     if (localStorage.getItem("action") == "login") {
       this.toast.success(
         "Bienvenido al sistema Medic Path " +
-          this.storage.decryptData("name"),
+        localStorage.getItem("name"),
         "Éxito!"
       );
     } else if (localStorage.getItem("action") == "logout") {

@@ -17,6 +17,8 @@ import { NgbModal, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { SintSelectionComponent } from "./sintSelection/sintSelection.component";
 import { CryptoStorage } from "../../services/shared-service";
 import { NgxSpinnerService } from "ngx-spinner";
+import { TokenService } from '../../services/token-service';
+
 @Component({
   selector: "app-diagnostic",
   templateUrl: "./diagnostic.component.html",
@@ -74,7 +76,8 @@ export class DiagnosticComponent implements OnInit {
     private sintServ: SintomasService,
     private modalService: NgbModal,
     private storage: CryptoStorage,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private tokenServ : TokenService
   ) {
     this.numeric = new FormGroup({
       temp: new FormControl("", [
@@ -95,9 +98,10 @@ export class DiagnosticComponent implements OnInit {
 
   async ngOnInit() {
     this.spinner.show();
-    if (this.storage.decryptData("usuario") != null) {
+    if (this.tokenServ.getHash() != null) {
       this.user = true;
-      this.userId = this.storage.decryptData("usuario");
+      this.userId = this.tokenServ.getId();
+      //this.storage.decryptData("usuario");
       this.diagServ.withFeedback().subscribe((res: any) => {
         this.compare_historiales = res.body.resultado;
       });
@@ -661,7 +665,7 @@ export class DiagnosticComponent implements OnInit {
 
   checkMultipleTypes(sint: any) {
     let sintoma = this.sintomas.find((symp) => symp["idSint"] == sint);
-    console.log(sintoma);
+    //console.log(sintoma);
     let sameSynts = this.sintomas.filter(
       (symp) =>
         symp["categoria_sint"] == sintoma.categoria_sint &&

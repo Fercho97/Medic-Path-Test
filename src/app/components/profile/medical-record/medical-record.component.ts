@@ -6,6 +6,8 @@ import { InfoMedicalRecordComponent } from './info-medical-record/info-medical-r
 import {CryptoStorage} from '../../../services/shared-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { TokenService } from '../../../services/token-service';
+
 @Component({
   selector: 'app-medical-record',
   templateUrl: './medical-record.component.html',
@@ -24,11 +26,13 @@ export class MedicalRecordComponent implements OnInit {
   content;
   constructor(private profileServ : ProfileService, private modalService : NgbModal,
               private storage: CryptoStorage, private spinner : NgxSpinnerService,
-              private toast : ToastrService) { }
+              private toast : ToastrService, private tokenServ : TokenService) { }
 
   ngOnInit() {
     this.spinner.show();
-    let id = this.storage.decryptData('usuario');
+    let id = this.tokenServ.getId();
+    //this.storage.decryptData('usuario');
+    //console.log(id);
     this.profileServ.historyList(id).subscribe( (res: any) =>{
       this.historiales = res.body.resultados;
       sessionStorage.setItem('token', res.body.token);

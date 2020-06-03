@@ -60,10 +60,8 @@ export class LoginComponent implements OnInit {
     //sessionStorage.setItem('nickname',res.body.usuario.nickname);
     //sessionStorage.setItem('hash',res.body.usuario.hash_id);
     localStorage.setItem('action','login');
-    let data = { "usuario" : res.body.usuario.id,
-                 "name" : res.body.usuario.nombres}
+    localStorage.setItem('name', res.body.usuario.nombres);
     this.spinner.hide();
-      this.storage.encryptData(JSON.stringify(data));
       window.location.replace('/home');
 
     }

@@ -32,4 +32,16 @@ export class TokenService{
             return null;
         }
     }
+
+    getId(){
+        let token = sessionStorage.getItem('token');
+        if(token!=null){
+
+        const decodedToken = jwt_decode(token);
+
+        return decodedToken.id.toString();
+        }else{
+            return null;
+        }       
+    }
 }
