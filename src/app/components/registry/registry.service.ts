@@ -17,7 +17,7 @@ export class RegistryService{
     }
 
     checkRegister(valores : FormData){
-        console.log(valores);
+        //console.log(valores);
         return this._http.post(this._url, valores,
             {
               observe : 'response'

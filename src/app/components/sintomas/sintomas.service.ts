@@ -60,7 +60,7 @@ export class SintomasService {
   }
 
   getNames(ids: HttpParams) {
-    console.log(ids);
+    //console.log(ids);
     return this._http.post(this._urlComponente, ids.toString(), {
       headers: new HttpHeaders().set(
         "Content-Type",

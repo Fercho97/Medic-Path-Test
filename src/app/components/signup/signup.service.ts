@@ -21,8 +21,8 @@ export class SignupService{
     }
 
     checkRegister(valores : HttpParams){
-        console.log(this._url);
-        console.log(valores.toString());
+        //console.log(this._url);
+        //console.log(valores.toString());
         return this._http.post(this._url,
             valores.toString(),
             {

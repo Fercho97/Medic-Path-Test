@@ -225,7 +225,7 @@ export class ModificarSintomasComponent implements OnInit {
   } 
 
     let index_question = '';
-    console.log(this.modify.value.urgencia);
+   //console.log(this.modify.value.urgencia);
     if(this.modify.value.urgencia>=0.4 && (this.modify.value.index_question == '' || this.modify.value.index_question == null)){
       index_question = 'En un rango del 1 al 10 que tanta molestia le causa ' + this.modify.value.nombre;
     }else if(this.modify.value.urgencia>=0.4 && (this.modify.value.index_question != '' || this.modify.value.index_question != null)){
