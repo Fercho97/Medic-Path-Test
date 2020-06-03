@@ -1,11 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
-import { CryptoStorage } from "../../services/shared-service";
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.css"],
-  providers: [CryptoStorage],
+  providers: [],
 })
 export class HomeComponent implements OnInit {
   images = [
@@ -16,7 +15,7 @@ export class HomeComponent implements OnInit {
       img: "assets/slogan.png",
     },
   ];
-  constructor(private toast: ToastrService, private storage: CryptoStorage) {}
+  constructor(private toast: ToastrService) {}
 
   ngOnInit() {
     if (localStorage.getItem("action") == "login") {

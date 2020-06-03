@@ -15,7 +15,6 @@ import * as moment from "moment-timezone";
 moment.locale("es");
 import { NgbModal, NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
 import { SintSelectionComponent } from "./sintSelection/sintSelection.component";
-import { CryptoStorage } from "../../services/shared-service";
 import { NgxSpinnerService } from "ngx-spinner";
 import { TokenService } from '../../services/token-service';
 
@@ -75,7 +74,6 @@ export class DiagnosticComponent implements OnInit {
     private router: Router,
     private sintServ: SintomasService,
     private modalService: NgbModal,
-    private storage: CryptoStorage,
     private spinner: NgxSpinnerService,
     private tokenServ : TokenService
   ) {

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CryptoStorage} from '../../../services/shared-service'
-import {TokenService} from '../../../services/token-service';
+import { TokenService } from '../../../services/token-service';
 
 @Component({
   selector: 'app-footer',
@@ -12,7 +11,7 @@ export class FooterComponent implements OnInit {
   year: number = new Date().getFullYear();
 
   isDoctor;
-  constructor(private storage: CryptoStorage, private tokenServ : TokenService) { }
+  constructor( private tokenServ : TokenService) { }
 
   ngOnInit() {
     this.checkPermission();

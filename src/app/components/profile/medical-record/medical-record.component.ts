@@ -3,7 +3,6 @@ import { ProfileService } from '../profile.service';
 import {Router} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InfoMedicalRecordComponent } from './info-medical-record/info-medical-record.component';
-import {CryptoStorage} from '../../../services/shared-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { TokenService } from '../../../services/token-service';
@@ -12,7 +11,7 @@ import { TokenService } from '../../../services/token-service';
   selector: 'app-medical-record',
   templateUrl: './medical-record.component.html',
   styleUrls: ['./medical-record.component.css'],
-  providers: [ProfileService,CryptoStorage]
+  providers: [ProfileService,TokenService]
 })
 export class MedicalRecordComponent implements OnInit {
 
@@ -25,8 +24,8 @@ export class MedicalRecordComponent implements OnInit {
   public searching : boolean = false;
   content;
   constructor(private profileServ : ProfileService, private modalService : NgbModal,
-              private storage: CryptoStorage, private spinner : NgxSpinnerService,
-              private toast : ToastrService, private tokenServ : TokenService) { }
+              private spinner : NgxSpinnerService, private toast : ToastrService,
+              private tokenServ : TokenService) { }
 
   ngOnInit() {
     this.spinner.show();

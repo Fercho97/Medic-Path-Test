@@ -7,15 +7,14 @@ import { ResetPassService } from "./reset-password.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { ErrorMsg } from "../../interfaces/errorMsg.const";
-import { CryptoStorage } from "../../services/shared-service";
 import { NgxSpinnerService } from "ngx-spinner";
-import {TokenService} from '../../services/token-service';
+import { TokenService } from '../../services/token-service';
 
 @Component({
   selector: "app-reset-password",
   templateUrl: "./reset-password.component.html",
   styleUrls: ["./reset-password.component.css"],
-  providers: [CryptoStorage],
+  providers: [TokenService],
 })
 export class ResetPasswordComponent implements OnInit {
   reset: FormGroup;
@@ -30,7 +29,6 @@ export class ResetPasswordComponent implements OnInit {
     private router: Router,
     private toast: ToastrService,
     private url: ActivatedRoute,
-    private storage: CryptoStorage,
     private spinner: NgxSpinnerService,
     private tokenServ : TokenService
   ) {

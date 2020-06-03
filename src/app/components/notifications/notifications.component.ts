@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import {CryptoStorage} from '../../services/shared-service';
 import {NotificacionService} from './notifications.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InfoMedicalRecordComponent } from '../profile/medical-record/info-medical-record/info-medical-record.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import {TokenService} from '../../services/token-service';
+import { TokenService } from '../../services/token-service';
 
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.css'],
-  providers: [NotificacionService,CryptoStorage]
+  providers: [NotificacionService]
 })
 export class NotificationsComponent implements OnInit {
   public notificaciones = [];
   content;
-  constructor(private notifServ : NotificacionService, private storage: CryptoStorage,
+  constructor(private notifServ : NotificacionService,
               private modalService : NgbModal, private spinner : NgxSpinnerService,
               private toast: ToastrService, private tokenServ : TokenService) {
    }

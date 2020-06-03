@@ -16,13 +16,12 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { LoginService } from './login.service';
 import {Router} from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import {CryptoStorage} from '../../services/shared-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [CryptoStorage]
+  providers: []
 })
 
 export class LoginComponent implements OnInit {
@@ -30,8 +29,8 @@ export class LoginComponent implements OnInit {
   login: FormGroup;
   private values : HttpParams;
   
-  constructor(private logServ : LoginService, private http : HttpClient, private router : Router, private toast : ToastrService
-              ,private storage: CryptoStorage, private spinner : NgxSpinnerService) { 
+  constructor(private logServ : LoginService, private http : HttpClient, private router : Router,
+              private toast : ToastrService, private spinner : NgxSpinnerService) { 
     
     
     this.login = new FormGroup({

@@ -3,15 +3,14 @@ import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from '../profile.service';
 import {Router} from '@angular/router';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import {CryptoStorage} from '../../../services/shared-service';
-import {TokenService} from '../../../services/token-service';
+import { TokenService } from '../../../services/token-service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-profile-pic',
   templateUrl: './profile-pic.component.html',
   styleUrls: ['./profile-pic.component.css'],
-  providers: [ProfileService,CryptoStorage]
+  providers: [ProfileService,TokenService]
 })
 export class ProfilePicComponent implements OnInit {
 
@@ -20,7 +19,7 @@ export class ProfilePicComponent implements OnInit {
   public selectedFile : File = null;
   public selectedImg = false;
   constructor(private profileServ : ProfileService, private toast : ToastrService, private router : Router
-             ,private storage: CryptoStorage, private tokenServ : TokenService, private spinner : NgxSpinnerService) { 
+             ,private tokenServ : TokenService, private spinner : NgxSpinnerService) { 
   }
 
   ngOnInit() {
