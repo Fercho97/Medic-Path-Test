@@ -10,7 +10,7 @@ import { TokenService } from '../../services/token-service';
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.css'],
-  providers: [NotificacionService]
+  providers: [NotificacionService,TokenService]
 })
 export class NotificationsComponent implements OnInit {
   public notificaciones = [];
@@ -38,7 +38,6 @@ export class NotificationsComponent implements OnInit {
   loadNotif(){
     this.spinner.show();
     let hashCryp = this.tokenServ.getHash();
-    //this.storage.decryptData('hash');
     this.notifServ.getWithoutFeedback(hashCryp).subscribe( (res: any) =>{
       this.notificaciones = res.body.resultados;
       this.spinner.hide();

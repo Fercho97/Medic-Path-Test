@@ -21,9 +21,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.userType = this.tokenServ.getRole();
-    //this.storage.decryptData('tipoUsuario');
     let hashCryp = this.tokenServ.getHash();
-    //this.storage.decryptData('hash');
     this.profileServ.getUser(hashCryp).subscribe( (res: any) =>{
       this.usuario = res.body.resultado;
       sessionStorage.setItem('token',res.body.token);

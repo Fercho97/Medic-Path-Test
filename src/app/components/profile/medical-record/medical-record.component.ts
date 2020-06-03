@@ -30,7 +30,6 @@ export class MedicalRecordComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     let id = this.tokenServ.getId();
-    //this.storage.decryptData('usuario');
     //console.log(id);
     this.profileServ.historyList(id).subscribe( (res: any) =>{
       this.historiales = res.body.resultados;

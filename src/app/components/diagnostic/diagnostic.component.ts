@@ -99,7 +99,6 @@ export class DiagnosticComponent implements OnInit {
     if (this.tokenServ.getHash() != null) {
       this.user = true;
       this.userId = this.tokenServ.getId();
-      //this.storage.decryptData("usuario");
       this.diagServ.withFeedback().subscribe((res: any) => {
         this.compare_historiales = res.body.resultado;
       });

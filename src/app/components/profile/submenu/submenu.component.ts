@@ -11,7 +11,6 @@ export class SubmenuComponent implements OnInit {
 
   ngOnInit() {
     this.userType = this.tokenServ.getRole();
-    //this.storage.decryptData('tipoUsuario');
   }
 
 }

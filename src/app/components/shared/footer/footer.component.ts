@@ -20,7 +20,6 @@ export class FooterComponent implements OnInit {
   checkPermission(){
     this.isDoctor = false;
     let tipoUsuario = this.tokenServ.getRole();
-    //this.storage.decryptData('tipoUsuario');
     
 
     if(tipoUsuario==='2'){

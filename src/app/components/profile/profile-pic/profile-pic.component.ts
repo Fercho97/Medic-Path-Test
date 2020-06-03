@@ -33,7 +33,6 @@ export class ProfilePicComponent implements OnInit {
 
   actualizarDatos(){
     let hash = this.tokenServ.getHash();
-    //this.storage.decryptData('hash');
     this.spinner.show();
         this.profileServ.updateProfilePic(hash, this.formData).subscribe( (res: any) =>{
           sessionStorage.setItem('token',res.body.token);

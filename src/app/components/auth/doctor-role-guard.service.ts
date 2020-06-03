@@ -11,7 +11,6 @@ export class DoctorGuardService implements CanActivate {
 
     canActivate() : boolean {
         const userType = this.tokenServ.getRole();
-        //this.storage.decryptData('tipoUsuario');
         if(userType!='2'){
             this.router.navigate(['/home']);
             return false;

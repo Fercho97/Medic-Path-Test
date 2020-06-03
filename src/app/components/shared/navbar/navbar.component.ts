@@ -33,7 +33,6 @@ export class NavbarComponent implements OnInit {
     this.isAdmin = false;
     this.isDoctor = false;
     this.tipoUsuario = this.tokenServ.getRole();
-    //this.storage.decryptData('tipoUsuario');
     if(this.tokenServ.getHash()!=null){
       this.user = true;
     }

@@ -11,7 +11,6 @@ export class AdminGuardService implements CanActivate {
 
     canActivate() : boolean {
         const userType = this.tokenServ.getRole();
-        //this.storage.decryptData('tipoUsuario');
         if(userType!='3'){
             this.router.navigate(['/home']);
             return false;
