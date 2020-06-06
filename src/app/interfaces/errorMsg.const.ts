@@ -91,12 +91,12 @@ export class ErrorMsg {
       },
       {
         type: "minlength",
-        message: "Es necesario ingresar un número teléfonico con 10 caracteres",
+        message: "Es necesario ingresar un número telefónico con 10 caracteres",
       },
       {
         type: "maxlength",
         message:
-          "La cantidad de digitos para el número telefonico debe ser menor a 15",
+          "La cantidad de digitos para el número telefónico debe ser menor a 15",
       },
       { type: "pattern", message: "Solo ingrese números" },
     ],
