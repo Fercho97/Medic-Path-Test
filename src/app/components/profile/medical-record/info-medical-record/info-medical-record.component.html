@@ -20,7 +20,7 @@
     </div>
 
     <label class="title"></label>
-    <label class="title">Categoria del padecimiento</label>
+    <label class="title">Categoría del padecimiento</label>
     <input type="text"  value="{{historial.categoria}}" disabled />
 
     <div>
@@ -29,7 +29,7 @@
     </div>
       <br><br>
     <div *ngIf="niveles==''">
-    <label class="title">Sintomas</label>
+    <label class="title">Síntomas</label>
     <ul>
       <li *ngFor="let sintoma of sintomas">
         {{sintoma}}
@@ -46,7 +46,7 @@
           </li>
       </ul>
       <ul *ngIf="niveles.Ninguno.length>0">
-        <h5>Sintomas sin urgencia <i class="far fa-question-circle" ngbTooltip="Síntomas que por si solos no presentan peligro alguno a menos que se descuiden por bastante tiempo o bien las afectaciones percibidas hacia la personas sean bastantes"></i></h5>
+        <h5>Síntomas sin urgencia <i class="far fa-question-circle" ngbTooltip="Síntomas que por si solos no presentan peligro alguno a menos que se descuiden por bastante tiempo o bien las afectaciones percibidas hacia la personas sean bastantes"></i></h5>
         <li *ngFor="let niv of niveles.Ninguno">
           <p *ngIf="niv.reason=='' || niv.reason==undefined">{{niv.sintoma}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
           <p *ngIf="niv.reason!='' && niv.reason!=undefined">{{niv.sintoma}} - {{niv.reason}} <i class="far fa-question-circle" ngbTooltip="{{niv.descripcion}}"></i></p>
