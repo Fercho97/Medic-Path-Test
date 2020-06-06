@@ -57,16 +57,21 @@ export class InfoMedicalRecordComponent implements OnInit {
   }
 
   actualizar(){
-
+    this.spinner.show();
+    if(this.seleccionado=='ninguno'){
+      this.seleccionado='';
+    }
     let values = new HttpParams()
       .set('seleccion', this.seleccionado)
     this.profileServ.actualizacionEspecialista(this.historial.hashId, values).subscribe( (res: any) =>{
       sessionStorage.setItem('token',res.body.token);
       this.toast.success('Se ha guardado su retroalimentación con éxito!', 'Retroalimentación Exitosa!');
       this.hasOneSelected=true;
+      this.spinner.hide();
   }, error =>{
       //console.log("Error", error.error);
-      this.toast.error('Hubo un error al guardar su retroalimentación, favor de intentarlo de nuevo', 'Error');
+      this.spinner.hide();
+      this.toast.error(error.error.message, 'Error');
   }
     );
   }

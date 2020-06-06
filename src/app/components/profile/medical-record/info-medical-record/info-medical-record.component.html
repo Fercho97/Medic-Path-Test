@@ -77,17 +77,19 @@
 
     <div *ngIf="recomendaciones!='' && hasOneSelected==false">
       <label class="title">Especialista consultado</label>
-      <label>En caso de ya haber asistido con un médico favor de elegir el especialista que le haya ayudado con su {{historial.nombre_pad}}</label>
+      <label>En caso de ya haber asistido con un médico favor de elegir el especialista que le haya apoyado, o bien en caso de no haber asistido con algún médico puede seleccionar Omitir</label>
       <select  [(ngModel)] = "seleccionado" class="form-control">
         <option value="">Seleccione una Especialidad</option>
         <option *ngFor="let recomendacion of recomendaciones" [value]="recomendacion.espe">{{recomendacion.espe}}</option>
+        <option value="ninguno">Omitir</option>
       </select>
 
       <button type="button" *ngIf="seleccionado!='' || hasOneSelected==false" class="btn btn-secondary save" (click)="actualizar()">Guardar</button>
     </div>  
     <div *ngIf="hasOneSelected==true">
       <label class="title">Especialista consultado</label>
-      <input type="text"  value="{{seleccionado}}" disabled />
+      <input *ngIf="seleccionado!=''" type="text"  value="{{seleccionado}}" disabled />
+      <input *ngIf="seleccionado==''" type="text"  value="Se ha omitido la selección de especialista" disabled />
     </div>
     </div>
     <div class="modal-footer" >
