@@ -28,7 +28,7 @@
                 <button class="btn btn-success btn-sm" (click)="openModal(content,sintoma)" >Detalle</button></th>
         </tr>
         <tr *ngIf="sintomas.length==0">
-            <th colspan="4">No hay registro de sintomas en el sistema</th>
+            <th colspan="4">No hay registro de síntomas en el sistema</th>
         </tr>
 </table>
 <pagination-controls (pageChange)="pagina = $event"

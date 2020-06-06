@@ -1,6 +1,6 @@
 <div class="myMod">
   <div class="modal-header">
-      <h5 class="modal-title" id="info">Detalles de síntoma</h5>
+      <h5 class="modal-title" id="info">Detalles del síntoma</h5>
       <button type="button" class="close" (click)="activeModal.dismiss('Cross click')" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -10,7 +10,7 @@
     <input type="text"  value="{{sintoma.nombre_sint}}" disabled>
 
     <label class="title"></label>
-    <label class="title">Categoria del síntoma</label>
+    <label class="title">Categoría del síntoma</label>
     <input type="text"  value="{{sintoma.categoria_sint}}" disabled>
 
     <label class="title"></label>
@@ -37,7 +37,7 @@
 
     <div *ngIf="numeric==true">
       <label class="title"></label>
-      <label class="title">Valor de índicio</label>
+      <label class="title">Valor de pregunta numérica</label>
       <textarea rows="10" disabled>{{pregunta.range}} {{pregunta.valorNum}}</textarea>  
     </div>
 
