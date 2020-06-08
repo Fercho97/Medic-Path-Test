@@ -27,7 +27,6 @@ import { PoliticsComponent } from "./components/politics/politics.component";
 const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "diagnostico", component: DiagnosticComponent },
-  { path: "diagnosticoGuiado", component: GuidedDiagnosticComponent },
   { path: "registro", component: SignupComponent },
   { path: "about", component: AboutComponent },
   { path: "profile", component: ProfileComponent },
