@@ -77,7 +77,7 @@
 
     <div *ngIf="recomendaciones!='' && hasOneSelected==false">
       <label class="title">Especialista consultado</label>
-      <label>En caso de ya haber asistido con un médico favor de elegir el especialista que le haya apoyado, o bien en caso de no haber asistido con algún médico puede seleccionar Omitir</label>
+      <label>En caso de haber asistido con un médico favor de elegir la especialidad que le haya apoyado o bien en caso de no haber asistido con algún médico puede seleccionar Omitir</label>
       <select  [(ngModel)] = "seleccionado" class="form-control">
         <option value="">Seleccione una Especialidad</option>
         <option *ngFor="let recomendacion of recomendaciones" [value]="recomendacion.espe">{{recomendacion.espe}}</option>

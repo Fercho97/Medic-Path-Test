@@ -684,6 +684,9 @@ export class DiagnosticComponent implements OnInit {
     );
 
     let diferencias = resultado[0];
+    if(options[0].keyWord='Dificultad Baño'){
+      resultado[1]='Dificultad para ir al baño'
+    }
 
     return {
       message: "¿Ha tenido " + resultado[1] + "?",
