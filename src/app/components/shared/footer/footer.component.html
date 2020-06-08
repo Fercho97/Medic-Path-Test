@@ -4,8 +4,7 @@
       <a routerLink="home">Inicio</a>
       ·
       <a *ngIf="!isDoctor" routerLink="diagnostico">Diagnóstico</a>
-      <a *ngIf="isDoctor" routerLink="diagnosticoGuiado">Diagnóstico Guiado</a>
-      ·
+      <span *ngIf="!isDoctor"> · </span>
       <a routerLink="faq">FAQ</a>
       ·
       <a routerLink="about">Acerca de Nosotros</a>

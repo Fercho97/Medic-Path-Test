@@ -23,8 +23,7 @@ export class NavbarComponent implements OnInit {
   logout(){
     sessionStorage.clear();
     localStorage.setItem('action','logout');
-    this.checkPermission();
-    this.router.navigate(['/home']);
+    window.location.replace('/home');
     
   }
 
